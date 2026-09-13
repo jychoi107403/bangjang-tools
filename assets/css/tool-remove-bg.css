@@ -1,0 +1,224 @@
+/**
+ * ============================================================================
+ * assets/css/tool-remove-bg.css - [배경 제거·바꾸기] 전용 격리 스타일시트
+ * ============================================================================
+ * [네임스페이스]: .tool-remove-bg 하위 선택자로만 한정되어 다른 도구와 충돌하지 않습니다.
+ */
+
+/* 캔버스 작업 영역 컨테이너 */
+.tool-remove-bg .remove-bg-workspace {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+/* 체커보드 (투명 격자 배경) 캔버스 래퍼 */
+.tool-remove-bg .remove-bg-canvas-wrapper {
+    max-width: 100%;
+    max-height: 520px;
+    overflow: auto;
+    background-color: #ffffff;
+    background-image: 
+        linear-gradient(45deg, #e2e8f0 25%, transparent 25%), 
+        linear-gradient(-45deg, #e2e8f0 25%, transparent 25%), 
+        linear-gradient(45deg, transparent 75%, #e2e8f0 75%), 
+        linear-gradient(-45deg, transparent 75%, #e2e8f0 75%);
+    background-size: 16px 16px;
+    background-position: 0 0, 0 8px, 8px -8px, -8px 0px;
+    border-radius: var(--radius-md);
+    padding: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.1);
+    position: relative;
+}
+
+.tool-remove-bg #remove-bg-canvas {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+    user-select: none;
+    border-radius: 4px;
+}
+
+/* 로딩 스피너 오버레이 */
+.tool-remove-bg .ai-loading-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(15, 23, 42, 0.7);
+    backdrop-filter: blur(4px);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: #ffffff;
+    border-radius: var(--radius-md);
+    z-index: 10;
+}
+
+.tool-remove-bg .ai-loading-spinner {
+    width: 42px;
+    height: 42px;
+    border: 4px solid rgba(255, 255, 255, 0.2);
+    border-top-color: #ffffff;
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+    margin-bottom: 12px;
+}
+
+.tool-remove-bg .ai-loading-text {
+    font-size: 14px;
+    font-weight: 700;
+}
+
+.tool-remove-bg .ai-loading-subtext {
+    font-size: 12px;
+    color: #cbd5e1;
+    margin-top: 4px;
+}
+
+/* 사이드바 대형 [자동 배경 제거] 버튼 */
+.tool-remove-bg .btn-auto-remove {
+    width: 100%;
+    padding: 14px;
+    background-color: #8b5cf6;
+    color: #ffffff;
+    font-size: 15px;
+    font-weight: 800;
+    border-radius: var(--radius-md);
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    box-shadow: 0 4px 12px rgba(139, 92, 246, 0.3);
+    transition: all 0.2s;
+}
+
+.tool-remove-bg .btn-auto-remove:hover {
+    background-color: #7c3aed;
+    transform: translateY(-1px);
+    box-shadow: 0 6px 16px rgba(139, 92, 246, 0.4);
+}
+
+.tool-remove-bg .btn-auto-remove:disabled {
+    background-color: #cbd5e1;
+    cursor: not-allowed;
+    box-shadow: none;
+    transform: none;
+}
+
+.tool-remove-bg .engine-tip-text {
+    font-size: 11.5px;
+    color: var(--text-muted);
+    line-height: 1.4;
+    margin-top: 6px;
+}
+
+/* 배경 색상 선택 박스 */
+.tool-remove-bg .color-select-box {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 10px;
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    background: #ffffff;
+}
+
+.tool-remove-bg .color-select-box input[type="color"] {
+    width: 28px;
+    height: 28px;
+    border: none;
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    background: transparent;
+    padding: 0;
+}
+
+.tool-remove-bg .color-select-box span {
+    font-size: 13px;
+    color: var(--text-secondary);
+    font-weight: 500;
+}
+
+/* 배경 사진 선택 커스텀 파일 버튼 */
+.tool-remove-bg .bg-image-upload-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.tool-remove-bg .btn-file-select {
+    padding: 6px 12px;
+    font-size: 12.5px;
+    font-weight: 600;
+    background: #ffffff;
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-sm);
+    color: var(--text-secondary);
+    cursor: pointer;
+}
+
+.tool-remove-bg .btn-file-select:hover {
+    background: var(--bg-muted);
+}
+
+.tool-remove-bg .file-name-label {
+    font-size: 12px;
+    color: var(--text-muted);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 140px;
+}
+
+/* 수동 보정 리셋 버튼 */
+.tool-remove-bg .btn-reset-brush {
+    width: 100%;
+    padding: 8px;
+    font-size: 13px;
+    font-weight: 600;
+    background: #ffffff;
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    color: var(--text-secondary);
+    cursor: pointer;
+    transition: background 0.15s;
+}
+
+.tool-remove-bg .btn-reset-brush:hover {
+    background: var(--bg-muted);
+    color: var(--text-primary);
+}
+
+/* 체크박스 행 */
+.tool-remove-bg .checkbox-label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text-primary);
+    cursor: pointer;
+    user-select: none;
+}
+
+.tool-remove-bg .checkbox-label input[type="checkbox"] {
+    width: 16px;
+    height: 16px;
+    accent-color: var(--primary-color);
+    cursor: pointer;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
