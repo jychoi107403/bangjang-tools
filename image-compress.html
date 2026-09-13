@@ -481,15 +481,15 @@
                     <div class="setting-mode-grid">
                         <button type="button" class="mode-btn active" data-mode="smart">
                             <i data-lucide="sparkles" style="width: 15px; height: 15px; color: #8b5cf6;"></i>
-                            <span>스마트 권장 압축 (고화질 WebP)</span>
+                            <span>스마트 압축 (원본 포맷 유지 · 최적화)</span>
                         </button>
                         <button type="button" class="mode-btn" data-mode="custom">
                             <i data-lucide="sliders" style="width: 15px; height: 15px;"></i>
-                            <span>사용자 지정 (품질/해상도 조절)</span>
+                            <span>사용자 지정 (품질/해상도 직접 조절)</span>
                         </button>
                         <button type="button" class="mode-btn" data-mode="target">
                             <i data-lucide="target" style="width: 15px; height: 15px;"></i>
-                            <span>목표 용량 맞춤 (용량 제한)</span>
+                            <span>목표 용량 맞춤 (장당 용량 제한)</span>
                         </button>
                     </div>
                 </div>
@@ -499,20 +499,20 @@
                     <label class="setting-label">출력 포맷</label>
                     <div class="radio-group" style="display: flex; flex-direction: column; gap: 8px;">
                         <label class="radio-label">
-                            <input type="radio" name="format-choice" value="webp" checked>
-                            <span>WebP (강력 추천 · 최고 압축률)</span>
+                            <input type="radio" name="format-choice" value="original" checked>
+                            <span>원본 포맷 유지 (PNG는 PNG, JPG는 JPG)</span>
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="format-choice" value="webp">
+                            <span>WebP (차세대 초고효율 포맷 일괄 변환)</span>
                         </label>
                         <label class="radio-label">
                             <input type="radio" name="format-choice" value="jpeg">
-                            <span>JPEG (호환성 최고)</span>
+                            <span>JPEG (표준 사진 형식 일괄 변환)</span>
                         </label>
                         <label class="radio-label">
                             <input type="radio" name="format-choice" value="png">
-                            <span>PNG (투명 배경 유지)</span>
-                        </label>
-                        <label class="radio-label">
-                            <input type="radio" name="format-choice" value="original">
-                            <span>원본 포맷 유지</span>
+                            <span>PNG (투명도 유지 포맷 일괄 변환)</span>
                         </label>
                     </div>
                 </div>

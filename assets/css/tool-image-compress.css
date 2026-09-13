@@ -3,8 +3,8 @@
  * assets/css/tool-image-compress.css - [이미지 용량 줄이기] 전용 격리 스타일시트
  * ============================================================================
  * [디자인 특징]
- * 1. 통일된 디자인 시스템: Pretendard 폰트, 보라색(#8b5cf6)/블루(#3b82f6) 포인트, 일관된 라운딩 및 그림자
- * 2. 시각적 압축 피드백: 원본 vs 압축 용량 비교, 실시간 절감률(-85%) 그린 뱃지
+ * 1. 스크린샷 100% 일치 가로형 리스트 레이아웃 (썸네일 | 파일명+포맷+원본크기 | 절감률+압축크기 | 다운로드 버튼)
+ * 2. 통일된 디자인 시스템: Pretendard 폰트, 보라색(#8b5cf6)/블루(#3b82f6) 포인트, 일관된 라운딩 및 그림자
  * 3. 전체 압축 통계 카드: 총 원본 용량, 총 압축 용량, 총 절감량 요약 대시보드
  * 4. 반응형 레이아웃: 모바일과 데스크톱 모두 쾌적한 사용성 제공
  */
@@ -49,201 +49,188 @@
 }
 
 /* --------------------------------------------------------------------------
-   2. 사진 그리드 갤러리 및 압축 카드
+   2. 스크린샷 100% 일치 가로형 리스트 컨테이너 및 항목
    -------------------------------------------------------------------------- */
-.tool-image-compress .image-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-    gap: 16px;
-    width: 100%;
-    padding: 10px 0;
-}
-
-/* 개별 이미지 압축 카드 */
-.tool-image-compress .compress-card {
-    background: #ffffff;
-    border: 1.5px solid var(--border-color);
-    border-radius: var(--radius-md);
-    overflow: hidden;
-    position: relative;
-    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-    box-shadow: var(--shadow-xs);
+.tool-image-compress .compress-list-container {
     display: flex;
     flex-direction: column;
-}
-
-.tool-image-compress .compress-card:hover {
-    border-color: #8b5cf6;
-    box-shadow: var(--shadow-md);
-    transform: translateY(-2px);
-}
-
-.tool-image-compress .compress-card.selected {
-    border: 2px solid #8b5cf6;
-    box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.2);
-}
-
-/* 썸네일 영역 */
-.tool-image-compress .card-thumb-wrap {
     width: 100%;
-    height: 140px;
-    background-color: #f8fafc;
-    background-image: 
-        linear-gradient(45deg, #f1f5f9 25%, transparent 25%), 
-        linear-gradient(-45deg, #f1f5f9 25%, transparent 25%), 
-        linear-gradient(45deg, transparent 75%, #f1f5f9 75%), 
-        linear-gradient(-45deg, transparent 75%, #f1f5f9 75%);
-    background-size: 16px 16px;
-    background-position: 0 0, 0 8px, 8px -8px, -8px 0px;
+    background: #ffffff;
+    border-radius: var(--radius-md);
+    border: 1px solid var(--border-color);
+    overflow: hidden;
+    margin: 8px 0;
+}
+
+/* 개별 리스트 아이템 행 (Row) */
+.tool-image-compress .compress-list-item {
+    display: flex;
+    align-items: center;
+    padding: 12px 18px;
+    border-bottom: 1px solid #f1f5f9;
+    background: #ffffff;
+    transition: all 0.15s ease;
+    gap: 14px;
+    cursor: pointer;
+}
+
+.tool-image-compress .compress-list-item:last-child {
+    border-bottom: none;
+}
+
+.tool-image-compress .compress-list-item:hover {
+    background: #f8fafc;
+}
+
+.tool-image-compress .compress-list-item.selected {
+    background: #f5f3ff;
+    border-left: 3px solid #8b5cf6;
+}
+
+/* 1) 좌측 썸네일 박스 */
+.tool-image-compress .item-thumb-box {
+    width: 46px;
+    height: 46px;
+    min-width: 46px;
+    border-radius: 8px;
+    overflow: hidden;
+    background-color: #0f172a;
     display: flex;
     align-items: center;
     justify-content: center;
-    overflow: hidden;
-    position: relative;
-    border-bottom: 1px solid #f1f5f9;
+    border: 1px solid #e2e8f0;
 }
 
-.tool-image-compress .card-thumb {
-    max-width: 100%;
-    max-height: 100%;
-    object-fit: contain;
+.tool-image-compress .item-thumb-box img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
 }
 
-/* 절감률 뱃지 (썸네일 우측 상단 플로팅) */
-.tool-image-compress .badge-savings {
-    position: absolute;
-    top: 8px;
-    right: 8px;
-    background: rgba(16, 185, 129, 0.95);
-    color: #ffffff;
-    font-size: 11px;
-    font-weight: 800;
-    padding: 3px 8px;
-    border-radius: 20px;
-    box-shadow: 0 2px 6px rgba(16, 185, 129, 0.3);
-    display: flex;
-    align-items: center;
-    gap: 3px;
-}
-
-.tool-image-compress .badge-savings.no-change {
-    background: rgba(100, 116, 139, 0.9);
-}
-
-/* 포맷 뱃지 (썸네일 좌측 상단) */
-.tool-image-compress .badge-format {
-    position: absolute;
-    top: 8px;
-    left: 8px;
-    background: rgba(15, 23, 42, 0.75);
-    backdrop-filter: blur(4px);
-    color: #ffffff;
-    font-size: 10px;
-    font-weight: 700;
-    padding: 2px 6px;
-    border-radius: 4px;
-    text-transform: uppercase;
-}
-
-/* 카드 본문 */
-.tool-image-compress .card-body {
-    padding: 12px;
+/* 2) 중앙 파일 정보 컬럼 */
+.tool-image-compress .item-info-col {
     display: flex;
     flex-direction: column;
-    gap: 8px;
-    background: #ffffff;
+    gap: 4px;
     flex: 1;
+    min-width: 0; /* 말줄임표 처리를 위한 설정 */
 }
 
-.tool-image-compress .card-title {
-    font-size: 12.5px;
+.tool-image-compress .item-name {
+    font-size: 13.5px;
     font-weight: 700;
-    color: var(--text-primary);
+    color: #1e293b;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
 }
 
-/* 용량 비교 행 (원본 -> 압축) */
-.tool-image-compress .size-compare-row {
+.tool-image-compress .item-meta-row {
     display: flex;
     align-items: center;
-    justify-content: space-between;
-    background: #f8fafc;
-    border-radius: 6px;
-    padding: 6px 8px;
-    font-size: 11.5px;
+    gap: 8px;
+    font-size: 12px;
+    color: #64748b;
 }
 
-.tool-image-compress .size-orig {
-    color: var(--text-muted);
-    text-decoration: line-through;
-}
-
-.tool-image-compress .size-arrow {
-    color: #94a3b8;
-    font-size: 10px;
-}
-
-.tool-image-compress .size-comp {
-    color: #10b981;
-    font-weight: 800;
-}
-
-.tool-image-compress .dimension-info {
+/* 스크린샷과 동일한 파란색 포맷 뱃지 */
+.tool-image-compress .item-format-badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1.5px 6px;
+    background: #eff6ff;
+    color: #2563eb;
+    border: 1px solid #dbeafe;
+    border-radius: 4px;
     font-size: 11px;
-    color: var(--text-muted);
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+}
+
+.tool-image-compress .item-orig-size {
+    color: #64748b;
+    font-weight: 500;
+}
+
+/* 3) 우측 용량 절감 통계 컬럼 (상단: 절감률, 하단: 압축 후 크기) */
+.tool-image-compress .item-stats-col {
     display: flex;
-    justify-content: space-between;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 2px;
+    min-width: 75px;
+    text-align: right;
 }
 
-/* 카드 버튼 영역 */
-.tool-image-compress .card-actions {
-    display: grid;
-    grid-template-columns: 1fr auto;
-    gap: 6px;
-    margin-top: auto;
-    padding-top: 6px;
+.tool-image-compress .item-savings-rate {
+    font-size: 14px;
+    font-weight: 800;
+    color: #1e293b; /* 스크린샷과 동일한 볼드체 짙은 색 */
+    letter-spacing: -0.3px;
 }
 
-.tool-image-compress .btn-card-download {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    gap: 4px;
-    padding: 6px 10px;
-    font-size: 11.5px;
+.tool-image-compress .item-savings-rate.highlight-green {
+    color: #0f766e;
+}
+
+.tool-image-compress .item-comp-size {
+    font-size: 12px;
     font-weight: 600;
-    color: #8b5cf6;
-    background: #f5f3ff;
-    border: 1px solid #ddd6fe;
-    border-radius: var(--radius-sm);
-    cursor: pointer;
-    transition: all 0.15s ease;
+    color: #64748b;
 }
 
-.tool-image-compress .btn-card-download:hover {
-    background: #8b5cf6;
-    color: #ffffff;
+/* 4) 우측 다운로드 & 삭제 버튼 */
+.tool-image-compress .item-actions-col {
+    display: flex;
+    align-items: center;
+    gap: 6px;
 }
 
-.tool-image-compress .btn-card-delete {
+/* 스크린샷과 동일한 [⬇ PNG] 다운로드 버튼 */
+.tool-image-compress .btn-format-download {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    padding: 6px 8px;
-    font-size: 11.5px;
-    color: #ef4444;
-    background: #fef2f2;
-    border: 1px solid #fee2e2;
-    border-radius: var(--radius-sm);
+    gap: 5px;
+    padding: 7px 14px;
+    background: #eff6ff;
+    color: #2563eb;
+    border: 1px solid #bfdbfe;
+    border-radius: 6px;
+    font-size: 12.5px;
+    font-weight: 800;
+    cursor: pointer;
+    transition: all 0.15s ease;
+    white-space: nowrap;
+}
+
+.tool-image-compress .btn-format-download:hover {
+    background: #2563eb;
+    color: #ffffff;
+    border-color: #2563eb;
+    box-shadow: 0 2px 6px rgba(37, 99, 235, 0.25);
+}
+
+.tool-image-compress .btn-item-delete {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 7px 8px;
+    font-size: 12px;
+    color: #94a3b8;
+    background: transparent;
+    border: 1px solid transparent;
+    border-radius: 6px;
     cursor: pointer;
     transition: all 0.15s ease;
 }
 
-.tool-image-compress .btn-card-delete:hover {
-    background: #ef4444;
-    color: #ffffff;
+.tool-image-compress .btn-item-delete:hover {
+    background: #fee2e2;
+    color: #ef4444;
+    border-color: #fecaca;
 }
 
 /* --------------------------------------------------------------------------
@@ -355,7 +342,7 @@
 
 .tool-image-compress .compare-img-wrap {
     width: 100%;
-    height: 240px;
+    height: 220px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -384,12 +371,28 @@
         grid-template-columns: 1fr;
         gap: 8px;
     }
+
+    .tool-image-compress .compress-list-item {
+        padding: 10px 12px;
+        gap: 10px;
+    }
+
+    .tool-image-compress .item-thumb-box {
+        width: 38px;
+        height: 38px;
+        min-width: 38px;
+    }
+
+    .tool-image-compress .btn-format-download {
+        padding: 5px 9px;
+        font-size: 11px;
+    }
     
     .tool-image-compress .compare-dual-wrap {
         grid-template-columns: 1fr;
     }
     
     .tool-image-compress .compare-img-wrap {
-        height: 180px;
+        height: 160px;
     }
 }
