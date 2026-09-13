@@ -12,50 +12,22 @@
     
     <!-- Lucide Icons -->
     <script src="https://unpkg.com/lucide@latest"></script>
+    <!-- JSZip for ZIP download -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
     
-    <!-- 공통 CSS -->
+    <!-- 격리된 CSS 스타일시트 (공통 + 파일명 일괄 변경 전용 네임스페이스) -->
     <link rel="stylesheet" href="assets/css/global.css">
-    <style>
-        .coming-soon-card {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            padding: 80px 20px;
-            text-align: center;
-            background: #ffffff;
-            border-radius: var(--radius-lg);
-            border: 1px dashed var(--border-color);
-        }
-        .coming-soon-badge {
-            display: inline-block;
-            background: var(--primary-light);
-            color: var(--primary-color);
-            font-size: 13px;
-            font-weight: 700;
-            padding: 6px 14px;
-            border-radius: 20px;
-            margin-bottom: 16px;
-        }
-        .coming-soon-title {
-            font-size: 20px;
-            font-weight: 800;
-            color: var(--text-primary);
-            margin-bottom: 10px;
-        }
-        .coming-soon-desc {
-            font-size: 14px;
-            color: var(--text-muted);
-            max-width: 500px;
-            line-height: 1.6;
-        }
-    </style>
+    <link rel="stylesheet" href="assets/css/tool-batch-rename.css">
 </head>
-<body>
-    <!-- 최상단 고정 헤더 -->
+<body class="tool-batch-rename-page">
+    <!-- ========================================================
+         0. 최상단 고정 브랜드 네비게이션 헤더
+         ======================================================== -->
     <header class="global-navbar">
         <a href="index.html" class="brand-container">
-            <div class="brand-logo-badge"><span>방장</span></div>
+            <div class="brand-logo-badge">
+                <span>방장</span>
+            </div>
             <div class="brand-text-group">
                 <h1 class="brand-title">방장 용용이</h1>
                 <span class="brand-subtitle">무료 실무 도구</span>
@@ -63,8 +35,10 @@
         </a>
     </header>
 
-    <div class="app-container">
-        <!-- 왼쪽 사이드바 -->
+    <div class="app-container no-settings-sidebar">
+        <!-- ========================================================
+             1. 왼쪽 사이드바 (메뉴 네비게이션)
+             ======================================================== -->
         <aside class="sidebar">
             <div class="sidebar-header">
                 <a href="index.html" class="nav-item home-btn" id="btn-home">
@@ -74,36 +48,95 @@
             </div>
 
             <nav class="sidebar-nav">
+                <!-- 섹션 1: 이미지 도구 -->
                 <div class="nav-group">
                     <div class="nav-group-title">이미지 도구</div>
                     <ul class="nav-list">
-                        <li><a href="image-edit.html" class="nav-item" data-tool="image-edit"><i data-lucide="image"></i><span>이미지 편집</span></a></li>
-                        <li><a href="image-split.html" class="nav-item" data-tool="image-split"><i data-lucide="grid"></i><span>사진 분할</span></a></li>
-                        <li><a href="remove-bg.html" class="nav-item" data-tool="remove-bg"><i data-lucide="image-minus"></i><span>배경 제거·바꾸기</span></a></li>
-                        <li><a href="mosaic.html" class="nav-item" data-tool="mosaic"><i data-lucide="layout-grid"></i><span>사진 모자이크</span></a></li>
-                        <li><a href="qr-code.html" class="nav-item" data-tool="qr-code"><i data-lucide="qr-code"></i><span>QR 코드 생성</span></a></li>
-                        <li><a href="batch-rename.html" class="nav-item active" data-tool="batch-rename"><i data-lucide="copy-check"></i><span>파일명 일괄 변경</span></a></li>
+                        <li>
+                            <a href="image-edit.html" class="nav-item" data-tool="image-edit">
+                                <i data-lucide="image"></i>
+                                <span>이미지 편집</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="image-split.html" class="nav-item" data-tool="image-split">
+                                <i data-lucide="grid"></i>
+                                <span>사진 분할</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="remove-bg.html" class="nav-item" data-tool="remove-bg">
+                                <i data-lucide="image-minus"></i>
+                                <span>배경 제거·바꾸기</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="mosaic.html" class="nav-item" data-tool="mosaic">
+                                <i data-lucide="layout-grid"></i>
+                                <span>사진 모자이크</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="qr-code.html" class="nav-item" data-tool="qr-code">
+                                <i data-lucide="qr-code"></i>
+                                <span>QR 코드 생성</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="batch-rename.html" class="nav-item active" data-tool="batch-rename">
+                                <i data-lucide="copy-check"></i>
+                                <span>파일명 일괄 변경</span>
+                            </a>
+                        </li>
                     </ul>
                 </div>
 
+                <!-- 섹션 2: 영상 도구 -->
                 <div class="nav-group">
                     <div class="nav-group-title">영상 도구</div>
                     <ul class="nav-list">
-                        <li><a href="video-trim-gif.html" class="nav-item" data-tool="video-trim-gif"><i data-lucide="play-square"></i><span>영상 구간 → GIF</span></a></li>
-                        <li><a href="video-to-gif.html" class="nav-item" data-tool="video-to-gif"><i data-lucide="film"></i><span>영상 → GIF</span></a></li>
-                        <li><a href="screen-record-gif.html" class="nav-item" data-tool="screen-record-gif"><i data-lucide="monitor-play"></i><span>화면녹화 → GIF</span></a></li>
+                        <li>
+                            <a href="video-trim-gif.html" class="nav-item" data-tool="video-trim-gif">
+                                <i data-lucide="play-square"></i>
+                                <span>영상 구간 → GIF</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="video-to-gif.html" class="nav-item" data-tool="video-to-gif">
+                                <i data-lucide="film"></i>
+                                <span>영상 → GIF</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="screen-record-gif.html" class="nav-item" data-tool="screen-record-gif">
+                                <i data-lucide="monitor-play"></i>
+                                <span>화면녹화 → GIF</span>
+                            </a>
+                        </li>
                     </ul>
                 </div>
 
+                <!-- 섹션 3: 블로그 도구 -->
                 <div class="nav-group">
                     <div class="nav-group-title">블로그 도구</div>
                     <ul class="nav-list">
-                        <li><a href="blog-formatter.html" class="nav-item" data-tool="blog-formatter"><i data-lucide="file-text"></i><span>블로그 본문 정리</span></a></li>
-                        <li><a href="pdf-to-word.html" class="nav-item" data-tool="pdf-to-word"><i data-lucide="file-type-2"></i><span>PDF → Word</span></a></li>
+                        <li>
+                            <a href="blog-formatter.html" class="nav-item" data-tool="blog-formatter">
+                                <i data-lucide="file-text"></i>
+                                <span>블로그 본문 정리</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="pdf-to-word.html" class="nav-item" data-tool="pdf-to-word">
+                                <i data-lucide="file-type-2"></i>
+                                <span>PDF → Word</span>
+                            </a>
+                        </li>
                     </ul>
                 </div>
             </nav>
 
+            <!-- 사이드바 하단: 보안 안내 배너 -->
             <div class="sidebar-footer">
                 <div class="security-card">
                     <i data-lucide="shield-check" class="security-icon"></i>
@@ -115,7 +148,9 @@
             </div>
         </aside>
 
-        <!-- 중앙 메인 작업 영역 -->
+        <!-- ========================================================
+             2. 중앙 메인 작업 영역 (스크린샷 100% 일치)
+             ======================================================== -->
         <main class="main-content tool-batch-rename">
             <header class="content-header">
                 <div class="breadcrumb">
@@ -126,44 +161,108 @@
                 <div class="sub-brand">방장 TOOLS / BATCH RENAME</div>
                 <h1 class="page-title">파일명 일괄 변경</h1>
                 <p class="page-description">
-                    여러 개의 사진, 영상, 문서 파일명을 규칙(순번, 날짜, 접두사/접미사, 텍스트 치환)에 맞춰 한 번에 일괄 변경하여 저장합니다.
+                    여러 파일 이름을 공통 이름과 순번으로 한 번에 변경하세요. 파일 순서, 시작 번호와 번호 자릿수를 설정하고 변경된 이름을 미리 본 뒤 ZIP으로 다운로드합니다.
                 </p>
                 <div class="privacy-notice">
                     <i data-lucide="info" class="notice-icon"></i>
-                    <span>파일 변환 및 이름 변경은 사용자 PC 브라우저 내에서 안전하게 즉시 처리됩니다.</span>
+                    <span>선택한 파일은 서버에 업로드하지 않고 브라우저 내에서 안전하게 이름이 변경되어 다운로드됩니다.</span>
                 </div>
             </header>
 
-            <section class="workspace-card">
-                <div class="coming-soon-card">
-                    <div class="coming-soon-badge">오픈 예정 기능</div>
-                    <div class="empty-state-icon" style="margin-bottom: 20px;">
-                        <i data-lucide="copy-check" style="width: 48px; height: 48px; color: var(--primary-color);"></i>
+            <!-- 메인 작업 카드 컨테이너 -->
+            <section class="workspace-card batch-rename-card">
+                <!-- 1. 상단 툴바 (단축키 안내 및 버튼군) -->
+                <div class="workspace-toolbar">
+                    <div class="toolbar-guide">
+                        <strong>Win+Shift+S로 캡처 → Ctrl+V로 붙여넣기</strong>
+                        <span class="guide-sub">캡처와 파일을 계속 추가한 뒤 원하는 이름으로 한 번에 저장하세요.</span>
                     </div>
-                    <h2 class="coming-soon-title">스마트 파일명 일괄 변경기</h2>
-                    <p class="coming-soon-desc">
-                        드래그 앤 드롭으로 파일을 올리고 원하는 이름 규칙을 설정하면 번호순/날짜순으로 정리된 ZIP 파일을 한 번에 다운로드할 수 있습니다.
-                    </p>
+                    <div class="toolbar-actions">
+                        <button class="btn btn-primary btn-paste" id="btn-rename-paste">
+                            <i data-lucide="clipboard-paste"></i>
+                            <span>붙여넣기</span>
+                        </button>
+                        <label class="btn btn-secondary btn-file-input">
+                            <i data-lucide="folder-plus"></i>
+                            <span>파일 추가</span>
+                            <input type="file" id="rename-file-input" multiple style="display: none;">
+                        </label>
+                        <button class="btn btn-outline" id="btn-rename-clear">
+                            <i data-lucide="trash-2"></i>
+                            <span>전체 삭제</span>
+                        </button>
+                        <div class="count-badge" id="rename-count-badge">0개 · 0 KB</div>
+                    </div>
+                </div>
+
+                <!-- 2. 드래그 앤 드롭 영역 (빈 상태 시 노출) -->
+                <div class="drop-zone" id="rename-drop-zone">
+                    <div class="empty-state" id="rename-empty-state">
+                        <p class="empty-state-title">파일을 여기에 드래그하거나 <strong>Ctrl + V</strong>로 캡처를 붙여넣으세요.</p>
+                        <p class="empty-state-desc">상단의 [붙여넣기] 또는 [파일 추가]도 사용할 수 있습니다.</p>
+                    </div>
+                </div>
+
+                <!-- 3. 공통 이름, 시작 번호, 번호 자릿수 설정 행 (스크린샷 100% 일치) -->
+                <div class="rename-settings-row">
+                    <div class="setting-field-col flex-2">
+                        <label class="setting-field-label" for="input-common-name">공통 이름</label>
+                        <input type="text" id="input-common-name" class="form-input form-input-lg" value="상품이미지" placeholder="공통 이름 입력">
+                    </div>
+                    <div class="setting-field-col flex-1">
+                        <label class="setting-field-label" for="input-start-num">시작 번호</label>
+                        <input type="number" id="input-start-num" class="form-input form-input-lg" value="1" min="0">
+                    </div>
+                    <div class="setting-field-col flex-1">
+                        <label class="setting-field-label" for="input-num-digits">번호 자릿수</label>
+                        <input type="number" id="input-num-digits" class="form-input form-input-lg" value="3" min="1" max="10">
+                    </div>
+                </div>
+
+                <!-- 4. 목록 안내 및 정렬 헤더 바 -->
+                <div class="table-info-header">
+                    <span class="limit-info-text">최대 2,000개 · 합계 300MB 이하</span>
+                    <button class="btn btn-sort" id="btn-sort-original-name">
+                        <i data-lucide="arrow-down-az"></i>
+                        <span>원본 이름순 정렬</span>
+                    </button>
+                </div>
+
+                <!-- 5. Before & After 실시간 미리보기 테이블 (스크린샷 100% 일치) -->
+                <div class="rename-table-container">
+                    <table class="rename-table" id="rename-table">
+                        <thead>
+                            <tr>
+                                <th class="col-orig-name">원본 이름</th>
+                                <th class="col-new-name">변경 후 이름</th>
+                                <th class="col-actions">순서 · 삭제</th>
+                            </tr>
+                        </thead>
+                        <tbody id="rename-table-body">
+                            <tr class="empty-table-row" id="empty-table-row">
+                                <td colspan="3" class="empty-table-cell">
+                                    Ctrl+V로 캡처를 붙여넣거나 상단에서 파일을 추가하세요.
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- 6. 하단 ZIP 저장 버튼 및 안내 텍스트 -->
+                <div class="rename-bottom-action-bar">
+                    <button class="btn btn-save-large btn-zip-save" id="btn-save-zip" disabled>
+                        <i data-lucide="download"></i>
+                        <span>새 이름으로 ZIP 저장</span>
+                    </button>
+                    <span class="zip-notice-msg" id="zip-notice-msg">
+                        *클릭 시 변경된 새 파일명으로 묶인 ZIP 파일이 즉시 다운로드됩니다.
+                    </span>
                 </div>
             </section>
         </main>
-
-        <!-- 우측 설정 사이드바 -->
-        <aside class="settings-sidebar">
-            <h2 class="settings-header">파일명 규칙 설정</h2>
-            <div class="settings-scroll-area">
-                <div class="setting-group">
-                    <label class="setting-label">기본 이름 패턴</label>
-                    <input type="text" class="form-input" value="방장_파일_{001}">
-                </div>
-            </div>
-        </aside>
     </div>
 
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            if (window.lucide) window.lucide.createIcons();
-        });
-    </script>
+    <!-- ES 모듈(type="module") 로드로 완전 격리 -->
+    <script type="module" src="assets/js/tool-batch-rename.js"></script>
 </body>
 </html>
