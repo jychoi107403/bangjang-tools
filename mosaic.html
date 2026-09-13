@@ -414,115 +414,117 @@
                     </button>
                 </div>
 
-                <!-- 10. 워터마크 설정 (스크린샷 1번 100% 일치) -->
+                <!-- 10. 워터마크 설정 (image-edit와 100% 동일한 완벽한 규격) -->
                 <div class="setting-group">
-                    <div class="form-check-row mb-2">
-                        <label class="form-check-label">
-                            <input type="checkbox" id="chk-watermark-enable">
-                            <span>워터마크 적용</span>
-                        </label>
-                    </div>
+                    <label class="checkbox-label">
+                        <input type="checkbox" id="chk-watermark-enable">
+                        <span>워터마크 적용</span>
+                    </label>
+                </div>
 
-                    <div id="watermark-options-panel">
+                <div id="watermark-options-panel">
+                    <div class="setting-group">
                         <label class="setting-label">종류</label>
                         <select id="select-watermark-type" class="form-select">
                             <option value="image" selected>이미지</option>
                             <option value="text">텍스트</option>
                         </select>
+                    </div>
 
-                        <!-- 이미지 워터마크 파일 영역 -->
-                        <div id="wm-image-group" class="mt-3">
-                            <label class="setting-sublabel">워터마크 파일</label>
-                            <div class="watermark-file-row">
-                                <span class="watermark-file-display" id="wm-file-name">선택한 파일 없음</span>
-                                <label class="btn-file-search">
-                                    <span>찾기</span>
-                                    <input type="file" id="wm-file-input" accept="image/*" style="display: none;">
-                                </label>
-                            </div>
-                            <p class="setting-desc mt-1">PNG · JPG · WebP · 25MB 이하. 투명 PNG는 배경 없이 합성됩니다.</p>
-                            <button class="btn btn-sm btn-outline mt-2 btn-delete-logo" id="btn-wm-remove-logo">로고 삭제</button>
-
-                            <div class="setting-item mt-3">
-                                <label class="setting-sublabel">로고 너비 · px</label>
-                                <input type="number" id="input-wm-logo-width" class="form-input" value="300" min="20" max="4096">
-                            </div>
+                    <!-- 이미지 워터마크 파일 영역 -->
+                    <div class="setting-group" id="wm-image-group">
+                        <label class="setting-label">워터마크 파일</label>
+                        <div class="watermark-file-row">
+                            <span class="watermark-file-display" id="wm-file-name-label">선택한 파일 없음</span>
+                            <label class="btn-file-search" for="wm-file-input">
+                                <span>찾기</span>
+                            </label>
+                            <input type="file" id="wm-file-input" accept="image/*" style="display: none;">
                         </div>
-
-                        <!-- 텍스트 워터마크 입력 영역 -->
-                        <div id="wm-text-group" class="mt-3" style="display: none;">
-                            <label class="setting-sublabel">워터마크 문구</label>
-                            <input type="text" id="input-wm-text" class="form-input" placeholder="예: 방장 용용이 무단배포 금지">
+                        <div class="setting-desc mt-1">
+                            PNG · JPG · WebP · 25MB 이하. 투명 PNG는 배경 없이 합성됩니다.
                         </div>
+                        <button class="btn-delete-logo" id="btn-wm-remove-logo">
+                            로고 삭제
+                        </button>
+                    </div>
 
-                        <!-- 워터마크 불투명도 -->
-                        <div class="setting-group mt-3">
-                            <div class="setting-label-row">
-                                <label class="setting-sublabel">불투명도 · %</label>
-                                <span class="range-val-badge" id="badge-wm-opacity">80%</span>
-                            </div>
-                            <input type="range" id="range-wm-opacity" class="form-range" min="10" max="100" value="80">
+                    <!-- 텍스트 워터마크 입력 영역 -->
+                    <div class="setting-group" id="wm-text-group" style="display: none;">
+                        <label class="setting-label">워터마크 문구</label>
+                        <input type="text" id="input-wm-text" class="form-input" placeholder="예: 방장 용용이 무단배포 금지">
+                    </div>
+
+                    <!-- 로고 너비 -->
+                    <div class="setting-group" id="wm-width-group">
+                        <label class="setting-label">로고 너비 · px</label>
+                        <input type="number" id="input-wm-logo-width" class="form-input" value="300" min="20" max="4096">
+                    </div>
+
+                    <!-- 워터마크 불투명도 -->
+                    <div class="setting-group">
+                        <label class="setting-label">불투명도 · %</label>
+                        <input type="range" id="range-wm-opacity" class="form-range" min="10" max="100" value="80">
+                    </div>
+
+                    <!-- 워터마크 위치 (9방향 완벽 정렬 그리드) -->
+                    <div class="setting-group">
+                        <label class="setting-label">위치</label>
+                        <select id="select-wm-pos" class="form-select mb-2">
+                            <option value="top-left">왼쪽 위</option>
+                            <option value="top-center">가운데 위</option>
+                            <option value="top-right">오른쪽 위</option>
+                            <option value="center-left">왼쪽 가운데</option>
+                            <option value="center">정가운데</option>
+                            <option value="center-right">오른쪽 가운데</option>
+                            <option value="bottom-left">왼쪽 아래</option>
+                            <option value="bottom-center">가운데 아래</option>
+                            <option value="bottom-right" selected>오른쪽 아래</option>
+                        </select>
+
+                        <div class="wm-pos-grid">
+                            <button type="button" class="wm-pos-btn" data-pos="top-left">
+                                <span class="pos-icon">↖</span>
+                                <span class="pos-text">왼쪽<br>위</span>
+                            </button>
+                            <button type="button" class="wm-pos-btn" data-pos="top-center">
+                                <span class="pos-icon">↑</span>
+                                <span class="pos-text">가운데<br>위</span>
+                            </button>
+                            <button type="button" class="wm-pos-btn" data-pos="top-right">
+                                <span class="pos-icon">↗</span>
+                                <span class="pos-text">오른쪽<br>위</span>
+                            </button>
+                            <button type="button" class="wm-pos-btn" data-pos="center-left">
+                                <span class="pos-icon">←</span>
+                                <span class="pos-text">왼쪽<br>가운데</span>
+                            </button>
+                            <button type="button" class="wm-pos-btn" data-pos="center">
+                                <span class="pos-icon">●</span>
+                                <span class="pos-text">정가운데</span>
+                            </button>
+                            <button type="button" class="wm-pos-btn" data-pos="center-right">
+                                <span class="pos-icon">→</span>
+                                <span class="pos-text">오른쪽<br>가운데</span>
+                            </button>
+                            <button type="button" class="wm-pos-btn" data-pos="bottom-left">
+                                <span class="pos-icon">↙</span>
+                                <span class="pos-text">왼쪽<br>아래</span>
+                            </button>
+                            <button type="button" class="wm-pos-btn" data-pos="bottom-center">
+                                <span class="pos-icon">↓</span>
+                                <span class="pos-text">가운데<br>아래</span>
+                            </button>
+                            <button type="button" class="wm-pos-btn active" data-pos="bottom-right">
+                                <span class="pos-icon">↘</span>
+                                <span class="pos-text">오른쪽<br>아래</span>
+                            </button>
                         </div>
+                    </div>
 
-                        <!-- 워터마크 위치 (스크린샷 1번 100% 일치 3x3 버튼 그리드) -->
-                        <div class="setting-group mt-3">
-                            <label class="setting-sublabel">위치</label>
-                            <select id="select-wm-pos" class="form-select mb-2">
-                                <option value="top-left">왼쪽 위</option>
-                                <option value="top-center">가운데 위</option>
-                                <option value="top-right">오른쪽 위</option>
-                                <option value="center-left">왼쪽 가운데</option>
-                                <option value="center">정가운데</option>
-                                <option value="center-right">오른쪽 가운데</option>
-                                <option value="bottom-left">왼쪽 아래</option>
-                                <option value="bottom-center">가운데 아래</option>
-                                <option value="bottom-right" selected>오른쪽 아래</option>
-                            </select>
-
-                            <div class="wm-pos-grid">
-                                <button type="button" class="wm-pos-btn" data-pos="top-left" title="왼쪽 위">
-                                    <span class="pos-icon">↖</span>
-                                    <span>왼쪽<br>위</span>
-                                </button>
-                                <button type="button" class="wm-pos-btn" data-pos="top-center" title="가운데 위">
-                                    <span class="pos-icon">↑</span>
-                                    <span>가운데<br>위</span>
-                                </button>
-                                <button type="button" class="wm-pos-btn" data-pos="top-right" title="오른쪽 위">
-                                    <span class="pos-icon">↗</span>
-                                    <span>오른쪽<br>위</span>
-                                </button>
-                                <button type="button" class="wm-pos-btn" data-pos="center-left" title="왼쪽 가운데">
-                                    <span class="pos-icon">←</span>
-                                    <span>왼쪽<br>가운데</span>
-                                </button>
-                                <button type="button" class="wm-pos-btn" data-pos="center" title="정가운데">
-                                    <span class="pos-icon">●</span>
-                                    <span>정가운데</span>
-                                </button>
-                                <button type="button" class="wm-pos-btn" data-pos="center-right" title="오른쪽 가운데">
-                                    <span class="pos-icon">→</span>
-                                    <span>오른쪽<br>가운데</span>
-                                </button>
-                                <button type="button" class="wm-pos-btn" data-pos="bottom-left" title="왼쪽 아래">
-                                    <span class="pos-icon">↙</span>
-                                    <span>왼쪽<br>아래</span>
-                                </button>
-                                <button type="button" class="wm-pos-btn" data-pos="bottom-center" title="가운데 아래">
-                                    <span class="pos-icon">↓</span>
-                                    <span>가운데<br>아래</span>
-                                </button>
-                                <button type="button" class="wm-pos-btn active" data-pos="bottom-right" title="오른쪽 아래">
-                                    <span class="pos-icon">↘</span>
-                                    <span>오른쪽<br>아래</span>
-                                </button>
-                            </div>
-
-                            <div class="setting-item mt-3">
-                                <label class="setting-sublabel">여백 · px</label>
-                                <input type="number" id="input-wm-margin" class="form-input" value="16" min="0" max="200">
-                            </div>
-                        </div>
+                    <div class="setting-group">
+                        <label class="setting-label">여백 · px</label>
+                        <input type="number" id="input-wm-margin" class="form-input" value="16" min="0" max="200">
                     </div>
                 </div>
 

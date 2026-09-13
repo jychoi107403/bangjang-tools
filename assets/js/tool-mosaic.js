@@ -153,7 +153,7 @@ function init() {
     selectWmType = document.getElementById('select-watermark-type');
     wmImageGroup = document.getElementById('wm-image-group');
     wmTextGroup = document.getElementById('wm-text-group');
-    wmFileName = document.getElementById('wm-file-name');
+    wmFileName = document.getElementById('wm-file-name-label');
     wmFileInput = document.getElementById('wm-file-input');
     btnWmRemoveLogo = document.getElementById('btn-wm-remove-logo');
     inputWmLogoW = document.getElementById('input-wm-logo-width');
