@@ -1758,4 +1758,562 @@ body {
     justify-content: flex-end;
 }
 
+/* ====================================================================
+   7. 화면녹화 → GIF 도구 전용 스타일 (Screen Record to GIF)
+   ==================================================================== */
+.tool-screen-record-gif {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+/* 상단 메타정보 제거 녹색 알림 배너 */
+.notice-meta-banner {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background-color: #f0fdf4;
+    border: 1px solid #bbf7d0;
+    color: #166534;
+    font-size: 12.5px;
+    font-weight: 500;
+    padding: 10px 16px;
+    border-radius: var(--radius-md);
+    line-height: 1.5;
+}
+
+/* 녹화 상단 작업 바 */
+.record-action-card {
+    background: #ffffff;
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-lg);
+    padding: 18px 20px;
+    box-shadow: var(--shadow-sm);
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+.record-step-guide {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.record-step-title {
+    font-size: 14.5px;
+    font-weight: 700;
+    color: var(--primary-color);
+}
+
+.record-step-desc {
+    font-size: 13px;
+    color: var(--text-muted);
+}
+
+.record-toolbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 12px;
+    padding-top: 12px;
+    border-top: 1px solid var(--border-color);
+}
+
+.record-btn-group {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.btn-record-share {
+    background-color: #ffffff;
+    border: 1px solid var(--border-color);
+    color: var(--text-primary);
+    font-size: 13.5px;
+    font-weight: 700;
+    padding: 9px 18px;
+    border-radius: var(--radius-md);
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.btn-record-share:hover {
+    background-color: var(--bg-muted);
+    border-color: var(--text-muted);
+}
+
+.btn-record-stop-share {
+    background-color: #f1f5f9;
+    border: 1px solid #cbd5e1;
+    color: #64748b;
+    font-size: 13.5px;
+    font-weight: 600;
+    padding: 9px 16px;
+    border-radius: var(--radius-md);
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.btn-record-stop-share:hover:not(:disabled) {
+    background-color: #e2e8f0;
+    color: #334155;
+}
+
+.btn-record-start {
+    background-color: var(--primary-color);
+    color: #ffffff;
+    border: none;
+    font-size: 14px;
+    font-weight: 700;
+    padding: 9px 22px;
+    border-radius: var(--radius-md);
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    box-shadow: 0 2px 8px rgba(124, 58, 237, 0.35);
+    transition: all 0.2s;
+}
+
+.btn-record-start:hover:not(:disabled) {
+    background-color: var(--primary-hover);
+    transform: translateY(-1px);
+}
+
+.btn-record-start.recording {
+    background-color: #ef4444;
+    box-shadow: 0 2px 8px rgba(239, 68, 68, 0.4);
+    animation: pulseRecording 1.5s infinite;
+}
+
+@keyframes pulseRecording {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.03); }
+    100% { transform: scale(1); }
+}
+
+.btn-record-start:disabled,
+.btn-record-stop-share:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    box-shadow: none;
+}
+
+/* 타이머 디스플레이 */
+.timer-display {
+    font-size: 24px;
+    font-weight: 800;
+    color: var(--primary-color);
+    font-family: 'Inter', monospace;
+    letter-spacing: 1px;
+}
+
+.timer-display.active {
+    color: #ef4444;
+}
+
+/* 중앙 뷰포트 프리뷰 영역 */
+.record-stage-card {
+    background: #ffffff;
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-lg);
+    padding: 0;
+    overflow: hidden;
+    position: relative;
+    min-height: 480px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    box-shadow: var(--shadow-sm);
+}
+
+/* 대기 상태 (Empty State) */
+.record-empty-view {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 60px 24px;
+    width: 100%;
+}
+
+.record-empty-icon {
+    width: 72px;
+    height: 72px;
+    border-radius: 20px;
+    background-color: var(--primary-light);
+    color: var(--primary-color);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+.record-empty-icon i {
+    width: 36px;
+    height: 36px;
+}
+
+.record-empty-title {
+    font-size: 22px;
+    font-weight: 800;
+    color: var(--text-primary);
+    margin-bottom: 10px;
+}
+
+.record-empty-desc {
+    font-size: 14px;
+    color: var(--text-secondary);
+    max-width: 460px;
+    line-height: 1.6;
+    margin-bottom: 24px;
+}
+
+.record-empty-footnote {
+    font-size: 12px;
+    color: var(--text-muted);
+    max-width: 500px;
+    line-height: 1.6;
+    padding-top: 20px;
+    border-top: 1px dashed var(--border-color);
+}
+
+/* 실시간 스트림 캔버스 래퍼 */
+.record-canvas-wrapper {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    min-height: 480px;
+    background: #0f172a;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    user-select: none;
+}
+
+.record-stream-video {
+    display: none; /* 메모리 내부 재생 */
+}
+
+.record-display-canvas {
+    max-width: 100%;
+    max-height: 600px;
+    object-fit: contain;
+    display: block;
+    cursor: crosshair;
+}
+
+/* 크롭 박스 오버레이 */
+.crop-box-overlay {
+    position: absolute;
+    border: 2px dashed #7c3aed;
+    background-color: rgba(124, 58, 237, 0.12);
+    pointer-events: none;
+    box-sizing: border-box;
+    display: none;
+}
+
+.crop-box-overlay::after {
+    content: attr(data-crop-size);
+    position: absolute;
+    top: -24px;
+    left: 0;
+    background: rgba(15, 23, 42, 0.85);
+    color: #ffffff;
+    font-size: 11px;
+    font-weight: 700;
+    padding: 2px 8px;
+    border-radius: 4px;
+    white-space: nowrap;
+}
+
+/* 카운트다운 오버레이 */
+.record-countdown-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(15, 23, 42, 0.75);
+    backdrop-filter: blur(4px);
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    z-index: 50;
+    color: #ffffff;
+}
+
+.countdown-number {
+    font-size: 96px;
+    font-weight: 900;
+    color: #a78bfa;
+    animation: countdownScale 1s ease-in-out infinite;
+}
+
+.countdown-label {
+    font-size: 18px;
+    font-weight: 700;
+    margin-top: 10px;
+    color: #f1f5f9;
+}
+
+@keyframes countdownScale {
+    0% { transform: scale(0.6); opacity: 0; }
+    50% { transform: scale(1.1); opacity: 1; }
+    100% { transform: scale(1); opacity: 1; }
+}
+
+/* 인코딩 프로그레스 오버레이 */
+.record-encoding-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(15, 23, 42, 0.85);
+    backdrop-filter: blur(6px);
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    z-index: 60;
+    color: #ffffff;
+    padding: 30px;
+}
+
+.encoding-spinner {
+    width: 48px;
+    height: 48px;
+    border: 4px solid rgba(255, 255, 255, 0.2);
+    border-top-color: var(--primary-color);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin-bottom: 20px;
+}
+
+.encoding-title {
+    font-size: 20px;
+    font-weight: 800;
+    margin-bottom: 8px;
+}
+
+.encoding-desc {
+    font-size: 13.5px;
+    color: #94a3b8;
+    margin-bottom: 20px;
+}
+
+.encoding-progress-bar-wrap {
+    width: 100%;
+    max-width: 360px;
+    height: 10px;
+    background: rgba(255, 255, 255, 0.15);
+    border-radius: 6px;
+    overflow: hidden;
+}
+
+.encoding-progress-bar {
+    width: 0%;
+    height: 100%;
+    background: linear-gradient(90deg, #7c3aed, #ec4899);
+    transition: width 0.3s ease;
+}
+
+/* 완성된 GIF 결과 카드 모달 */
+.record-result-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(15, 23, 42, 0.7);
+    backdrop-filter: blur(4px);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 10000;
+    padding: 20px;
+}
+
+.record-result-modal.active {
+    display: flex;
+}
+
+.record-result-card {
+    background: #ffffff;
+    border-radius: var(--radius-lg);
+    width: 100%;
+    max-width: 640px;
+    max-height: 90vh;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    box-shadow: var(--shadow-xl);
+    animation: modalScaleIn 0.25s ease-out;
+}
+
+.record-result-header {
+    padding: 16px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.record-result-header h3 {
+    font-size: 17px;
+    font-weight: 800;
+    color: var(--text-primary);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.record-result-body {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    overflow-y: auto;
+    gap: 16px;
+}
+
+.record-result-img-box {
+    max-width: 100%;
+    max-height: 380px;
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    background: #0f172a;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid var(--border-color);
+}
+
+.record-result-img-box img {
+    max-width: 100%;
+    max-height: 380px;
+    object-fit: contain;
+    display: block;
+}
+
+.record-result-meta {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    font-size: 13px;
+    color: var(--text-secondary);
+    background: var(--bg-muted);
+    padding: 10px 16px;
+    border-radius: var(--radius-md);
+    width: 100%;
+    justify-content: space-around;
+}
+
+.record-result-footer {
+    padding: 16px 20px;
+    border-top: 1px solid var(--border-color);
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+}
+
+/* 9분할 워터마크 그리드 선택기 */
+.grid-9-selector {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 4px;
+    width: 100%;
+    margin-top: 6px;
+}
+
+.grid-9-btn {
+    background: #ffffff;
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    padding: 8px 4px;
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--text-secondary);
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2px;
+    transition: all 0.15s;
+    font-family: inherit;
+}
+
+.grid-9-btn i {
+    width: 14px;
+    height: 14px;
+    color: var(--text-muted);
+}
+
+.grid-9-btn:hover {
+    background-color: var(--bg-muted);
+    border-color: #cbd5e1;
+}
+
+.grid-9-btn.active {
+    background-color: var(--primary-light);
+    border-color: var(--primary-color);
+    color: var(--primary-color);
+    font-weight: 700;
+}
+
+.grid-9-btn.active i {
+    color: var(--primary-color);
+}
+
+/* 파일 업로드 컨트롤 */
+.file-upload-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.file-name-display {
+    flex: 1;
+    font-size: 12.5px;
+    color: var(--text-muted);
+    background: var(--bg-muted);
+    padding: 8px 12px;
+    border-radius: var(--radius-md);
+    border: 1px solid var(--border-color);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.btn-file-select {
+    padding: 8px 14px;
+    font-size: 12.5px;
+    font-weight: 600;
+    background: #ffffff;
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    cursor: pointer;
+    white-space: nowrap;
+    transition: all 0.15s;
+}
+
+.btn-file-select:hover {
+    background: var(--bg-muted);
+}
+
+
 
