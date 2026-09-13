@@ -22,8 +22,6 @@ let selectedImageIndex = -1;
 
 // 줌 & 팬 상태
 let zoomLevel = 1.0; // 100% = 1.0
-let panOffsetX = 0;
-let panOffsetY = 0;
 
 // 워터마크 설정 (전역 공유)
 const wmSettings = {
@@ -1407,8 +1405,8 @@ function bindWatermarkUI() {
         });
     }
 
-    // 9방향 버튼 그리드
-    const posBtns = document.querySelectorAll('.pos-grid-btn');
+    // 9방향 버튼 그리드 (.wm-pos-btn)
+    const posBtns = document.querySelectorAll('.wm-pos-btn');
     posBtns.forEach(btn => {
         btn.addEventListener('click', () => {
             posBtns.forEach(b => b.classList.remove('active'));

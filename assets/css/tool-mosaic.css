@@ -185,90 +185,113 @@
     box-shadow: 0 2px 6px rgba(124, 58, 237, 0.3);
 }
 
-/* 5. 워터마크 9방향 그리드 */
-.tool-mosaic .pos-grid-3x3 {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 4px;
+/* 5. 워터마크 파일 선택 행 (image-edit 100% 동일) */
+.tool-mosaic .watermark-file-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    width: 100%;
+}
+
+.tool-mosaic .watermark-file-display {
+    flex: 1;
+    padding: 7px 10px;
+    font-size: 12px;
+    color: var(--text-muted);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    background: #fafbfc;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: block;
+}
+
+.tool-mosaic .btn-file-search {
+    padding: 7px 12px;
+    font-size: 12px;
+    font-weight: 600;
+    background: #ffffff;
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    color: var(--text-secondary);
+    cursor: pointer;
+    white-space: nowrap;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.15s;
+}
+
+.tool-mosaic .btn-file-search:hover {
+    background: var(--bg-muted);
+    color: var(--text-primary);
+}
+
+.tool-mosaic .btn-delete-logo {
+    padding: 6px 12px;
+    font-size: 12px;
+    font-weight: 600;
     background: #ffffff;
     border: 1px solid var(--border-color);
     border-radius: var(--radius-sm);
-    padding: 6px;
+    color: var(--text-secondary);
+    cursor: pointer;
+    width: fit-content;
+    transition: all 0.15s;
 }
 
-.tool-mosaic .pos-grid-btn {
+.tool-mosaic .btn-delete-logo:hover {
+    background: #fee2e2;
+    color: var(--color-danger);
+    border-color: #fca5a5;
+}
+
+/* 6. 워터마크 9방향 버튼 그리드 (image-edit 100% 동일한 완벽한 3x3 정렬) */
+.tool-mosaic .wm-pos-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 6px;
+    margin-top: 6px;
+    width: 100%;
+}
+
+.tool-mosaic .wm-pos-btn {
+    padding: 8px 4px;
+    background: #ffffff;
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-sm);
+    cursor: pointer;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    gap: 3px;
-    padding: 8px 4px;
-    background: #f8fafc;
-    border: 1px solid var(--border-color);
-    border-radius: 4px;
+    gap: 2px;
+    font-size: 10.5px;
     color: var(--text-secondary);
-    cursor: pointer;
+    font-weight: 500;
     transition: all 0.15s;
     user-select: none;
+    box-sizing: border-box;
+    min-height: 48px;
 }
 
-.tool-mosaic .pos-grid-btn svg {
-    width: 14px;
-    height: 14px;
+.tool-mosaic .wm-pos-btn .pos-icon {
+    font-size: 13px;
+    font-weight: 800;
+    line-height: 1;
 }
 
-.tool-mosaic .pos-grid-btn span {
-    font-size: 10px;
-    font-weight: 600;
-}
-
-.tool-mosaic .pos-grid-btn:hover {
-    background: #ede9fe;
-    color: #7c3aed;
-}
-
-.tool-mosaic .pos-grid-btn.active {
-    background: #ede9fe;
-    color: #7c3aed;
-    border-color: #a78bfa;
-    font-weight: 700;
-    box-shadow: inset 0 0 0 1px #7c3aed;
-}
-
-/* 6. 워터마크 파일 선택 행 */
-.tool-mosaic .wm-file-row {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 8px;
-    padding: 6px 10px;
-    background: #ffffff;
-    border: 1px solid var(--border-color);
-    border-radius: var(--radius-sm);
-}
-
-.tool-mosaic .file-name-label {
-    font-size: 12px;
-    color: var(--text-muted);
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    max-width: 150px;
-}
-
-.tool-mosaic .btn-file-select {
-    padding: 4px 10px;
-    font-size: 12px;
-    font-weight: 600;
-    background: #ffffff;
-    border: 1px solid var(--border-color);
-    border-radius: var(--radius-sm);
-    color: var(--text-secondary);
-    cursor: pointer;
-}
-
-.tool-mosaic .btn-file-select:hover {
+.tool-mosaic .wm-pos-btn:hover {
     background: var(--bg-muted);
+    border-color: #cbd5e1;
+}
+
+.tool-mosaic .wm-pos-btn.active {
+    border: 2px solid #8b5cf6;
+    background: #f5f3ff;
+    color: #6d28d9;
+    font-weight: 700;
 }
 
 /* 7. 하단 저장 및 액션 섹션 */
@@ -382,7 +405,8 @@
     border-radius: 12px;
 }
 
-.tool-mosaic .engine-tip-text {
+.tool-mosaic .engine-tip-text,
+.tool-mosaic .setting-desc {
     font-size: 11.5px;
     color: var(--text-muted);
     line-height: 1.4;
