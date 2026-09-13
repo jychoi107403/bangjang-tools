@@ -678,3 +678,57 @@
     from { opacity: 0; transform: scale(0.98); }
     to { opacity: 1; transform: scale(1); }
 }
+
+/* --------------------------------------------------------------------------
+   5. 모바일 & 태블릿 반응형 미디어 쿼리 (768px 이하)
+   -------------------------------------------------------------------------- */
+@media (max-width: 768px) {
+    .tool-image-edit .gallery-grid {
+        grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
+        max-height: 220px;
+    }
+
+    .tool-image-edit .bottom-preview-container {
+        padding: 12px;
+    }
+
+    .tool-image-edit #bottom-preview-canvas {
+        max-height: 280px;
+    }
+
+    /* 정밀 편집 모달 모바일 최적화 */
+    .modal-container {
+        width: 95vw;
+        height: 92vh;
+        max-height: 92vh;
+    }
+
+    .modal-body {
+        flex-direction: column;
+    }
+
+    .modal-canvas-area {
+        min-height: 240px;
+        flex: 1;
+    }
+
+    .modal-sidebar {
+        width: 100%;
+        border-left: none;
+        border-top: 1px solid var(--border-color);
+        max-height: 40vh;
+    }
+
+    .modal-bottom-footer {
+        flex-direction: column;
+        align-items: stretch;
+        padding: 10px 14px;
+        gap: 8px;
+    }
+
+    .modal-footer-left,
+    .modal-footer-right {
+        justify-content: space-between;
+    }
+}
+

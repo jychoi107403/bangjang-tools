@@ -150,3 +150,32 @@
     line-height: 1.5;
     margin-top: 4px;
 }
+
+/* ==========================================================================
+   4. 반응형 미디어 쿼리 (모바일 & 태블릿)
+   ========================================================================== */
+@media (max-width: 768px) {
+    .tool-qr-code .qr-workspace-card {
+        padding: 20px 14px;
+        min-height: auto;
+    }
+
+    .tool-qr-code .qr-preview-box {
+        padding: 16px;
+        max-width: 100%;
+        overflow: hidden;
+    }
+
+    .tool-qr-code .qr-preview-box canvas,
+    .tool-qr-code .qr-preview-box svg {
+        max-width: 100% !important;
+        height: auto !important;
+    }
+
+    .tool-qr-code .btn-qr-save {
+        width: 100%;
+        justify-content: center;
+        padding: 14px;
+    }
+}
+

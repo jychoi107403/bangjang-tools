@@ -61,6 +61,9 @@
                 <span class="brand-subtitle">무료 실무 도구</span>
             </div>
         </a>
+        <button class="mobile-menu-toggle" id="mobile-menu-toggle" aria-label="메뉴 열기">
+            <i data-lucide="menu"></i>
+        </button>
     </header>
 
     <div class="app-container">
@@ -164,6 +167,8 @@
         </aside>
     </div>
 
+    <!-- 공통 네비게이션 및 모바일 드로어 제어 스크립트 -->
+    <script src="assets/js/global-nav.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             if (window.lucide) window.lucide.createIcons();

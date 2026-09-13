@@ -216,3 +216,17 @@
     from { opacity: 0; transform: translateY(6px); }
     to { opacity: 1; transform: translateY(0); }
 }
+
+/* 모바일 반응형 */
+@media (max-width: 768px) {
+    .tool-image-split .split-result-grid {
+        grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+        gap: 10px;
+    }
+
+    .tool-image-split .split-preview-container {
+        padding: 12px;
+        min-height: 240px;
+    }
+}
+

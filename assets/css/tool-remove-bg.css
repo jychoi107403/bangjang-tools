@@ -371,3 +371,23 @@
 @keyframes spin {
     to { transform: rotate(360deg); }
 }
+
+/* 모바일 반응형 */
+@media (max-width: 768px) {
+    .tool-remove-bg .canvas-floating-toolbar {
+        flex-wrap: wrap;
+        width: 100%;
+        justify-content: center;
+        gap: 6px;
+    }
+
+    .tool-remove-bg .remove-bg-canvas-wrapper {
+        min-height: 280px;
+        max-height: 420px;
+    }
+
+    .tool-remove-bg .color-palette-chips {
+        grid-template-columns: repeat(4, 1fr);
+    }
+}
+

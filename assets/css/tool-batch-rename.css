@@ -366,3 +366,28 @@
     font-size: 12.5px;
     color: var(--text-muted);
 }
+
+/* 모바일 반응형 */
+@media (max-width: 768px) {
+    .tool-batch-rename .rename-options-grid {
+        grid-template-columns: 1fr;
+        gap: 12px;
+    }
+
+    .tool-batch-rename .rename-table th,
+    .tool-batch-rename .rename-table td {
+        padding: 10px 8px;
+        font-size: 12px;
+    }
+
+    .tool-batch-rename .btn-row-action {
+        padding: 3px 6px;
+        font-size: 11px;
+    }
+
+    .tool-batch-rename .rename-bottom-action-bar {
+        flex-direction: column;
+        align-items: stretch;
+    }
+}
+

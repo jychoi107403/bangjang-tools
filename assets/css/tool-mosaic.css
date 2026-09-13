@@ -440,3 +440,27 @@
 @keyframes spin {
     to { transform: rotate(360deg); }
 }
+
+/* 모바일 반응형 */
+@media (max-width: 768px) {
+    .tool-mosaic .mosaic-gallery-grid {
+        grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
+        max-height: 200px;
+    }
+
+    .tool-mosaic .mosaic-viewer-container {
+        padding: 12px;
+    }
+
+    .tool-mosaic .mosaic-canvas-wrapper {
+        min-height: 280px;
+        max-height: 420px;
+    }
+
+    .tool-mosaic .batch-zip-action-row,
+    .tool-mosaic .single-save-action-row {
+        flex-direction: column;
+        align-items: stretch;
+    }
+}
+
