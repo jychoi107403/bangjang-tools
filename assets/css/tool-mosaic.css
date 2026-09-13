@@ -2,10 +2,13 @@
  * ============================================================================
  * assets/css/tool-mosaic.css - [사진 모자이크] 전용 격리 스타일시트
  * ============================================================================
- * [네임스페이스]: .tool-mosaic 하위 선택자로만 한정되어 다른 도구와 충돌하지 않습니다.
+ * [설명]: 사진 모자이크 전용 스타일 및 우측 사이드바 컴포넌트(워터마크, 9방향 버튼, 영역 칩 등)
+ * image-edit 도구와 100% 동일한 고품질 UI/UX 디자인을 적용합니다.
  */
 
-/* 1. 작업대 레이아웃 */
+/* --------------------------------------------------------------------------
+   1. 중앙 작업 영역 및 갤러리 그리드 (.tool-mosaic)
+   -------------------------------------------------------------------------- */
 .tool-mosaic .mosaic-workspace {
     width: 100%;
     display: flex;
@@ -13,7 +16,7 @@
     gap: 16px;
 }
 
-/* 2. 상단 다중 사진 카드 갤러리 그리드 */
+/* 상단 다중 사진 카드 갤러리 그리드 */
 .tool-mosaic .mosaic-gallery-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
@@ -108,7 +111,7 @@
     border-color: #fca5a5;
 }
 
-/* 3. 중앙 메인 뷰어 캔버스 컨테이너 */
+/* 중앙 메인 뷰어 캔버스 컨테이너 */
 .tool-mosaic .mosaic-viewer-container {
     width: 100%;
     display: flex;
@@ -152,161 +155,9 @@
     margin-top: 12px;
 }
 
-/* 4. 영역 선택 칩 버튼들 */
-.tool-mosaic .area-chips-container {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 6px;
-    margin-top: 6px;
-}
-
-.tool-mosaic .area-chip {
-    padding: 5px 12px;
-    font-size: 12.5px;
-    font-weight: 700;
-    color: var(--text-secondary);
-    background: #f1f5f9;
-    border: 1px solid var(--border-color);
-    border-radius: var(--radius-sm);
-    cursor: pointer;
-    transition: all 0.15s;
-    user-select: none;
-}
-
-.tool-mosaic .area-chip:hover {
-    background: #e2e8f0;
-    color: var(--text-primary);
-}
-
-.tool-mosaic .area-chip.active {
-    background: #7c3aed;
-    color: #ffffff;
-    border-color: #6d28d9;
-    box-shadow: 0 2px 6px rgba(124, 58, 237, 0.3);
-}
-
-/* 5. 워터마크 파일 선택 행 (스크린샷 왼쪽과 100% 동일) */
-.tool-mosaic .watermark-file-row {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    width: 100%;
-}
-
-.tool-mosaic .watermark-file-display {
-    flex: 1;
-    padding: 8px 12px;
-    font-size: 12.5px;
-    color: var(--text-muted);
-    border: 1.5px solid var(--border-color);
-    border-radius: var(--radius-md);
-    background: #fafbfc;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    display: block;
-}
-
-.tool-mosaic .btn-file-search {
-    padding: 8px 16px;
-    font-size: 12.5px;
-    font-weight: 600;
-    background: #ffffff;
-    border: 1.5px solid var(--border-color);
-    border-radius: var(--radius-md);
-    color: var(--text-secondary);
-    cursor: pointer;
-    white-space: nowrap;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    transition: all 0.15s;
-}
-
-.tool-mosaic .btn-file-search:hover {
-    background: var(--bg-muted);
-    color: var(--text-primary);
-    border-color: #cbd5e1;
-}
-
-.tool-mosaic .btn-delete-logo {
-    padding: 7px 14px;
-    font-size: 12.5px;
-    font-weight: 600;
-    background: #ffffff;
-    border: 1.5px solid var(--border-color);
-    border-radius: var(--radius-md);
-    color: var(--text-secondary);
-    cursor: pointer;
-    width: fit-content;
-    margin-top: 6px;
-    transition: all 0.15s;
-}
-
-.tool-mosaic .btn-delete-logo:hover {
-    background: #fee2e2;
-    color: var(--color-danger);
-    border-color: #fca5a5;
-}
-
-/* 6. 워터마크 9방향 버튼 그리드 (스크린샷 왼쪽 100% 동일한 정사각 3x3) */
-.tool-mosaic .wm-pos-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 8px;
-    margin-top: 6px;
-    width: 100%;
-}
-
-.tool-mosaic .wm-pos-btn {
-    background: #ffffff;
-    border: 1.5px solid var(--border-color);
-    border-radius: var(--radius-md);
-    padding: 8px 4px;
-    cursor: pointer;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 4px;
-    transition: all 0.15s;
-    min-height: 56px;
-    box-sizing: border-box;
-    user-select: none;
-}
-
-.tool-mosaic .wm-pos-btn .pos-icon {
-    font-size: 15px;
-    font-weight: 700;
-    color: #64748b;
-    line-height: 1;
-}
-
-.tool-mosaic .wm-pos-btn .pos-text {
-    font-size: 10px;
-    color: var(--text-secondary);
-    line-height: 1.2;
-    text-align: center;
-    font-weight: 500;
-}
-
-.tool-mosaic .wm-pos-btn:hover {
-    border-color: #cbd5e1;
-    background: var(--bg-muted);
-}
-
-.tool-mosaic .wm-pos-btn.active {
-    border: 2px solid #8b5cf6;
-    background: #f5f3ff;
-}
-
-.tool-mosaic .wm-pos-btn.active .pos-icon,
-.tool-mosaic .wm-pos-btn.active .pos-text {
-    color: #6d28d9;
-    font-weight: 700;
-}
-
-/* 7. 하단 저장 및 액션 섹션 */
+/* --------------------------------------------------------------------------
+   2. 하단 저장 및 액션 섹션 (.tool-mosaic)
+   -------------------------------------------------------------------------- */
 .tool-mosaic .batch-zip-action-row {
     display: flex;
     align-items: center;
@@ -374,14 +225,172 @@
     color: var(--text-secondary);
 }
 
-/* 8. 유틸리티 버튼 및 배지 */
-.tool-mosaic .btn-grid-2 {
+/* --------------------------------------------------------------------------
+   3. 우측 설정 사이드바 컴포넌트 (모자이크 설정 & 워터마크 완벽 디자인)
+   -------------------------------------------------------------------------- */
+
+/* 영역 선택 칩 버튼 */
+.area-chips-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-top: 6px;
+}
+
+.area-chip {
+    padding: 5px 12px;
+    font-size: 12.5px;
+    font-weight: 700;
+    color: var(--text-secondary);
+    background: #f1f5f9;
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    transition: all 0.15s;
+    user-select: none;
+}
+
+.area-chip:hover {
+    background: #e2e8f0;
+    color: var(--text-primary);
+}
+
+.area-chip.active {
+    background: #7c3aed;
+    color: #ffffff;
+    border-color: #6d28d9;
+    box-shadow: 0 2px 6px rgba(124, 58, 237, 0.3);
+}
+
+/* 워터마크 파일 선택 행 (image-edit와 100% 동일) */
+.watermark-file-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    width: 100%;
+}
+
+.watermark-file-display {
+    flex: 1;
+    padding: 7px 10px;
+    font-size: 12px;
+    color: var(--text-muted);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    background: #fafbfc;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: block;
+}
+
+.btn-file-search {
+    padding: 7px 12px;
+    font-size: 12px;
+    font-weight: 600;
+    background: #ffffff;
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    color: var(--text-secondary);
+    cursor: pointer;
+    white-space: nowrap;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.15s;
+}
+
+.btn-file-search:hover {
+    background: var(--bg-muted);
+    color: var(--text-primary);
+}
+
+.btn-delete-logo {
+    padding: 6px 12px;
+    font-size: 12px;
+    font-weight: 600;
+    background: #ffffff;
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-sm);
+    color: var(--text-secondary);
+    cursor: pointer;
+    width: fit-content;
+    margin-top: 6px;
+    transition: all 0.15s;
+}
+
+.btn-delete-logo:hover {
+    background: var(--bg-muted);
+    color: var(--color-danger);
+    border-color: #fca5a5;
+}
+
+/* 3x3 9방향 워터마크 위치 버튼 그리드 (image-edit와 100% 동일) */
+.wm-pos-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 6px;
+    margin-top: 6px;
+    width: 100%;
+}
+
+.wm-pos-btn {
+    padding: 8px 4px;
+    background: #ffffff;
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 2px;
+    font-size: 10px;
+    color: var(--text-secondary);
+    font-weight: 500;
+    transition: all 0.15s;
+    user-select: none;
+    box-sizing: border-box;
+}
+
+.wm-pos-btn .pos-icon {
+    font-size: 12px;
+    font-weight: 700;
+    line-height: 1;
+}
+
+.wm-pos-btn .pos-text {
+    font-size: 10px;
+    line-height: 1.2;
+    text-align: center;
+}
+
+.wm-pos-btn:hover {
+    background: var(--bg-muted);
+    border-color: #cbd5e1;
+}
+
+.wm-pos-btn.active {
+    border: 2px solid #8b5cf6;
+    background: #f5f3ff;
+    color: #6d28d9;
+    font-weight: 700;
+}
+
+.wm-pos-btn.active .pos-icon,
+.wm-pos-btn.active .pos-text {
+    color: #6d28d9;
+    font-weight: 700;
+}
+
+/* 유틸리티 버튼 & 배지 & 보조 텍스트 */
+.btn-grid-2 {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 6px;
 }
 
-.tool-mosaic .btn-danger-outline {
+.btn-danger-outline {
     background: #ffffff;
     border: 1px solid #fca5a5;
     color: #ef4444;
@@ -392,23 +401,23 @@
     transition: all 0.15s;
 }
 
-.tool-mosaic .btn-danger-outline:hover {
+.btn-danger-outline:hover {
     background: #fee2e2;
     border-color: #ef4444;
 }
 
-.tool-mosaic .setting-label-row {
+.setting-label-row {
     display: flex;
     align-items: center;
     justify-content: space-between;
     margin-bottom: 6px;
 }
 
-.tool-mosaic .setting-label-row .setting-label {
+.setting-label-row .setting-label {
     margin-bottom: 0;
 }
 
-.tool-mosaic .range-val-badge {
+.range-val-badge {
     font-size: 11.5px;
     font-weight: 700;
     color: #7c3aed;
@@ -417,14 +426,14 @@
     border-radius: 12px;
 }
 
-.tool-mosaic .engine-tip-text,
-.tool-mosaic .setting-desc {
+.engine-tip-text,
+.setting-desc {
     font-size: 11.5px;
     color: var(--text-muted);
     line-height: 1.4;
 }
 
-.tool-mosaic .spin-icon {
+.spin-icon {
     animation: spin 0.8s linear infinite;
 }
 
