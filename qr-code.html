@@ -23,19 +23,132 @@
     <!-- ========================================================
          0. 최상단 고정 브랜드 네비게이션 헤더
          ======================================================== -->
+    <!-- 최상단 브랜드 네비게이션 헤더 & 상단 GNB 드롭다운 (보였다 안보였다 메뉴) -->
     <header class="global-navbar">
-        <a href="index.html" class="brand-container">
-            <div class="brand-logo-badge">
-                <span>방장</span>
-            </div>
-            <div class="brand-text-group">
-                <h1 class="brand-title">방장 용용이</h1>
-                <span class="brand-subtitle">무료 실무 도구</span>
-            </div>
-        </a>
-        <button class="mobile-menu-toggle" id="mobile-menu-toggle" aria-label="메뉴 열기">
-            <i data-lucide="menu"></i>
-        </button>
+        <div class="navbar-left">
+            <a href="index.html" class="brand-container">
+                <div class="brand-logo-badge"><span>방장</span></div>
+                <div class="brand-text-group">
+                    <h1 class="brand-title">방장 용용이</h1>
+                    <span class="brand-subtitle">무료 실무 도구</span>
+                </div>
+            </a>
+
+            <!-- 상단 카테고리 GNB 드롭다운 메뉴 -->
+            <nav class="gnb-menu">
+                <!-- 1. 이미지 도구 드롭다운 -->
+                <div class="gnb-dropdown-item active" data-category="image">
+                    <button class="gnb-tab-btn" type="button">
+                        <i data-lucide="image" style="width: 16px; height: 16px;"></i>
+                        <span>이미지 도구</span>
+                        <i data-lucide="chevron-down" class="gnb-arrow"></i>
+                    </button>
+                    <div class="gnb-dropdown-layer">
+                        <div class="gnb-dropdown-arrow-up"></div>
+                        <ul class="gnb-sublist">
+                            <li>
+                                <a href="image-edit.html" class="gnb-sublink">
+                                    <div class="gnb-sublink-left"><i data-lucide="image"></i><span>이미지 편집</span></div>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="image-split.html" class="gnb-sublink">
+                                    <div class="gnb-sublink-left"><i data-lucide="grid"></i><span>사진 분할</span></div>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="remove-bg.html" class="gnb-sublink">
+                                    <div class="gnb-sublink-left"><i data-lucide="image-minus"></i><span>배경 제거·바꾸기</span></div>
+                                    <span class="gnb-badge ai">AI</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="mosaic.html" class="gnb-sublink">
+                                    <div class="gnb-sublink-left"><i data-lucide="layout-grid"></i><span>사진 모자이크</span></div>
+                                    <span class="gnb-badge">얼굴감지</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="qr-code.html" class="gnb-sublink active">
+                                    <div class="gnb-sublink-left"><i data-lucide="qr-code"></i><span>QR 코드 생성</span></div>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="batch-rename.html" class="gnb-sublink">
+                                    <div class="gnb-sublink-left"><i data-lucide="copy-check"></i><span>파일명 일괄 변경</span></div>
+                                    <span class="gnb-badge hot">추천</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- 2. 영상 도구 드롭다운 -->
+                <div class="gnb-dropdown-item" data-category="video">
+                    <button class="gnb-tab-btn" type="button">
+                        <i data-lucide="film" style="width: 16px; height: 16px;"></i>
+                        <span>영상 도구</span>
+                        <i data-lucide="chevron-down" class="gnb-arrow"></i>
+                    </button>
+                    <div class="gnb-dropdown-layer">
+                        <div class="gnb-dropdown-arrow-up"></div>
+                        <ul class="gnb-sublist">
+                            <li>
+                                <a href="video-trim-gif.html" class="gnb-sublink">
+                                    <div class="gnb-sublink-left"><i data-lucide="play-square"></i><span>영상 구간 → GIF</span></div>
+                                    <span class="gnb-badge new">오픈예정</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="video-to-gif.html" class="gnb-sublink">
+                                    <div class="gnb-sublink-left"><i data-lucide="film"></i><span>영상 → GIF</span></div>
+                                    <span class="gnb-badge new">오픈예정</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="screen-record-gif.html" class="gnb-sublink">
+                                    <div class="gnb-sublink-left"><i data-lucide="monitor-play"></i><span>화면녹화 → GIF</span></div>
+                                    <span class="gnb-badge new">오픈예정</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- 3. 블로그 도구 드롭다운 -->
+                <div class="gnb-dropdown-item" data-category="blog">
+                    <button class="gnb-tab-btn" type="button">
+                        <i data-lucide="file-text" style="width: 16px; height: 16px;"></i>
+                        <span>블로그 도구</span>
+                        <i data-lucide="chevron-down" class="gnb-arrow"></i>
+                    </button>
+                    <div class="gnb-dropdown-layer">
+                        <div class="gnb-dropdown-arrow-up"></div>
+                        <ul class="gnb-sublist">
+                            <li>
+                                <a href="blog-formatter.html" class="gnb-sublink">
+                                    <div class="gnb-sublink-left"><i data-lucide="file-text"></i><span>블로그 본문 정리</span></div>
+                                    <span class="gnb-badge new">오픈예정</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="pdf-to-word.html" class="gnb-sublink">
+                                    <div class="gnb-sublink-left"><i data-lucide="file-type-2"></i><span>PDF → Word</span></div>
+                                    <span class="gnb-badge new">오픈예정</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+        </div>
+
+        <div class="navbar-right">
+            <a href="index.html" class="btn-nav-home" title="모든 도구 홈으로"><i data-lucide="layout-grid"></i><span>모든 도구</span></a>
+            <button class="mobile-menu-toggle" id="mobile-menu-toggle" aria-label="메뉴 열기">
+                <i data-lucide="menu"></i>
+            </button>
+        </div>
     </header>
 
     <div class="app-container">

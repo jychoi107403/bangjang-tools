@@ -132,6 +132,46 @@
                 closeHelpModal();
             }
         });
+
+        // ====================================================================
+        // 상단 GNB 드롭다운 메뉴 제어 (보였다 안보였다 기능)
+        // ====================================================================
+        const gnbDropdownItems = document.querySelectorAll('.gnb-dropdown-item');
+
+        gnbDropdownItems.forEach(item => {
+            const btn = item.querySelector('.gnb-tab-btn');
+            if (btn) {
+                btn.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    const isOpen = item.classList.contains('open');
+
+                    // 다른 열린 드롭다운 닫기
+                    gnbDropdownItems.forEach(other => {
+                        if (other !== item) other.classList.remove('open');
+                    });
+
+                    if (isOpen) {
+                        item.classList.remove('open');
+                    } else {
+                        item.classList.add('open');
+                    }
+                });
+            }
+        });
+
+        // 외부 영역 클릭 시 열려있는 드롭다운 닫기
+        document.addEventListener('click', (e) => {
+            if (!e.target.closest('.gnb-dropdown-item')) {
+                gnbDropdownItems.forEach(item => item.classList.remove('open'));
+            }
+        });
+
+        // ESC 키 입력 시 드롭다운 닫기
+        window.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                gnbDropdownItems.forEach(item => item.classList.remove('open'));
+            }
+        });
     }
 
     if (document.readyState === 'loading') {
@@ -140,4 +180,5 @@
         initGlobalNav();
     }
 })();
+
 
