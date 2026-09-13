@@ -3,8 +3,56 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>방장 용용이 - 무료 실무 도구 모음 (배경 제거·QR코드·파일명 변경·모자이크)</title>
+    <title data-i18n="home.hero_title">방장 용용이 - 무료 실무 도구 모음 (배경 제거·QR코드·파일명 변경·모자이크)</title>
     
+    <!-- 글로벌 검색엔진 최적화 (Global SEO Meta Tags) -->
+    <meta name="description" content="서버 업로드 없는 100% 브라우저 로컬 실행! AI 배경 제거, 고화질 QR 코드 생성, 파일명 일괄 변경, 사진 모자이크 등 필수 실무 도구를 완전 무료로 이용하세요.">
+    <meta name="keywords" content="무료 실무 도구, 배경 제거, 누끼 따기, QR 코드 생성, 파일명 일괄 변경, 사진 모자이크, 사진 분할, 이미지 편집기, video to gif, free online tools, background remover, qr generator">
+    <meta name="author" content="Bangjang Tools">
+    <link rel="canonical" href="https://bangjang.net/">
+
+    <!-- 다국어 크롤러 지원 (Hreflang) -->
+    <link rel="alternate" hreflang="ko" href="https://bangjang.net/" />
+    <link rel="alternate" hreflang="en" href="https://bangjang.net/" />
+    <link rel="alternate" hreflang="x-default" href="https://bangjang.net/" />
+
+    <!-- Open Graph (Facebook / Kakao / LinkedIn) -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://bangjang.net/">
+    <meta property="og:title" content="방장 용용이 - 100% 무료 브라우저 실무 도구 모음">
+    <meta property="og:description" content="개인정보 유출 걱정 없는 100% 로컬 무료 웹 도구 모음. 배경 제거, QR 코드, 파일명 변경, 모자이크를 즉시 실행하세요.">
+    <meta property="og:image" content="https://bangjang.net/assets/images/og-thumbnail.png">
+    <meta property="og:locale" content="ko_KR">
+    <meta property="og:locale:alternate" content="en_US">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Bangjang Tools - Free Online Productivity Utilities">
+    <meta name="twitter:description" content="100% Client-side privacy-first web utilities. Remove BG, QR Generator, Batch Renamer, Photo Blur.">
+    <meta name="twitter:image" content="https://bangjang.net/assets/images/og-thumbnail.png">
+
+    <!-- 구조화된 데이터 (JSON-LD WebApplication Schema) -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "방장 용용이 (Bangjang Tools)",
+      "url": "https://bangjang.net/",
+      "applicationCategory": "ProductivityApplication",
+      "operatingSystem": "All",
+      "description": "Free, privacy-focused online productivity tools including AI background removal, QR code generation, batch renaming, and photo mosaic.",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      }
+    }
+    </script>
+
+    <!-- 구글 애드센스 (Google AdSense) 연동 스크립트 -->
+    <!-- 애드센스 승인 후 아래 data-ad-client="ca-pub-XXXXXXXXXXXXXXXX" 에 본인 ID를 넣어주시면 자동 연동됩니다. -->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-0000000000000000" crossorigin="anonymous"></script>
+
     <!-- Google Fonts (Pretendard & Inter) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -99,7 +147,8 @@
             border: 1px solid rgba(255, 255, 255, 0.2);
             border-radius: var(--radius-md);
             color: #ffffff;
-            font-size: 13px;
+            font-size: 13.5px;
+            font-family: inherit;
             outline: none;
             transition: all 0.2s ease;
         }
@@ -109,9 +158,9 @@
         }
 
         .hero-search-input:focus {
-            background: rgba(255, 255, 255, 0.2);
-            border-color: #a78bfa;
-            box-shadow: 0 0 0 3px rgba(167, 139, 250, 0.3);
+            background: rgba(255, 255, 255, 0.18);
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(124, 58, 237, 0.3);
         }
 
         .hero-search-icon {
@@ -119,33 +168,114 @@
             left: 12px;
             top: 50%;
             transform: translateY(-50%);
+            color: #94a3b8;
             width: 16px;
             height: 16px;
-            color: #94a3b8;
+            pointer-events: none;
         }
 
-        /* 2. 카테고리별 도구 그리드 */
-        .category-section {
+        /* 2. 섹션 공통 스타일 */
+        .section-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 16px;
+        }
+
+        .section-title {
+            font-size: 18px;
+            font-weight: 800;
+            color: var(--text-primary);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .section-title i {
+            color: var(--primary-color);
+            width: 20px;
+            height: 20px;
+        }
+
+        /* 3. 추천 도구 퀵 카드 (4열) */
+        .recommended-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 16px;
+        }
+
+        .recommended-card {
+            background: #ffffff;
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-lg);
+            padding: 18px;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            transition: all 0.2s ease;
+            box-shadow: var(--shadow-sm);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .recommended-card:hover {
+            border-color: var(--primary-color);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(124, 58, 237, 0.1);
+        }
+
+        .rec-icon-box {
+            width: 46px;
+            height: 46px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 22px;
+            flex-shrink: 0;
+        }
+
+        .rec-icon-box.bg-purple { background: #f3e8ff; color: #7c3aed; }
+        .rec-icon-box.bg-blue { background: #e0f2fe; color: #0284c7; }
+        .rec-icon-box.bg-emerald { background: #d1fae5; color: #059669; }
+        .rec-icon-box.bg-amber { background: #fef3c7; color: #d97706; }
+
+        .rec-info h3 {
+            font-size: 15px;
+            font-weight: 800;
+            color: var(--text-primary);
+            margin-bottom: 3px;
+        }
+
+        .rec-info p {
+            font-size: 12px;
+            color: var(--text-muted);
+            margin: 0;
+        }
+
+        /* 4. 카테고리별 도구 그리드 */
+        .category-block {
             display: flex;
             flex-direction: column;
-            gap: 14px;
+            gap: 16px;
         }
 
         .category-title-bar {
             display: flex;
             align-items: center;
-            gap: 8px;
-            font-size: 16px;
-            font-weight: 800;
-            color: var(--text-primary);
-            padding-bottom: 6px;
+            gap: 10px;
+            padding-bottom: 8px;
             border-bottom: 2px solid var(--border-color);
         }
 
-        .category-title-bar i {
-            width: 20px;
-            height: 20px;
-            color: var(--primary-color);
+        .category-title-bar h3 {
+            font-size: 16px;
+            font-weight: 800;
+            color: var(--text-primary);
+            display: flex;
+            align-items: center;
+            gap: 6px;
         }
 
         .category-title-count {
@@ -294,8 +424,8 @@
             <a href="index.html" class="brand-container">
                 <div class="brand-logo-badge"><span>방장</span></div>
                 <div class="brand-text-group">
-                    <h1 class="brand-title">방장 용용이</h1>
-                    <span class="brand-subtitle">무료 실무 도구</span>
+                    <h1 class="brand-title" data-i18n="brand.title">방장 용용이</h1>
+                    <span class="brand-subtitle" data-i18n="brand.subtitle">무료 실무 도구</span>
                 </div>
             </a>
 
@@ -305,7 +435,7 @@
                 <div class="gnb-dropdown-item" data-category="image">
                     <button class="gnb-tab-btn" type="button">
                         <i data-lucide="image" style="width: 16px; height: 16px;"></i>
-                        <span>이미지 도구</span>
+                        <span data-i18n="nav.image_tools">이미지 도구</span>
                         <i data-lucide="chevron-down" class="gnb-arrow"></i>
                     </button>
                     <div class="gnb-dropdown-layer">
@@ -313,34 +443,34 @@
                         <ul class="gnb-sublist">
                             <li>
                                 <a href="image-edit.html" class="gnb-sublink">
-                                    <div class="gnb-sublink-left"><i data-lucide="image"></i><span>이미지 편집</span></div>
+                                    <div class="gnb-sublink-left"><i data-lucide="image"></i><span data-i18n="tool.image_edit">이미지 편집</span></div>
                                 </a>
                             </li>
                             <li>
                                 <a href="image-split.html" class="gnb-sublink">
-                                    <div class="gnb-sublink-left"><i data-lucide="grid"></i><span>사진 분할</span></div>
+                                    <div class="gnb-sublink-left"><i data-lucide="grid"></i><span data-i18n="tool.image_split">사진 분할</span></div>
                                 </a>
                             </li>
                             <li>
                                 <a href="remove-bg.html" class="gnb-sublink">
-                                    <div class="gnb-sublink-left"><i data-lucide="image-minus"></i><span>배경 제거·바꾸기</span></div>
+                                    <div class="gnb-sublink-left"><i data-lucide="image-minus"></i><span data-i18n="tool.remove_bg">배경 제거·바꾸기</span></div>
                                     <span class="gnb-badge ai">AI</span>
                                 </a>
                             </li>
                             <li>
                                 <a href="mosaic.html" class="gnb-sublink">
-                                    <div class="gnb-sublink-left"><i data-lucide="layout-grid"></i><span>사진 모자이크</span></div>
+                                    <div class="gnb-sublink-left"><i data-lucide="layout-grid"></i><span data-i18n="tool.mosaic">사진 모자이크</span></div>
                                     <span class="gnb-badge">얼굴감지</span>
                                 </a>
                             </li>
                             <li>
                                 <a href="qr-code.html" class="gnb-sublink">
-                                    <div class="gnb-sublink-left"><i data-lucide="qr-code"></i><span>QR 코드 생성</span></div>
+                                    <div class="gnb-sublink-left"><i data-lucide="qr-code"></i><span data-i18n="tool.qr_code">QR 코드 생성</span></div>
                                 </a>
                             </li>
                             <li>
                                 <a href="batch-rename.html" class="gnb-sublink">
-                                    <div class="gnb-sublink-left"><i data-lucide="copy-check"></i><span>파일명 일괄 변경</span></div>
+                                    <div class="gnb-sublink-left"><i data-lucide="copy-check"></i><span data-i18n="tool.batch_rename">파일명 일괄 변경</span></div>
                                     <span class="gnb-badge hot">추천</span>
                                 </a>
                             </li>
@@ -352,7 +482,7 @@
                 <div class="gnb-dropdown-item" data-category="video">
                     <button class="gnb-tab-btn" type="button">
                         <i data-lucide="film" style="width: 16px; height: 16px;"></i>
-                        <span>영상 도구</span>
+                        <span data-i18n="nav.video_tools">영상 도구</span>
                         <i data-lucide="chevron-down" class="gnb-arrow"></i>
                     </button>
                     <div class="gnb-dropdown-layer">
@@ -360,19 +490,19 @@
                         <ul class="gnb-sublist">
                             <li>
                                 <a href="video-trim-gif.html" class="gnb-sublink">
-                                    <div class="gnb-sublink-left"><i data-lucide="play-square"></i><span>영상 구간 → GIF</span></div>
+                                    <div class="gnb-sublink-left"><i data-lucide="play-square"></i><span data-i18n="tool.video_trim_gif">영상 구간 → GIF</span></div>
                                     <span class="gnb-badge new">오픈예정</span>
                                 </a>
                             </li>
                             <li>
                                 <a href="video-to-gif.html" class="gnb-sublink">
-                                    <div class="gnb-sublink-left"><i data-lucide="film"></i><span>영상 → GIF</span></div>
+                                    <div class="gnb-sublink-left"><i data-lucide="film"></i><span data-i18n="tool.video_to_gif">영상 → GIF</span></div>
                                     <span class="gnb-badge new">오픈예정</span>
                                 </a>
                             </li>
                             <li>
                                 <a href="screen-record-gif.html" class="gnb-sublink">
-                                    <div class="gnb-sublink-left"><i data-lucide="monitor-play"></i><span>화면녹화 → GIF</span></div>
+                                    <div class="gnb-sublink-left"><i data-lucide="monitor-play"></i><span data-i18n="tool.screen_record_gif">화면녹화 → GIF</span></div>
                                     <span class="gnb-badge new">오픈예정</span>
                                 </a>
                             </li>
@@ -384,7 +514,7 @@
                 <div class="gnb-dropdown-item" data-category="blog">
                     <button class="gnb-tab-btn" type="button">
                         <i data-lucide="file-text" style="width: 16px; height: 16px;"></i>
-                        <span>블로그 도구</span>
+                        <span data-i18n="nav.blog_tools">블로그 도구</span>
                         <i data-lucide="chevron-down" class="gnb-arrow"></i>
                     </button>
                     <div class="gnb-dropdown-layer">
@@ -392,13 +522,13 @@
                         <ul class="gnb-sublist">
                             <li>
                                 <a href="blog-formatter.html" class="gnb-sublink">
-                                    <div class="gnb-sublink-left"><i data-lucide="file-text"></i><span>블로그 본문 정리</span></div>
+                                    <div class="gnb-sublink-left"><i data-lucide="file-text"></i><span data-i18n="tool.blog_formatter">블로그 본문 정리</span></div>
                                     <span class="gnb-badge new">오픈예정</span>
                                 </a>
                             </li>
                             <li>
                                 <a href="pdf-to-word.html" class="gnb-sublink">
-                                    <div class="gnb-sublink-left"><i data-lucide="file-type-2"></i><span>PDF → Word</span></div>
+                                    <div class="gnb-sublink-left"><i data-lucide="file-type-2"></i><span data-i18n="tool.pdf_to_word">PDF → Word</span></div>
                                     <span class="gnb-badge new">오픈예정</span>
                                 </a>
                             </li>
@@ -409,7 +539,12 @@
         </div>
 
         <div class="navbar-right">
-            <a href="index.html" class="btn-nav-home" title="모든 도구 홈으로"><i data-lucide="layout-grid"></i><span>모든 도구</span></a>
+            <!-- 다국어 언어 전환 토글 버튼 (KO / EN) -->
+            <div class="lang-switcher-wrap" aria-label="Language Selector">
+                <button class="lang-btn active" data-lang="ko" type="button">KO</button>
+                <button class="lang-btn" data-lang="en" type="button">EN</button>
+            </div>
+            <a href="index.html" class="btn-nav-home" title="모든 도구 홈으로"><i data-lucide="layout-grid"></i><span data-i18n="nav.all_tools">모든 도구</span></a>
             <button class="mobile-menu-toggle" id="mobile-menu-toggle" aria-label="메뉴 열기">
                 <i data-lucide="menu"></i>
             </button>
@@ -729,12 +864,62 @@
                             </div>
                         </a>
                     </div>
-                </section>
+                <!-- 5. 구글 애드센스 메인 대시보드 수평 배너 슬롯 (반응형 728x90 ~ 320x100) -->
+                <div class="adsense-slot-container adsense-horizontal-slot adsense-dashboard-slot">
+                    <span class="adsense-label" data-i18n="label.sponsor">스폰서 광고</span>
+                    <!-- 
+                        [Google AdSense 광고 단위 코드 삽입 영역]
+                        심사 승인 후 <ins class="adsbygoogle" ...></ins> 코드를 여기에 넣으시면 됩니다.
+                    -->
+                    <div class="adsense-placeholder">
+                        <i data-lucide="sparkles"></i>
+                        <span>Google AdSense Responsive Banner</span>
+                    </div>
+                </div>
             </div>
         </main>
     </div>
 
-    <!-- 전역 모바일 네비게이션 및 검색 인터랙션 스크립트 -->
+    <!-- 글로벌 푸터 (애드센스 승인 필수 링크 & 보안 안내) -->
+    <footer class="global-footer">
+        <div class="footer-inner">
+            <div class="footer-top">
+                <div class="footer-brand">
+                    <span class="brand-logo-badge" style="width: 26px; height: 26px; font-size: 11px;">방장</span>
+                    <span class="footer-brand-title" data-i18n="brand.title">방장 용용이</span>
+                </div>
+                <div class="footer-links">
+                    <button class="footer-link-btn btn-terms-trigger" type="button" data-i18n="footer.terms">이용약관</button>
+                    <button class="footer-link-btn btn-privacy-trigger" type="button" data-i18n="footer.privacy">개인정보처리방침</button>
+                    <a href="https://bangjang.net" target="_blank" rel="noopener" class="footer-link-btn" data-i18n="footer.contact">문의하기</a>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <div class="footer-security-badge">
+                    <i data-lucide="shield-check"></i>
+                    <span data-i18n="label.security_notice">100% 로컬 처리 (서버 업로드 없음)</span>
+                </div>
+                <div>© 2026 Bangjang Tools. All rights reserved.</div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- 개인정보처리방침 & 이용약관 팝업 모달 -->
+    <div class="legal-modal-backdrop" id="legal-modal">
+        <div class="legal-modal-card">
+            <div class="legal-modal-header">
+                <div class="legal-modal-title" id="legal-modal-title">약관 안내</div>
+                <button class="btn-close-modal btn-close-legal" aria-label="닫기"><i data-lucide="x"></i></button>
+            </div>
+            <div class="legal-modal-body" id="legal-modal-body"></div>
+            <div class="legal-modal-footer">
+                <button class="btn-modal-confirm btn-legal-confirm" data-i18n="btn.confirm">확인</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 다국어 번역 엔진 및 전역 네비게이션 스크립트 -->
+    <script src="assets/js/i18n.js"></script>
     <script src="assets/js/global-nav.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', () => {

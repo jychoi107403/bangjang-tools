@@ -1475,3 +1475,287 @@ body {
     }
 }
 
+/* ====================================================================
+   구글 애드센스 (Google AdSense) 반응형 광고 슬롯 스타일
+   - CLS(누적 레이아웃 이동) 방지를 위한 고정 최소 높이 및 배경 처리
+   - 구글 정책 준수를 위한 "스폰서 광고(Sponsored)" 라벨 표시
+   ==================================================================== */
+.adsense-slot-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    margin: 16px 0;
+    border-radius: var(--radius-md);
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.2s ease;
+}
+
+.adsense-label {
+    font-size: 11px;
+    font-weight: 600;
+    color: #94a3b8;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 6px;
+    user-select: none;
+}
+
+/* 1. 사이드바용 직사각형 광고 슬롯 (300x250) */
+.adsense-sidebar-slot {
+    min-height: 250px;
+    padding: 10px;
+}
+
+/* 2. 가로형 배너 광고 슬롯 (728x90 ~ 반응형) */
+.adsense-horizontal-slot {
+    min-height: 90px;
+    max-width: 100%;
+    padding: 12px;
+}
+
+/* 3. 대시보드 메인 광고 슬롯 */
+.adsense-dashboard-slot {
+    min-height: 100px;
+    width: 100%;
+    background: linear-gradient(to right, #f8fafc, #f1f5f9);
+    border-radius: var(--radius-lg);
+    border: 1px dashed #cbd5e1;
+}
+
+/* 애드센스 광고 미송출 시 플레이스홀더 */
+.adsense-placeholder {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: #94a3b8;
+    font-size: 12px;
+    font-weight: 500;
+    gap: 6px;
+    text-align: center;
+    width: 100%;
+    height: 100%;
+}
+
+.adsense-placeholder i {
+    width: 20px;
+    height: 20px;
+    color: #cbd5e1;
+}
+
+/* ====================================================================
+   상단 GNB 다국어(한국어 ↔ English) 전환 토글 버튼
+   ==================================================================== */
+.lang-switcher-wrap {
+    display: inline-flex;
+    align-items: center;
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 20px;
+    padding: 2px;
+    margin-right: 4px;
+}
+
+.lang-btn {
+    border: none;
+    background: transparent;
+    color: #94a3b8;
+    font-size: 12px;
+    font-weight: 700;
+    padding: 4px 10px;
+    border-radius: 16px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-family: inherit;
+}
+
+.lang-btn:hover {
+    color: #ffffff;
+}
+
+.lang-btn.active {
+    background: var(--primary-color);
+    color: #ffffff;
+    box-shadow: 0 2px 6px rgba(124, 58, 237, 0.4);
+}
+
+/* ====================================================================
+   글로벌 푸터 & 개인정보처리방침 / 이용약관 (AdSense 승인 필수)
+   ==================================================================== */
+.global-footer {
+    background: #0f172a;
+    color: #94a3b8;
+    padding: 32px 20px;
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+    margin-top: 40px;
+}
+
+.footer-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.footer-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 16px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.footer-brand {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.footer-brand-title {
+    font-size: 16px;
+    font-weight: 800;
+    color: #ffffff;
+}
+
+.footer-links {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.footer-link-item a,
+.footer-link-btn {
+    background: none;
+    border: none;
+    color: #94a3b8;
+    font-size: 13px;
+    font-weight: 600;
+    text-decoration: none;
+    cursor: pointer;
+    transition: color 0.15s ease;
+    font-family: inherit;
+    padding: 0;
+}
+
+.footer-link-item a:hover,
+.footer-link-btn:hover {
+    color: #ffffff;
+    text-decoration: underline;
+}
+
+.footer-bottom {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 12px;
+    font-size: 12px;
+    color: #64748b;
+}
+
+.footer-security-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    color: #10b981;
+    font-weight: 600;
+}
+
+.footer-security-badge i {
+    width: 14px;
+    height: 14px;
+}
+
+/* ====================================================================
+   개인정보처리방침 / 이용약관 모달 (Privacy & Terms Modal)
+   ==================================================================== */
+.legal-modal-backdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(15, 23, 42, 0.65);
+    backdrop-filter: blur(4px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10000;
+    padding: 20px;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.legal-modal-backdrop.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+.legal-modal-card {
+    background: #ffffff;
+    width: 100%;
+    max-width: 680px;
+    max-height: 85vh;
+    border-radius: var(--radius-lg);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    animation: modalScaleIn 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.legal-modal-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px 24px;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.legal-modal-title {
+    font-size: 18px;
+    font-weight: 800;
+    color: var(--text-primary);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.legal-modal-body {
+    padding: 24px;
+    overflow-y: auto;
+    font-size: 13.5px;
+    line-height: 1.7;
+    color: var(--text-secondary);
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.legal-modal-body h3 {
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-top: 10px;
+}
+
+.legal-modal-footer {
+    padding: 16px 24px;
+    border-top: 1px solid var(--border-color);
+    display: flex;
+    justify-content: flex-end;
+}
+
+
