@@ -15,22 +15,16 @@
     <!-- JSZip for ZIP download -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
     
-    <!-- Custom CSS -->
-    <link rel="stylesheet" href="css/style.css">
-    <style>
-        /* 링크 태그 밑줄 제거 */
-        a.nav-item {
-            text-decoration: none;
-            color: inherit;
-        }
-    </style>
+    <!-- 격리된 CSS 스타일시트 (공통 + 도구 전용 네임스페이스) -->
+    <link rel="stylesheet" href="assets/css/global.css">
+    <link rel="stylesheet" href="assets/css/tool-image-edit.css">
 </head>
 <body>
     <!-- ========================================================
          0. 최상단 고정 브랜드 네비게이션 헤더
          ======================================================== -->
     <header class="global-navbar">
-        <a href="index.html" class="brand-container" style="text-decoration: none;">
+        <a href="index.html" class="brand-container">
             <div class="brand-logo-badge">
                 <span>방장</span>
             </div>
@@ -142,7 +136,7 @@
                 </div>
             </nav>
 
-            <!-- 사이드바 하단: 보안 및 개인정보 안내 배너 -->
+            <!-- 사이드바 하단: 보안 안내 배너 -->
             <div class="sidebar-footer">
                 <div class="security-card">
                     <i data-lucide="shield-check" class="security-icon"></i>
@@ -155,10 +149,9 @@
         </aside>
 
         <!-- ========================================================
-             2. 중앙 메인 작업 영역 ([이미지 편집])
+             2. 중앙 메인 작업 영역 ([이미지 편집] 네임스페이스 적용)
              ======================================================== -->
-        <main class="main-content">
-            <!-- 상단 헤더 및 브레드크럼 -->
+        <main class="main-content tool-image-edit">
             <header class="content-header">
                 <div class="breadcrumb">
                     <span>모든 도구</span>
@@ -178,7 +171,6 @@
 
             <!-- 작업 영역 카드 -->
             <section class="workspace-card">
-                <!-- 상단 툴바 -->
                 <div class="workspace-toolbar">
                     <div class="toolbar-guide">
                         <strong>Win+Shift+S로 캡처 → Ctrl+V로 붙여넣기</strong>
@@ -229,12 +221,10 @@
                         </div>
                         
                         <div class="inline-editor-body">
-                            <!-- 캔버스 작업 영역 -->
                             <div class="inline-canvas-wrapper">
                                 <canvas id="inline-canvas"></canvas>
                             </div>
                             
-                            <!-- 우측/하단 빠른 툴바 -->
                             <div class="inline-tools-sidebar">
                                 <div class="inline-tool-group">
                                     <label class="inline-label">회전 / 반전</label>
@@ -257,33 +247,6 @@
                                 </div>
 
                                 <div class="inline-tool-group">
-                                    <label class="inline-label">색조 보정</label>
-                                    <div class="slider-control">
-                                        <div class="slider-label-row">
-                                            <span>밝기</span>
-                                            <span id="val-inline-bright">100%</span>
-                                        </div>
-                                        <input type="range" id="range-inline-bright" min="50" max="150" value="100" class="form-range">
-                                    </div>
-                                    <div class="slider-control mt-2">
-                                        <div class="slider-label-row">
-                                            <span>대비</span>
-                                            <span id="val-inline-contrast">100%</span>
-                                        </div>
-                                        <input type="range" id="range-inline-contrast" min="50" max="150" value="100" class="form-range">
-                                    </div>
-                                </div>
-
-                                <div class="inline-tool-group">
-                                    <label class="inline-label">모자이크 / 블러 도구</label>
-                                    <div class="btn-group-2">
-                                        <button class="btn btn-sm btn-tool" id="btn-inline-mosaic" title="드래그 영역 모자이크">
-                                            <i data-lucide="grid"></i> <span>모자이크</span>
-                                        </button>
-                                        <button class="btn btn-sm btn-tool" id="btn-inline-reset" title="편집 효과 초기화">
-                                            <i data-lucide="rotate-ccw"></i> <span>초기화</span>
-                                        </button>
-                                    </div>
                                     <p class="inline-help-text">사진을 <strong>더블 클릭</strong>하면 대화면 정밀 편집창이 열립니다.</p>
                                 </div>
 
@@ -305,12 +268,11 @@
                     <span>이미지 저장</span>
                 </button>
 
-                <!-- 사용 가이드 카드 -->
                 <div class="guide-box">
                     <h3 class="guide-title">이렇게 사용하세요</h3>
                     <ol class="guide-steps">
                         <li><strong>Win+Shift+S</strong>로 캡처한 뒤 이 화면에서 <strong>Ctrl+V</strong>로 붙여넣으세요. 파일 선택·끌어놓기도 가능합니다.</li>
-                        <li>사진을 <strong>클릭</strong>하면 하단에서 바로 회전·반전·밝기·모자이크를 편집할 수 있으며, <strong>더블클릭</strong>하면 대화면 정밀 편집창이 열립니다.</li>
+                        <li>사진을 <strong>클릭</strong>하면 하단에서 바로 회전·반전을 편집할 수 있으며, <strong>더블클릭</strong>하면 대화면 정밀 편집창이 열립니다.</li>
                         <li>오른쪽 설정에서 [개별 파일 순차 다운로드] 또는 [ZIP 압축]을 고르고 [이미지 저장]을 누르면 깔끔하게 저장됩니다.</li>
                     </ol>
                     <p class="guide-footnote">
@@ -327,7 +289,6 @@
             <h2 class="settings-header">저장 설정</h2>
 
             <div class="settings-scroll-area">
-                <!-- 설정 1: 결합 방식 -->
                 <div class="setting-group">
                     <label class="setting-label">결합 방식</label>
                     <div class="segmented-control">
@@ -339,38 +300,14 @@
                     </div>
                 </div>
 
-                <!-- 설정 2: 다운로드 방식 -->
                 <div class="setting-group">
                     <label class="setting-label">다운로드 방식</label>
                     <div class="segmented-control">
                         <button class="segment-btn active" data-download-mode="individual">개별 파일 순차 다운로드</button>
                         <button class="segment-btn" data-download-mode="zip">ZIP 압축</button>
                     </div>
-                    <div class="setting-desc">
-                        개별 파일 순차 다운로드 시 각 사진이 지정된 파일명으로 연속 저장됩니다.
-                    </div>
                 </div>
 
-                <!-- 설정 3: 여백(마진) 설정 -->
-                <div class="setting-group">
-                    <label class="setting-label">여백</label>
-                    <div class="segmented-control">
-                        <button class="segment-btn active" data-margin="none">여백 없음</button>
-                        <button class="segment-btn" data-margin="custom">여백 직접 설정</button>
-                    </div>
-                    <div class="margin-custom-box" id="margin-custom-box" style="display: none;">
-                        <div class="input-with-unit">
-                            <input type="number" id="input-margin-size" value="10" min="0" max="100" class="form-input">
-                            <span class="unit">px</span>
-                        </div>
-                        <div class="color-picker-row mt-2">
-                            <span>여백 색상</span>
-                            <input type="color" id="input-margin-color" value="#ffffff" class="form-color">
-                        </div>
-                    </div>
-                </div>
-
-                <!-- 설정 4: 저장 포맷 및 파일명 접두사 -->
                 <div class="setting-group">
                     <div class="form-row">
                         <div class="form-col">
@@ -386,31 +323,12 @@
                             <input type="text" id="input-prefix" class="form-input" value="방장_이미지">
                         </div>
                     </div>
-                    <div class="setting-desc mt-2">
-                        개별 다운로드 시 <code>방장_이미지_01.png</code> 형태로 저장됩니다.
-                    </div>
-                </div>
-
-                <!-- 설정 5: 화질 설정 -->
-                <div class="setting-group">
-                    <div class="slider-control">
-                        <div class="slider-label-row">
-                            <label class="setting-label">압축 화질</label>
-                            <span id="val-quality" class="slider-val">90%</span>
-                        </div>
-                        <input type="range" id="range-quality" class="form-range" min="30" max="100" value="90">
-                    </div>
-                    <div class="setting-desc mt-3">
-                        개별 편집 후 세로 맞춤을 적용합니다. 세로 맞춤 결과는 가로·세로 최대 4096px입니다. JPG의 투명 배경은 흰색으로 저장합니다.
-                    </div>
                 </div>
             </div>
         </aside>
     </div>
 
-    <!-- ========================================================
-         4. 정밀 편집 전체화면 모달 (더블 클릭 시 열림)
-         ======================================================== -->
+    <!-- 정밀 편집 전체화면 모달 -->
     <div class="modal-overlay" id="editor-modal" style="display: none;">
         <div class="modal-container">
             <div class="modal-header">
@@ -426,25 +344,11 @@
             </div>
 
             <div class="modal-body">
-                <!-- 캔버스 작업 영역 -->
                 <div class="canvas-workspace" id="canvas-workspace">
                     <canvas id="editor-canvas"></canvas>
                 </div>
 
-                <!-- 모달 우측 도구 툴바 -->
                 <aside class="modal-sidebar">
-                    <div class="tool-section">
-                        <div class="tool-section-title">자르기 (Crop)</div>
-                        <div class="btn-grid-2">
-                            <button class="btn btn-sm btn-tool" id="btn-crop-free">
-                                <i data-lucide="crop"></i> <span>자유 영역</span>
-                            </button>
-                            <button class="btn btn-sm btn-tool" id="btn-crop-apply">
-                                <i data-lucide="check"></i> <span>자르기 적용</span>
-                            </button>
-                        </div>
-                    </div>
-
                     <div class="tool-section">
                         <div class="tool-section-title">회전 및 반전</div>
                         <div class="btn-grid-2">
@@ -461,49 +365,6 @@
                                 <i data-lucide="flip-vertical"></i> <span>상하 반전</span>
                             </button>
                         </div>
-                    </div>
-
-                    <div class="tool-section">
-                        <div class="tool-section-title">모자이크 / 블러</div>
-                        <div class="btn-grid-2">
-                            <button class="btn btn-sm btn-tool" id="btn-tool-mosaic">
-                                <i data-lucide="grid"></i> <span>모자이크</span>
-                            </button>
-                            <button class="btn btn-sm btn-tool" id="btn-tool-blur">
-                                <i data-lucide="droplet"></i> <span>흐림(블러)</span>
-                            </button>
-                        </div>
-                        <div class="slider-control mt-3">
-                            <div class="slider-label-row">
-                                <span>강도</span>
-                                <span id="val-mosaic-strength">15px</span>
-                            </div>
-                            <input type="range" id="range-mosaic-strength" min="5" max="50" value="15" class="form-range">
-                        </div>
-                    </div>
-
-                    <div class="tool-section">
-                        <div class="tool-section-title">밝기 / 대비 보정</div>
-                        <div class="slider-control">
-                            <div class="slider-label-row">
-                                <span>밝기</span>
-                                <span id="val-brightness">100%</span>
-                            </div>
-                            <input type="range" id="range-brightness" min="0" max="200" value="100" class="form-range">
-                        </div>
-                        <div class="slider-control mt-2">
-                            <div class="slider-label-row">
-                                <span>대비</span>
-                                <span id="val-contrast">100%</span>
-                            </div>
-                            <input type="range" id="range-contrast" min="0" max="200" value="100" class="form-range">
-                        </div>
-                    </div>
-
-                    <div class="tool-section mt-auto">
-                        <button class="btn btn-outline btn-block" id="btn-modal-reset">
-                            <i data-lucide="rotate-ccw"></i> <span>모든 편집 되돌리기</span>
-                        </button>
                     </div>
                 </aside>
             </div>
@@ -523,10 +384,7 @@
         </div>
     </div>
 
-    <!-- JavaScript 로드 -->
-    <script src="js/editor.js"></script>
-    <script src="js/clipboard.js"></script>
-    <script src="js/exporter.js"></script>
-    <script src="js/app.js"></script>
+    <!-- ES 모듈(type="module") 로드로 완전 격리 -->
+    <script type="module" src="assets/js/tool-image-edit.js"></script>
 </body>
 </html>

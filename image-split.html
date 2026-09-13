@@ -15,22 +15,16 @@
     <!-- JSZip for ZIP download -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
     
-    <!-- Custom CSS -->
-    <link rel="stylesheet" href="css/style.css">
-    <style>
-        /* 링크 태그 밑줄 제거 */
-        a.nav-item {
-            text-decoration: none;
-            color: inherit;
-        }
-    </style>
+    <!-- 격리된 CSS 스타일시트 (공통 + 도구 전용 네임스페이스) -->
+    <link rel="stylesheet" href="assets/css/global.css">
+    <link rel="stylesheet" href="assets/css/tool-image-split.css">
 </head>
 <body>
     <!-- ========================================================
          0. 최상단 고정 브랜드 네비게이션 헤더
          ======================================================== -->
     <header class="global-navbar">
-        <a href="index.html" class="brand-container" style="text-decoration: none;">
+        <a href="index.html" class="brand-container">
             <div class="brand-logo-badge">
                 <span>방장</span>
             </div>
@@ -142,7 +136,7 @@
                 </div>
             </nav>
 
-            <!-- 사이드바 하단: 보안 및 개인정보 안내 배너 -->
+            <!-- 사이드바 하단: 보안 안내 배너 -->
             <div class="sidebar-footer">
                 <div class="security-card">
                     <i data-lucide="shield-check" class="security-icon"></i>
@@ -155,10 +149,9 @@
         </aside>
 
         <!-- ========================================================
-             2. 중앙 메인 작업 영역 ([사진 분할])
+             2. 중앙 메인 작업 영역 ([사진 분할] 네임스페이스 적용)
              ======================================================== -->
-        <main class="main-content" id="view-image-split">
-            <!-- 상단 헤더 및 브레드크럼 -->
+        <main class="main-content tool-image-split">
             <header class="content-header">
                 <div class="breadcrumb">
                     <span>모든 도구</span>
@@ -178,7 +171,6 @@
 
             <!-- 작업 영역 카드 -->
             <section class="workspace-card">
-                <!-- 상단 툴바 -->
                 <div class="workspace-toolbar">
                     <div class="toolbar-guide">
                         <strong>Win+Shift+S로 캡처 → Ctrl+V로 붙여넣기</strong>
@@ -212,8 +204,8 @@
                         <p class="empty-state-desc">상단의 [붙여넣기] 또는 [파일 추가]도 사용할 수 있습니다.</p>
                     </div>
 
-                    <!-- 캔버스 컨테이너 (사진 로드 시 노출) -->
-                    <div class="split-canvas-container" id="split-workspace" style="display: none; width: 100%;">
+                    <!-- 캔버스 컨테이너 (사진 로드 시 표시) -->
+                    <div class="split-canvas-container" id="split-workspace" style="display: none;">
                         <div class="split-canvas-wrapper">
                             <canvas id="split-canvas"></canvas>
                         </div>
@@ -231,7 +223,6 @@
                     <span>이미지 분할 저장</span>
                 </button>
 
-                <!-- 사용 가이드 카드 -->
                 <div class="guide-box">
                     <h3 class="guide-title">이렇게 사용하세요</h3>
                     <ol class="guide-steps">
@@ -253,7 +244,7 @@
             <h2 class="settings-header">사진 분할 설정</h2>
 
             <div class="settings-scroll-area">
-                <!-- 설정 1: 분할 전 사진 크기 -->
+                <!-- 설정 1: 사진 크기 -->
                 <div class="setting-group">
                     <label class="setting-label">사진 크기</label>
                     <div class="form-row">
@@ -332,17 +323,7 @@
         </aside>
     </div>
 
-    <!-- JavaScript 로드 -->
-    <script src="js/splitter.js"></script>
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            if (window.lucide) {
-                window.lucide.createIcons();
-            }
-            if (window.ImageSplitter) {
-                ImageSplitter.init();
-            }
-        });
-    </script>
+    <!-- ES 모듈(type="module") 로드로 완전 격리 -->
+    <script type="module" src="assets/js/tool-image-split.js"></script>
 </body>
 </html>
