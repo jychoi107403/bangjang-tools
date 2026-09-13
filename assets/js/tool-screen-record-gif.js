@@ -195,6 +195,7 @@ class ScreenRecordToGifTool {
         // 결과 모달 닫기
         this.btnCloseResult.addEventListener('click', () => {
             this.resultModal.classList.remove('active');
+            this.resultModal.style.display = 'none';
         });
     }
 
@@ -735,6 +736,7 @@ class ScreenRecordToGifTool {
             document.body.removeChild(link);
         };
 
+        this.resultModal.style.display = 'flex';
         this.resultModal.classList.add('active');
     }
 }
