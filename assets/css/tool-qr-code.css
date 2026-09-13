@@ -1,0 +1,152 @@
+/**
+ * ============================================================================
+ * assets/css/tool-qr-code.css - [QR 코드 생성] 전용 격리 스타일시트
+ * ============================================================================
+ * [설명]: QR 코드 생성 도구 전용 디자인 스타일시트
+ * 스크린샷과 100% 동일한 깔끔하고 세련된 보라색 테마 UI를 제공합니다.
+ */
+
+/* 1. 메인 작업대 및 QR 뷰어 */
+.tool-qr-code .qr-workspace-card {
+    background: #ffffff;
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-lg);
+    padding: 32px 24px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 480px;
+    box-shadow: var(--shadow-sm);
+}
+
+.tool-qr-code .qr-viewer-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+}
+
+.tool-qr-code .qr-preview-box {
+    background: #ffffff;
+    padding: 24px;
+    border-radius: var(--radius-md);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+    border: 1px solid var(--border-color);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+}
+
+.tool-qr-code .qr-preview-box:hover {
+    box-shadow: 0 6px 24px rgba(109, 40, 217, 0.12);
+}
+
+.tool-qr-code .qr-preview-box canvas,
+.tool-qr-code .qr-preview-box svg {
+    display: block;
+    max-width: 100%;
+    height: auto;
+}
+
+.tool-qr-code .qr-guide-text {
+    font-size: 13px;
+    color: var(--text-muted);
+    text-align: center;
+}
+
+/* 2. 하단 액션 버튼 */
+.tool-qr-code .btn-qr-save {
+    background-color: #6d28d9;
+    color: #ffffff;
+    border: none;
+    border-radius: var(--radius-md);
+    padding: 13px 26px;
+    font-size: 15px;
+    font-weight: 800;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    box-shadow: 0 4px 14px rgba(109, 40, 217, 0.35);
+    transition: all 0.15s ease;
+}
+
+.tool-qr-code .btn-qr-save:hover {
+    background-color: #5b21b6;
+    transform: translateY(-1px);
+    box-shadow: 0 6px 18px rgba(109, 40, 217, 0.45);
+}
+
+/* 3. 우측 설정 사이드바 컴포넌트 */
+.qr-settings-sidebar .qr-textarea {
+    width: 100%;
+    border: 1.5px solid var(--border-color);
+    border-radius: var(--radius-md);
+    padding: 10px 12px;
+    font-size: 13.5px;
+    font-family: 'Inter', 'Pretendard', sans-serif;
+    color: var(--text-primary);
+    resize: vertical;
+    box-sizing: border-box;
+    transition: all 0.15s ease;
+}
+
+.qr-settings-sidebar .qr-textarea:focus {
+    outline: none;
+    border-color: #7c3aed;
+    box-shadow: 0 0 0 3px rgba(124, 58, 237, 0.15);
+}
+
+/* QR 색상 선택 행 */
+.qr-settings-sidebar .qr-color-picker-row {
+    width: 100%;
+}
+
+.qr-settings-sidebar .qr-color-chip-wrap {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 8px 14px;
+    background: #ffffff;
+    border: 1.5px solid var(--border-color);
+    border-radius: var(--radius-md);
+    cursor: pointer;
+    transition: all 0.15s ease;
+    user-select: none;
+}
+
+.qr-settings-sidebar .qr-color-chip-wrap:hover {
+    border-color: #94a3b8;
+    background: var(--bg-muted);
+}
+
+.qr-settings-sidebar .qr-color-chip {
+    width: 32px;
+    height: 22px;
+    border-radius: 4px;
+    border: 1px solid rgba(0, 0, 0, 0.15);
+    display: inline-block;
+}
+
+.qr-settings-sidebar .qr-color-label {
+    flex: 1;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text-secondary);
+}
+
+.qr-settings-sidebar .dropdown-arrow-icon {
+    width: 16px;
+    height: 16px;
+    color: var(--text-muted);
+}
+
+/* 안내 팁 텍스트 */
+.qr-settings-sidebar .qr-tip-text {
+    font-size: 11.5px;
+    color: var(--text-muted);
+    line-height: 1.5;
+    margin-top: 4px;
+}
