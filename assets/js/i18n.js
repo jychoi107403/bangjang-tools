@@ -16,11 +16,12 @@ const I18N_DICTIONARY = {
         "nav.image_tools": "이미지 도구",
         "nav.video_tools": "영상 도구",
         "nav.blog_tools": "블로그 도구",
-        "nav.image_tools_badge": "6개 도구",
+        "nav.image_tools_badge": "7개 도구",
         "nav.video_tools_badge": "3개 도구",
         "nav.blog_tools_badge": "2개 도구",
         
         // 도구 목록
+        "tool.image_compress": "이미지 용량 줄이기",
         "tool.image_edit": "이미지 편집",
         "tool.image_split": "사진 분할",
         "tool.remove_bg": "배경 제거·바꾸기",
@@ -57,7 +58,7 @@ const I18N_DICTIONARY = {
         "home.stat_client": "100% 로컬 실행",
         "home.stat_limit": "무제한 사용",
         "home.cat_image_title": "이미지 도구",
-        "home.cat_image_desc": "자르기, 필터, 배경 제거, 모자이크, 분할, QR코드 및 파일명 일괄 변경",
+        "home.cat_image_desc": "용량 압축, 자르기, 필터, 배경 제거, 모자이크, 분할, QR코드 및 파일명 변경",
         "home.cat_video_title": "영상 도구",
         "home.cat_video_desc": "영상 구간 자르기, 비디오/화면녹화 즉시 GIF 변환",
         "home.cat_blog_title": "블로그 & 문서 도구",
@@ -148,11 +149,12 @@ const I18N_DICTIONARY = {
         "nav.image_tools": "Image Tools",
         "nav.video_tools": "Video Tools",
         "nav.blog_tools": "Blog & Docs",
-        "nav.image_tools_badge": "6 Tools",
+        "nav.image_tools_badge": "7 Tools",
         "nav.video_tools_badge": "3 Tools",
         "nav.blog_tools_badge": "2 Tools",
         
         // 도구 목록
+        "tool.image_compress": "Compress Image",
         "tool.image_edit": "Image Editor",
         "tool.image_split": "Image Splitter",
         "tool.remove_bg": "Remove / Change BG",
@@ -189,7 +191,7 @@ const I18N_DICTIONARY = {
         "home.stat_client": "100% Local Run",
         "home.stat_limit": "No Limits",
         "home.cat_image_title": "Image Tools",
-        "home.cat_image_desc": "Crop, filter, AI background remover, blur, grid split, QR code, and batch rename",
+        "home.cat_image_desc": "Compress, crop, filter, AI remove BG, blur, grid split, QR code, and batch rename",
         "home.cat_video_title": "Video Tools",
         "home.cat_video_desc": "Trim videos, convert video clips & screen recordings directly to GIF",
         "home.cat_blog_title": "Blog & Document Tools",
@@ -272,7 +274,6 @@ const I18N_DICTIONARY = {
         "blog.faq_a2": "Plain text files do not preserve alignment styles. Use this tool for visual preview and apply center alignment in your blog editor.",
         "blog.target_platform": "Target Blog Platform"
     }
-};
 };
 
 class I18nManager {

@@ -1,52 +1,59 @@
 <!DOCTYPE html>
 <html lang="ko">
+
 <head>
-    <!-- Google tag (gtag.js) - Google Analytics -->
+    <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-8XG8LX6GDN"></script>
     <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
 
-      gtag('config', 'G-8XG8LX6GDN');
+        gtag('config', 'G-8XG8LX6GDN');
     </script>
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title data-i18n="tool.qr_code">QR 코드 생성 - 방장 용용이 (무료 실무 도구)</title>
-    
+    <title data-i18n="tool.image_compress">이미지 용량 줄이기 - 방장 용용이 (무료 실무 도구)</title>
+
     <!-- 글로벌 검색엔진 최적화 (Global SEO Meta Tags) -->
-    <meta name="description" content="100% 무료 고화질 QR 코드 생성기! 만료 없는 영구 고정 QR, 로고 삽입, 색상/모서리 디자인 맞춤 제작 및 SVG/PNG 다운로드를 지원합니다.">
-    <meta name="keywords" content="QR 코드 생성, 무료 QR 만들기, 로고 QR 코드, 고화질 QR 생성기, qr code generator, custom qr code with logo, free qr maker">
+    <meta name="description"
+        content="서버 업로드 없는 100% 브라우저 로컬 초고속 이미지 용량 줄이기! JPG, PNG, WebP 사진을 최대 90% 압축하고 캡처(Ctrl+V) 붙여넣기 및 ZIP 일괄 다운로드를 지원합니다.">
+    <meta name="keywords"
+        content="이미지 용량 줄이기, 사진 용량 줄이기, 이미지 압축, 사진 압축, WebP 변환, JPG 용량 줄이기, PNG 압축, image compressor, compress image online, reduce image size">
     <meta name="author" content="Bangjang Tools">
-    <link rel="canonical" href="https://tools.bangjang.net/qr-code.html">
+    <link rel="canonical" href="https://tools.bangjang.net/image-compress.html">
 
     <!-- 다국어 크롤러 지원 (Hreflang) -->
-    <link rel="alternate" hreflang="ko" href="https://tools.bangjang.net/qr-code.html" />
-    <link rel="alternate" hreflang="en" href="https://tools.bangjang.net/qr-code.html" />
-    <link rel="alternate" hreflang="x-default" href="https://tools.bangjang.net/qr-code.html" />
+    <link rel="alternate" hreflang="ko" href="https://tools.bangjang.net/image-compress.html" />
+    <link rel="alternate" hreflang="en" href="https://tools.bangjang.net/image-compress.html" />
+    <link rel="alternate" hreflang="x-default" href="https://tools.bangjang.net/image-compress.html" />
 
-    <!-- Open Graph -->
+    <!-- Open Graph (Facebook / Kakao / LinkedIn) -->
     <meta property="og:type" content="website">
-    <meta property="og:url" content="https://tools.bangjang.net/qr-code.html">
-    <meta property="og:title" content="무료 맞춤 QR 코드 생성기 - 방장 용용이">
-    <meta property="og:description" content="로고 삽입, 색상 변경, SVG/PNG 고화질 다운로드가 가능한 무료 영구 QR 코드 생성기">
+    <meta property="og:url" content="https://tools.bangjang.net/image-compress.html">
+    <meta property="og:title" content="이미지 용량 줄이기 - 100% 무료 로컬 압축 (방장 용용이)">
+    <meta property="og:description" content="화질 손실 없이 이미지 용량을 최대 90% 절감! 서버 전송 없이 100% 브라우저 로컬에서 안전하게 압축하세요.">
     <meta property="og:image" content="https://tools.bangjang.net/assets/images/og-thumbnail.png">
+    <meta property="og:locale" content="ko_KR">
+    <meta property="og:locale:alternate" content="en_US">
 
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="Free Custom QR Code Generator - Bangjang Tools">
-    <meta name="twitter:description" content="Generate high-resolution custom QR codes with logo, custom colors, and SVG export for free.">
+    <meta name="twitter:title" content="Free Online Image Compressor - Bangjang Tools">
+    <meta name="twitter:description" content="Compress JPG, PNG, and WebP images locally with zero server upload. Instant Ctrl+V paste support.">
+    <meta name="twitter:image" content="https://tools.bangjang.net/assets/images/og-thumbnail.png">
 
     <!-- 구조화된 데이터 (JSON-LD WebApplication Schema) -->
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
       "@type": "WebApplication",
-      "name": "고화질 맞춤 QR 코드 생성기 (QR Code Generator)",
-      "url": "https://tools.bangjang.net/qr-code.html",
-      "applicationCategory": "DesignApplication",
+      "name": "온라인 이미지 용량 줄이기 (Image Compressor)",
+      "url": "https://tools.bangjang.net/image-compress.html",
+      "applicationCategory": "PhotoEditor",
       "operatingSystem": "All",
-      "description": "Create custom styled QR codes with logos, colors, and high-resolution export for free.",
+      "description": "Fast and private client-side image compression tool for WebP, JPEG, and PNG formats.",
       "offers": {
         "@type": "Offer",
         "price": "0",
@@ -55,25 +62,29 @@
     }
     </script>
 
-    <!-- 구글 애드센스 (Google AdSense) 연동 스크립트 -->
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-0000000000000000" crossorigin="anonymous"></script>
+    <!-- 구글 애드센스 (Google AdSense) -->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-0000000000000000"
+        crossorigin="anonymous"></script>
 
     <!-- Google Fonts (Pretendard & Inter) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Pretendard:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-    
+    <link
+        href="https://fonts.googleapis.com/css2?family=Pretendard:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap"
+        rel="stylesheet">
+
     <!-- Lucide Icons -->
     <script src="https://unpkg.com/lucide@latest"></script>
-    <!-- qr-code-styling 라이브러리 (점/모서리 커스텀 및 SVG/PNG/JPG 지원) -->
-    <script src="https://cdn.jsdelivr.net/npm/qr-code-styling@1.6.0-rc.1/lib/qr-code-styling.js"></script>
-    
-    <!-- 격리된 CSS 스타일시트 (공통 + QR 코드 전용 네임스페이스) -->
+    <!-- JSZip for ZIP download -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+
+    <!-- 격리된 CSS 스타일시트 (공통 + 도구 전용) -->
     <link rel="stylesheet" href="assets/css/global.css?v=20260913_v3">
-    <link rel="stylesheet" href="assets/css/tool-qr-code.css">
+    <link rel="stylesheet" href="assets/css/tool-image-compress.css">
 </head>
-<body class="tool-qr-code-page">
-    <!-- 최상단 브랜드 네비게이션 헤더 & 상단 GNB 드롭다운 (보였다 안보였다 메뉴) -->
+
+<body>
+    <!-- 최상단 브랜드 네비게이션 헤더 & 상단 GNB 드롭다운 -->
     <header class="global-navbar">
         <div class="navbar-left">
             <a href="index.html" class="brand-container">
@@ -97,7 +108,7 @@
                         <div class="gnb-dropdown-arrow-up"></div>
                         <ul class="gnb-sublist">
                             <li>
-                                <a href="image-compress.html" class="gnb-sublink">
+                                <a href="image-compress.html" class="gnb-sublink active">
                                     <div class="gnb-sublink-left"><i data-lucide="file-down"></i><span data-i18n="tool.image_compress">이미지 용량 줄이기</span></div>
                                     <span class="gnb-badge hot">추천</span>
                                 </a>
@@ -125,14 +136,13 @@
                                 </a>
                             </li>
                             <li>
-                                <a href="qr-code.html" class="gnb-sublink active">
+                                <a href="qr-code.html" class="gnb-sublink">
                                     <div class="gnb-sublink-left"><i data-lucide="qr-code"></i><span data-i18n="tool.qr_code">QR 코드 생성</span></div>
                                 </a>
                             </li>
                             <li>
                                 <a href="batch-rename.html" class="gnb-sublink">
                                     <div class="gnb-sublink-left"><i data-lucide="copy-check"></i><span data-i18n="tool.batch_rename">파일명 일괄 변경</span></div>
-                                    <span class="gnb-badge hot">추천</span>
                                 </a>
                             </li>
                         </ul>
@@ -208,19 +218,6 @@
                 <i data-lucide="menu"></i>
             </button>
         </div>
-    </header>         </li>
-                        </ul>
-                    </div>
-                </div>
-            </nav>
-        </div>
-
-        <div class="navbar-right">
-            <a href="index.html" class="btn-nav-home" title="모든 도구 홈으로"><i data-lucide="layout-grid"></i><span>모든 도구</span></a>
-            <button class="mobile-menu-toggle" id="mobile-menu-toggle" aria-label="메뉴 열기">
-                <i data-lucide="menu"></i>
-            </button>
-        </div>
     </header>
 
     <div class="app-container">
@@ -241,7 +238,7 @@
                     <div class="nav-group-title">이미지 도구</div>
                     <ul class="nav-list">
                         <li>
-                            <a href="image-compress.html" class="nav-item" data-tool="image-compress">
+                            <a href="image-compress.html" class="nav-item active" data-tool="image-compress">
                                 <i data-lucide="file-down"></i>
                                 <span>이미지 용량 줄이기</span>
                             </a>
@@ -271,7 +268,7 @@
                             </a>
                         </li>
                         <li>
-                            <a href="qr-code.html" class="nav-item active" data-tool="qr-code">
+                            <a href="qr-code.html" class="nav-item" data-tool="qr-code">
                                 <i data-lucide="qr-code"></i>
                                 <span>QR 코드 생성</span>
                             </a>
@@ -343,174 +340,274 @@
         </aside>
 
         <!-- ========================================================
-             2. 중앙 메인 작업 영역 ([QR 코드 생성] 스크린샷 100% 일치)
+             2. 중앙 메인 작업 영역
              ======================================================== -->
-        <main class="main-content tool-qr-code">
-            <!-- 상단 1줄 콤팩트 툴바 (작업 공간 100% 확보) -->
+        <main class="main-content tool-image-compress">
+            <!-- 상단 1줄 콤팩트 툴바 -->
             <header class="tool-compact-header">
                 <div class="tool-compact-left">
                     <a href="index.html" class="tool-back-link" title="모든 도구 목록으로"><i data-lucide="chevron-left"></i></a>
-                    <div class="tool-compact-badge-icon"><i data-lucide="qr-code"></i></div>
+                    <div class="tool-compact-badge-icon"><i data-lucide="file-down"></i></div>
                     <div class="tool-compact-title-wrap">
-                        <h1 class="tool-compact-title">QR 코드 생성</h1>
-                        <span class="tool-security-tag"><i data-lucide="shield-check"></i> 무제한 고정 QR · 로컬 생성</span>
+                        <h1 class="tool-compact-title">이미지 용량 줄이기</h1>
+                        <span class="tool-security-tag"><i data-lucide="shield-check"></i> 100% 로컬 스마트 압축 · 개인정보 보호</span>
                     </div>
                 </div>
                 <div class="tool-compact-right">
-                    <button class="btn-help-trigger" id="btn-help-trigger" title="사용 방법 및 안내">
+                    <button class="btn-help-trigger" id="btn-help-trigger" title="사용 방법 안내">
                         <i data-lucide="help-circle"></i>
                         <span>도움말</span>
                     </button>
                 </div>
             </header>
 
-            <!-- QR 코드 작업 영역 카드 -->
-            <section class="workspace-card qr-workspace-card">
-                <div class="qr-viewer-wrapper">
-                    <!-- QR 코드 렌더링 컨테이너 -->
-                    <div class="qr-preview-box" id="qr-preview-container">
-                        <!-- JS로 QR 코드 캔버스/SVG가 동적으로 렌더링됩니다 -->
+            <!-- 작업 영역 카드 -->
+            <section class="workspace-card">
+                <div class="workspace-toolbar">
+                    <div class="toolbar-guide">
+                        <strong>Win+Shift+S로 캡처 → Ctrl+V로 붙여넣기</strong>
+                        <span class="guide-sub">사진을 계속 추가하여 용량을 최대 90%까지 안전하게 줄이세요.</span>
                     </div>
-                    <p class="qr-guide-text">인쇄·공유 전 휴대폰으로 스캔해 확인하세요.</p>
+                    <div class="toolbar-actions">
+                        <button class="btn btn-primary" id="btn-paste">
+                            <i data-lucide="clipboard-paste"></i>
+                            <span>붙여넣기</span>
+                        </button>
+                        <label class="btn btn-secondary btn-file-input">
+                            <i data-lucide="image-plus"></i>
+                            <span>파일 추가</span>
+                            <input type="file" id="file-input" multiple accept="image/*" style="display: none;">
+                        </label>
+                        <button class="btn btn-outline" id="btn-clear-all">
+                            <i data-lucide="trash-2"></i>
+                            <span>전체 삭제</span>
+                        </button>
+                        <div class="count-badge" id="image-count-badge">0 / 50장 · 한 장 30MB 이하</div>
+                    </div>
+                </div>
+
+                <!-- 전체 압축 통계 요약 바 (이미지 등록 시 노출) -->
+                <div class="compress-summary-bar" id="compress-summary-bar" style="display: none;">
+                    <div class="summary-item">
+                        <span class="summary-label"><i data-lucide="file"></i> 총 원본 용량</span>
+                        <span class="summary-value" id="sum-orig-size">0 KB</span>
+                    </div>
+                    <div class="summary-item">
+                        <span class="summary-label"><i data-lucide="file-check"></i> 압축 후 용량</span>
+                        <span class="summary-value highlight" id="sum-comp-size">0 KB</span>
+                    </div>
+                    <div class="summary-item">
+                        <span class="summary-label"><i data-lucide="trending-down"></i> 총 절감 효과</span>
+                        <span class="summary-value highlight" id="sum-savings-rate">0 KB 절약 (0%)</span>
+                    </div>
+                </div>
+
+                <!-- 드래그 & 드롭 및 이미지 리스트 영역 -->
+                <div class="drop-zone" id="drop-zone">
+                    <div class="empty-state" id="empty-state">
+                        <div class="empty-state-icon">
+                            <i data-lucide="image-down"></i>
+                        </div>
+                        <p class="empty-state-title">이미지를 여기에 드래그하거나 <strong>Ctrl + V</strong>로 붙여넣으세요.</p>
+                        <p class="empty-state-desc">상단의 [붙여넣기] 또는 [파일 추가]도 사용할 수 있습니다.</p>
+                    </div>
+
+                    <!-- 사진 카드 그리드 -->
+                    <div class="image-grid" id="image-grid" style="display: none;"></div>
+
+                    <!-- 하단 대형 원본/압축 비교 뷰어 -->
+                    <div class="compare-viewer-container" id="compare-viewer-container" style="display: none;">
+                        <div class="compare-viewer-title">
+                            <i data-lucide="split-square-vertical" style="width: 16px; height: 16px; color: #8b5cf6;"></i>
+                            <span>실시간 화질 및 용량 비교 (선택한 이미지)</span>
+                        </div>
+                        <div class="compare-dual-wrap">
+                            <div class="compare-box">
+                                <span class="compare-tag">원본</span>
+                                <div class="compare-img-wrap">
+                                    <img id="compare-img-orig" alt="원본 미리보기">
+                                </div>
+                                <div class="compare-meta" id="compare-meta-orig">-</div>
+                            </div>
+                            <div class="compare-box">
+                                <span class="compare-tag" style="background:#10b981;">압축 결과</span>
+                                <div class="compare-img-wrap">
+                                    <img id="compare-img-comp" alt="압축본 미리보기">
+                                </div>
+                                <div class="compare-meta" id="compare-meta-comp">-</div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </section>
 
-            <!-- 하단 다운로드 버튼 -->
-            <div class="bottom-action-section mt-4">
-                <button class="btn btn-save-large btn-qr-save" id="btn-save-qr">
-                    <i data-lucide="download"></i>
-                    <span>QR 코드 저장</span>
-                </button>
+            <!-- 하단 저장 및 사용 가이드 섹션 -->
+            <div class="bottom-action-section">
+                <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+                    <button class="btn btn-save-large" id="btn-save-images">
+                        <i data-lucide="download"></i>
+                        <span>압축 이미지 일괄 저장 (ZIP)</span>
+                    </button>
+                    <button class="btn btn-secondary" id="btn-copy-clipboard" style="padding: 12px 20px; font-size: 14px; font-weight: 700; border-radius: var(--radius-md);">
+                        <i data-lucide="copy"></i>
+                        <span>선택 이미지 복사</span>
+                    </button>
+                </div>
+
+                <div class="guide-box">
+                    <h3 class="guide-title">이렇게 사용하세요</h3>
+                    <ol class="guide-steps">
+                        <li><strong>Win+Shift+S</strong>로 캡처한 뒤 이 화면에서 <strong>Ctrl+V</strong>로 바로 붙여넣으세요. 파일 추가 및 드래그앤드롭도 지원합니다.</li>
+                        <li>우측 [압축 설정]에서 <strong>[스마트 권장 압축]</strong> 또는 원하는 <strong>품질/해상도/포맷</strong>을 지정하면 실시간으로 용량이 절감됩니다.</li>
+                        <li>[압축 이미지 일괄 저장]을 누르면 모든 사진이 압축된 <strong>ZIP 파일</strong>로 즉시 다운로드됩니다.</li>
+                    </ol>
+                    <p class="guide-footnote">
+                        저장 시 개인정보 및 촬영 위치가 포함된 EXIF 메타데이터를 100% 자동 제거하여 안전하게 보호합니다.
+                    </p>
+                </div>
             </div>
         </main>
 
         <!-- ========================================================
-             3. 우측 QR 코드 설정 사이드바 (스크린샷 100% 일치)
+             3. 우측 [압축 설정] 사이드바
              ======================================================== -->
-        <aside class="settings-sidebar qr-settings-sidebar">
-            <h2 class="settings-header">QR 코드 설정</h2>
+        <aside class="settings-sidebar">
+            <h2 class="settings-header">압축 설정</h2>
 
             <div class="settings-scroll-area">
-                <!-- 1. URL 또는 텍스트 입력 -->
+                <!-- 1. 압축 모드 선택 -->
                 <div class="setting-group">
-                    <label class="setting-label" for="input-qr-text">URL 또는 텍스트</label>
-                    <textarea id="input-qr-text" class="form-textarea qr-textarea" rows="4" placeholder="https://tools.bangjang.net">https://tools.bangjang.net</textarea>
+                    <label class="setting-label">압축 모드</label>
+                    <div class="setting-mode-grid">
+                        <button type="button" class="mode-btn active" data-mode="smart">
+                            <i data-lucide="sparkles" style="width: 15px; height: 15px; color: #8b5cf6;"></i>
+                            <span>스마트 권장 압축 (고화질 WebP)</span>
+                        </button>
+                        <button type="button" class="mode-btn" data-mode="custom">
+                            <i data-lucide="sliders" style="width: 15px; height: 15px;"></i>
+                            <span>사용자 지정 (품질/해상도 조절)</span>
+                        </button>
+                        <button type="button" class="mode-btn" data-mode="target">
+                            <i data-lucide="target" style="width: 15px; height: 15px;"></i>
+                            <span>목표 용량 맞춤 (용량 제한)</span>
+                        </button>
+                    </div>
                 </div>
 
-                <!-- 2. QR 색상 선택 -->
+                <!-- 2. 출력 포맷 선택 -->
                 <div class="setting-group">
-                    <label class="setting-label">QR 색상</label>
-                    <div class="qr-color-picker-row">
-                        <label class="qr-color-chip-wrap" for="input-qr-color">
-                            <span class="qr-color-chip" id="qr-color-preview-chip" style="background-color: #000000;"></span>
-                            <span class="qr-color-label" id="qr-color-text-label">색상 선택</span>
-                            <i data-lucide="chevron-down" class="dropdown-arrow-icon"></i>
+                    <label class="setting-label">출력 포맷</label>
+                    <div class="radio-group" style="display: flex; flex-direction: column; gap: 8px;">
+                        <label class="radio-label">
+                            <input type="radio" name="format-choice" value="webp" checked>
+                            <span>WebP (강력 추천 · 최고 압축률)</span>
                         </label>
-                        <input type="color" id="input-qr-color" value="#000000" style="display: none;">
+                        <label class="radio-label">
+                            <input type="radio" name="format-choice" value="jpeg">
+                            <span>JPEG (호환성 최고)</span>
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="format-choice" value="png">
+                            <span>PNG (투명 배경 유지)</span>
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="format-choice" value="original">
+                            <span>원본 포맷 유지</span>
+                        </label>
                     </div>
                 </div>
 
-                <!-- 3. 점 스타일 -->
-                <div class="setting-group">
-                    <label class="setting-label" for="select-dot-style">점 스타일</label>
-                    <select id="select-dot-style" class="form-select">
-                        <option value="square" selected>사각형</option>
-                        <option value="dots">원형</option>
-                        <option value="rounded">둥근 사각형</option>
-                        <option value="classy">클래시 (마름모)</option>
-                    </select>
-                </div>
-
-                <!-- 4. 모서리 표시 -->
-                <div class="setting-group">
-                    <label class="setting-label" for="select-corner-style">모서리 표시</label>
-                    <select id="select-corner-style" class="form-select">
-                        <option value="square" selected>사각형</option>
-                        <option value="extra-rounded">둥근 사각형</option>
-                        <option value="dot">원형</option>
-                    </select>
-                </div>
-
-                <!-- 5. 저장 형식 -->
-                <div class="setting-group">
-                    <label class="setting-label" for="select-save-format">저장 형식</label>
-                    <select id="select-save-format" class="form-select">
-                        <option value="png" selected>PNG</option>
-                        <option value="jpeg">JPG</option>
-                        <option value="svg">SVG</option>
-                    </select>
-                </div>
-
-                <!-- 6. 저장 크기 -->
-                <div class="setting-group">
-                    <label class="setting-label" for="select-save-size">저장 크기</label>
-                    <select id="select-save-size" class="form-select">
-                        <option value="512">512px</option>
-                        <option value="1024" selected>1,024px</option>
-                        <option value="2048">2,048px</option>
-                    </select>
-                </div>
-
-                <!-- 7. 고정 QR 안내 문구 -->
-                <div class="setting-group">
-                    <p class="qr-tip-text">
-                        고정 QR입니다. 만료·스캔 횟수 제한이 없으며, 연결한 주소가 유지되어야 합니다.
-                    </p>
-                </div>
-
-                <!-- 8. 구글 애드센스 사이드바 반응형 광고 슬롯 (300x250) -->
-                <div class="adsense-slot-container adsense-sidebar-slot">
-                    <span class="adsense-label" data-i18n="label.sponsor">스폰서 광고</span>
-                    <!-- 
-                        [Google AdSense 광고 단위 코드 삽입 영역]
-                        심사 승인 후 발급된 <ins class="adsbygoogle" ...></ins> 코드를 여기에 넣으시면 됩니다.
-                    -->
-                    <div class="adsense-placeholder">
-                        <i data-lucide="sparkles"></i>
-                        <span>AdSense Responsive Slot (300x250)</span>
+                <!-- 3. 사용자 지정 품질 조절 슬라이더 (사용자 지정 모드일 때 주로 활용) -->
+                <div id="custom-options-wrap" style="display: none;">
+                    <div class="setting-group">
+                        <div class="setting-header-row">
+                            <label class="setting-label" style="margin-bottom:0;">압축 품질</label>
+                            <span class="quality-badge" id="quality-badge">80%</span>
+                        </div>
+                        <input type="range" id="range-quality" class="form-range" min="10" max="100" value="80">
+                        <div style="display: flex; justify-content: space-between; font-size: 10.5px; color: var(--text-muted); margin-top: 4px;">
+                            <span>최대 압축 (10%)</span>
+                            <span>균형 (80%)</span>
+                            <span>최고 화질 (100%)</span>
+                        </div>
                     </div>
+
+                    <!-- 4. 최대 해상도 / 리사이징 -->
+                    <div class="setting-group">
+                        <label class="setting-label">최대 해상도 (긴 변 리사이즈)</label>
+                        <select id="select-resize" class="form-select">
+                            <option value="original" selected>원본 해상도 유지</option>
+                            <option value="1920">FHD (최대 1920px)</option>
+                            <option value="1280">HD (최대 1280px · 웹 추천)</option>
+                            <option value="800">블로그/메일용 (최대 800px)</option>
+                            <option value="custom">직접 너비 입력</option>
+                        </select>
+                    </div>
+
+                    <div class="setting-group" id="custom-width-wrap" style="display: none;">
+                        <label class="setting-sublabel">최대 너비 · px</label>
+                        <input type="number" id="input-custom-width" class="form-input" value="1200" min="100" max="8000">
+                    </div>
+                </div>
+
+                <!-- 5. 목표 용량 옵션 -->
+                <div id="target-options-wrap" style="display: none;">
+                    <div class="setting-group">
+                        <label class="setting-label">목표 파일 크기 (장당 최대)</label>
+                        <div style="display: flex; align-items: center; gap: 8px;">
+                            <input type="number" id="input-target-kb" class="form-input" value="500" min="50" max="10000" step="50">
+                            <span style="font-size: 13px; font-weight: 700; color: var(--text-secondary);">KB 이하</span>
+                        </div>
+                        <div class="setting-desc" style="margin-top: 6px;">
+                            설정한 용량 이하가 되도록 화질을 자동으로 단계별 최적화합니다.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="setting-desc" style="margin-top: 16px;">
+                    💡 WebP 형식은 JPEG 대비 최대 35% 이상 용량을 추가로 절감하면서도 고화질을 유지합니다. 웹사이트 및 블로그 업로드에 가장 권장됩니다.
                 </div>
             </div>
         </aside>
     </div>
 
-    <!-- 도움말 및 사용 안내 모달 팝업 -->
+    <!-- 도움말 모달 -->
     <div class="help-modal-backdrop" id="help-modal">
         <div class="help-modal-card">
             <div class="help-modal-header">
-                <div class="help-modal-header-title">
+                <div class="help-modal-title">
                     <i data-lucide="help-circle"></i>
-                    <span>QR 코드 생성기 사용 가이드</span>
+                    <span>이미지 용량 줄이기 사용 가이드</span>
                 </div>
                 <button class="btn-close-modal" aria-label="닫기"><i data-lucide="x"></i></button>
             </div>
             <div class="help-modal-body">
                 <div class="help-step-item">
                     <div class="help-step-num">1</div>
-                    <div class="help-step-text">
-                        <strong>링크 또는 텍스트 입력</strong>
-                        <p>우측의 <code>내용 (URL 또는 텍스트)</code> 입력란에 연결할 웹사이트 주소(https://...)나 안내 문구를 입력하세요.</p>
+                    <div class="help-step-content">
+                        <strong>이미지 추가 또는 캡처 붙여넣기</strong>
+                        <p>Win+Shift+S(Mac: Cmd+Shift+4)로 캡처 후 Ctrl+V로 붙여넣거나, [파일 추가] 및 드래그앤드롭으로 이미지를 등록하세요.</p>
                     </div>
                 </div>
                 <div class="help-step-item">
                     <div class="help-step-num">2</div>
-                    <div class="help-step-text">
-                        <strong>스타일 및 로고 맞춤 설정</strong>
-                        <p>QR 색상(보라/검정/파랑 등)과 점/모서리 패턴을 변경하고, 중앙에 원하는 브랜드 로고 이미지를 삽입할 수 있습니다.</p>
+                    <div class="help-step-content">
+                        <strong>압축 모드 및 품질 선택</strong>
+                        <p>스마트 권장 압축(WebP)을 사용하면 화질 손실 없이 파일 크기를 80~90% 절감할 수 있습니다.</p>
                     </div>
                 </div>
                 <div class="help-step-item">
                     <div class="help-step-num">3</div>
-                    <div class="help-step-text">
-                        <strong>포맷 및 해상도 선택 후 저장</strong>
-                        <p>PNG(일반용), JPG(배경 흰색), SVG(인쇄/인쇄물용 무손실 벡터) 및 최대 2048px 고화질로 즉시 다운로드하세요.</p>
+                    <div class="help-step-content">
+                        <strong>일괄 저장 또는 복사</strong>
+                        <p>개별 이미지를 다운로드하거나 [압축 이미지 일괄 저장]을 눌러 ZIP 파일로 한 번에 다운로드하세요.</p>
                     </div>
                 </div>
                 <div class="help-security-callout">
                     <i data-lucide="shield-check"></i>
                     <div>
-                        <strong>영구 사용 고정 QR</strong><br>
-                        생성된 QR 코드는 만료 기간이나 스캔 횟수 제한이 전혀 없는 영구 고정 QR 코드입니다.
+                        <strong>100% 브라우저 로컬 처리</strong><br>
+                        모든 압축 처리는 고객님의 PC 브라우저 내부에서만 실행되며, 이미지가 외부 서버로 절대 전송되지 않아 안심하고 사용하실 수 있습니다.
                     </div>
                 </div>
             </div>
@@ -520,7 +617,7 @@
         </div>
     </div>
 
-    <!-- 글로벌 푸터 (애드센스 승인 필수 링크 & 보안 안내) -->
+    <!-- 글로벌 푸터 -->
     <footer class="global-footer">
         <div class="footer-inner">
             <div class="footer-top">
@@ -561,7 +658,8 @@
     <!-- 다국어 번역 엔진 및 전역 네비게이션 스크립트 -->
     <script src="assets/js/i18n.js"></script>
     <script src="assets/js/global-nav.js"></script>
-    <!-- ES 모듈(type="module") 로드로 완전 격리 -->
-    <script type="module" src="assets/js/tool-qr-code.js"></script>
+    <!-- ES 모듈 로드 -->
+    <script type="module" src="assets/js/tool-image-compress.js"></script>
 </body>
+
 </html>
