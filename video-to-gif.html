@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>영상 → GIF - 방장 용용이 (무료 실무 도구)</title>
+    
+    <!-- Google Fonts (Pretendard & Inter) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Pretendard:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        a.nav-item { text-decoration: none; color: inherit; }
+        .coming-soon-card {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 80px 20px;
+            text-align: center;
+            background: #ffffff;
+            border-radius: var(--radius-lg);
+            border: 1px dashed var(--border-color);
+        }
+        .coming-soon-badge {
+            display: inline-block;
+            background: var(--primary-light);
+            color: var(--primary-color);
+            font-size: 13px;
+            font-weight: 700;
+            padding: 6px 14px;
+            border-radius: 20px;
+            margin-bottom: 16px;
+        }
+        .coming-soon-title {
+            font-size: 20px;
+            font-weight: 800;
+            color: var(--text-primary);
+            margin-bottom: 10px;
+        }
+        .coming-soon-desc {
+            font-size: 14px;
+            color: var(--text-muted);
+            max-width: 500px;
+            line-height: 1.6;
+        }
+    </style>
+</head>
+<body>
+    <!-- 최상단 고정 헤더 -->
+    <header class="global-navbar">
+        <a href="index.html" class="brand-container" style="text-decoration: none;">
+            <div class="brand-logo-badge"><span>방장</span></div>
+            <div class="brand-text-group">
+                <h1 class="brand-title">방장 용용이</h1>
+                <span class="brand-subtitle">무료 실무 도구</span>
+            </div>
+        </a>
+    </header>
+
+    <div class="app-container">
+        <!-- 왼쪽 사이드바 -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <a href="index.html" class="nav-item home-btn" id="btn-home">
+                    <i data-lucide="home"></i>
+                    <span>모든 도구</span>
+                </a>
+            </div>
+
+            <nav class="sidebar-nav">
+                <div class="nav-group">
+                    <div class="nav-group-title">이미지 도구</div>
+                    <ul class="nav-list">
+                        <li><a href="image-edit.html" class="nav-item" data-tool="image-edit"><i data-lucide="image"></i><span>이미지 편집</span></a></li>
+                        <li><a href="image-split.html" class="nav-item" data-tool="image-split"><i data-lucide="grid"></i><span>사진 분할</span></a></li>
+                        <li><a href="remove-bg.html" class="nav-item" data-tool="remove-bg"><i data-lucide="image-minus"></i><span>배경 제거·바꾸기</span></a></li>
+                        <li><a href="mosaic.html" class="nav-item" data-tool="mosaic"><i data-lucide="layout-grid"></i><span>사진 모자이크</span></a></li>
+                        <li><a href="qr-code.html" class="nav-item" data-tool="qr-code"><i data-lucide="qr-code"></i><span>QR 코드 생성</span></a></li>
+                        <li><a href="batch-rename.html" class="nav-item" data-tool="batch-rename"><i data-lucide="copy-check"></i><span>파일명 일괄 변경</span></a></li>
+                    </ul>
+                </div>
+
+                <div class="nav-group">
+                    <div class="nav-group-title">영상 도구</div>
+                    <ul class="nav-list">
+                        <li><a href="video-trim-gif.html" class="nav-item" data-tool="video-trim-gif"><i data-lucide="play-square"></i><span>영상 구간 → GIF</span></a></li>
+                        <li><a href="video-to-gif.html" class="nav-item active" data-tool="video-to-gif"><i data-lucide="film"></i><span>영상 → GIF</span></a></li>
+                        <li><a href="screen-record-gif.html" class="nav-item" data-tool="screen-record-gif"><i data-lucide="monitor-play"></i><span>화면녹화 → GIF</span></a></li>
+                    </ul>
+                </div>
+
+                <div class="nav-group">
+                    <div class="nav-group-title">블로그 도구</div>
+                    <ul class="nav-list">
+                        <li><a href="blog-formatter.html" class="nav-item" data-tool="blog-formatter"><i data-lucide="file-text"></i><span>블로그 본문 정리</span></a></li>
+                        <li><a href="pdf-to-word.html" class="nav-item" data-tool="pdf-to-word"><i data-lucide="file-type-2"></i><span>PDF → Word</span></a></li>
+                    </ul>
+                </div>
+            </nav>
+
+            <div class="sidebar-footer">
+                <div class="security-card">
+                    <i data-lucide="shield-check" class="security-icon"></i>
+                    <div class="security-text">
+                        <strong>내 파일은 내 기기에서</strong>
+                        <p>선택한 파일은 서버에 업로드하지 않습니다.</p>
+                    </div>
+                </div>
+            </div>
+        </aside>
+
+        <!-- 중앙 메인 작업 영역 -->
+        <main class="main-content">
+            <header class="content-header">
+                <div class="breadcrumb">
+                    <span>모든 도구</span>
+                    <i data-lucide="chevron-right" class="breadcrumb-arrow"></i>
+                    <span class="current">영상 → GIF</span>
+                </div>
+                <div class="sub-brand">방장 TOOLS / VIDEO TO GIF</div>
+                <h1 class="page-title">영상 → GIF</h1>
+                <p class="page-description">
+                    동영상 파일을 고화질·저용량 움직이는 GIF 애니메이션으로 빠르게 일괄 변환합니다.
+                </p>
+                <div class="privacy-notice">
+                    <i data-lucide="info" class="notice-icon"></i>
+                    <span>클라우드 서버 업로드 없이 PC에서 바로 처리되어 데이터가 안전합니다.</span>
+                </div>
+            </header>
+
+            <section class="workspace-card">
+                <div class="coming-soon-card">
+                    <div class="coming-soon-badge">오픈 예정 기능</div>
+                    <div class="empty-state-icon" style="margin-bottom: 20px;">
+                        <i data-lucide="film" style="width: 48px; height: 48px; color: var(--primary-color);"></i>
+                    </div>
+                    <h2 class="coming-soon-title">고속 동영상 GIF 변환기</h2>
+                    <p class="coming-soon-desc">
+                        MP4, MOV, WebM 영상을 넣으면 블로그/게시판에 최적화된 용량과 해상도로 GIF를 자동 생성합니다.
+                    </p>
+                </div>
+            </section>
+        </main>
+
+        <!-- 우측 설정 사이드바 -->
+        <aside class="settings-sidebar">
+            <h2 class="settings-header">GIF 변환 설정</h2>
+            <div class="settings-scroll-area">
+                <div class="setting-group">
+                    <label class="setting-label">용량 최적화 수준</label>
+                    <select class="form-select">
+                        <option value="balanced" selected>표준 (품질·용량 균형)</option>
+                        <option value="high">고화질 우선</option>
+                        <option value="compact">최소 용량 압축</option>
+                    </select>
+                </div>
+            </div>
+        </aside>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            if (window.lucide) window.lucide.createIcons();
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>사진 분할 - 방장 용용이 (무료 실무 도구)</title>
+    
+    <!-- Google Fonts (Pretendard & Inter) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Pretendard:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <!-- JSZip for ZIP download -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        /* 링크 태그 밑줄 제거 */
+        a.nav-item {
+            text-decoration: none;
+            color: inherit;
+        }
+    </style>
+</head>
+<body>
+    <!-- ========================================================
+         0. 최상단 고정 브랜드 네비게이션 헤더
+         ======================================================== -->
+    <header class="global-navbar">
+        <a href="index.html" class="brand-container" style="text-decoration: none;">
+            <div class="brand-logo-badge">
+                <span>방장</span>
+            </div>
+            <div class="brand-text-group">
+                <h1 class="brand-title">방장 용용이</h1>
+                <span class="brand-subtitle">무료 실무 도구</span>
+            </div>
+        </a>
+    </header>
+
+    <div class="app-container">
+        <!-- ========================================================
+             1. 왼쪽 사이드바 (메뉴 네비게이션)
+             ======================================================== -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <a href="index.html" class="nav-item home-btn" id="btn-home">
+                    <i data-lucide="home"></i>
+                    <span>모든 도구</span>
+                </a>
+            </div>
+
+            <nav class="sidebar-nav">
+                <!-- 섹션 1: 이미지 도구 -->
+                <div class="nav-group">
+                    <div class="nav-group-title">이미지 도구</div>
+                    <ul class="nav-list">
+                        <li>
+                            <a href="image-edit.html" class="nav-item" data-tool="image-edit">
+                                <i data-lucide="image"></i>
+                                <span>이미지 편집</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="image-split.html" class="nav-item active" data-tool="image-split">
+                                <i data-lucide="grid"></i>
+                                <span>사진 분할</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="remove-bg.html" class="nav-item" data-tool="remove-bg">
+                                <i data-lucide="image-minus"></i>
+                                <span>배경 제거·바꾸기</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="mosaic.html" class="nav-item" data-tool="mosaic">
+                                <i data-lucide="layout-grid"></i>
+                                <span>사진 모자이크</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="qr-code.html" class="nav-item" data-tool="qr-code">
+                                <i data-lucide="qr-code"></i>
+                                <span>QR 코드 생성</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="batch-rename.html" class="nav-item" data-tool="batch-rename">
+                                <i data-lucide="copy-check"></i>
+                                <span>파일명 일괄 변경</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- 섹션 2: 영상 도구 -->
+                <div class="nav-group">
+                    <div class="nav-group-title">영상 도구</div>
+                    <ul class="nav-list">
+                        <li>
+                            <a href="video-trim-gif.html" class="nav-item" data-tool="video-trim-gif">
+                                <i data-lucide="play-square"></i>
+                                <span>영상 구간 → GIF</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="video-to-gif.html" class="nav-item" data-tool="video-to-gif">
+                                <i data-lucide="film"></i>
+                                <span>영상 → GIF</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="screen-record-gif.html" class="nav-item" data-tool="screen-record-gif">
+                                <i data-lucide="monitor-play"></i>
+                                <span>화면녹화 → GIF</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- 섹션 3: 블로그 도구 -->
+                <div class="nav-group">
+                    <div class="nav-group-title">블로그 도구</div>
+                    <ul class="nav-list">
+                        <li>
+                            <a href="blog-formatter.html" class="nav-item" data-tool="blog-formatter">
+                                <i data-lucide="file-text"></i>
+                                <span>블로그 본문 정리</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="pdf-to-word.html" class="nav-item" data-tool="pdf-to-word">
+                                <i data-lucide="file-type-2"></i>
+                                <span>PDF → Word</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+
+            <!-- 사이드바 하단: 보안 및 개인정보 안내 배너 -->
+            <div class="sidebar-footer">
+                <div class="security-card">
+                    <i data-lucide="shield-check" class="security-icon"></i>
+                    <div class="security-text">
+                        <strong>내 파일은 내 기기에서</strong>
+                        <p>선택한 파일은 서버에 업로드하지 않습니다.</p>
+                    </div>
+                </div>
+            </div>
+        </aside>
+
+        <!-- ========================================================
+             2. 중앙 메인 작업 영역 ([사진 분할])
+             ======================================================== -->
+        <main class="main-content" id="view-image-split">
+            <!-- 상단 헤더 및 브레드크럼 -->
+            <header class="content-header">
+                <div class="breadcrumb">
+                    <span>모든 도구</span>
+                    <i data-lucide="chevron-right" class="breadcrumb-arrow"></i>
+                    <span class="current">사진 분할</span>
+                </div>
+                <div class="sub-brand">방장 TOOLS / QUICK EDIT</div>
+                <h1 class="page-title">사진 분할</h1>
+                <p class="page-description">
+                    사진 한 장을 2·4·8·16조각으로 나누는 무료 이미지 분할 도구. 사진 확대·축소와 분할선 직접 조절을 지원하며, 조각을 개별 이미지 또는 ZIP으로 저장합니다.
+                </p>
+                <div class="privacy-notice">
+                    <i data-lucide="info" class="notice-icon"></i>
+                    <span>저장하는 JPG·PNG·GIF의 촬영 위치·작성자 등 부가 메타정보를 제거합니다. 이미지 표시·애니메이션에 필요한 정보는 유지합니다.</span>
+                </div>
+            </header>
+
+            <!-- 작업 영역 카드 -->
+            <section class="workspace-card">
+                <!-- 상단 툴바 -->
+                <div class="workspace-toolbar">
+                    <div class="toolbar-guide">
+                        <strong>Win+Shift+S로 캡처 → Ctrl+V로 붙여넣기</strong>
+                        <span class="guide-sub">사진 한 장을 붙여넣고 원하는 조각 수를 선택하세요. 새 사진은 현재 사진을 교체합니다.</span>
+                    </div>
+                    <div class="toolbar-actions">
+                        <button class="btn btn-primary" id="btn-split-paste">
+                            <i data-lucide="clipboard-paste"></i>
+                            <span>붙여넣기</span>
+                        </button>
+                        <label class="btn btn-secondary btn-file-input">
+                            <i data-lucide="image-plus"></i>
+                            <span>파일 추가</span>
+                            <input type="file" id="split-file-input" accept="image/*" style="display: none;">
+                        </label>
+                        <button class="btn btn-outline" id="btn-split-clear">
+                            <i data-lucide="trash-2"></i>
+                            <span>전체 삭제</span>
+                        </button>
+                        <div class="count-badge" id="split-status-banner">사진을 추가해주세요.</div>
+                    </div>
+                </div>
+
+                <!-- 드래그 & 드롭 및 분할 캔버스 영역 -->
+                <div class="drop-zone" id="split-drop-zone">
+                    <div class="empty-state" id="split-empty-state">
+                        <div class="empty-state-icon">
+                            <i data-lucide="grid"></i>
+                        </div>
+                        <p class="empty-state-title">분할할 이미지를 여기에 드래그하거나 <strong>Ctrl + V</strong>로 붙여넣으세요.</p>
+                        <p class="empty-state-desc">상단의 [붙여넣기] 또는 [파일 추가]도 사용할 수 있습니다.</p>
+                    </div>
+
+                    <!-- 캔버스 컨테이너 (사진 로드 시 노출) -->
+                    <div class="split-canvas-container" id="split-workspace" style="display: none; width: 100%;">
+                        <div class="split-canvas-wrapper">
+                            <canvas id="split-canvas"></canvas>
+                        </div>
+                        <div class="split-canvas-footer" id="split-footer-info">
+                            가로 2 × 세로 2 · 4조각 · 번호·분할선은 저장되지 않습니다.
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 하단 저장 및 사용 가이드 섹션 -->
+            <div class="bottom-action-section">
+                <button class="btn btn-save-large" id="btn-save-split-images">
+                    <i data-lucide="download"></i>
+                    <span>이미지 분할 저장</span>
+                </button>
+
+                <!-- 사용 가이드 카드 -->
+                <div class="guide-box">
+                    <h3 class="guide-title">이렇게 사용하세요</h3>
+                    <ol class="guide-steps">
+                        <li><strong>Win+Shift+S</strong>로 캡처한 뒤 이 화면에서 <strong>Ctrl+V</strong>로 붙여넣으세요. 파일 선택·끌어놓기도 가능합니다.</li>
+                        <li>분할선(보라색 선)을 마우스로 직접 잡고 끌거나, 오른쪽 슬라이더를 이용해 원하는 크기로 분할선을 조절하세요.</li>
+                        <li>조각 수(2, 4, 8, 16분할 등)를 선택하고 [이미지 분할 저장]을 누르면 번호순으로 조각 사진이 저장됩니다.</li>
+                    </ol>
+                    <p class="guide-footnote">
+                        횟수 제한 없이 무료로 사용할 수 있습니다. 긴 영상이나 고해상도 사진은 기기 성능에 따라 처리 시간이 길어질 수 있습니다.
+                    </p>
+                </div>
+            </div>
+        </main>
+
+        <!-- ========================================================
+             3. 우측 설정 사이드바 ([사진 분할] 전용 옵션)
+             ======================================================== -->
+        <aside class="settings-sidebar">
+            <h2 class="settings-header">사진 분할 설정</h2>
+
+            <div class="settings-scroll-area">
+                <!-- 설정 1: 분할 전 사진 크기 -->
+                <div class="setting-group">
+                    <label class="setting-label">사진 크기</label>
+                    <div class="form-row">
+                        <div class="form-col">
+                            <label class="setting-sublabel">가로 (px)</label>
+                            <input type="number" id="input-split-width" class="form-input" placeholder="너비" min="10" max="16384">
+                        </div>
+                        <div class="form-col">
+                            <label class="setting-sublabel">세로 (px)</label>
+                            <input type="number" id="input-split-height" class="form-input" placeholder="높이" min="10" max="16384">
+                        </div>
+                    </div>
+                    <div class="form-check-row mt-2">
+                        <label class="form-check-label">
+                            <input type="checkbox" id="chk-split-aspect" checked>
+                            <span>가로세로 비율 고정</span>
+                        </label>
+                        <button class="btn btn-sm btn-outline" id="btn-apply-split-size">크기 적용</button>
+                    </div>
+                    <div class="btn-grid-3 mt-2">
+                        <button class="btn btn-sm btn-preset" id="btn-size-orig">원본 크기</button>
+                        <button class="btn btn-sm btn-preset" id="btn-size-2x">2배</button>
+                        <button class="btn btn-sm btn-preset" id="btn-size-3x">3배</button>
+                    </div>
+                </div>
+
+                <!-- 설정 2: 조각 수 선택 -->
+                <div class="setting-group">
+                    <label class="setting-label">조각 수</label>
+                    <select id="select-split-type" class="form-select">
+                        <option value="4" selected>4조각 (가로 2 × 세로 2) - 기본</option>
+                        <option value="2v">2조각 (세로 2분할)</option>
+                        <option value="2h">2조각 (가로 2분할)</option>
+                        <option value="6">6조각 (가로 3 × 세로 2)</option>
+                        <option value="8">8조각 (가로 4 × 세로 2)</option>
+                        <option value="9">9조각 (가로 3 × 세로 3)</option>
+                        <option value="16">16조각 (가로 4 × 세로 4)</option>
+                    </select>
+                    <div class="setting-desc mt-2">
+                        분할선을 드래그해 각 조각 크기를 다르게 만들 수 있습니다.
+                    </div>
+                </div>
+
+                <!-- 설정 3: 분할선 위치 세밀 조절 -->
+                <div class="setting-group">
+                    <div class="setting-header-inline">
+                        <label class="setting-label">분할선 위치</label>
+                        <button class="btn btn-link-sm" id="btn-reset-split-lines">균등 분할로 초기화</button>
+                    </div>
+                    <div id="split-line-sliders-container">
+                        <!-- 동적으로 분할선 슬라이더가 추가됩니다 -->
+                    </div>
+                </div>
+
+                <!-- 설정 4: 저장 포맷 및 다운로드 방식 -->
+                <div class="setting-group">
+                    <label class="setting-label">저장 형식</label>
+                    <select id="select-split-format" class="form-select">
+                        <option value="png" selected>PNG (무손실 투명 지원)</option>
+                        <option value="jpeg">JPG (배경 흰색)</option>
+                        <option value="webp">WebP (고효율 압축)</option>
+                    </select>
+                </div>
+
+                <div class="setting-group">
+                    <label class="setting-label">다운로드 방식</label>
+                    <select id="select-split-download-mode" class="form-select">
+                        <option value="individual" selected>개별 파일 순차 다운로드</option>
+                        <option value="zip">ZIP 압축 파일 1개로 다운로드</option>
+                    </select>
+                    <div class="setting-desc mt-2">
+                        개별 파일 순차 다운로드 시 <code>파일명_part01.png</code> 등으로 저장됩니다.
+                    </div>
+                </div>
+            </div>
+        </aside>
+    </div>
+
+    <!-- JavaScript 로드 -->
+    <script src="js/splitter.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            if (window.lucide) {
+                window.lucide.createIcons();
+            }
+            if (window.ImageSplitter) {
+                ImageSplitter.init();
+            }
+        });
+    </script>
+</body>
+</html>
