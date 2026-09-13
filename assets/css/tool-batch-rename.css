@@ -2,35 +2,32 @@
  * ============================================================================
  * assets/css/tool-batch-rename.css - [파일명 일괄 변경] 전용 격리 스타일시트
  * ============================================================================
- * [설명]: 사용자 첨부 스크린샷과 100% 일치하는 고품질 파일명 일괄 변경 UI
+ * [설명]: 파일명 일괄 변경 도구 전용 디자인 스타일시트
+ * 스크린샷과 100% 동일한 깔끔하고 세련된 보라색 테마 UI를 제공합니다.
  */
 
-/* 1. 작업대 레이아웃 & 카드 */
-.app-container.no-settings-sidebar {
-    grid-template-columns: 240px 1fr !important;
-}
-
-.tool-batch-rename .batch-rename-card {
+.tool-batch-rename .rename-workspace-card {
+    background: #ffffff;
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-lg);
+    padding: 24px;
     display: flex;
     flex-direction: column;
-    gap: 0;
-    padding: 24px;
-    background: #ffffff;
-    border-radius: var(--radius-lg);
-    border: 1px solid var(--border-color);
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+    gap: 20px;
+    box-shadow: var(--shadow-sm);
 }
 
-/* 2. 상단 툴바 */
-.tool-batch-rename .workspace-toolbar {
+/* 1. 상단 툴바 박스 */
+.tool-batch-rename .rename-toolbar-box {
     display: flex;
-    justify-content: space-between;
     align-items: center;
-    padding-bottom: 20px;
-    border-bottom: 1px solid var(--border-color);
-    margin-bottom: 20px;
-    flex-wrap: wrap;
+    justify-content: space-between;
     gap: 16px;
+    padding: 16px 20px;
+    background: #f8fafc;
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    flex-wrap: wrap;
 }
 
 .tool-batch-rename .toolbar-guide {
@@ -39,14 +36,14 @@
     gap: 4px;
 }
 
-.tool-batch-rename .toolbar-guide strong {
+.tool-batch-rename .toolbar-guide .guide-title {
     font-size: 14.5px;
-    font-weight: 800;
+    font-weight: 700;
     color: var(--text-primary);
 }
 
 .tool-batch-rename .toolbar-guide .guide-sub {
-    font-size: 12.5px;
+    font-size: 12px;
     color: var(--text-muted);
 }
 
@@ -57,155 +54,177 @@
     flex-wrap: wrap;
 }
 
-.tool-batch-rename .btn-paste {
-    background-color: #ede9fe;
+.tool-batch-rename .btn-paste-purple {
+    background: #ede9fe;
     color: #6d28d9;
     border: 1px solid #ddd6fe;
+    font-size: 13px;
     font-weight: 700;
+    padding: 8px 16px;
+    border-radius: var(--radius-md);
+    cursor: pointer;
+    transition: all 0.15s ease;
 }
 
-.tool-batch-rename .btn-paste:hover {
-    background-color: #ddd6fe;
+.tool-batch-rename .btn-paste-purple:hover {
+    background: #ddd6fe;
     color: #5b21b6;
 }
 
+.tool-batch-rename .toolbar-actions .btn-secondary {
+    background: #ffffff;
+    border: 1px solid var(--border-color);
+    color: var(--text-primary);
+    font-size: 13px;
+    font-weight: 600;
+    padding: 8px 16px;
+    border-radius: var(--radius-md);
+    cursor: pointer;
+    transition: all 0.15s ease;
+}
+
+.tool-batch-rename .toolbar-actions .btn-secondary:hover {
+    background: var(--bg-muted);
+}
+
+.tool-batch-rename .toolbar-actions .btn-outline {
+    background: #ffffff;
+    border: 1px solid var(--border-color);
+    color: var(--text-muted);
+    font-size: 13px;
+    font-weight: 600;
+    padding: 8px 16px;
+    border-radius: var(--radius-md);
+    cursor: pointer;
+    transition: all 0.15s ease;
+}
+
+.tool-batch-rename .toolbar-actions .btn-outline:hover {
+    background: #fee2e2;
+    color: #ef4444;
+    border-color: #fca5a5;
+}
+
 .tool-batch-rename .count-badge {
-    font-size: 12px;
+    font-size: 12.5px;
     font-weight: 600;
     color: var(--text-muted);
-    padding: 6px 10px;
-    background: #f8fafc;
+    background: #f1f5f9;
+    padding: 6px 12px;
+    border-radius: 20px;
     border: 1px solid var(--border-color);
-    border-radius: var(--radius-sm);
     white-space: nowrap;
 }
 
-/* 3. 드롭존 영역 */
-.tool-batch-rename .drop-zone {
-    border: 1.5px dashed #cbd5e1;
+/* 2. 드롭존 영역 */
+.tool-batch-rename .rename-drop-zone {
+    border: 2px dashed #cbd5e1;
     border-radius: var(--radius-md);
-    padding: 32px 20px;
+    padding: 36px 20px;
     text-align: center;
-    background: #fafafa;
+    background: #fafbfc;
     transition: all 0.2s ease;
     cursor: pointer;
-    margin-bottom: 20px;
 }
 
-.tool-batch-rename .drop-zone.drag-active {
+.tool-batch-rename .rename-drop-zone:hover,
+.tool-batch-rename .rename-drop-zone.drag-active {
     border-color: #8b5cf6;
     background: #f5f3ff;
-    transform: scale(1.005);
 }
 
-.tool-batch-rename .empty-state-title {
+.tool-batch-rename .drop-text-primary {
     font-size: 14px;
     color: var(--text-secondary);
+    font-weight: 500;
     margin-bottom: 6px;
 }
 
-.tool-batch-rename .empty-state-title strong {
+.tool-batch-rename .drop-text-primary strong {
     color: #6d28d9;
+    font-weight: 700;
 }
 
-.tool-batch-rename .empty-state-desc {
+.tool-batch-rename .drop-text-sub {
     font-size: 12px;
     color: var(--text-muted);
 }
 
-/* 4. 공통 이름, 시작 번호, 번호 자릿수 입력 행 */
-.tool-batch-rename .rename-settings-row {
-    display: flex;
+/* 3. 옵션 폼 그리드 (3열) */
+.tool-batch-rename .rename-options-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr;
     gap: 16px;
-    margin-bottom: 20px;
-    flex-wrap: wrap;
 }
 
-.tool-batch-rename .setting-field-col {
+.tool-batch-rename .option-col {
     display: flex;
     flex-direction: column;
     gap: 6px;
 }
 
-.tool-batch-rename .setting-field-col.flex-2 {
-    flex: 2;
-    min-width: 220px;
-}
-
-.tool-batch-rename .setting-field-col.flex-1 {
-    flex: 1;
-    min-width: 120px;
-}
-
-.tool-batch-rename .setting-field-label {
-    font-size: 13px;
+.tool-batch-rename .option-label {
+    font-size: 13.5px;
     font-weight: 700;
     color: var(--text-primary);
 }
 
-.tool-batch-rename .form-input-lg {
-    height: 42px;
-    padding: 0 14px;
-    font-size: 13.5px;
+.tool-batch-rename .rename-input {
+    width: 100%;
+    height: 44px;
+    padding: 10px 14px;
+    font-size: 14px;
+    color: var(--text-primary);
+    background: #ffffff;
     border: 1.5px solid var(--border-color);
     border-radius: var(--radius-md);
-    background: #ffffff;
-    color: var(--text-primary);
-    transition: border-color 0.15s, box-shadow 0.15s;
     box-sizing: border-box;
+    transition: all 0.15s ease;
 }
 
-.tool-batch-rename .form-input-lg:focus {
+.tool-batch-rename .rename-input:focus {
     outline: none;
-    border-color: #8b5cf6;
-    box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.15);
+    border-color: #7c3aed;
+    box-shadow: 0 0 0 3px rgba(124, 58, 237, 0.15);
 }
 
-/* 5. 테이블 상단 안내 & 정렬 버튼 */
-.tool-batch-rename .table-info-header {
+/* 4. 통계 및 정렬 바 */
+.tool-batch-rename .rename-sub-bar {
     display: flex;
-    justify-content: space-between;
     align-items: center;
-    margin-bottom: 10px;
+    justify-content: space-between;
+    padding-top: 4px;
 }
 
-.tool-batch-rename .limit-info-text {
+.tool-batch-rename .sub-info-text {
     font-size: 12px;
     color: var(--text-muted);
-    font-weight: 500;
 }
 
-.tool-batch-rename .btn-sort {
-    padding: 6px 12px;
-    font-size: 12px;
-    font-weight: 600;
+.tool-batch-rename .btn-sort-name {
     background: #ffffff;
     border: 1px solid var(--border-color);
     border-radius: var(--radius-sm);
+    padding: 6px 14px;
+    font-size: 12px;
+    font-weight: 600;
     color: var(--text-secondary);
     cursor: pointer;
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    transition: all 0.15s;
+    transition: all 0.15s ease;
 }
 
-.tool-batch-rename .btn-sort:hover {
+.tool-batch-rename .btn-sort-name:hover {
     background: var(--bg-muted);
     color: var(--text-primary);
-    border-color: #cbd5e1;
+    border-color: #94a3b8;
 }
 
-/* 6. Before & After 미리보기 테이블 */
-.tool-batch-rename .rename-table-container {
-    width: 100%;
+/* 5. 미리보기 테이블 */
+.tool-batch-rename .rename-table-wrapper {
     border: 1px solid var(--border-color);
     border-radius: var(--radius-md);
     overflow: hidden;
     background: #ffffff;
-    margin-bottom: 24px;
-    max-height: 480px;
-    overflow-y: auto;
 }
 
 .tool-batch-rename .rename-table {
@@ -214,131 +233,136 @@
     text-align: left;
 }
 
-.tool-batch-rename .rename-table thead tr {
+.tool-batch-rename .rename-table thead {
     background: #f8fafc;
-    position: sticky;
-    top: 0;
-    z-index: 2;
+    border-bottom: 1px solid var(--border-color);
 }
 
 .tool-batch-rename .rename-table th {
     padding: 12px 16px;
-    font-size: 12.5px;
+    font-size: 13px;
     font-weight: 700;
     color: var(--text-secondary);
-    border-bottom: 1px solid var(--border-color);
+}
+
+.tool-batch-rename .rename-table tbody tr {
+    border-bottom: 1px solid #f1f5f9;
+    transition: background-color 0.1s ease;
+}
+
+.tool-batch-rename .rename-table tbody tr:last-child {
+    border-bottom: none;
+}
+
+.tool-batch-rename .rename-table tbody tr:hover:not(.empty-row) {
+    background-color: #fafafa;
 }
 
 .tool-batch-rename .rename-table td {
     padding: 12px 16px;
     font-size: 13px;
-    border-bottom: 1px solid #f1f5f9;
+    color: var(--text-primary);
     vertical-align: middle;
 }
 
-.tool-batch-rename .rename-table tbody tr:last-child td {
-    border-bottom: none;
-}
-
-.tool-batch-rename .rename-table tbody tr:hover {
-    background: #fbfbfe;
-}
-
-.tool-batch-rename .col-orig-name {
-    width: 45%;
+.tool-batch-rename .orig-name-text {
+    font-family: 'Inter', 'Pretendard', sans-serif;
     color: var(--text-primary);
-    font-family: monospace, Pretendard, sans-serif;
+    font-weight: 500;
     word-break: break-all;
 }
 
-.tool-batch-rename .col-new-name {
-    width: 35%;
+.tool-batch-rename .renamed-text {
+    font-family: 'Inter', 'Pretendard', sans-serif;
     color: #6d28d9;
     font-weight: 700;
-    font-family: monospace, Pretendard, sans-serif;
     word-break: break-all;
 }
 
-.tool-batch-rename .col-actions {
-    width: 20%;
-    text-align: right;
-    white-space: nowrap;
+.tool-batch-rename .empty-row td {
+    padding: 32px 16px;
+    text-align: center;
+    color: var(--text-muted);
+    font-size: 13px;
 }
 
+/* 순서 및 삭제 버튼 그룹 */
 .tool-batch-rename .row-action-group {
-    display: inline-flex;
+    display: flex;
     align-items: center;
+    justify-content: flex-end;
     gap: 4px;
 }
 
 .tool-batch-rename .btn-row-action {
+    background: #ffffff;
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-sm);
     padding: 4px 8px;
     font-size: 11.5px;
     font-weight: 600;
     color: var(--text-secondary);
-    background: #ffffff;
-    border: 1px solid var(--border-color);
-    border-radius: var(--radius-sm);
     cursor: pointer;
-    transition: all 0.15s;
+    transition: all 0.15s ease;
     user-select: none;
 }
 
-.tool-batch-rename .btn-row-action:hover {
+.tool-batch-rename .btn-row-action:hover:not(:disabled) {
     background: var(--bg-muted);
     color: var(--text-primary);
+    border-color: #94a3b8;
 }
 
-.tool-batch-rename .btn-row-action.btn-del:hover {
+.tool-batch-rename .btn-row-action:disabled {
+    opacity: 0.35;
+    cursor: not-allowed;
+}
+
+.tool-batch-rename .btn-row-action.delete-action:hover {
     background: #fee2e2;
     color: #ef4444;
     border-color: #fca5a5;
 }
 
-.tool-batch-rename .empty-table-cell {
-    padding: 28px 16px;
-    text-align: left;
-    color: var(--text-muted);
-    font-size: 13px;
-}
-
-/* 7. 하단 ZIP 저장 버튼 및 안내 */
+/* 6. 하단 저장 액션 바 */
 .tool-batch-rename .rename-bottom-action-bar {
     display: flex;
     align-items: center;
-    gap: 14px;
+    gap: 16px;
+    margin-top: 8px;
     flex-wrap: wrap;
 }
 
 .tool-batch-rename .btn-zip-save {
-    padding: 13px 26px;
-    font-size: 14.5px;
-    font-weight: 800;
-    background-color: #8b5cf6;
+    background-color: #6d28d9;
     color: #ffffff;
     border: none;
     border-radius: var(--radius-md);
+    padding: 12px 24px;
+    font-size: 14.5px;
+    font-weight: 800;
     cursor: pointer;
     display: inline-flex;
     align-items: center;
     gap: 8px;
-    box-shadow: 0 4px 12px rgba(139, 92, 246, 0.3);
-    transition: all 0.2s ease;
+    transition: all 0.15s ease;
+    box-shadow: 0 4px 12px rgba(109, 40, 217, 0.25);
 }
 
 .tool-batch-rename .btn-zip-save:hover:not(:disabled) {
-    background-color: #7c3aed;
+    background-color: #5b21b6;
     transform: translateY(-1px);
-    box-shadow: 0 6px 16px rgba(139, 92, 246, 0.4);
+    box-shadow: 0 6px 16px rgba(109, 40, 217, 0.35);
 }
 
 .tool-batch-rename .btn-zip-save:disabled {
-    opacity: 0.5;
+    background-color: #c4b5fd;
     cursor: not-allowed;
     box-shadow: none;
+    transform: none;
 }
 
-.tool-batch-rename .zip-notice-msg {
+.tool-batch-rename .action-notice-msg {
     font-size: 12.5px;
     color: var(--text-muted);
 }
