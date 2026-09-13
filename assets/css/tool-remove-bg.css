@@ -12,12 +12,81 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    gap: 12px;
+}
+
+/* 캔버스 상단 플로팅 툴바 */
+.tool-remove-bg .canvas-floating-toolbar {
+    display: flex;
+    align-items: center;
+    background: #ffffff;
+    border: 1px solid var(--border-color);
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
+    border-radius: var(--radius-md);
+    padding: 4px 8px;
+    gap: 6px;
+    z-index: 5;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.tool-remove-bg .canvas-tool-group {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.tool-remove-bg .canvas-tool-divider {
+    width: 1px;
+    height: 20px;
+    background-color: var(--border-color);
+    margin: 0 4px;
+}
+
+.tool-remove-bg .tool-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 12px;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text-secondary);
+    background: transparent;
+    border: 1px solid transparent;
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    transition: all 0.15s ease;
+    user-select: none;
+}
+
+.tool-remove-bg .tool-btn svg {
+    width: 16px;
+    height: 16px;
+}
+
+.tool-remove-bg .tool-btn:hover:not(:disabled) {
+    background-color: var(--bg-muted);
+    color: var(--text-primary);
+}
+
+.tool-remove-bg .tool-btn.active {
+    background-color: #ede9fe;
+    color: #7c3aed;
+    border-color: #c4b5fd;
+    font-weight: 700;
+}
+
+.tool-remove-bg .tool-btn:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
 }
 
 /* 체커보드 (투명 격자 배경) 캔버스 래퍼 */
 .tool-remove-bg .remove-bg-canvas-wrapper {
     max-width: 100%;
-    max-height: 520px;
+    width: 100%;
+    min-height: 380px;
+    max-height: 560px;
     overflow: auto;
     background-color: #ffffff;
     background-image: 
@@ -32,8 +101,9 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.1);
+    box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.08);
     position: relative;
+    cursor: default;
 }
 
 .tool-remove-bg #remove-bg-canvas {
@@ -43,6 +113,28 @@
     box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
     user-select: none;
     border-radius: 4px;
+    background-color: transparent;
+}
+
+/* 브러시 크기 원형 커서 가이드 */
+.tool-remove-bg .brush-cursor {
+    position: absolute;
+    border-radius: 50%;
+    pointer-events: none;
+    transform: translate(-50%, -50%);
+    box-sizing: border-box;
+    z-index: 20;
+    transition: width 0.05s, height 0.05s;
+}
+
+.tool-remove-bg .brush-cursor.erase {
+    border: 2px dashed #ef4444;
+    background: rgba(239, 68, 68, 0.15);
+}
+
+.tool-remove-bg .brush-cursor.restore {
+    border: 2px dashed #10b981;
+    background: rgba(16, 185, 129, 0.15);
 }
 
 /* 로딩 스피너 오버레이 */
@@ -60,7 +152,7 @@
     justify-content: center;
     color: #ffffff;
     border-radius: var(--radius-md);
-    z-index: 10;
+    z-index: 30;
 }
 
 .tool-remove-bg .ai-loading-spinner {
@@ -87,7 +179,7 @@
 /* 사이드바 대형 [자동 배경 제거] 버튼 */
 .tool-remove-bg .btn-auto-remove {
     width: 100%;
-    padding: 14px;
+    padding: 13px;
     background-color: #8b5cf6;
     color: #ffffff;
     font-size: 15px;
@@ -103,7 +195,7 @@
     transition: all 0.2s;
 }
 
-.tool-remove-bg .btn-auto-remove:hover {
+.tool-remove-bg .btn-auto-remove:hover:not(:disabled) {
     background-color: #7c3aed;
     transform: translateY(-1px);
     box-shadow: 0 6px 16px rgba(139, 92, 246, 0.4);
@@ -123,15 +215,37 @@
     margin-top: 6px;
 }
 
+/* 슬라이더 라벨 및 수치 배지 행 */
+.tool-remove-bg .setting-label-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 6px;
+}
+
+.tool-remove-bg .setting-label-row .setting-label {
+    margin-bottom: 0;
+}
+
+.tool-remove-bg .range-val-badge {
+    font-size: 11.5px;
+    font-weight: 700;
+    color: #7c3aed;
+    background: #ede9fe;
+    padding: 2px 8px;
+    border-radius: 12px;
+}
+
 /* 배경 색상 선택 박스 */
 .tool-remove-bg .color-select-box {
     display: flex;
     align-items: center;
-    gap: 8px;
+    gap: 10px;
     padding: 6px 10px;
     border: 1px solid var(--border-color);
     border-radius: var(--radius-md);
     background: #ffffff;
+    margin-bottom: 8px;
 }
 
 .tool-remove-bg .color-select-box input[type="color"] {
@@ -147,7 +261,33 @@
 .tool-remove-bg .color-select-box span {
     font-size: 13px;
     color: var(--text-secondary);
-    font-weight: 500;
+    font-weight: 600;
+}
+
+/* 추천 컬러 칩 팔레트 */
+.tool-remove-bg .color-preset-chips {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    flex-wrap: wrap;
+}
+
+.tool-remove-bg .color-chip {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    border: 1px solid rgba(0, 0, 0, 0.15);
+    cursor: pointer;
+    transition: transform 0.15s, box-shadow 0.15s;
+    outline: none;
+}
+
+.tool-remove-bg .color-chip:hover {
+    transform: scale(1.15);
+}
+
+.tool-remove-bg .color-chip.active {
+    box-shadow: 0 0 0 2px #ffffff, 0 0 0 4px #7c3aed;
 }
 
 /* 배경 사진 선택 커스텀 파일 버튼 */
@@ -192,7 +332,16 @@
     border-radius: var(--radius-md);
     color: var(--text-secondary);
     cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
     transition: background 0.15s;
+}
+
+.tool-remove-bg .btn-reset-brush svg {
+    width: 15px;
+    height: 15px;
 }
 
 .tool-remove-bg .btn-reset-brush:hover {

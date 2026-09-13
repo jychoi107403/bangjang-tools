@@ -208,8 +208,43 @@
 
                     <!-- 캔버스 작업대 (사진 로드 시 노출) -->
                     <div class="remove-bg-workspace" id="remove-bg-workspace" style="display: none;">
-                        <div class="remove-bg-canvas-wrapper">
+                        <!-- 캔버스 상단 조작 툴바 -->
+                        <div class="canvas-floating-toolbar">
+                            <div class="canvas-tool-group">
+                                <button class="tool-btn active" id="tool-mode-preview" title="미리보기 / 이동">
+                                    <i data-lucide="mouse-pointer"></i>
+                                    <span>미리보기</span>
+                                </button>
+                                <button class="tool-btn" id="tool-mode-erase" title="지우개 (불필요한 배경/텍스트 지우기)">
+                                    <i data-lucide="eraser"></i>
+                                    <span>지우개</span>
+                                </button>
+                                <button class="tool-btn" id="tool-mode-restore" title="복원 브러시 (지워진 피사체 살리기)">
+                                    <i data-lucide="brush"></i>
+                                    <span>복원</span>
+                                </button>
+                                <button class="tool-btn" id="tool-mode-magic" title="마법봉 (클릭한 색상 영역 일괄 제거)">
+                                    <i data-lucide="wand-sparkles"></i>
+                                    <span>마법봉</span>
+                                </button>
+                            </div>
+                            <div class="canvas-tool-divider"></div>
+                            <div class="canvas-tool-group">
+                                <button class="tool-btn" id="btn-brush-undo" title="실행 취소 (Ctrl+Z)" disabled>
+                                    <i data-lucide="undo-2"></i>
+                                    <span>실행취소</span>
+                                </button>
+                                <button class="tool-btn" id="btn-brush-reset-view" title="원본과 비교하기 (누르고 있기)">
+                                    <i data-lucide="eye"></i>
+                                    <span>원본비교</span>
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="remove-bg-canvas-wrapper" id="canvas-wrapper">
                             <canvas id="remove-bg-canvas"></canvas>
+                            <!-- 브러시 크기 원형 인디케이터 커서 -->
+                            <div id="brush-cursor" class="brush-cursor" style="display: none;"></div>
 
                             <!-- AI 로딩 오버레이 -->
                             <div class="ai-loading-overlay" id="ai-loading-overlay" style="display: none;">
@@ -235,7 +270,7 @@
                         <li><strong>Win+Shift+S</strong>로 캡처한 뒤 이 화면에서 <strong>Ctrl+V</strong>로 붙여넣으세요. 파일 선택·끌어놓기도 가능합니다.</li>
                         <li>우측의 <strong>[자동 배경 제거]</strong> 버튼을 누르면 인물/사물의 배경이 순식간에 투명하게 제거됩니다.</li>
                         <li><strong>새 배경</strong>에서 단색, 그라데이션, 또는 다른 배경 사진을 선택하여 손쉽게 합성할 수 있습니다.</li>
-                        <li>경계가 어색하다면 <strong>수동 보정(지우개/복원 브러시)</strong>으로 캔버스를 문질러 정밀하게 다듬은 후 [완성 이미지 저장]을 누르세요.</li>
+                        <li>남은 텍스트나 테두리가 있다면 상단의 <strong>[지우개]</strong>로 문지르고, 실수로 지워진 피사체는 <strong>[복원]</strong> 브러시로 살려낸 후 [완성 이미지 저장]을 누르세요.</li>
                     </ol>
                     <p class="guide-footnote">
                         횟수 제한 없이 무료로 사용할 수 있습니다. 복잡한 배경 사진은 기기 성능에 따라 처리 시간이 약간 길어질 수 있습니다.
@@ -258,7 +293,7 @@
                         <span>자동 배경 제거</span>
                     </button>
                     <p class="engine-tip-text">
-                        첫 실행에 엔진 약 16MB를 받습니다. 사진은 기기에서 처리합니다.
+                        외곽 및 연결된 배경 영역을 스마트하게 감지하여 투명하게 제거합니다.
                     </p>
                 </div>
 
@@ -266,24 +301,48 @@
                 <div class="setting-group">
                     <label class="setting-label">새 배경</label>
                     <select id="select-new-bg" class="form-select">
-                        <option value="transparent" selected>투명</option>
+                        <option value="transparent" selected>투명 (체커보드)</option>
                         <option value="color">단색 배경</option>
                         <option value="gradient">그라데이션 배경</option>
                         <option value="image">다른 사진으로 교체</option>
                     </select>
                 </div>
 
-                <!-- 3. 배경 색상 -->
-                <div class="setting-group">
+                <!-- 3. 단색 배경 설정 (단색 선택 시 활성화) -->
+                <div class="setting-group" id="group-bg-color" style="display: none;">
                     <label class="setting-label">배경 색상</label>
                     <div class="color-select-box">
                         <input type="color" id="input-bg-color" value="#ffffff">
-                        <span>색상 선택</span>
+                        <span id="label-color-val">#FFFFFF (흰색)</span>
+                    </div>
+                    <!-- 추천 실무 컬러 팔레트 칩 -->
+                    <div class="color-preset-chips">
+                        <button class="color-chip active" style="background-color: #ffffff; border: 1px solid #cbd5e1;" data-color="#ffffff" title="화이트"></button>
+                        <button class="color-chip" style="background-color: #000000;" data-color="#000000" title="블랙"></button>
+                        <button class="color-chip" style="background-color: #1e40af;" data-color="#1e40af" title="증명사진 파랑"></button>
+                        <button class="color-chip" style="background-color: #0f172a;" data-color="#0f172a" title="다크 네이비"></button>
+                        <button class="color-chip" style="background-color: #f1f5f9;" data-color="#f1f5f9" title="연회색"></button>
+                        <button class="color-chip" style="background-color: #fce7f3;" data-color="#fce7f3" title="파스텔 핑크"></button>
+                        <button class="color-chip" style="background-color: #fef9c3;" data-color="#fef9c3" title="파스텔 옐로우"></button>
+                        <button class="color-chip" style="background-color: #dcfce7;" data-color="#dcfce7" title="파스텔 민트"></button>
                     </div>
                 </div>
 
-                <!-- 4. 배경 사진 선택 -->
-                <div class="setting-group">
+                <!-- 4. 그라데이션 프리셋 (그라데이션 선택 시 활성화) -->
+                <div class="setting-group" id="group-bg-gradient" style="display: none;">
+                    <label class="setting-label">그라데이션 스타일</label>
+                    <select id="select-gradient-preset" class="form-select">
+                        <option value="studio-light" selected>스튜디오 라이트 (라이트 그레이)</option>
+                        <option value="studio-dark">스튜디오 다크 (슬레이트 블랙)</option>
+                        <option value="sunset">선셋 (오렌지 핑크)</option>
+                        <option value="ocean">오션 (에메랄드 블루)</option>
+                        <option value="neon-purple">퍼플 글로우 (바이올렛)</option>
+                        <option value="soft-warm">소프트 웜 (아이보리 베이지)</option>
+                    </select>
+                </div>
+
+                <!-- 5. 배경 사진 선택 (다른 사진 선택 시 활성화) -->
+                <div class="setting-group" id="group-bg-image" style="display: none;">
                     <label class="setting-label">배경 사진 선택</label>
                     <div class="bg-image-upload-row">
                         <label class="btn-file-select">
@@ -294,41 +353,41 @@
                     </div>
                 </div>
 
-                <!-- 5. 제거 범위 슬라이더 -->
+                <!-- 6. 제거 범위 슬라이더 -->
                 <div class="setting-group">
-                    <label class="setting-label">제거 범위</label>
+                    <div class="setting-label-row">
+                        <label class="setting-label" for="range-threshold">제거 범위 (민감도)</label>
+                        <span class="range-val-badge" id="badge-threshold">30</span>
+                    </div>
                     <input type="range" id="range-threshold" class="form-range" min="5" max="80" value="30">
                 </div>
 
-                <!-- 6. 경계 부드러움 슬라이더 -->
+                <!-- 7. 경계 부드러움 슬라이더 -->
                 <div class="setting-group">
-                    <label class="setting-label">경계 부드러움</label>
+                    <div class="setting-label-row">
+                        <label class="setting-label" for="range-feather">경계 부드러움</label>
+                        <span class="range-val-badge" id="badge-feather">2px</span>
+                    </div>
                     <input type="range" id="range-feather" class="form-range" min="0" max="8" value="2">
                     <p class="engine-tip-text">
-                        범위·부드러움 변경 시 수동 보정은 초기화됩니다.
+                        범위·부드러움 변경 시 실시간으로 외곽선이 재계산됩니다.
                     </p>
-                </div>
-
-                <!-- 7. 수동 보정 모드 -->
-                <div class="setting-group">
-                    <label class="setting-label">수동 보정</label>
-                    <select id="select-manual-mode" class="form-select">
-                        <option value="preview" selected>미리보기 (이동)</option>
-                        <option value="erase">지우개 브러시 (배경 지우기)</option>
-                        <option value="restore">복원 브러시 (피사체 살리기)</option>
-                    </select>
                 </div>
 
                 <!-- 8. 브러시 크기 -->
                 <div class="setting-group">
-                    <label class="setting-label">브러시 크기</label>
-                    <input type="range" id="range-brush-size" class="form-range" min="5" max="80" value="25">
+                    <div class="setting-label-row">
+                        <label class="setting-label" for="range-brush-size">수동 브러시 크기</label>
+                        <span class="range-val-badge" id="badge-brush-size">25px</span>
+                    </div>
+                    <input type="range" id="range-brush-size" class="form-range" min="5" max="100" value="25">
                 </div>
 
                 <!-- 9. 보정 초기화 버튼 -->
                 <div class="setting-group">
                     <button class="btn-reset-brush" id="btn-reset-brush">
-                        보정 초기화
+                        <i data-lucide="rotate-ccw"></i>
+                        <span>원본 상태로 복원</span>
                     </button>
                 </div>
 
@@ -336,7 +395,7 @@
                 <div class="setting-group">
                     <label class="checkbox-label">
                         <input type="checkbox" id="chk-show-original">
-                        <span>원본 보기</span>
+                        <span>원본 보기 (체크 시 원본 노출)</span>
                     </label>
                 </div>
 
@@ -344,9 +403,9 @@
                 <div class="setting-group">
                     <label class="setting-label">저장 형식</label>
                     <select id="select-save-format" class="form-select">
-                        <option value="png" selected>PNG · 투명 지원</option>
-                        <option value="jpeg">JPG (배경 흰색)</option>
-                        <option value="webp">WebP (고효율)</option>
+                        <option value="png" selected>PNG (투명 배경 지원 · 권장)</option>
+                        <option value="jpeg">JPG (배경 흰색 저장)</option>
+                        <option value="webp">WebP (고효율 압축)</option>
                     </select>
                 </div>
             </div>
