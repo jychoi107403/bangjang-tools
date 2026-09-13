@@ -273,7 +273,7 @@
                     <ol class="guide-steps">
                         <li><strong>Win+Shift+S</strong>로 캡처한 뒤 이 화면에서 <strong>Ctrl+V</strong>로 붙여넣으세요. 파일 선택·끌어놓기도 가능합니다.</li>
                         <li>사진을 <strong>클릭</strong>하면 하단에서 바로 회전·반전을 편집할 수 있으며, <strong>더블클릭</strong>하면 대화면 정밀 편집창이 열립니다.</li>
-                        <li>오른쪽 설정에서 [개별 파일 순차 다운로드] 또는 [ZIP 압축]을 고르고 [이미지 저장]을 누르면 깔끔하게 저장됩니다.</li>
+                        <li>오른쪽 설정에서 세로 크기 맞춤, 밝기, 워터마크를 지정한 뒤 [이미지 저장]을 누르면 깔끔하게 일괄 저장됩니다.</li>
                     </ol>
                     <p class="guide-footnote">
                         횟수 제한 없이 무료로 사용할 수 있습니다. 긴 영상이나 고해상도 사진은 기기 성능에 따라 처리 시간이 길어질 수 있습니다.
@@ -283,46 +283,179 @@
         </main>
 
         <!-- ========================================================
-             3. 우측 설정 사이드바 ([이미지 편집] 옵션)
+             3. 우측 [이미지 설정] 사이드바 (스크린샷 100% 일치)
              ======================================================== -->
         <aside class="settings-sidebar">
-            <h2 class="settings-header">저장 설정</h2>
+            <h2 class="settings-header">이미지 설정</h2>
 
             <div class="settings-scroll-area">
-                <div class="setting-group">
-                    <label class="setting-label">결합 방식</label>
-                    <div class="segmented-control">
-                        <button class="segment-btn active" data-merge="none">개별 유지</button>
-                        <button class="segment-btn" data-merge="vertical">세로로 이어붙이기</button>
+                <!-- 1. 세로 크기 맞춤 박스 -->
+                <div class="height-fit-box">
+                    <label class="checkbox-label">
+                        <input type="checkbox" id="chk-height-fit">
+                        <span>세로 크기 맞춤 · 전체 사진</span>
+                    </label>
+                    <div class="setting-group">
+                        <label class="setting-sublabel">맞춤 세로 · px</label>
+                        <input type="number" id="input-height-fit" class="form-input" value="800" min="50" max="4096">
                     </div>
-                    <div class="setting-desc" id="merge-desc">
-                        각 이미지를 회전·모자이크 등 개별 편집한 뒤 개별 파일로 각각 다운로드합니다.
+                    <div class="height-fit-subtext" id="height-fit-subtext">
+                        크기 변경 없음 · 사진별 편집 크기 유지
+                    </div>
+                </div>
+
+                <div class="setting-desc">
+                    체크하면 모든 사진의 세로를 맞추고, 가로는 각 사진의 비율에 맞춰 자동 조절합니다. 해제하면 개별 편집 크기로 저장합니다. 자르기·회전·크기 변경은 사진을 더블클릭하세요.
+                </div>
+
+                <!-- 2. 밝기 · % -->
+                <div class="setting-group">
+                    <label class="setting-label">밝기 · %</label>
+                    <input type="range" id="range-global-brightness" class="form-range" min="50" max="150" value="100">
+                </div>
+
+                <!-- 3. 테두리 · px -->
+                <div class="setting-group">
+                    <label class="setting-label">테두리 · px</label>
+                    <input type="number" id="input-border-px" class="form-input" value="0" min="0" max="100">
+                </div>
+
+                <!-- 4. 테두리 색 -->
+                <div class="setting-group">
+                    <label class="setting-label">테두리 색</label>
+                    <div class="color-picker-box">
+                        <input type="color" id="input-border-color" value="#000000">
+                        <span>색상 선택</span>
+                    </div>
+                </div>
+
+                <!-- 5. 워터마크 설정 -->
+                <div class="setting-group">
+                    <label class="setting-label">워터마크</label>
+                    <label class="checkbox-label mt-1">
+                        <input type="checkbox" id="chk-watermark">
+                        <span>워터마크 적용</span>
+                    </label>
+                </div>
+
+                <div class="setting-group">
+                    <label class="setting-label">종류</label>
+                    <select id="select-wm-type" class="form-select">
+                        <option value="image" selected>이미지 파일</option>
+                        <option value="text">텍스트</option>
+                    </select>
+                </div>
+
+                <div class="setting-group">
+                    <label class="setting-label">워터마크 파일</label>
+                    <div class="watermark-file-row">
+                        <span class="watermark-file-display" id="wm-file-name-label">선택된 파일 없음</span>
+                        <label class="btn-file-search">
+                            <span>찾기</span>
+                            <input type="file" id="wm-file-input" accept="image/*" style="display: none;">
+                        </label>
+                    </div>
+                    <div class="setting-desc mt-1">
+                        PNG · JPG · WebP · 25MB 이하. 투명 PNG는 배경 없이 합성됩니다.
                     </div>
                 </div>
 
                 <div class="setting-group">
-                    <label class="setting-label">다운로드 방식</label>
-                    <div class="segmented-control">
-                        <button class="segment-btn active" data-download-mode="individual">개별 파일 순차 다운로드</button>
-                        <button class="segment-btn" data-download-mode="zip">ZIP 압축</button>
+                    <label class="setting-label">로고 너비 · 출력 px</label>
+                    <input type="number" id="input-wm-width" class="form-input" value="300" min="10" max="2000">
+                </div>
+
+                <div class="setting-group">
+                    <button class="btn-delete-logo" id="btn-delete-logo">
+                        로고 삭제
+                    </button>
+                </div>
+
+                <!-- 위치 9방향 -->
+                <div class="setting-group">
+                    <label class="setting-label">위치</label>
+                    <select id="select-wm-position" class="form-select">
+                        <option value="top-left">왼쪽 위</option>
+                        <option value="top-center">가운데 위</option>
+                        <option value="top-right">오른쪽 위</option>
+                        <option value="center-left">왼쪽 가운데</option>
+                        <option value="center">정가운데</option>
+                        <option value="center-right">오른쪽 가운데</option>
+                        <option value="bottom-left">왼쪽 아래</option>
+                        <option value="bottom-center">가운데 아래</option>
+                        <option value="bottom-right" selected>오른쪽 아래</option>
+                    </select>
+
+                    <div class="wm-pos-grid">
+                        <button class="wm-pos-btn" data-pos="top-left">
+                            <span class="pos-icon">↖</span>
+                            <span>왼쪽 위</span>
+                        </button>
+                        <button class="wm-pos-btn" data-pos="top-center">
+                            <span class="pos-icon">↑</span>
+                            <span>가운데 위</span>
+                        </button>
+                        <button class="wm-pos-btn" data-pos="top-right">
+                            <span class="pos-icon">↗</span>
+                            <span>오른쪽 위</span>
+                        </button>
+                        <button class="wm-pos-btn" data-pos="center-left">
+                            <span class="pos-icon">←</span>
+                            <span>왼쪽 가운데</span>
+                        </button>
+                        <button class="wm-pos-btn" data-pos="center">
+                            <span class="pos-icon">●</span>
+                            <span>정가운데</span>
+                        </button>
+                        <button class="wm-pos-btn" data-pos="center-right">
+                            <span class="pos-icon">→</span>
+                            <span>오른쪽 가운데</span>
+                        </button>
+                        <button class="wm-pos-btn" data-pos="bottom-left">
+                            <span class="pos-icon">↙</span>
+                            <span>왼쪽 아래</span>
+                        </button>
+                        <button class="wm-pos-btn" data-pos="bottom-center">
+                            <span class="pos-icon">↓</span>
+                            <span>가운데 아래</span>
+                        </button>
+                        <button class="wm-pos-btn active" data-pos="bottom-right">
+                            <span class="pos-icon">↘</span>
+                            <span>오른쪽 아래</span>
+                        </button>
                     </div>
                 </div>
 
                 <div class="setting-group">
-                    <div class="form-row">
-                        <div class="form-col">
-                            <label class="setting-label">파일 형식</label>
-                            <select id="select-format" class="form-select">
-                                <option value="png" selected>PNG (권장)</option>
-                                <option value="jpeg">JPG</option>
-                                <option value="webp">WebP</option>
-                            </select>
-                        </div>
-                        <div class="form-col">
-                            <label class="setting-label">파일명 접두사</label>
-                            <input type="text" id="input-prefix" class="form-input" value="방장_이미지">
-                        </div>
+                    <label class="setting-label">농도 · %</label>
+                    <input type="number" id="input-wm-opacity" class="form-input" value="70" min="0" max="100">
+                </div>
+
+                <div class="setting-group">
+                    <label class="setting-label">여백 · 출력 px</label>
+                    <input type="number" id="input-wm-margin" class="form-input" value="30" min="0" max="500">
+                </div>
+
+                <!-- 6. 저장 형식 & JPG 품질 -->
+                <div class="setting-group">
+                    <label class="setting-label">저장 형식</label>
+                    <select id="select-save-format" class="form-select">
+                        <option value="jpeg" selected>JPG</option>
+                        <option value="png">PNG</option>
+                        <option value="webp">WebP</option>
+                    </select>
+                </div>
+
+                <div class="setting-group">
+                    <div class="slider-label-row">
+                        <label class="setting-label">JPG 품질 · %</label>
+                        <span id="val-jpg-quality" style="font-size: 12px; font-weight: 600; color: var(--primary-color);">90%</span>
                     </div>
+                    <input type="range" id="range-jpg-quality" class="form-range" min="30" max="100" value="90">
+                </div>
+
+                <div class="setting-desc mt-2">
+                    개별 편집 후 세로 맞춤을 적용합니다. 세로 맞춤 결과는 가로·세로 최대 4096px입니다. JPG의 투명 배경은 흰색으로 저장합니다.
                 </div>
             </div>
         </aside>
