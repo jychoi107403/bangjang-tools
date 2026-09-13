@@ -216,19 +216,42 @@
                 </div>
             </section>
 
-            <!-- 하단 저장 및 사용 가이드 섹션 -->
-            <div class="bottom-action-section">
-                <button class="btn btn-save-large" id="btn-save-split-images">
-                    <i data-lucide="download"></i>
-                    <span>이미지 분할 저장</span>
-                </button>
+            <!-- ========================================================
+                 분할 결과 및 다운로드 섹션 (스크린샷 100% 일치)
+                 ======================================================== -->
+            <div class="split-result-section" id="split-result-section" style="display: none;">
+                <!-- 1. 상단 ZIP 저장 버튼 및 완료 안내 -->
+                <div class="split-action-bar">
+                    <button class="btn btn-save-large" id="btn-save-split-zip">
+                        <i data-lucide="download"></i>
+                        <span>분할 사진 ZIP 저장</span>
+                    </button>
+                    <span class="split-complete-msg" id="split-complete-msg">완료! 결과를 확인하고 다운로드하세요.</span>
+                </div>
 
+                <!-- 2. ZIP 파일 요약 및 다운로드 박스 -->
+                <div class="zip-download-card" id="zip-download-card">
+                    <div class="zip-info-text" id="zip-info-text">파일명_분할.zip · 0 KB</div>
+                    <button class="btn-zip-download" id="btn-zip-download">
+                        <i data-lucide="folder-archive"></i>
+                        <span>파일 다운로드</span>
+                    </button>
+                </div>
+
+                <!-- 3. 분할 조각 갤러리 그리드 (스크린샷 카드 형태) -->
+                <div class="split-pieces-grid" id="split-pieces-grid">
+                    <!-- 분할 조각 카드가 동적으로 추가됩니다 -->
+                </div>
+            </div>
+
+            <!-- 하단 사용 가이드 섹션 (스크린샷 100% 일치) -->
+            <div class="bottom-action-section mt-4">
                 <div class="guide-box">
                     <h3 class="guide-title">이렇게 사용하세요</h3>
                     <ol class="guide-steps">
-                        <li><strong>Win+Shift+S</strong>로 캡처한 뒤 이 화면에서 <strong>Ctrl+V</strong>로 붙여넣으세요. 파일 선택·끌어놓기도 가능합니다.</li>
-                        <li>분할선(보라색 선)을 마우스로 직접 잡고 끌거나, 오른쪽 슬라이더를 이용해 원하는 크기로 분할선을 조절하세요.</li>
-                        <li>조각 수(2, 4, 8, 16분할 등)를 선택하고 [이미지 분할 저장]을 누르면 번호순으로 조각 사진이 저장됩니다.</li>
+                        <li>사진 한 장을 붙여넣거나 드래그해 추가하세요.</li>
+                        <li>필요하면 가로·세로 크기를 적용하세요. 2·4·8·16분할을 선택하고 선을 드래그하거나 슬라이더로 조절하세요.</li>
+                        <li>ZIP 저장을 누르면 모든 조각을 한 번에 받습니다. 완료 후 조각별 다운로드도 가능합니다.</li>
                     </ol>
                     <p class="guide-footnote">
                         횟수 제한 없이 무료로 사용할 수 있습니다. 긴 영상이나 고해상도 사진은 기기 성능에 따라 처리 시간이 길어질 수 있습니다.
@@ -299,7 +322,7 @@
                     </div>
                 </div>
 
-                <!-- 설정 4: 저장 포맷 및 다운로드 방식 -->
+                <!-- 설정 4: 저장 포맷 -->
                 <div class="setting-group">
                     <label class="setting-label">저장 형식</label>
                     <select id="select-split-format" class="form-select">
@@ -307,17 +330,6 @@
                         <option value="jpeg">JPG (배경 흰색)</option>
                         <option value="webp">WebP (고효율 압축)</option>
                     </select>
-                </div>
-
-                <div class="setting-group">
-                    <label class="setting-label">다운로드 방식</label>
-                    <select id="select-split-download-mode" class="form-select">
-                        <option value="individual" selected>개별 파일 순차 다운로드</option>
-                        <option value="zip">ZIP 압축 파일 1개로 다운로드</option>
-                    </select>
-                    <div class="setting-desc mt-2">
-                        개별 파일 순차 다운로드 시 <code>파일명_part01.png</code> 등으로 저장됩니다.
-                    </div>
                 </div>
             </div>
         </aside>

@@ -2,16 +2,17 @@
  * ============================================================================
  * assets/js/tool-image-split.js - [사진 분할] 전용 독립 ES 모듈
  * ============================================================================
- * [격리 원칙]
- * 1. type="module"로 로드되어 모든 변수와 함수가 이 파일 안에서만 유효합니다 (전역 오염 제로).
- * 2. 공통 유틸리티(downloadBlob, canvasToBlob 등)를 명시적으로 import하여 사용합니다.
- * 3. 4분할 기본, 마우스 드래그 분할선 조절, 슬라이더 동기화, EXIF 제거 순차/ZIP 다운로드를 완벽 지원합니다.
+ * [스크린샷 100% 완벽 대응]
+ * 1. 2·4·8·16분할 및 분할선 마우스 드래그 & 우측 슬라이더 세밀 조절
+ * 2. 분할 조각 실시간 계산 및 하단 카드 갤러리 렌더링 (썸네일 + 'N번 · W × Hpx 다운로드')
+ * 3. [분할 사진 ZIP 저장] & [파일 다운로드]를 통한 ZIP 일괄 다운로드
+ * 4. 각 조각 카드 클릭 시 개별 조각 단독 다운로드 (EXIF 메타데이터 100% 자동 제거)
  */
 
-import { downloadBlob, canvasToBlob, readFileAsDataURL, loadImage } from './utils.js';
+import { downloadBlob, canvasToBlob, readFileAsDataURL, loadImage, formatBytes } from './utils.js';
 
 // ----------------------------------------------------------------------------
-// 모듈 내부 상태 변수 (파일 내부 스코프에 갇혀 완전히 격리됨)
+// 1. 모듈 격리 상태 변수
 // ----------------------------------------------------------------------------
 let currentImage = null; // { name, file, imgElement, naturalWidth, naturalHeight }
 let splitType = '4';     // '2v', '2h', '4', '6', '8', '9', '16'
@@ -19,47 +20,60 @@ let vLines = [];         // [{ x: 500, id: 'v1' }]
 let hLines = [];         // [{ y: 400, id: 'h1' }]
 let targetWidth = 0;
 let targetHeight = 0;
-let exportFormat = 'png';
-let downloadMode = 'individual';
+let exportFormat = 'png'; // 'png' | 'jpeg' | 'webp'
 
-// 마우스 드래그 상태
+// 현재 생성된 분할 조각 배열 [{ index, width, height, canvas }]
+let currentPieces = [];
+let latestZipBlob = null;
+let latestZipFilename = '';
+
+// 마우스 드래그 분할선 조작 상태
 let draggingLine = null;
 let isDragging = false;
 
-// DOM 요소 참조 캐싱
+// DOM 요소 캐시
 let canvas = null;
 let ctx = null;
 let emptyState = null;
 let workspace = null;
 let stateBanner = null;
 let footerInfo = null;
+let resultSection = null;
+let zipInfoText = null;
+let piecesGrid = null;
+
 let inputW = null;
 let inputH = null;
 let chkAspect = null;
 let sliderContainer = null;
-let btnSave = null;
+let btnSaveZip = null;
+let btnZipDownload = null;
 
-/**
- * 모듈 초기화 함수 (DOM이 준비되면 실행)
- */
+// ----------------------------------------------------------------------------
+// 2. 초기화 함수
+// ----------------------------------------------------------------------------
 function init() {
-    // Lucide 아이콘 렌더링
     if (window.lucide) {
         window.lucide.createIcons();
     }
 
-    // DOM 요소 캐싱
+    // DOM 캐싱
     canvas = document.getElementById('split-canvas');
     if (canvas) ctx = canvas.getContext('2d');
     emptyState = document.getElementById('split-empty-state');
     workspace = document.getElementById('split-workspace');
     stateBanner = document.getElementById('split-status-banner');
     footerInfo = document.getElementById('split-footer-info');
+    resultSection = document.getElementById('split-result-section');
+    zipInfoText = document.getElementById('zip-info-text');
+    piecesGrid = document.getElementById('split-pieces-grid');
+
     inputW = document.getElementById('input-split-width');
     inputH = document.getElementById('input-split-height');
     chkAspect = document.getElementById('chk-split-aspect');
     sliderContainer = document.getElementById('split-line-sliders-container');
-    btnSave = document.getElementById('btn-save-split-images');
+    btnSaveZip = document.getElementById('btn-save-split-zip');
+    btnZipDownload = document.getElementById('btn-zip-download');
 
     // 이벤트 리스너 등록
     bindPasteEvents();
@@ -69,9 +83,9 @@ function init() {
     bindSettingsUI();
 }
 
-/**
- * 1. 클립보드 붙여넣기 이벤트 (Win+Shift+S -> Ctrl+V)
- */
+// ----------------------------------------------------------------------------
+// 3. 붙여넣기(Ctrl+V) & 파일 추가 & 드래그앤드롭
+// ----------------------------------------------------------------------------
 function bindPasteEvents() {
     window.addEventListener('paste', async (e) => {
         const items = e.clipboardData ? e.clipboardData.items : null;
@@ -113,9 +127,6 @@ function bindPasteEvents() {
     }
 }
 
-/**
- * 2. 파일 추가 인풋 & 전체 삭제
- */
 function bindFileInputEvents() {
     const fileInput = document.getElementById('split-file-input');
     if (fileInput) {
@@ -134,15 +145,14 @@ function bindFileInputEvents() {
             if (!currentImage) return;
             if (confirm('현재 분할 작업을 초기화하고 사진을 삭제하시겠습니까?')) {
                 currentImage = null;
+                currentPieces = [];
+                latestZipBlob = null;
                 updateUI();
             }
         });
     }
 }
 
-/**
- * 3. 드래그 앤 드롭
- */
 function bindDragAndDrop() {
     const dropZone = document.getElementById('split-drop-zone');
     if (!dropZone) return;
@@ -171,9 +181,7 @@ function bindDragAndDrop() {
     });
 }
 
-/**
- * 이미지 파일 처리 및 초기 분할선 계산
- */
+/** 이미지 파일 로드 */
 async function processImageFile(file, customName = '') {
     try {
         const dataUrl = await readFileAsDataURL(file);
@@ -264,18 +272,20 @@ function calculateEqualSplitLines() {
 }
 
 /**
- * 화면 UI 표시 상태 갱신
+ * UI 상태 갱신 및 분할 조각 실시간 생성
  */
 function updateUI() {
     if (!currentImage) {
         if (emptyState) emptyState.style.display = 'block';
         if (workspace) workspace.style.display = 'none';
+        if (resultSection) resultSection.style.display = 'none';
         if (stateBanner) stateBanner.textContent = '사진을 추가해주세요.';
         return;
     }
 
     if (emptyState) emptyState.style.display = 'none';
     if (workspace) workspace.style.display = 'block';
+    if (resultSection) resultSection.style.display = 'flex';
 
     if (stateBanner) {
         stateBanner.textContent = `원본 ${currentImage.naturalWidth} × ${currentImage.naturalHeight}px → 분할 크기 ${targetWidth} × ${targetHeight}px`;
@@ -292,10 +302,11 @@ function updateUI() {
     }
 
     renderCanvas();
+    generateAndRenderPieces();
 }
 
 /**
- * 캔버스 렌더링 (이미지 + 분할선 + 원형 번호 뱃지 가이드)
+ * 상단 캔버스 렌더링
  */
 function renderCanvas() {
     if (!canvas || !currentImage) return;
@@ -312,7 +323,7 @@ function renderCanvas() {
     ctx.lineWidth = 3;
     ctx.strokeRect(0, 0, canvas.width, canvas.height);
 
-    // 3. 분할선 그리기 (보라색 + 그림자)
+    // 3. 분할선 그리기 (보라색)
     ctx.save();
     ctx.strokeStyle = '#818cf8';
     ctx.lineWidth = 3;
@@ -338,9 +349,6 @@ function renderCanvas() {
     drawPieceBadges();
 }
 
-/**
- * 조각별 우측 상단 번호 뱃지 그리기
- */
 function drawPieceBadges() {
     const xs = [0, ...vLines.map(l => l.x).sort((a,b) => a - b), targetWidth];
     const ys = [0, ...hLines.map(l => l.y).sort((a,b) => a - b), targetHeight];
@@ -384,9 +392,169 @@ function drawPieceBadges() {
     }
 }
 
-/**
- * 캔버스 마우스 드래그 분할선 조절
- */
+// ----------------------------------------------------------------------------
+// 4. 분할 조각 실시간 계산 및 하단 카드 그리드 렌더링 (스크린샷 100% 일치)
+// ----------------------------------------------------------------------------
+async function generateAndRenderPieces() {
+    if (!currentImage || !piecesGrid) return;
+
+    const xs = [0, ...vLines.map(l => l.x).sort((a,b) => a - b), targetWidth];
+    const ys = [0, ...hLines.map(l => l.y).sort((a,b) => a - b), targetHeight];
+
+    currentPieces = [];
+    piecesGrid.innerHTML = '';
+    let pieceIndex = 1;
+
+    for (let row = 0; row < ys.length - 1; row++) {
+        for (let col = 0; col < xs.length - 1; col++) {
+            const x1 = xs[col];
+            const x2 = xs[col + 1];
+            const y1 = ys[row];
+            const y2 = ys[row + 1];
+            const w = Math.round(x2 - x1);
+            const h = Math.round(y2 - y1);
+
+            if (w > 0 && h > 0) {
+                const pieceCanvas = document.createElement('canvas');
+                pieceCanvas.width = w;
+                pieceCanvas.height = h;
+                const pCtx = pieceCanvas.getContext('2d');
+
+                if (exportFormat === 'jpeg') {
+                    pCtx.fillStyle = '#ffffff';
+                    pCtx.fillRect(0, 0, w, h);
+                }
+
+                pCtx.drawImage(
+                    currentImage.imgElement,
+                    (x1 / targetWidth) * currentImage.naturalWidth,
+                    (y1 / targetHeight) * currentImage.naturalHeight,
+                    (w / targetWidth) * currentImage.naturalWidth,
+                    (h / targetHeight) * currentImage.naturalHeight,
+                    0, 0, w, h
+                );
+
+                currentPieces.push({
+                    index: pieceIndex,
+                    width: w,
+                    height: h,
+                    canvas: pieceCanvas
+                });
+
+                // 카드 DOM 생성 (스크린샷 100% 일치 형태)
+                const card = document.createElement('div');
+                card.className = 'split-piece-card';
+                card.innerHTML = `
+                    <div class="piece-thumb-wrap">
+                        <img class="piece-thumb" src="${pieceCanvas.toDataURL('image/jpeg', 0.85)}" alt="${pieceIndex}번 조각">
+                    </div>
+                    <button class="btn-piece-download" data-index="${pieceIndex}">
+                        <span>${pieceIndex}번 · ${w} × ${h}px 다운로드</span>
+                        <i data-lucide="download"></i>
+                    </button>
+                `;
+
+                // 조각별 단독 다운로드 이벤트
+                const btnDownloadPiece = card.querySelector('.btn-piece-download');
+                btnDownloadPiece.addEventListener('click', () => {
+                    downloadSinglePiece(pieceIndex);
+                });
+
+                piecesGrid.appendChild(card);
+                pieceIndex++;
+            }
+        }
+    }
+
+    if (window.lucide) window.lucide.createIcons();
+
+    // ZIP 파일 정보 비동기 계산
+    updateZipFileInfo();
+}
+
+/** 조각 단독 다운로드 */
+async function downloadSinglePiece(idx) {
+    const piece = currentPieces.find(p => p.index === idx);
+    if (!piece || !currentImage) return;
+
+    const format = exportFormat;
+    const mimeType = `image/${format}`;
+    const ext = format === 'jpeg' ? 'jpg' : format;
+    const cleanName = currentImage.name.replace(/\.[^/.]+$/, '');
+    const padNum = String(piece.index).padStart(2, '0');
+    const filename = `${cleanName}_part${padNum}.${ext}`;
+
+    const blob = await canvasToBlob(piece.canvas, mimeType, 0.95);
+    downloadBlob(blob, filename);
+}
+
+/** ZIP 압축 파일 정보 및 용량 계산 */
+async function updateZipFileInfo() {
+    if (!currentImage || currentPieces.length === 0 || !zipInfoText) return;
+
+    try {
+        const cleanName = currentImage.name.replace(/\.[^/.]+$/, '');
+        latestZipFilename = `${cleanName}_분할.zip`;
+
+        if (window.JSZip) {
+            const zip = new JSZip();
+            const format = exportFormat;
+            const mimeType = `image/${format}`;
+            const ext = format === 'jpeg' ? 'jpg' : format;
+
+            for (const piece of currentPieces) {
+                const blob = await canvasToBlob(piece.canvas, mimeType, 0.95);
+                const padNum = String(piece.index).padStart(2, '0');
+                zip.file(`${cleanName}_part${padNum}.${ext}`, blob);
+            }
+
+            latestZipBlob = await zip.generateAsync({ type: 'blob' });
+            const sizeStr = formatBytes(latestZipBlob.size);
+            zipInfoText.textContent = `${latestZipFilename} · ${sizeStr}`;
+        } else {
+            zipInfoText.textContent = `${latestZipFilename}`;
+        }
+    } catch (err) {
+        console.error('ZIP 계산 오류:', err);
+    }
+}
+
+/** ZIP 파일 일괄 다운로드 실행 */
+async function downloadAllZip() {
+    if (!currentImage || currentPieces.length === 0) {
+        alert('분할할 사진을 먼저 추가해주세요.');
+        return;
+    }
+
+    if (btnSaveZip) {
+        btnSaveZip.disabled = true;
+        btnSaveZip.innerHTML = `<i data-lucide="loader" class="spin-icon"></i> <span>ZIP 압축 저장 중...</span>`;
+        if (window.lucide) window.lucide.createIcons();
+    }
+
+    try {
+        if (!latestZipBlob) {
+            await updateZipFileInfo();
+        }
+
+        if (latestZipBlob) {
+            downloadBlob(latestZipBlob, latestZipFilename);
+        }
+    } catch (err) {
+        console.error('ZIP 다운로드 오류:', err);
+        alert('ZIP 다운로드 중 오류가 발생했습니다: ' + err.message);
+    } finally {
+        if (btnSaveZip) {
+            btnSaveZip.disabled = false;
+            btnSaveZip.innerHTML = `<i data-lucide="download"></i> <span>분할 사진 ZIP 저장</span>`;
+            if (window.lucide) window.lucide.createIcons();
+        }
+    }
+}
+
+// ----------------------------------------------------------------------------
+// 5. 마우스 드래그 분할선 조작
+// ----------------------------------------------------------------------------
 function bindCanvasInteraction() {
     if (!canvas) return;
 
@@ -418,6 +586,7 @@ function bindCanvasInteraction() {
             }
             updateLineSliders();
             renderCanvas();
+            generateAndRenderPieces();
             return;
         }
 
@@ -465,9 +634,7 @@ function bindCanvasInteraction() {
     });
 }
 
-/**
- * 우측 분할선 슬라이더 동기화
- */
+/** 우측 슬라이더 갱신 */
 function updateLineSliders() {
     if (!sliderContainer) return;
     sliderContainer.innerHTML = '';
@@ -486,6 +653,7 @@ function updateLineSliders() {
             line.x = parseInt(e.target.value, 10);
             wrap.querySelector('.setting-label').textContent = `세로선 ${i + 1} · X ${Math.round(line.x)}px`;
             renderCanvas();
+            generateAndRenderPieces();
         });
         sliderContainer.appendChild(wrap);
     });
@@ -504,14 +672,15 @@ function updateLineSliders() {
             line.y = parseInt(e.target.value, 10);
             wrap.querySelector('.setting-label').textContent = `가로선 ${i + 1} · Y ${Math.round(line.y)}px`;
             renderCanvas();
+            generateAndRenderPieces();
         });
         sliderContainer.appendChild(wrap);
     });
 }
 
-/**
- * 우측 설정 사이드바 이벤트 연결
- */
+// ----------------------------------------------------------------------------
+// 6. 우측 설정 사이드바 이벤트 바인딩
+// ----------------------------------------------------------------------------
 function bindSettingsUI() {
     // 1. 크기 조절
     const btnApplySize = document.getElementById('btn-apply-split-size');
@@ -594,133 +763,25 @@ function bindSettingsUI() {
         });
     }
 
-    // 4. 저장 설정
+    // 4. 저장 포맷
     const selectFormat = document.getElementById('select-split-format');
     if (selectFormat) {
         selectFormat.addEventListener('change', (e) => {
             exportFormat = e.target.value;
+            generateAndRenderPieces();
         });
     }
 
-    const selectDownload = document.getElementById('select-split-download-mode');
-    if (selectDownload) {
-        selectDownload.addEventListener('change', (e) => {
-            downloadMode = e.target.value;
-        });
+    // 5. ZIP 다운로드 버튼 연결
+    if (btnSaveZip) {
+        btnSaveZip.addEventListener('click', downloadAllZip);
     }
-
-    // 5. 다운로드 실행 버튼
-    if (btnSave) {
-        btnSave.addEventListener('click', () => {
-            exportSplitPieces();
-        });
+    if (btnZipDownload) {
+        btnZipDownload.addEventListener('click', downloadAllZip);
     }
 }
 
-/**
- * 분할 조각 추출 및 다운로드 실행 (순수 유틸리티 downloadBlob, canvasToBlob 활용)
- */
-async function exportSplitPieces() {
-    if (!currentImage) {
-        alert('분할할 사진을 먼저 추가해주세요.');
-        return;
-    }
-
-    const originalHTML = btnSave ? btnSave.innerHTML : '';
-    if (btnSave) {
-        btnSave.disabled = true;
-        btnSave.innerHTML = `<i data-lucide="loader" class="spin-icon"></i> <span>조각 분할 저장 중...</span>`;
-        if (window.lucide) window.lucide.createIcons();
-    }
-
-    try {
-        const xs = [0, ...vLines.map(l => l.x).sort((a,b) => a - b), targetWidth];
-        const ys = [0, ...hLines.map(l => l.y).sort((a,b) => a - b), targetHeight];
-
-        const pieces = [];
-        let pieceIndex = 1;
-
-        for (let row = 0; row < ys.length - 1; row++) {
-            for (let col = 0; col < xs.length - 1; col++) {
-                const x1 = xs[col];
-                const x2 = xs[col + 1];
-                const y1 = ys[row];
-                const y2 = ys[row + 1];
-                const w = x2 - x1;
-                const h = y2 - y1;
-
-                if (w > 0 && h > 0) {
-                    const pieceCanvas = document.createElement('canvas');
-                    pieceCanvas.width = w;
-                    pieceCanvas.height = h;
-                    const pCtx = pieceCanvas.getContext('2d');
-
-                    if (exportFormat === 'jpeg') {
-                        pCtx.fillStyle = '#ffffff';
-                        pCtx.fillRect(0, 0, w, h);
-                    }
-
-                    pCtx.drawImage(
-                        currentImage.imgElement,
-                        (x1 / targetWidth) * currentImage.naturalWidth,
-                        (y1 / targetHeight) * currentImage.naturalHeight,
-                        (w / targetWidth) * currentImage.naturalWidth,
-                        (h / targetHeight) * currentImage.naturalHeight,
-                        0, 0, w, h
-                    );
-
-                    pieces.push({ index: pieceIndex, canvas: pieceCanvas });
-                    pieceIndex++;
-                }
-            }
-        }
-
-        const format = exportFormat;
-        const mimeType = `image/${format}`;
-        const ext = format === 'jpeg' ? 'jpg' : format;
-        const cleanName = (currentImage.name || 'image').replace(/\.[^/.]+$/, '');
-
-        if (downloadMode === 'individual') {
-            for (let i = 0; i < pieces.length; i++) {
-                const p = pieces[i];
-                const blob = await canvasToBlob(p.canvas, mimeType, 0.95);
-                const padNum = String(p.index).padStart(2, '0');
-                const filename = `${cleanName}_part${padNum}.${ext}`;
-
-                downloadBlob(blob, filename);
-
-                if (i < pieces.length - 1) {
-                    await new Promise(r => setTimeout(r, 200));
-                }
-            }
-        } else {
-            if (!window.JSZip) throw new Error('JSZip 라이브러리가 로드되지 않았습니다.');
-            const zip = new JSZip();
-
-            for (let i = 0; i < pieces.length; i++) {
-                const p = pieces[i];
-                const blob = await canvasToBlob(p.canvas, mimeType, 0.95);
-                const padNum = String(p.index).padStart(2, '0');
-                const filename = `${cleanName}_part${padNum}.${ext}`;
-                zip.file(filename, blob);
-            }
-
-            const zipBlob = await zip.generateAsync({ type: 'blob' });
-            const zipFilename = `${cleanName}_split_${pieces.length}pieces.zip`;
-            downloadBlob(zipBlob, zipFilename);
-        }
-
-    } catch (error) {
-        console.error('사진 분할 저장 오류:', error);
-        alert('사진 분할 저장 중 오류가 발생했습니다: ' + error.message);
-    } finally {
-        if (btnSave) {
-            btnSave.disabled = false;
-            btnSave.innerHTML = originalHTML;
-            if (window.lucide) window.lucide.createIcons();
-        }
-    }
-}
-
-// 자동 실행
+// ----------------------------------------------------------------------------
+// 초기화 실행
+// ----------------------------------------------------------------------------
 document.addEventListener('DOMContentLoaded', init);

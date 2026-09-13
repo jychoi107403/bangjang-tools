@@ -16,7 +16,7 @@
 
 .tool-image-split .split-canvas-wrapper {
     max-width: 100%;
-    max-height: 540px;
+    max-height: 520px;
     overflow: auto;
     background: #0f172a;
     border-radius: var(--radius-md);
@@ -80,4 +80,139 @@
     font-size: 12.5px;
     color: var(--text-secondary);
     cursor: pointer;
+}
+
+/* --------------------------------------------------------------------------
+   분할 결과 섹션 (스크린샷 100% 일치)
+   -------------------------------------------------------------------------- */
+.tool-image-split .split-result-section {
+    margin-top: 24px;
+    padding-top: 24px;
+    border-top: 1px solid var(--border-color);
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    animation: fadeIn 0.25s ease-out;
+}
+
+/* 상단 액션 바 */
+.tool-image-split .split-action-bar {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    flex-wrap: wrap;
+}
+
+.tool-image-split .split-complete-msg {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text-secondary);
+}
+
+/* 중간 ZIP 다운로드 카드 */
+.tool-image-split .zip-download-card {
+    background: #f8fafc;
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-lg);
+    padding: 16px 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.tool-image-split .zip-info-text {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--text-primary);
+}
+
+.tool-image-split .btn-zip-download {
+    width: fit-content;
+    padding: 8px 18px;
+    font-size: 13px;
+    font-weight: 700;
+    background: #8b5cf6;
+    color: #ffffff;
+    border: none;
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    transition: all 0.15s;
+}
+
+.tool-image-split .btn-zip-download:hover {
+    background: #7c3aed;
+    transform: translateY(-1px);
+}
+
+/* 분할된 조각 그리드 (스크린샷 4개 카드 형태) */
+.tool-image-split .split-pieces-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
+    gap: 16px;
+    width: 100%;
+}
+
+.tool-image-split .split-piece-card {
+    background: #ffffff;
+    border: 1.5px solid var(--border-color);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    box-shadow: var(--shadow-xs);
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.tool-image-split .split-piece-card:hover {
+    border-color: #8b5cf6;
+    box-shadow: var(--shadow-md);
+    transform: translateY(-2px);
+}
+
+.tool-image-split .piece-thumb-wrap {
+    width: 100%;
+    height: 130px;
+    background: #f8fafc;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    padding: 10px;
+    border-bottom: 1px solid #f1f5f9;
+}
+
+.tool-image-split .piece-thumb {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    border-radius: 2px;
+}
+
+.tool-image-split .btn-piece-download {
+    padding: 10px 12px;
+    font-size: 12px;
+    font-weight: 700;
+    color: #4338ca;
+    background: #ffffff;
+    border: none;
+    cursor: pointer;
+    text-align: left;
+    transition: all 0.15s;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.tool-image-split .btn-piece-download:hover {
+    background: #f5f3ff;
+    color: #6d28d9;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(6px); }
+    to { opacity: 1; transform: translateY(0); }
 }
