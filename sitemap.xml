@@ -1,136 +1,136 @@
-<?xml version="1.0" encoding="UTF-8"?>
+﻿<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
         xmlns:xhtml="http://www.w3.org/1999/xhtml">
     
     <!-- 1. 메인 포털 홈 -->
     <url>
-        <loc>https://bangjang.net/</loc>
+        <loc>https://tools.bangjang.net/</loc>
         <lastmod>2026-09-13</lastmod>
         <changefreq>daily</changefreq>
         <priority>1.0</priority>
-        <xhtml:link rel="alternate" hreflang="ko" href="https://bangjang.net/" />
-        <xhtml:link rel="alternate" hreflang="en" href="https://bangjang.net/" />
-        <xhtml:link rel="alternate" hreflang="x-default" href="https://bangjang.net/" />
+        <xhtml:link rel="alternate" hreflang="ko" href="https://tools.bangjang.net/" />
+        <xhtml:link rel="alternate" hreflang="en" href="https://tools.bangjang.net/" />
+        <xhtml:link rel="alternate" hreflang="x-default" href="https://tools.bangjang.net/" />
     </url>
 
     <!-- 2. AI 배경 제거 및 바꾸기 -->
     <url>
-        <loc>https://bangjang.net/remove-bg.html</loc>
+        <loc>https://tools.bangjang.net/remove-bg.html</loc>
         <lastmod>2026-09-13</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.9</priority>
-        <xhtml:link rel="alternate" hreflang="ko" href="https://bangjang.net/remove-bg.html" />
-        <xhtml:link rel="alternate" hreflang="en" href="https://bangjang.net/remove-bg.html" />
-        <xhtml:link rel="alternate" hreflang="x-default" href="https://bangjang.net/remove-bg.html" />
+        <xhtml:link rel="alternate" hreflang="ko" href="https://tools.bangjang.net/remove-bg.html" />
+        <xhtml:link rel="alternate" hreflang="en" href="https://tools.bangjang.net/remove-bg.html" />
+        <xhtml:link rel="alternate" hreflang="x-default" href="https://tools.bangjang.net/remove-bg.html" />
     </url>
 
     <!-- 3. 고화질 QR 코드 생성기 -->
     <url>
-        <loc>https://bangjang.net/qr-code.html</loc>
+        <loc>https://tools.bangjang.net/qr-code.html</loc>
         <lastmod>2026-09-13</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.9</priority>
-        <xhtml:link rel="alternate" hreflang="ko" href="https://bangjang.net/qr-code.html" />
-        <xhtml:link rel="alternate" hreflang="en" href="https://bangjang.net/qr-code.html" />
-        <xhtml:link rel="alternate" hreflang="x-default" href="https://bangjang.net/qr-code.html" />
+        <xhtml:link rel="alternate" hreflang="ko" href="https://tools.bangjang.net/qr-code.html" />
+        <xhtml:link rel="alternate" hreflang="en" href="https://tools.bangjang.net/qr-code.html" />
+        <xhtml:link rel="alternate" hreflang="x-default" href="https://tools.bangjang.net/qr-code.html" />
     </url>
 
     <!-- 4. 파일명 일괄 변경기 -->
     <url>
-        <loc>https://bangjang.net/batch-rename.html</loc>
+        <loc>https://tools.bangjang.net/batch-rename.html</loc>
         <lastmod>2026-09-13</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.8</priority>
-        <xhtml:link rel="alternate" hreflang="ko" href="https://bangjang.net/batch-rename.html" />
-        <xhtml:link rel="alternate" hreflang="en" href="https://bangjang.net/batch-rename.html" />
-        <xhtml:link rel="alternate" hreflang="x-default" href="https://bangjang.net/batch-rename.html" />
+        <xhtml:link rel="alternate" hreflang="ko" href="https://tools.bangjang.net/batch-rename.html" />
+        <xhtml:link rel="alternate" hreflang="en" href="https://tools.bangjang.net/batch-rename.html" />
+        <xhtml:link rel="alternate" hreflang="x-default" href="https://tools.bangjang.net/batch-rename.html" />
     </url>
 
     <!-- 5. 사진 모자이크 및 블러 처리 -->
     <url>
-        <loc>https://bangjang.net/mosaic.html</loc>
+        <loc>https://tools.bangjang.net/mosaic.html</loc>
         <lastmod>2026-09-13</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.8</priority>
-        <xhtml:link rel="alternate" hreflang="ko" href="https://bangjang.net/mosaic.html" />
-        <xhtml:link rel="alternate" hreflang="en" href="https://bangjang.net/mosaic.html" />
-        <xhtml:link rel="alternate" hreflang="x-default" href="https://bangjang.net/mosaic.html" />
+        <xhtml:link rel="alternate" hreflang="ko" href="https://tools.bangjang.net/mosaic.html" />
+        <xhtml:link rel="alternate" hreflang="en" href="https://tools.bangjang.net/mosaic.html" />
+        <xhtml:link rel="alternate" hreflang="x-default" href="https://tools.bangjang.net/mosaic.html" />
     </url>
 
     <!-- 6. 온라인 이미지 편집기 -->
     <url>
-        <loc>https://bangjang.net/image-edit.html</loc>
+        <loc>https://tools.bangjang.net/image-edit.html</loc>
         <lastmod>2026-09-13</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.8</priority>
-        <xhtml:link rel="alternate" hreflang="ko" href="https://bangjang.net/image-edit.html" />
-        <xhtml:link rel="alternate" hreflang="en" href="https://bangjang.net/image-edit.html" />
-        <xhtml:link rel="alternate" hreflang="x-default" href="https://bangjang.net/image-edit.html" />
+        <xhtml:link rel="alternate" hreflang="ko" href="https://tools.bangjang.net/image-edit.html" />
+        <xhtml:link rel="alternate" hreflang="en" href="https://tools.bangjang.net/image-edit.html" />
+        <xhtml:link rel="alternate" hreflang="x-default" href="https://tools.bangjang.net/image-edit.html" />
     </url>
 
     <!-- 7. 사진 분할기 -->
     <url>
-        <loc>https://bangjang.net/image-split.html</loc>
+        <loc>https://tools.bangjang.net/image-split.html</loc>
         <lastmod>2026-09-13</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.8</priority>
-        <xhtml:link rel="alternate" hreflang="ko" href="https://bangjang.net/image-split.html" />
-        <xhtml:link rel="alternate" hreflang="en" href="https://bangjang.net/image-split.html" />
-        <xhtml:link rel="alternate" hreflang="x-default" href="https://bangjang.net/image-split.html" />
+        <xhtml:link rel="alternate" hreflang="ko" href="https://tools.bangjang.net/image-split.html" />
+        <xhtml:link rel="alternate" hreflang="en" href="https://tools.bangjang.net/image-split.html" />
+        <xhtml:link rel="alternate" hreflang="x-default" href="https://tools.bangjang.net/image-split.html" />
     </url>
 
     <!-- 8. 영상 구간 자르기 -> GIF -->
     <url>
-        <loc>https://bangjang.net/video-trim-gif.html</loc>
+        <loc>https://tools.bangjang.net/video-trim-gif.html</loc>
         <lastmod>2026-09-13</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.7</priority>
-        <xhtml:link rel="alternate" hreflang="ko" href="https://bangjang.net/video-trim-gif.html" />
-        <xhtml:link rel="alternate" hreflang="en" href="https://bangjang.net/video-trim-gif.html" />
-        <xhtml:link rel="alternate" hreflang="x-default" href="https://bangjang.net/video-trim-gif.html" />
+        <xhtml:link rel="alternate" hreflang="ko" href="https://tools.bangjang.net/video-trim-gif.html" />
+        <xhtml:link rel="alternate" hreflang="en" href="https://tools.bangjang.net/video-trim-gif.html" />
+        <xhtml:link rel="alternate" hreflang="x-default" href="https://tools.bangjang.net/video-trim-gif.html" />
     </url>
 
     <!-- 9. 비디오 -> GIF 변환기 -->
     <url>
-        <loc>https://bangjang.net/video-to-gif.html</loc>
+        <loc>https://tools.bangjang.net/video-to-gif.html</loc>
         <lastmod>2026-09-13</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.7</priority>
-        <xhtml:link rel="alternate" hreflang="ko" href="https://bangjang.net/video-to-gif.html" />
-        <xhtml:link rel="alternate" hreflang="en" href="https://bangjang.net/video-to-gif.html" />
-        <xhtml:link rel="alternate" hreflang="x-default" href="https://bangjang.net/video-to-gif.html" />
+        <xhtml:link rel="alternate" hreflang="ko" href="https://tools.bangjang.net/video-to-gif.html" />
+        <xhtml:link rel="alternate" hreflang="en" href="https://tools.bangjang.net/video-to-gif.html" />
+        <xhtml:link rel="alternate" hreflang="x-default" href="https://tools.bangjang.net/video-to-gif.html" />
     </url>
 
     <!-- 10. 화면녹화 -> GIF 변환기 -->
     <url>
-        <loc>https://bangjang.net/screen-record-gif.html</loc>
+        <loc>https://tools.bangjang.net/screen-record-gif.html</loc>
         <lastmod>2026-09-13</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.7</priority>
-        <xhtml:link rel="alternate" hreflang="ko" href="https://bangjang.net/screen-record-gif.html" />
-        <xhtml:link rel="alternate" hreflang="en" href="https://bangjang.net/screen-record-gif.html" />
-        <xhtml:link rel="alternate" hreflang="x-default" href="https://bangjang.net/screen-record-gif.html" />
+        <xhtml:link rel="alternate" hreflang="ko" href="https://tools.bangjang.net/screen-record-gif.html" />
+        <xhtml:link rel="alternate" hreflang="en" href="https://tools.bangjang.net/screen-record-gif.html" />
+        <xhtml:link rel="alternate" hreflang="x-default" href="https://tools.bangjang.net/screen-record-gif.html" />
     </url>
 
     <!-- 11. 블로그 본문 서식 정리 -->
     <url>
-        <loc>https://bangjang.net/blog-formatter.html</loc>
+        <loc>https://tools.bangjang.net/blog-formatter.html</loc>
         <lastmod>2026-09-13</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.7</priority>
-        <xhtml:link rel="alternate" hreflang="ko" href="https://bangjang.net/blog-formatter.html" />
-        <xhtml:link rel="alternate" hreflang="en" href="https://bangjang.net/blog-formatter.html" />
-        <xhtml:link rel="alternate" hreflang="x-default" href="https://bangjang.net/blog-formatter.html" />
+        <xhtml:link rel="alternate" hreflang="ko" href="https://tools.bangjang.net/blog-formatter.html" />
+        <xhtml:link rel="alternate" hreflang="en" href="https://tools.bangjang.net/blog-formatter.html" />
+        <xhtml:link rel="alternate" hreflang="x-default" href="https://tools.bangjang.net/blog-formatter.html" />
     </url>
 
     <!-- 12. PDF -> Word 변환 -->
     <url>
-        <loc>https://bangjang.net/pdf-to-word.html</loc>
+        <loc>https://tools.bangjang.net/pdf-to-word.html</loc>
         <lastmod>2026-09-13</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.7</priority>
-        <xhtml:link rel="alternate" hreflang="ko" href="https://bangjang.net/pdf-to-word.html" />
-        <xhtml:link rel="alternate" hreflang="en" href="https://bangjang.net/pdf-to-word.html" />
-        <xhtml:link rel="alternate" hreflang="x-default" href="https://bangjang.net/pdf-to-word.html" />
+        <xhtml:link rel="alternate" hreflang="ko" href="https://tools.bangjang.net/pdf-to-word.html" />
+        <xhtml:link rel="alternate" hreflang="en" href="https://tools.bangjang.net/pdf-to-word.html" />
+        <xhtml:link rel="alternate" hreflang="x-default" href="https://tools.bangjang.net/pdf-to-word.html" />
     </url>
 </urlset>

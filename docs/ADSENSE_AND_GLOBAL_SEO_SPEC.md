@@ -1,4 +1,4 @@
-# 🌐 방장 용용이 - 구글 애드센스(Google AdSense) & 글로벌 SEO/다국어(i18n) 통합 명세서
+﻿# 🌐 방장 용용이 - 구글 애드센스(Google AdSense) & 글로벌 SEO/다국어(i18n) 통합 명세서
 
 본 문서는 **방장 용용이 (Bangjang Tools - bangjang.net)** 프로젝트에 적용된 구글 애드센스 광고 수익화 시스템, 글로벌 검색엔진 최적화(SEO) 마크업, 실시간 다국어 지원(i18n) 아키텍처 및 운영 가이드를 상세히 설명합니다.
 
@@ -65,7 +65,7 @@
   "@context": "https://schema.org",
   "@type": "WebApplication",
   "name": "QR 코드 생성기 (QR Code Generator)",
-  "url": "https://bangjang.net/qr-code.html",
+  "url": "https://tools.bangjang.net/qr-code.html",
   "applicationCategory": "UtilitiesApplication",
   "operatingSystem": "All",
   "description": "Generate custom QR codes with logo insertion and color styling directly in browser.",
@@ -113,8 +113,8 @@ const translations = {
 ## 4. 🚀 검색엔진 등록 및 운영 팁
 
 1. **Google Search Console 등록**:
-   - [Google Search Console](https://search.google.com/search-console)에 접속하여 `https://bangjang.net` 속성을 추가합니다.
-   - Sitemaps 메뉴에 `https://bangjang.net/sitemap.xml`을 제출합니다.
+   - [Google Search Console](https://search.google.com/search-console)에 접속하여 `https://tools.bangjang.net` 속성을 추가합니다.
+   - Sitemaps 메뉴에 `https://tools.bangjang.net/sitemap.xml`을 제출합니다.
 2. **Naver Search Advisor 등록**:
    - [네이버 서치어드바이저](https://searchadvisor.naver.com/)에 사이트를 등록하고 사이트맵을 제출합니다.
 3. **Bing Webmaster Tools 등록**:

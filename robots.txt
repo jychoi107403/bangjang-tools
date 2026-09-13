@@ -1,5 +1,5 @@
-User-agent: *
+﻿User-agent: *
 Allow: /
 
 # 검색엔진 크롤러를 위한 사이트맵 위치 지정
-Sitemap: https://bangjang.net/sitemap.xml
+Sitemap: https://tools.bangjang.net/sitemap.xml

@@ -1,4 +1,4 @@
-/**
+﻿/**
  * ============================================================================
  * assets/js/tool-qr-code.js - [QR 코드 생성] 전용 독립 ES 모듈
  * ============================================================================
@@ -16,7 +16,7 @@ import { downloadBlob } from './utils.js';
 // 1. 모듈 내부 격리 상태 변수
 // ----------------------------------------------------------------------------
 let qrCodeInstance = null;
-let currentText = 'https://bangjang.net';
+let currentText = 'https://tools.bangjang.net';
 let currentColor = '#000000';
 let currentDotStyle = 'square';
 let currentCornerStyle = 'square';
@@ -121,7 +121,7 @@ function bindEvents() {
     // 1. URL / 텍스트 입력 실시간 반응
     if (inputText) {
         inputText.addEventListener('input', (e) => {
-            currentText = e.target.value.trim() || 'https://bangjang.net';
+            currentText = e.target.value.trim() || 'https://tools.bangjang.net';
             updateQRCode();
         });
     }
