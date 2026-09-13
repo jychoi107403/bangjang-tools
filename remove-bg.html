@@ -13,11 +13,14 @@
     <!-- Lucide Icons -->
     <script src="https://unpkg.com/lucide@latest"></script>
     
+    <!-- Google MediaPipe Selfie Segmentation (초고속 브라우저 로컬 AI 누끼 엔진) -->
+    <script src="https://cdn.jsdelivr.net/npm/@mediapipe/selfie_segmentation/selfie_segmentation.js" crossorigin="anonymous"></script>
+    
     <!-- 격리된 CSS 스타일시트 (공통 + 배경 제거 전용 네임스페이스) -->
     <link rel="stylesheet" href="assets/css/global.css">
     <link rel="stylesheet" href="assets/css/tool-remove-bg.css">
 </head>
-<body>
+<body class="tool-remove-bg-page">
     <!-- ========================================================
          0. 최상단 고정 브랜드 네비게이션 헤더
          ======================================================== -->
@@ -249,8 +252,8 @@
                             <!-- AI 로딩 오버레이 -->
                             <div class="ai-loading-overlay" id="ai-loading-overlay" style="display: none;">
                                 <div class="ai-loading-spinner"></div>
-                                <div class="ai-loading-text">배경을 분석하고 누끼를 따는 중...</div>
-                                <div class="ai-loading-subtext">사진은 내 기기에서 안전하게 처리됩니다.</div>
+                                <div class="ai-loading-text">AI 딥러닝 모델로 인물·피사체 누끼를 따는 중...</div>
+                                <div class="ai-loading-subtext">내 파일은 내 기기에서 100% 안전하게 처리됩니다.</div>
                             </div>
                         </div>
                     </div>
