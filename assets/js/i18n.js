@@ -106,7 +106,39 @@ const I18N_DICTIONARY = {
         "btn.download_gif": "GIF 다운로드",
         "record.meta_resolution": "해상도:",
         "record.meta_duration": "녹화 시간:",
-        "record.meta_filesize": "파일 크기:"
+        "record.meta_filesize": "파일 크기:",
+
+        // 블로그 본문 정리 도구 전용 (Blog Formatter)
+        "blog.header_desc": "블로그 본문의 줄바꿈을 정리하고 중앙정렬로 미리 보세요. 원문을 유지하며 줄 너비를 조절하고 직접 입력한 해시태그를 모아 TXT로 저장하는 무료 도구입니다.",
+        "blog.notice_title": "원문은 그대로, 읽기 좋은 줄바꿈만.",
+        "blog.notice_desc": "본문과 키워드를 입력하면 정리 결과가 바로 보입니다. 입력 내용은 이 브라우저에서만 처리합니다.",
+        "blog.content_label": "본문 원문",
+        "blog.hashtag_label": "해시태그 키워드",
+        "blog.hashtag_hint": "공백·쉼표·줄바꿈·#으로 구분하세요. 문자·숫자·밑줄만, 태그 하나당 최대 50자입니다.",
+        "blog.smart_wrap": "짧은 줄 정리",
+        "blog.line_width": "줄 너비",
+        "blog.smart_wrap_footnote": "짧은 줄 정리를 끄면 직접 입력한 줄바꿈만 유지합니다. 긴 URL이나 한 어절은 중간에서 나누지 않습니다.",
+        "blog.preview_title": "중앙정렬 미리보기",
+        "blog.preview_meta": "기준 폭 560px · 창 크기와 무관",
+        "blog.preview_desc": "줄 너비를 30~100%로 조절할 수 있습니다. 블로그에 붙여넣은 뒤 줄이 다시 꺾이면 너비를 더 줄여 보세요. 글꼴·글자 크기·편집 영역 폭에 따라 줄이 추가로 나뉠 수 있습니다.",
+        "blog.empty_preview": "본문을 입력하면 정리 결과가 여기에 표시됩니다.",
+        "btn.download_txt": "TXT 다운로드",
+        "blog.status_empty": "본문을 입력해 주세요.",
+        "blog.action_footnote": "TXT에는 글꼴·글자 크기·중앙정렬 서식이 저장되지 않습니다. 다른 블로그 편집기에 붙여넣은 뒤 본문을 선택하고 중앙정렬을 직접 적용해 주세요. 화면이 좁으면 미리보기를 가로로 스크롤할 수 있습니다.",
+        "blog.guide_title": "이렇게 사용하세요",
+        "blog.guide_step1": "1. 본문을 입력하거나 붙여넣고, 해시태그 키워드를 별도로 입력하세요.",
+        "blog.guide_step2": "2. 짧은 줄 정리와 줄 너비를 조절한 뒤 중앙정렬 미리보기에서 결과를 확인하세요.",
+        "blog.guide_step3": "3. TXT를 다운로드하거나 복사하세요. 다른 블로그 편집기의 중앙정렬은 직접 적용합니다.",
+        "blog.guide_footnote": "원문은 입력란에 그대로 남습니다. 본문이 비어 있거나 키워드 오류가 있으면 다운로드할 수 없습니다.",
+        "blog.faq_main_title": "블로그 원고의 줄바꿈과 해시태그를 정리하세요",
+        "blog.faq_desc1": "작성한 본문을 붙여넣고 짧은 줄 정리와 미리보기 줄 너비를 조절합니다. 글을 새로 생성하지 않고 입력한 내용을 읽기 좋게 정리하는 도구입니다.",
+        "blog.faq_desc2": "해시태그 키워드를 별도로 입력해 본문 아래에 모으고 UTF-8 TXT로 저장합니다. 원문은 입력란에 그대로 남아 결과와 비교할 수 있습니다.",
+        "blog.faq_title": "자주 묻는 질문",
+        "blog.faq_q1": "▼ 네이버 블로그에 바로 발행되나요?",
+        "blog.faq_a1": "블로그 자동 발행이나 계정 연결 기능은 없습니다. 정리한 내용을 다운로드한 뒤 사용하는 블로그 편집기로 옮겨주세요.",
+        "blog.faq_q2": "▼ TXT에도 중앙정렬이 저장되나요?",
+        "blog.faq_a2": "TXT는 정렬 서식을 저장하지 않습니다. 이 도구에서 중앙정렬 미리보기를 확인한 뒤 실제 블로그 편집기에서 중앙정렬을 적용하세요.",
+        "blog.target_platform": "타겟 블로그 플랫폼"
     },
     en: {
         // 브랜드 및 공통
@@ -206,8 +238,41 @@ const I18N_DICTIONARY = {
         "btn.download_gif": "Download GIF",
         "record.meta_resolution": "Resolution:",
         "record.meta_duration": "Duration:",
-        "record.meta_filesize": "File Size:"
+        "record.meta_filesize": "File Size:",
+
+        // Blog Text Formatter
+        "blog.header_desc": "Clean line breaks and preview center-aligned blog layouts in real-time. Adjust line width while keeping your original text, collect hashtags, and export to TXT.",
+        "blog.notice_title": "Preserve your original text with readable line wraps.",
+        "blog.notice_desc": "Enter your article and keywords to preview formatted results instantly. 100% processed in your browser.",
+        "blog.content_label": "Original Article Draft",
+        "blog.hashtag_label": "Hashtag Keywords",
+        "blog.hashtag_hint": "Separate with space, comma, line breaks, or #. Up to 50 chars per tag.",
+        "blog.smart_wrap": "Smart Line Wrap",
+        "blog.line_width": "Line Width",
+        "blog.smart_wrap_footnote": "Disabling smart wrap preserves original line breaks. URLs and single words won't be broken.",
+        "blog.preview_title": "Center-Aligned Preview",
+        "blog.preview_meta": "Base Width 560px · Fixed Layout",
+        "blog.preview_desc": "Adjust line width from 30% to 100%. If lines break unexpectedly when pasting to blog editor, reduce the width.",
+        "blog.empty_preview": "Enter article content to see the formatted preview here.",
+        "btn.download_txt": "Download TXT",
+        "blog.status_empty": "Please enter article content.",
+        "blog.action_footnote": "TXT format does not store font, size, or center-alignment styling. Select text in your blog editor and apply center alignment directly.",
+        "blog.guide_title": "How to use",
+        "blog.guide_step1": "1. Enter or paste your article draft and input hashtags separately.",
+        "blog.guide_step2": "2. Toggle smart wrap and adjust line width while checking the center-aligned preview.",
+        "blog.guide_step3": "3. Download TXT or copy to clipboard. Apply center alignment directly in your blog editor.",
+        "blog.guide_footnote": "Original draft remains in the input field. Empty articles cannot be downloaded.",
+        "blog.faq_main_title": "Format Blog Draft Line Breaks & Hashtags",
+        "blog.faq_desc1": "Paste your article draft to organize line wraps and adjust preview line width. Clean and format readability without generating unwanted AI text.",
+        "blog.faq_desc2": "Hashtags are aggregated at the bottom of the article and saved as a clean UTF-8 TXT file.",
+        "blog.faq_title": "Frequently Asked Questions",
+        "blog.faq_q1": "▼ Does it publish directly to blog platforms?",
+        "blog.faq_a1": "No automated publishing or account linking is included. Copy the formatted text and paste it into your favorite blog editor.",
+        "blog.faq_q2": "▼ Does TXT file keep center alignment?",
+        "blog.faq_a2": "Plain text files do not preserve alignment styles. Use this tool for visual preview and apply center alignment in your blog editor.",
+        "blog.target_platform": "Target Blog Platform"
     }
+};
 };
 
 class I18nManager {

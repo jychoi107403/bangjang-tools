@@ -2310,8 +2310,425 @@ body {
     transition: all 0.15s;
 }
 
-.btn-file-select:hover {
-    background: var(--bg-muted);
+/* ====================================================================
+   8. 블로그 본문 정리 도구 전용 스타일 (Blog Formatter)
+   ==================================================================== */
+.tool-blog-formatter {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    max-width: 1000px;
+    margin: 0 auto;
+    width: 100%;
+}
+
+/* 상단 메인 설명 헤더 */
+.blog-header-desc {
+    font-size: 13.5px;
+    color: var(--text-secondary);
+    line-height: 1.6;
+    margin-top: -8px;
+    margin-bottom: 4px;
+}
+
+/* 상단 연보라 강조 배너 카드 */
+.blog-notice-card {
+    background: linear-gradient(135deg, #f5f3ff 0%, #ede9fe 100%);
+    border: 1px solid #ddd6fe;
+    border-radius: var(--radius-lg);
+    padding: 18px 22px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.blog-notice-title {
+    font-size: 16px;
+    font-weight: 800;
+    color: #6d28d9;
+}
+
+.blog-notice-subtitle {
+    font-size: 13px;
+    color: #5b21b6;
+    line-height: 1.5;
+}
+
+/* 본문 & 해시태그 입력 카드 */
+.blog-input-card {
+    background: #ffffff;
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-lg);
+    padding: 22px 24px;
+    box-shadow: var(--shadow-sm);
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+}
+
+.blog-field-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.blog-field-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.blog-field-label {
+    font-size: 15px;
+    font-weight: 800;
+    color: var(--text-primary);
+}
+
+.blog-field-counter {
+    font-size: 12.5px;
+    font-weight: 600;
+    color: var(--text-muted);
+}
+
+.blog-textarea {
+    width: 100%;
+    min-height: 220px;
+    padding: 14px 16px;
+    font-size: 14px;
+    line-height: 1.7;
+    font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, sans-serif;
+    color: var(--text-primary);
+    background-color: #fafafa;
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    resize: vertical;
+    transition: all 0.2s ease;
+    box-sizing: border-box;
+}
+
+.blog-textarea:focus {
+    outline: none;
+    background-color: #ffffff;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(124, 58, 237, 0.12);
+}
+
+.blog-textarea-hashtag {
+    min-height: 80px;
+}
+
+.blog-field-hint {
+    font-size: 12px;
+    color: var(--text-muted);
+    line-height: 1.5;
+}
+
+/* 짧은 줄 정리 & 줄 너비 조절 컨트롤 바 */
+.blog-control-bar {
+    background: #ffffff;
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-lg);
+    padding: 18px 22px;
+    box-shadow: var(--shadow-sm);
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.blog-control-row {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    flex-wrap: wrap;
+}
+
+.blog-checkbox-label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 14.5px;
+    font-weight: 800;
+    color: var(--text-primary);
+    cursor: pointer;
+    user-select: none;
+}
+
+.blog-checkbox-label input[type="checkbox"] {
+    width: 18px;
+    height: 18px;
+    accent-color: var(--primary-color);
+    cursor: pointer;
+}
+
+.blog-slider-wrap {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex: 1;
+    min-width: 240px;
+}
+
+.blog-slider-label {
+    font-size: 13.5px;
+    font-weight: 700;
+    color: var(--text-secondary);
+    white-space: nowrap;
+}
+
+.blog-slider-val {
+    font-size: 14px;
+    font-weight: 800;
+    color: var(--primary-color);
+    min-width: 42px;
+}
+
+.blog-slider-wrap input[type="range"] {
+    flex: 1;
+    accent-color: var(--primary-color);
+    cursor: pointer;
+}
+
+.blog-control-footnote {
+    font-size: 12px;
+    color: var(--text-muted);
+    line-height: 1.5;
+}
+
+/* 중앙정렬 미리보기 카드 */
+.blog-preview-card {
+    background: #ffffff;
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-lg);
+    padding: 22px 24px;
+    box-shadow: var(--shadow-sm);
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+.blog-preview-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.blog-preview-title {
+    font-size: 16px;
+    font-weight: 800;
+    color: var(--text-primary);
+}
+
+.blog-preview-meta {
+    font-size: 12px;
+    color: var(--text-muted);
+}
+
+.blog-preview-desc {
+    font-size: 12.5px;
+    color: var(--text-muted);
+    line-height: 1.6;
+}
+
+/* 560px 기준 종이 뷰포트 (A4/블로그 문서 시뮬레이션) */
+.blog-paper-viewport {
+    background: #f1f5f9;
+    border: 1px solid #e2e8f0;
+    border-radius: var(--radius-md);
+    padding: 30px 16px;
+    min-height: 320px;
+    max-height: 600px;
+    overflow-y: auto;
+    overflow-x: auto;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+}
+
+.blog-paper-sheet {
+    background: #ffffff;
+    box-shadow: 0 4px 16px rgba(15, 23, 42, 0.08);
+    border-radius: 6px;
+    padding: 40px 32px;
+    width: 100%;
+    max-width: 560px; /* 기준 폭 560px */
+    box-sizing: border-box;
+    text-align: center;
+    transition: width 0.15s ease;
+}
+
+.blog-paper-empty {
+    font-size: 14px;
+    color: #94a3b8;
+    line-height: 1.8;
+    padding: 60px 0;
+    text-align: center;
+}
+
+.blog-paper-content {
+    font-size: 14.5px;
+    line-height: 1.85;
+    color: #1e293b;
+    word-break: keep-all;
+    white-space: pre-wrap;
+    font-family: 'Pretendard', -apple-system, sans-serif;
+    text-align: center;
+}
+
+.blog-paper-hashtags {
+    margin-top: 28px;
+    padding-top: 20px;
+    border-top: 1px dashed #cbd5e1;
+    font-size: 13.5px;
+    font-weight: 600;
+    color: #6d28d9;
+    line-height: 1.7;
+    text-align: center;
+    word-break: break-all;
+}
+
+/* 하단 액션 바 */
+.blog-action-bar {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+    padding-top: 12px;
+    border-top: 1px solid var(--border-color);
+}
+
+.btn-blog-download {
+    background-color: var(--primary-color);
+    color: #ffffff;
+    border: none;
+    font-size: 14px;
+    font-weight: 800;
+    padding: 11px 22px;
+    border-radius: var(--radius-md);
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    box-shadow: 0 2px 8px rgba(124, 58, 237, 0.3);
+    transition: all 0.2s;
+}
+
+.btn-blog-download:hover:not(:disabled) {
+    background-color: var(--primary-hover);
+    transform: translateY(-1px);
+}
+
+.btn-blog-download:disabled {
+    background-color: #cbd5e1;
+    color: #94a3b8;
+    cursor: not-allowed;
+    box-shadow: none;
+}
+
+.btn-blog-copy {
+    background-color: #ffffff;
+    color: var(--text-primary);
+    border: 1px solid var(--border-color);
+    font-size: 14px;
+    font-weight: 700;
+    padding: 11px 20px;
+    border-radius: var(--radius-md);
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.btn-blog-copy:hover:not(:disabled) {
+    background-color: var(--bg-muted);
+    border-color: var(--text-muted);
+}
+
+.btn-blog-copy:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.blog-status-msg {
+    font-size: 13px;
+    color: var(--text-muted);
+    font-weight: 500;
+    margin-left: auto;
+}
+
+.blog-action-footnote {
+    font-size: 12px;
+    color: var(--text-muted);
+    line-height: 1.6;
+    margin-top: 8px;
+}
+
+/* 하단 FAQ 및 아코디언 섹션 */
+.blog-faq-card {
+    background: #ffffff;
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-lg);
+    padding: 24px;
+    box-shadow: var(--shadow-sm);
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.blog-faq-title {
+    font-size: 17px;
+    font-weight: 800;
+    color: var(--text-primary);
+}
+
+.blog-faq-item {
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    transition: all 0.2s ease;
+}
+
+.blog-faq-question {
+    width: 100%;
+    background: #fafafa;
+    border: none;
+    padding: 14px 18px;
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--text-primary);
+    text-align: left;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    transition: background 0.15s;
+}
+
+.blog-faq-question:hover {
+    background: #f1f5f9;
+}
+
+.blog-faq-answer {
+    padding: 14px 18px;
+    font-size: 13.5px;
+    line-height: 1.65;
+    color: var(--text-secondary);
+    background: #ffffff;
+    border-top: 1px solid var(--border-color);
+    display: none;
+}
+
+.blog-faq-item.active .blog-faq-answer {
+    display: block;
+}
+
+.blog-faq-item.active {
+    border-color: #a78bfa;
+}
+
+.blog-faq-item.active .blog-faq-question {
+    background: #f5f3ff;
+    color: #6d28d9;
 }
 
 
