@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>무료 이미지 편집기 - 방장 용용이</title>
-    <meta name="description" content="사진 크기 조절, 자르기, 회전, 워터마크를 지원하는 무료 온라인 이미지 편집기. Win+Shift+S 캡처 후 Ctrl+V 붙여넣기로 빠른 일괄 편집">
+    <title>무료 이미지 편집기 & 사진 분할 - 방장 용용이</title>
+    <meta name="description" content="사진 크기 조절, 자르기, 회전, 4분할 사진 분할, 워터마크를 지원하는 무료 온라인 이미지 도구. Win+Shift+S 캡처 후 Ctrl+V 붙여넣기로 빠른 일괄 편집">
     
     <!-- 구글 폰트 (Pretendard 스타일) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -25,7 +25,7 @@
 </head>
 <body>
     <!-- ========================================================
-         0. 최상단 고정 글로벌 헤더 (스크린샷 브랜드 반영)
+         0. 최상단 고정 글로벌 헤더 (방장 용용이)
          ======================================================== -->
     <header class="global-navbar">
         <div class="brand-container">
@@ -153,282 +153,424 @@
         </aside>
 
         <!-- ========================================================
-             2. 중앙 메인 작업 영역 (이미지 캡처/붙여넣기 & 편집 & 다운로드)
+             2-A. [이미지 편집] 뷰 컨테이너 (기존 소스 완벽 보존)
              ======================================================== -->
-        <main class="main-content">
-            <!-- 상단 브레드크럼 & 타이틀 -->
-            <header class="content-header">
-                <div class="breadcrumb">
-                    <span>모든 도구</span>
-                    <i data-lucide="chevron-right" class="breadcrumb-arrow"></i>
-                    <span class="current">이미지 편집</span>
-                </div>
-                <div class="sub-brand">방장 TOOLS / QUICK EDIT</div>
-                <h1 class="page-title">무료 이미지 편집기</h1>
-                <p class="page-description">
-                    사진 크기 조절, 자르기, 회전, 텍스트·화살표·모자이크·워터마크를 지원하는 무료 온라인 이미지 편집기. 캡처 붙여넣기와 여러 사진 JPG·PNG·ZIP 저장을 회원가입 없이 이용하세요.
-                </p>
-                <div class="privacy-notice">
-                    <i data-lucide="info" class="notice-icon"></i>
-                    <span>저장하는 JPG·PNG·GIF의 촬영 위치·작성자 등 부가 메타정보를 제거합니다. 이미지 표시·애니메이션에 필요한 정보는 유지합니다.</span>
-                </div>
-            </header>
-
-            <!-- 작업 카드 영역 -->
-            <section class="workspace-card">
-                <!-- 캡처 및 붙여넣기 툴바 -->
-                <div class="workspace-toolbar">
-                    <div class="toolbar-guide">
-                        <strong>Win+Shift+S로 캡처 → Ctrl+V로 붙여넣기</strong>
-                        <span class="guide-sub">사진을 클릭하면 하단에서 확인하고, 더블클릭하면 정밀 편집 창이 열립니다.</span>
+        <div class="tool-view-wrapper" id="view-image-edit" style="display: contents;">
+            <!-- 중앙 메인 작업 영역 -->
+            <main class="main-content">
+                <header class="content-header">
+                    <div class="breadcrumb">
+                        <span>모든 도구</span>
+                        <i data-lucide="chevron-right" class="breadcrumb-arrow"></i>
+                        <span class="current">이미지 편집</span>
                     </div>
-                    <div class="toolbar-actions">
-                        <button class="btn btn-primary" id="btn-paste">
-                            <i data-lucide="clipboard-paste"></i>
-                            <span>붙여넣기</span>
-                        </button>
-                        <label class="btn btn-secondary btn-file-input">
-                            <i data-lucide="image-plus"></i>
-                            <span>파일 추가</span>
-                            <input type="file" id="file-input" multiple accept="image/*" style="display: none;">
-                        </label>
-                        <button class="btn btn-outline" id="btn-clear-all">
-                            <i data-lucide="trash-2"></i>
-                            <span>전체 삭제</span>
-                        </button>
-                        <div class="count-badge" id="image-counter">0 / 30장 · 한 장 25MB 이하</div>
-                    </div>
-                </div>
-
-                <!-- 드래그 & 드롭 / 이미지 캔버스 리스트 영역 -->
-                <div class="drop-zone" id="drop-zone">
-                    <!-- 기본 빈 화면 안내 메시지 -->
-                    <div class="empty-state" id="empty-state">
-                        <div class="empty-state-icon">
-                            <i data-lucide="upload-cloud"></i>
-                        </div>
-                        <p class="empty-state-title">이미지를 여기에 드래그하거나 <strong>Ctrl + V</strong>로 붙여넣으세요.</p>
-                        <p class="empty-state-desc">상단의 [붙여넣기] 또는 [파일 추가]도 사용할 수 있습니다.</p>
-                    </div>
-
-                    <!-- 사진이 추가되었을 때 나타나는 작업 레이아웃 -->
-                    <div class="images-container" id="images-container" style="display: none; width: 100%;">
-                        <!-- 상단 [선택 사진 정밀 편집] 액션 바 -->
-                        <div class="top-action-bar">
-                            <button class="btn btn-detail-edit" id="btn-detail-edit">
-                                <i data-lucide="crop"></i>
-                                <span>선택 사진 정밀 편집</span>
-                            </button>
-                        </div>
-
-                        <!-- 추가된 이미지 썸네일 그리드 -->
-                        <div class="image-grid" id="image-grid">
-                            <!-- 자바스크립트를 통해 이미지 카드가 동적으로 추가됩니다 -->
-                        </div>
-
-                        <!-- 하단 실시간 미리보기 & 인라인 뷰어 영역 (클릭 시 표시) -->
-                        <div class="inline-preview-section" id="inline-preview-section">
-                            <div class="preview-header">
-                                <span class="preview-title" id="inline-preview-title">선택된 사진 미리보기</span>
-                                <span class="preview-hint">더블클릭 또는 [선택 사진 정밀 편집]을 누르면 상세 편집이 가능합니다.</span>
-                            </div>
-                            <div class="preview-canvas-wrapper" id="preview-canvas-wrapper">
-                                <canvas id="inline-canvas"></canvas>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            <!-- 이미지 저장 및 하단 사용 가이드 -->
-            <div class="bottom-action-section">
-                <button class="btn btn-save-large" id="btn-save-images">
-                    <i data-lucide="download"></i>
-                    <span id="save-btn-text">이미지 저장</span>
-                </button>
-
-                <div class="guide-box">
-                    <h3 class="guide-title">이렇게 사용하세요</h3>
-                    <ol class="guide-steps">
-                        <li><strong>Win+Shift+S</strong>로 캡처한 뒤 이 화면에서 <strong>Ctrl+V</strong>로 붙여넣으세요. 파일 선택·끌어놓기도 가능합니다.</li>
-                        <li>사진을 클릭하면 하단에서 실시간 적용 화면을 확인하고, 더블클릭 시 자르기·회전·그리기 등을 정밀 편집할 수 있습니다.</li>
-                        <li>세로 크기 맞춤을 체크하면 전체 사진을 기본 세로 800px로 맞춥니다. 해제하면 사진별 편집 크기로 저장하며, 개별 파일로 바로 내려받습니다.</li>
-                    </ol>
-                    <p class="guide-footnote">
-                        횟수 제한 없이 무료로 사용할 수 있습니다. 긴 영상이나 고해상도 사진은 기기 성능에 따라 처리 시간이 길어질 수 있습니다.
+                    <div class="sub-brand">방장 TOOLS / QUICK EDIT</div>
+                    <h1 class="page-title">무료 이미지 편집기</h1>
+                    <p class="page-description">
+                        사진 크기 조절, 자르기, 회전, 텍스트·화살표·모자이크·워터마크를 지원하는 무료 온라인 이미지 편집기. 캡처 붙여넣기와 여러 사진 JPG·PNG·ZIP 저장을 회원가입 없이 이용하세요.
                     </p>
+                    <div class="privacy-notice">
+                        <i data-lucide="info" class="notice-icon"></i>
+                        <span>저장하는 JPG·PNG·GIF의 촬영 위치·작성자 등 부가 메타정보를 제거합니다. 이미지 표시·애니메이션에 필요한 정보는 유지합니다.</span>
+                    </div>
+                </header>
+
+                <section class="workspace-card">
+                    <div class="workspace-toolbar">
+                        <div class="toolbar-guide">
+                            <strong>Win+Shift+S로 캡처 → Ctrl+V로 붙여넣기</strong>
+                            <span class="guide-sub">사진을 클릭하면 하단에서 확인하고, 더블클릭하면 정밀 편집 창이 열립니다.</span>
+                        </div>
+                        <div class="toolbar-actions">
+                            <button class="btn btn-primary" id="btn-paste">
+                                <i data-lucide="clipboard-paste"></i>
+                                <span>붙여넣기</span>
+                            </button>
+                            <label class="btn btn-secondary btn-file-input">
+                                <i data-lucide="image-plus"></i>
+                                <span>파일 추가</span>
+                                <input type="file" id="file-input" multiple accept="image/*" style="display: none;">
+                            </label>
+                            <button class="btn btn-outline" id="btn-clear-all">
+                                <i data-lucide="trash-2"></i>
+                                <span>전체 삭제</span>
+                            </button>
+                            <div class="count-badge" id="image-counter">0 / 30장 · 한 장 25MB 이하</div>
+                        </div>
+                    </div>
+
+                    <div class="drop-zone" id="drop-zone">
+                        <div class="empty-state" id="empty-state">
+                            <div class="empty-state-icon">
+                                <i data-lucide="upload-cloud"></i>
+                            </div>
+                            <p class="empty-state-title">이미지를 여기에 드래그하거나 <strong>Ctrl + V</strong>로 붙여넣으세요.</p>
+                            <p class="empty-state-desc">상단의 [붙여넣기] 또는 [파일 추가]도 사용할 수 있습니다.</p>
+                        </div>
+
+                        <div class="images-container" id="images-container" style="display: none; width: 100%;">
+                            <div class="top-action-bar">
+                                <button class="btn btn-detail-edit" id="btn-detail-edit">
+                                    <i data-lucide="crop"></i>
+                                    <span>선택 사진 정밀 편집</span>
+                                </button>
+                            </div>
+
+                            <div class="image-grid" id="image-grid"></div>
+
+                            <div class="inline-preview-section" id="inline-preview-section">
+                                <div class="preview-header">
+                                    <span class="preview-title" id="inline-preview-title">선택된 사진 미리보기</span>
+                                    <span class="preview-hint">더블클릭 또는 [선택 사진 정밀 편집]을 누르면 상세 편집이 가능합니다.</span>
+                                </div>
+                                <div class="preview-canvas-wrapper" id="preview-canvas-wrapper">
+                                    <canvas id="inline-canvas"></canvas>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <div class="bottom-action-section">
+                    <button class="btn btn-save-large" id="btn-save-images">
+                        <i data-lucide="download"></i>
+                        <span id="save-btn-text">이미지 저장</span>
+                    </button>
+
+                    <div class="guide-box">
+                        <h3 class="guide-title">이렇게 사용하세요</h3>
+                        <ol class="guide-steps">
+                            <li><strong>Win+Shift+S</strong>로 캡처한 뒤 이 화면에서 <strong>Ctrl+V</strong>로 붙여넣으세요. 파일 선택·끌어놓기도 가능합니다.</li>
+                            <li>사진을 클릭하면 하단에서 실시간 적용 화면을 확인하고, 더블클릭 시 자르기·회전·그리기 등을 정밀 편집할 수 있습니다.</li>
+                            <li>세로 크기 맞춤을 체크하면 전체 사진을 기본 세로 800px로 맞춥니다. 해제하면 사진별 편집 크기로 저장하며, 개별 파일로 바로 내려받습니다.</li>
+                        </ol>
+                        <p class="guide-footnote">
+                            횟수 제한 없이 무료로 사용할 수 있습니다. 긴 영상이나 고해상도 사진은 기기 성능에 따라 처리 시간이 길어질 수 있습니다.
+                        </p>
+                    </div>
                 </div>
-            </div>
-        </main>
+            </main>
+
+            <!-- 우측 이미지 편집 설정 사이드바 -->
+            <aside class="settings-sidebar">
+                <h2 class="settings-header">이미지 설정</h2>
+                <div class="settings-container">
+                    <div class="setting-card highlight-box">
+                        <label class="custom-checkbox">
+                            <input type="checkbox" id="chk-resize-height">
+                            <span class="checkbox-mark"></span>
+                            <span class="checkbox-label"><strong>세로 크기 맞춤 · 전체 사진</strong></span>
+                        </label>
+                        <div class="setting-item mt-3">
+                            <label for="input-target-height" class="setting-label">맞춤 세로 · px</label>
+                            <input type="number" id="input-target-height" class="form-input" value="800" min="50" max="4096">
+                        </div>
+                        <div class="setting-helper" id="resize-helper-text">크기 변경 없음 - 사진별 편집 크기 유지</div>
+                        <div class="setting-desc">
+                            체크하면 모든 사진의 세로를 맞추고, 가로는 각 사진의 비율에 맞춰 자동 조절합니다. 해제하면 개별 편집 크기로 저장합니다. 자르기·회전·크기 변경은 사진을 더블클릭하세요.
+                        </div>
+                    </div>
+
+                    <div class="setting-card">
+                        <div class="setting-header-inline">
+                            <label for="range-brightness" class="setting-label">밝기 · %</label>
+                            <span class="setting-value" id="val-brightness">100%</span>
+                        </div>
+                        <input type="range" id="range-brightness" class="form-range" min="30" max="170" value="100">
+                    </div>
+
+                    <div class="setting-card">
+                        <div class="setting-item">
+                            <label for="input-border-width" class="setting-label">테두리 · px</label>
+                            <input type="number" id="input-border-width" class="form-input" value="0" min="0" max="100">
+                        </div>
+                        <div class="setting-item mt-3">
+                            <label class="setting-label">테두리 색</label>
+                            <div class="color-picker-wrapper">
+                                <input type="color" id="input-border-color" value="#000000" class="color-input">
+                                <span class="color-text-label">색상 선택</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="setting-card">
+                        <label class="custom-checkbox">
+                            <input type="checkbox" id="chk-watermark">
+                            <span class="checkbox-mark"></span>
+                            <span class="checkbox-label"><strong>워터마크 적용</strong></span>
+                        </label>
+                        <div id="watermark-options" class="watermark-subgroup" style="display: none;">
+                            <div class="setting-item mt-3">
+                                <label for="select-watermark-type" class="setting-label">종류</label>
+                                <select id="select-watermark-type" class="form-select">
+                                    <option value="image" selected>이미지 파일</option>
+                                    <option value="text">텍스트 입력</option>
+                                </select>
+                            </div>
+                            <div class="setting-item mt-3" id="watermark-image-section">
+                                <label class="setting-label">워터마크 파일</label>
+                                <div class="file-upload-row">
+                                    <span class="file-name-display" id="watermark-file-name">선택한 파일 없음</span>
+                                    <label class="btn-file-search">
+                                        <span>찾기</span>
+                                        <input type="file" id="watermark-file-input" accept="image/*" style="display: none;">
+                                    </label>
+                                </div>
+                                <div class="setting-desc small">PNG · JPG · WebP · 25MB 이하. 투명 PNG는 배경 없이 합성됩니다.</div>
+                            </div>
+                            <div class="setting-item mt-3" id="watermark-text-section" style="display: none;">
+                                <label for="input-watermark-text" class="setting-label">워터마크 문구</label>
+                                <input type="text" id="input-watermark-text" class="form-input" placeholder="예: © 방장 용용이 2026">
+                            </div>
+                            <div class="setting-item mt-3">
+                                <label for="input-watermark-width" class="setting-label">로고 너비 · 출력 px</label>
+                                <input type="number" id="input-watermark-width" class="form-input" value="300" min="20" max="2000">
+                            </div>
+                            <button class="btn btn-outline btn-sm mt-2" id="btn-remove-watermark">
+                                <span>로고 삭제</span>
+                            </button>
+                            <div class="setting-item mt-4">
+                                <div class="setting-header-inline">
+                                    <label class="setting-label">위치</label>
+                                    <span class="setting-sub-label" id="watermark-pos-label">오른쪽 아래</span>
+                                </div>
+                                <div class="position-grid" id="watermark-grid">
+                                    <button type="button" class="pos-btn" data-pos="top-left" title="왼쪽 위">↖<br><span>왼쪽 위</span></button>
+                                    <button type="button" class="pos-btn" data-pos="top-center" title="가운데 위">↑<br><span>가운데 위</span></button>
+                                    <button type="button" class="pos-btn" data-pos="top-right" title="오른쪽 위">↗<br><span>오른쪽 위</span></button>
+                                    <button type="button" class="pos-btn" data-pos="middle-left" title="왼쪽 가운데">←<br><span>왼쪽 가운데</span></button>
+                                    <button type="button" class="pos-btn" data-pos="center" title="정가운데">●<br><span>정가운데</span></button>
+                                    <button type="button" class="pos-btn" data-pos="middle-right" title="오른쪽 가운데">→<br><span>오른쪽 가운데</span></button>
+                                    <button type="button" class="pos-btn" data-pos="bottom-left" title="왼쪽 아래">↙<br><span>왼쪽 아래</span></button>
+                                    <button type="button" class="pos-btn" data-pos="bottom-center" title="가운데 아래">↓<br><span>가운데 아래</span></button>
+                                    <button type="button" class="pos-btn active" data-pos="bottom-right" title="오른쪽 아래">↘<br><span>오른쪽 아래</span></button>
+                                </div>
+                            </div>
+                            <div class="setting-item mt-3">
+                                <label for="input-watermark-opacity" class="setting-label">농도 · %</label>
+                                <input type="number" id="input-watermark-opacity" class="form-input" value="70" min="5" max="100">
+                            </div>
+                            <div class="setting-item mt-3">
+                                <label for="input-watermark-margin" class="setting-label">여백 · 출력 px</label>
+                                <input type="number" id="input-watermark-margin" class="form-input" value="30" min="0" max="300">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="setting-card">
+                        <div class="setting-item">
+                            <label for="select-export-format" class="setting-label">저장 형식</label>
+                            <select id="select-export-format" class="form-select">
+                                <option value="jpeg" selected>JPG</option>
+                                <option value="png">PNG</option>
+                                <option value="webp">WebP</option>
+                            </select>
+                        </div>
+                        <div class="setting-item mt-3">
+                            <label for="select-download-mode" class="setting-label">다운로드 방식</label>
+                            <select id="select-download-mode" class="form-select">
+                                <option value="individual" selected>개별 파일 다운로드 (추천)</option>
+                                <option value="zip">ZIP 압축 파일로 다운로드</option>
+                            </select>
+                        </div>
+                        <div class="setting-item mt-3" id="jpg-quality-section">
+                            <div class="setting-header-inline">
+                                <label for="range-quality" class="setting-label">JPG 품질 · %</label>
+                                <span class="setting-value" id="val-quality">90%</span>
+                            </div>
+                            <input type="range" id="range-quality" class="form-range" min="30" max="100" value="90">
+                        </div>
+                        <div class="setting-desc mt-3">
+                            개별 편집 후 세로 맞춤을 적용합니다. 세로 맞춤 결과는 가로·세로 최대 4096px입니다. JPG의 투명 배경은 흰색으로 저장합니다.
+                        </div>
+                    </div>
+                </div>
+            </aside>
+        </div>
 
         <!-- ========================================================
-             3. 우측 사이드바 (실시간 이미지 설정 패널)
+             2-B. [사진 분할] 뷰 컨테이너 (신규 4분할 화면 추가)
              ======================================================== -->
-        <aside class="settings-sidebar">
-            <h2 class="settings-header">이미지 설정</h2>
-
-            <div class="settings-container">
-                <!-- 1) 세로 크기 맞춤 -->
-                <div class="setting-card highlight-box">
-                    <label class="custom-checkbox">
-                        <input type="checkbox" id="chk-resize-height">
-                        <span class="checkbox-mark"></span>
-                        <span class="checkbox-label"><strong>세로 크기 맞춤 · 전체 사진</strong></span>
-                    </label>
-
-                    <div class="setting-item mt-3">
-                        <label for="input-target-height" class="setting-label">맞춤 세로 · px</label>
-                        <input type="number" id="input-target-height" class="form-input" value="800" min="50" max="4096">
+        <div class="tool-view-wrapper" id="view-image-split" style="display: none;">
+            <!-- 중앙 메인 작업 영역 -->
+            <main class="main-content">
+                <header class="content-header">
+                    <div class="breadcrumb">
+                        <span>모든 도구</span>
+                        <i data-lucide="chevron-right" class="breadcrumb-arrow"></i>
+                        <span class="current">사진 분할</span>
                     </div>
-
-                    <div class="setting-helper" id="resize-helper-text">
-                        크기 변경 없음 - 사진별 편집 크기 유지
+                    <div class="sub-brand">방장 TOOLS / QUICK EDIT</div>
+                    <h1 class="page-title">사진 분할</h1>
+                    <p class="page-description">
+                        사진 한 장을 2·4·8·16조각으로 나누는 무료 이미지 분할 도구. 사진 확대·축소와 분할선 직접 조절을 지원하며, 조각을 개별 이미지 또는 ZIP으로 저장합니다.
+                    </p>
+                    <div class="privacy-notice">
+                        <i data-lucide="info" class="notice-icon"></i>
+                        <span>저장하는 JPG·PNG·GIF의 촬영 위치·작성자 등 부가 메타정보를 제거합니다. 이미지 표시·애니메이션에 필요한 정보는 유지합니다.</span>
                     </div>
-                    <div class="setting-desc">
-                        체크하면 모든 사진의 세로를 맞추고, 가로는 각 사진의 비율에 맞춰 자동 조절합니다. 해제하면 개별 편집 크기로 저장합니다. 자르기·회전·크기 변경은 사진을 더블클릭하세요.
-                    </div>
-                </div>
+                </header>
 
-                <!-- 2) 밝기 조절 -->
-                <div class="setting-card">
-                    <div class="setting-header-inline">
-                        <label for="range-brightness" class="setting-label">밝기 · %</label>
-                        <span class="setting-value" id="val-brightness">100%</span>
-                    </div>
-                    <input type="range" id="range-brightness" class="form-range" min="30" max="170" value="100">
-                </div>
-
-                <!-- 3) 테두리 두께 및 색상 -->
-                <div class="setting-card">
-                    <div class="setting-item">
-                        <label for="input-border-width" class="setting-label">테두리 · px</label>
-                        <input type="number" id="input-border-width" class="form-input" value="0" min="0" max="100">
-                    </div>
-
-                    <div class="setting-item mt-3">
-                        <label class="setting-label">테두리 색</label>
-                        <div class="color-picker-wrapper">
-                            <input type="color" id="input-border-color" value="#000000" class="color-input">
-                            <span class="color-text-label">색상 선택</span>
+                <section class="workspace-card">
+                    <div class="workspace-toolbar">
+                        <div class="toolbar-guide">
+                            <strong>Win+Shift+S로 캡처 → Ctrl+V로 붙여넣기</strong>
+                            <span class="guide-sub">사진 한 장을 붙여넣고 원하는 조각 수를 선택하세요. 새 사진은 현재 사진을 교체합니다.</span>
+                        </div>
+                        <div class="toolbar-actions">
+                            <button class="btn btn-primary" id="btn-split-paste">
+                                <i data-lucide="clipboard-paste"></i>
+                                <span>붙여넣기</span>
+                            </button>
+                            <label class="btn btn-secondary btn-file-input">
+                                <i data-lucide="image-plus"></i>
+                                <span>파일 추가</span>
+                                <input type="file" id="split-file-input" accept="image/*" style="display: none;">
+                            </label>
+                            <button class="btn btn-outline" id="btn-split-clear">
+                                <i data-lucide="trash-2"></i>
+                                <span>전체 삭제</span>
+                            </button>
+                            <div class="count-badge" id="split-status-banner">사진을 추가해주세요.</div>
                         </div>
                     </div>
+
+                    <div class="drop-zone" id="split-drop-zone">
+                        <div class="empty-state" id="split-empty-state">
+                            <div class="empty-state-icon">
+                                <i data-lucide="grid"></i>
+                            </div>
+                            <p class="empty-state-title">분할할 이미지를 여기에 드래그하거나 <strong>Ctrl + V</strong>로 붙여넣으세요.</p>
+                            <p class="empty-state-desc">상단의 [붙여넣기] 또는 [파일 추가]도 사용할 수 있습니다.</p>
+                        </div>
+
+                        <div class="split-canvas-container" id="split-workspace" style="display: none; width: 100%;">
+                            <div class="split-canvas-wrapper">
+                                <canvas id="split-canvas"></canvas>
+                            </div>
+                            <div class="split-canvas-footer" id="split-footer-info">
+                                가로 2 × 세로 2 · 4조각 · 번호·분할선은 저장되지 않습니다.
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <div class="bottom-action-section">
+                    <button class="btn btn-save-large" id="btn-save-split-images">
+                        <i data-lucide="download"></i>
+                        <span>이미지 분할 저장</span>
+                    </button>
+
+                    <div class="guide-box">
+                        <h3 class="guide-title">이렇게 사용하세요</h3>
+                        <ol class="guide-steps">
+                            <li><strong>Win+Shift+S</strong>로 캡처한 뒤 이 화면에서 <strong>Ctrl+V</strong>로 붙여넣으세요. 파일 선택·끌어놓기도 가능합니다.</li>
+                            <li>분할선을 마우스로 직접 잡고 끌거나, 오른쪽 슬라이더를 이용해 원하는 크기로 분할선을 조절하세요.</li>
+                            <li>조각 수(2, 4, 8, 16분할 등)를 선택하고 [이미지 분할 저장]을 누르면 번호순으로 조각 사진이 저장됩니다.</li>
+                        </ol>
+                        <p class="guide-footnote">
+                            횟수 제한 없이 무료로 사용할 수 있습니다. 긴 영상이나 고해상도 사진은 기기 성능에 따라 처리 시간이 길어질 수 있습니다.
+                        </p>
+                    </div>
                 </div>
+            </main>
 
-                <!-- 4) 워터마크 설정 -->
-                <div class="setting-card">
-                    <label class="custom-checkbox">
-                        <input type="checkbox" id="chk-watermark">
-                        <span class="checkbox-mark"></span>
-                        <span class="checkbox-label"><strong>워터마크 적용</strong></span>
-                    </label>
+            <!-- 우측 사진 분할 전용 설정 사이드바 -->
+            <aside class="settings-sidebar">
+                <h2 class="settings-header">사진 분할 설정</h2>
+                <div class="settings-container">
+                    <!-- 1. 사진 크기 -->
+                    <div class="setting-card">
+                        <span class="setting-label"><strong>사진 크기</strong></span>
+                        <div class="setting-item mt-2">
+                            <label for="input-split-width" class="setting-label">가로 · px</label>
+                            <input type="number" id="input-split-width" class="form-input" value="1130">
+                        </div>
+                        <div class="setting-item mt-2">
+                            <label for="input-split-height" class="setting-label">세로 · px</label>
+                            <input type="number" id="input-split-height" class="form-input" value="800">
+                        </div>
+                        <label class="custom-checkbox mt-2">
+                            <input type="checkbox" id="chk-split-aspect" checked>
+                            <span class="checkbox-mark"></span>
+                            <span class="checkbox-label">원본 비율 유지</span>
+                        </label>
+                        <button type="button" class="btn btn-outline w-100 mt-2" id="btn-apply-split-size">
+                            <span>크기 적용</span>
+                        </button>
+                        <div class="btn-group-3 mt-2">
+                            <button type="button" class="btn btn-outline btn-sm" id="btn-size-orig">원본 크기</button>
+                            <button type="button" class="btn btn-outline btn-sm" id="btn-size-2x">2배</button>
+                            <button type="button" class="btn btn-outline btn-sm" id="btn-size-3x">3배</button>
+                        </div>
+                        <div class="setting-desc small mt-2">
+                            전체 사진 크기를 적용한 뒤 분할합니다. 한 번 최대 16,384px · 전체 4천만 화소.
+                        </div>
+                    </div>
 
-                    <div id="watermark-options" class="watermark-subgroup" style="display: none;">
-                        <div class="setting-item mt-3">
-                            <label for="select-watermark-type" class="setting-label">종류</label>
-                            <select id="select-watermark-type" class="form-select">
-                                <option value="image" selected>이미지 파일</option>
-                                <option value="text">텍스트 입력</option>
+                    <!-- 2. 사진 분할 -->
+                    <div class="setting-card">
+                        <span class="setting-label"><strong>사진 분할</strong></span>
+                        <div class="setting-item mt-2">
+                            <label for="select-split-type" class="setting-label">조각 수</label>
+                            <select id="select-split-type" class="form-select">
+                                <option value="4" selected>4분할 (2×2)</option>
+                                <option value="2h">2분할 (좌우)</option>
+                                <option value="2v">2분할 (상하)</option>
+                                <option value="6">6분할 (3×2)</option>
+                                <option value="8">8분할 (4×2)</option>
+                                <option value="9">9분할 (3×3)</option>
+                                <option value="16">16분할 (4×4)</option>
                             </select>
                         </div>
 
-                        <!-- 이미지 워터마크 파일 선택 -->
-                        <div class="setting-item mt-3" id="watermark-image-section">
-                            <label class="setting-label">워터마크 파일</label>
-                            <div class="file-upload-row">
-                                <span class="file-name-display" id="watermark-file-name">선택한 파일 없음</span>
-                                <label class="btn-file-search">
-                                    <span>찾기</span>
-                                    <input type="file" id="watermark-file-input" accept="image/*" style="display: none;">
-                                </label>
-                            </div>
-                            <div class="setting-desc small">
-                                PNG · JPG · WebP · 25MB 이하. 투명 PNG는 배경 없이 합성됩니다.
-                            </div>
+                        <div class="setting-item mt-2">
+                            <label for="select-split-order" class="setting-label">배치</label>
+                            <select id="select-split-order" class="form-select">
+                                <option value="vertical-first" selected>세로 우선 · 위아래로</option>
+                                <option value="horizontal-first">가로 우선 · 좌우로</option>
+                            </select>
                         </div>
 
-                        <!-- 텍스트 워터마크 입력 -->
-                        <div class="setting-item mt-3" id="watermark-text-section" style="display: none;">
-                            <label for="input-watermark-text" class="setting-label">워터마크 문구</label>
-                            <input type="text" id="input-watermark-text" class="form-input" placeholder="예: © 방장 용용이 2026">
-                        </div>
-
-                        <div class="setting-item mt-3">
-                            <label for="input-watermark-width" class="setting-label">로고 너비 · 출력 px</label>
-                            <input type="number" id="input-watermark-width" class="form-input" value="300" min="20" max="2000">
-                        </div>
-
-                        <button class="btn btn-outline btn-sm mt-2" id="btn-remove-watermark">
-                            <span>로고 삭제</span>
+                        <button type="button" class="btn btn-outline w-100 mt-3" id="btn-reset-split-lines">
+                            <span>균등 분할로 초기화</span>
                         </button>
 
-                        <!-- 9분할 위치 선택기 -->
-                        <div class="setting-item mt-4">
-                            <div class="setting-header-inline">
-                                <label class="setting-label">위치</label>
-                                <span class="setting-sub-label" id="watermark-pos-label">오른쪽 아래</span>
-                            </div>
+                        <!-- 세로선 및 가로선 위치 슬라이더 컨테이너 -->
+                        <div id="split-line-sliders-container">
+                            <!-- JS를 통해 실시간 생성됩니다 -->
+                        </div>
+                    </div>
 
-                            <div class="position-grid" id="watermark-grid">
-                                <button type="button" class="pos-btn" data-pos="top-left" title="왼쪽 위">↖<br><span>왼쪽 위</span></button>
-                                <button type="button" class="pos-btn" data-pos="top-center" title="가운데 위">↑<br><span>가운데 위</span></button>
-                                <button type="button" class="pos-btn" data-pos="top-right" title="오른쪽 위">↗<br><span>오른쪽 위</span></button>
-                                <button type="button" class="pos-btn" data-pos="middle-left" title="왼쪽 가운데">←<br><span>왼쪽 가운데</span></button>
-                                <button type="button" class="pos-btn" data-pos="center" title="정가운데">●<br><span>정가운데</span></button>
-                                <button type="button" class="pos-btn" data-pos="middle-right" title="오른쪽 가운데">→<br><span>오른쪽 가운데</span></button>
-                                <button type="button" class="pos-btn" data-pos="bottom-left" title="왼쪽 아래">↙<br><span>왼쪽 아래</span></button>
-                                <button type="button" class="pos-btn" data-pos="bottom-center" title="가운데 아래">↓<br><span>가운데 아래</span></button>
-                                <button type="button" class="pos-btn active" data-pos="bottom-right" title="오른쪽 아래">↘<br><span>오른쪽 아래</span></button>
-                            </div>
+                    <!-- 3. 저장 형식 -->
+                    <div class="setting-card">
+                        <div class="setting-item">
+                            <label for="select-split-format" class="setting-label">저장 형식</label>
+                            <select id="select-split-format" class="form-select">
+                                <option value="png" selected>PNG · 투명 유지</option>
+                                <option value="jpeg">JPG</option>
+                                <option value="webp">WebP</option>
+                            </select>
                         </div>
 
-                        <!-- 워터마크 농도 / 투명도 -->
                         <div class="setting-item mt-3">
-                            <label for="input-watermark-opacity" class="setting-label">농도 · %</label>
-                            <input type="number" id="input-watermark-opacity" class="form-input" value="70" min="5" max="100">
+                            <label for="select-split-download-mode" class="setting-label">다운로드 방식</label>
+                            <select id="select-split-download-mode" class="form-select">
+                                <option value="individual" selected>개별 파일 다운로드 (추천)</option>
+                                <option value="zip">ZIP 압축 파일로 다운로드</option>
+                            </select>
                         </div>
 
-                        <!-- 워터마크 여백 -->
-                        <div class="setting-item mt-3">
-                            <label for="input-watermark-margin" class="setting-label">여백 · 출력 px</label>
-                            <input type="number" id="input-watermark-margin" class="form-input" value="30" min="0" max="300">
+                        <div class="setting-desc mt-3">
+                            분할선을 드래그하거나 선 위치 슬라이더로 조각 크기를 조절하세요. 왼쪽 위부터 오른쪽으로, 다음 줄 순서로 저장합니다.
+                        </div>
+                        <div class="setting-desc small mt-2">
+                            사진 한 장 25MB·4천만 화소 이하. JPG의 투명 영역은 흰색으로 저장합니다. GIF는 정지 이미지로 분할됩니다.
                         </div>
                     </div>
                 </div>
-
-                <!-- 5) 저장 형식 및 다운로드 모드 -->
-                <div class="setting-card">
-                    <div class="setting-item">
-                        <label for="select-export-format" class="setting-label">저장 형식</label>
-                        <select id="select-export-format" class="form-select">
-                            <option value="jpeg" selected>JPG</option>
-                            <option value="png">PNG</option>
-                            <option value="webp">WebP</option>
-                        </select>
-                    </div>
-
-                    <!-- 다운로드 방식 (개별 다운로드 vs ZIP) -->
-                    <div class="setting-item mt-3">
-                        <label for="select-download-mode" class="setting-label">다운로드 방식</label>
-                        <select id="select-download-mode" class="form-select">
-                            <option value="individual" selected>개별 파일 다운로드 (추천)</option>
-                            <option value="zip">ZIP 압축 파일로 다운로드</option>
-                        </select>
-                    </div>
-
-                    <div class="setting-item mt-3" id="jpg-quality-section">
-                        <div class="setting-header-inline">
-                            <label for="range-quality" class="setting-label">JPG 품질 · %</label>
-                            <span class="setting-value" id="val-quality">90%</span>
-                        </div>
-                        <input type="range" id="range-quality" class="form-range" min="30" max="100" value="90">
-                    </div>
-
-                    <div class="setting-desc mt-3">
-                        개별 편집 후 세로 맞춤을 적용합니다. 세로 맞춤 결과는 가로·세로 최대 4096px입니다. JPG의 투명 배경은 흰색으로 저장합니다.
-                    </div>
-                </div>
-            </div>
-        </aside>
+            </aside>
+        </div>
     </div>
 
     <!-- ========================================================
@@ -436,7 +578,6 @@
          ======================================================== -->
     <div class="modal-overlay" id="edit-modal" style="display: none;">
         <div class="modal-fullscreen-dialog">
-            <!-- 모달 상단 헤더 -->
             <div class="modal-top-header">
                 <div class="modal-title-wrap">
                     <h3 class="modal-main-title">사진 정밀 편집</h3>
@@ -447,49 +588,25 @@
                 </button>
             </div>
 
-            <!-- 상단 10대 그리기/편집 도구 툴바 -->
             <div class="modal-toolbar">
                 <div class="tool-btn-group">
-                    <button type="button" class="tool-btn" data-tool="select" title="선택·이동">
-                        <span>선택·이동</span>
-                    </button>
-                    <button type="button" class="tool-btn active" data-tool="crop" title="자르기">
-                        <span>자르기</span>
-                    </button>
-                    <button type="button" class="tool-btn" data-tool="mosaic" title="모자이크">
-                        <span>모자이크</span>
-                    </button>
-                    <button type="button" class="tool-btn" data-tool="pen" title="펜">
-                        <span>펜</span>
-                    </button>
-                    <button type="button" class="tool-btn" data-tool="highlighter" title="형광펜">
-                        <span>형광펜</span>
-                    </button>
-                    <button type="button" class="tool-btn" data-tool="line" title="직선">
-                        <span>직선</span>
-                    </button>
-                    <button type="button" class="tool-btn" data-tool="arrow" title="화살표">
-                        <span>화살표</span>
-                    </button>
-                    <button type="button" class="tool-btn" data-tool="rect" title="사각형">
-                        <span>사각형</span>
-                    </button>
-                    <button type="button" class="tool-btn" data-tool="circle" title="원">
-                        <span>원</span>
-                    </button>
-                    <button type="button" class="tool-btn" data-tool="text" title="텍스트">
-                        <span>텍스트</span>
-                    </button>
+                    <button type="button" class="tool-btn" data-tool="select" title="선택·이동"><span>선택·이동</span></button>
+                    <button type="button" class="tool-btn active" data-tool="crop" title="자르기"><span>자르기</span></button>
+                    <button type="button" class="tool-btn" data-tool="mosaic" title="모자이크"><span>모자이크</span></button>
+                    <button type="button" class="tool-btn" data-tool="pen" title="펜"><span>펜</span></button>
+                    <button type="button" class="tool-btn" data-tool="highlighter" title="형광펜"><span>형광펜</span></button>
+                    <button type="button" class="tool-btn" data-tool="line" title="직선"><span>직선</span></button>
+                    <button type="button" class="tool-btn" data-tool="arrow" title="화살표"><span>화살표</span></button>
+                    <button type="button" class="tool-btn" data-tool="rect" title="사각형"><span>사각형</span></button>
+                    <button type="button" class="tool-btn" data-tool="circle" title="원"><span>원</span></button>
+                    <button type="button" class="tool-btn" data-tool="text" title="텍스트"><span>텍스트</span></button>
                 </div>
             </div>
 
-            <!-- 모달 본문 영역 (중앙 캔버스 + 우측 서식/설정 패널) -->
             <div class="modal-main-body">
-                <!-- 중앙 캔버스 작업대 -->
                 <div class="modal-canvas-area" id="modal-canvas-area">
                     <div class="canvas-center-box" id="canvas-center-box">
                         <canvas id="fabric-canvas"></canvas>
-                        <!-- 자르기 영역 가이드 오버레이 박스 -->
                         <div class="crop-overlay-box" id="crop-overlay" style="display: none;">
                             <div class="crop-handle nw"></div>
                             <div class="crop-handle n"></div>
@@ -503,50 +620,31 @@
                     </div>
                 </div>
 
-                <!-- 우측 서식 및 사진 전체 설정 패널 -->
                 <aside class="modal-side-panel">
-                    <!-- 상단 2중 탭 -->
                     <div class="panel-tabs">
                         <button type="button" class="tab-btn" id="tab-btn-format" data-tab="format">객체 서식</button>
                         <button type="button" class="tab-btn active" id="tab-btn-photo" data-tab="photo">사진 전체</button>
                     </div>
 
-                    <!-- 탭 1: [사진 전체] 설정 -->
                     <div class="tab-content" id="tab-photo-content">
                         <div class="panel-guide-card">
                             <strong>사진 전체</strong>
                             <p>회전·크기 변경·자르기는 사진 전체에 적용됩니다.</p>
                         </div>
-
-                        <!-- 회전 / 반전 -->
                         <div class="panel-section">
                             <label class="panel-section-label">사진 전체 회전·반전</label>
                             <div class="btn-2x2-grid">
-                                <button type="button" class="btn btn-outline" id="btn-modal-rot-left">
-                                    <span>↶ 90°</span>
-                                </button>
-                                <button type="button" class="btn btn-outline" id="btn-modal-rot-right">
-                                    <span>↷ 90°</span>
-                                </button>
-                                <button type="button" class="btn btn-outline" id="btn-modal-flip-h">
-                                    <span>좌우 반전</span>
-                                </button>
-                                <button type="button" class="btn btn-outline" id="btn-modal-flip-v">
-                                    <span>상하 반전</span>
-                                </button>
+                                <button type="button" class="btn btn-outline" id="btn-modal-rot-left"><span>↶ 90°</span></button>
+                                <button type="button" class="btn btn-outline" id="btn-modal-rot-right"><span>↷ 90°</span></button>
+                                <button type="button" class="btn btn-outline" id="btn-modal-flip-h"><span>좌우 반전</span></button>
+                                <button type="button" class="btn btn-outline" id="btn-modal-flip-v"><span>상하 반전</span></button>
                             </div>
                         </div>
-
-                        <!-- 미세 각도 -->
                         <div class="panel-section">
                             <label class="panel-section-label" for="input-fine-angle">미세 각도 · 도</label>
                             <input type="number" id="input-fine-angle" class="form-input" value="0" min="-180" max="180">
-                            <button type="button" class="btn btn-outline w-100 mt-2" id="btn-apply-angle">
-                                <span>각도 적용</span>
-                            </button>
+                            <button type="button" class="btn btn-outline w-100 mt-2" id="btn-apply-angle"><span>각도 적용</span></button>
                         </div>
-
-                        <!-- 이미지 크기 변경 -->
                         <div class="panel-section">
                             <label class="panel-section-label">이미지 크기 변경</label>
                             <p class="panel-desc">사진 전체를 확대하거나 축소합니다. 입력 후 크기 적용을 누르세요.</p>
@@ -565,32 +663,21 @@
                                 <span class="checkbox-mark"></span>
                                 <span class="checkbox-label">비율 유지</span>
                             </label>
-                            <button type="button" class="btn btn-outline w-100 mt-2" id="btn-apply-resize">
-                                <span>크기 적용</span>
-                            </button>
+                            <button type="button" class="btn btn-outline w-100 mt-2" id="btn-apply-resize"><span>크기 적용</span></button>
                         </div>
-
-                        <!-- 자르기 액션 -->
                         <div class="panel-section" id="section-crop-actions">
                             <label class="panel-section-label">자르기</label>
                             <p class="panel-desc">자르기 영역을 정합니다. 마우스로 박스를 조절하세요.</p>
-                            <button type="button" class="btn btn-primary w-100 mt-1" id="btn-apply-crop">
-                                <span>자르기 적용</span>
-                            </button>
-                            <button type="button" class="btn btn-outline w-100 mt-2" id="btn-cancel-crop">
-                                <span>자르기 취소</span>
-                            </button>
+                            <button type="button" class="btn btn-primary w-100 mt-1" id="btn-apply-crop"><span>자르기 적용</span></button>
+                            <button type="button" class="btn btn-outline w-100 mt-2" id="btn-cancel-crop"><span>자르기 취소</span></button>
                         </div>
                     </div>
 
-                    <!-- 탭 2: [객체 서식] 설정 (도형, 브러시, 텍스트 서식) -->
                     <div class="tab-content" id="tab-format-content" style="display: none;">
                         <div class="panel-guide-card">
                             <strong>객체 서식</strong>
                             <p>도형, 펜, 텍스트, 모자이크의 상세 색상과 두께를 조절합니다.</p>
                         </div>
-
-                        <!-- 색상 선택 -->
                         <div class="panel-section">
                             <label class="panel-section-label">선 / 브러시 색상</label>
                             <div class="color-palette-wrap">
@@ -607,8 +694,6 @@
                                 </div>
                             </div>
                         </div>
-
-                        <!-- 두께 / 크기 -->
                         <div class="panel-section">
                             <div class="setting-header-inline">
                                 <label class="panel-section-label" for="range-tool-stroke">두께 · px</label>
@@ -616,8 +701,6 @@
                             </div>
                             <input type="range" id="range-tool-stroke" class="form-range" min="1" max="50" value="4">
                         </div>
-
-                        <!-- 도형 채우기 여부 -->
                         <div class="panel-section">
                             <label class="custom-checkbox">
                                 <input type="checkbox" id="chk-tool-fill">
@@ -625,8 +708,6 @@
                                 <span class="checkbox-label">도형 내부 색상 채우기</span>
                             </label>
                         </div>
-
-                        <!-- 모자이크 강도 -->
                         <div class="panel-section" id="section-mosaic-size">
                             <div class="setting-header-inline">
                                 <label class="panel-section-label" for="range-mosaic-size">모자이크 픽셀 크기</label>
@@ -638,23 +719,12 @@
                 </aside>
             </div>
 
-            <!-- 모달 하단 액션 바 -->
             <div class="modal-bottom-bar">
                 <div class="history-actions">
-                    <button type="button" class="btn btn-outline btn-sm" id="btn-history-undo" title="실행 취소">
-                        <i data-lucide="undo-2"></i>
-                        <span>실행 취소</span>
-                    </button>
-                    <button type="button" class="btn btn-outline btn-sm" id="btn-history-redo" title="다시 실행">
-                        <i data-lucide="redo-2"></i>
-                        <span>다시 실행</span>
-                    </button>
-                    <button type="button" class="btn btn-outline btn-sm" id="btn-history-reset" title="원본 복원">
-                        <span>원본 복원</span>
-                    </button>
-                    <span class="keyboard-guide">
-                        도형 클릭·드래그로 선택·이동 · 회전 손잡이 · Delete / Backspace 삭제 · 겹쳐 그리기는 도구를 다시 선택하거나 Alt+드래그
-                    </span>
+                    <button type="button" class="btn btn-outline btn-sm" id="btn-history-undo" title="실행 취소"><i data-lucide="undo-2"></i><span>실행 취소</span></button>
+                    <button type="button" class="btn btn-outline btn-sm" id="btn-history-redo" title="다시 실행"><i data-lucide="redo-2"></i><span>다시 실행</span></button>
+                    <button type="button" class="btn btn-outline btn-sm" id="btn-history-reset" title="원본 복원"><span>원본 복원</span></button>
+                    <span class="keyboard-guide">도형 클릭·드래그로 선택·이동 · 회전 손잡이 · Delete / Backspace 삭제 · 겹쳐 그리기는 도구를 다시 선택하거나 Alt+드래그</span>
                 </div>
                 <div class="submit-actions">
                     <button type="button" class="btn btn-outline" id="btn-modal-cancel-bottom">취소</button>
@@ -668,6 +738,7 @@
     <script src="js/editor.js"></script>
     <script src="js/clipboard.js"></script>
     <script src="js/exporter.js"></script>
+    <script src="js/splitter.js"></script>
     <script src="js/app.js"></script>
 </body>
 </html>
