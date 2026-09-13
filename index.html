@@ -304,26 +304,37 @@
                     </select>
                 </div>
 
-                <div class="setting-group">
+                <!-- (1) 이미지 파일 선택 영역 -->
+                <div class="setting-group" id="wm-image-file-group">
                     <label class="setting-label">워터마크 파일</label>
                     <div class="watermark-file-row">
                         <span class="watermark-file-display" id="wm-file-name-label">선택된 파일 없음</span>
-                        <label class="btn-file-search">
+                        <label class="btn-file-search" for="wm-file-input">
                             <span>찾기</span>
-                            <input type="file" id="wm-file-input" accept="image/*" style="display: none;">
                         </label>
+                        <input type="file" id="wm-file-input" accept="image/*" style="display: none;">
                     </div>
                     <div class="setting-desc mt-1">
                         PNG · JPG · WebP · 25MB 이하. 투명 PNG는 배경 없이 합성됩니다.
                     </div>
                 </div>
 
-                <div class="setting-group">
-                    <label class="setting-label">로고 너비 · 출력 px</label>
+                <!-- (2) 텍스트 입력 영역 (텍스트 선택 시 노출) -->
+                <div class="setting-group" id="wm-text-group" style="display: none;">
+                    <label class="setting-label">워터마크 문구</label>
+                    <input type="text" id="input-wm-text" class="form-input" value="방장 용용이" placeholder="표시할 문구 입력">
+                    <div class="color-picker-box mt-2">
+                        <input type="color" id="input-wm-text-color" value="#ffffff">
+                        <span>글자 색상</span>
+                    </div>
+                </div>
+
+                <div class="setting-group" id="wm-width-group">
+                    <label class="setting-label" id="wm-size-label">로고 너비 · 출력 px</label>
                     <input type="number" id="input-wm-width" class="form-input" value="300" min="10" max="2000">
                 </div>
 
-                <div class="setting-group">
+                <div class="setting-group" id="wm-delete-btn-group">
                     <button class="btn-delete-logo" id="btn-delete-logo">
                         로고 삭제
                     </button>

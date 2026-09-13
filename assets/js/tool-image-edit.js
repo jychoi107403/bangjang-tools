@@ -6,7 +6,7 @@
  * 1. 상단 카드 갤러리: 썸네일, 순번/파일명, 원본→출력 해상도 표시, [편집], [삭제]
  * 2. 사진 클릭 시: 아래쪽에 대형 화면으로 나타나며, 우측 설정이 실시간 반영됨
  * 3. 더블클릭 또는 [편집] 클릭 시: 대화면 [사진 정밀 편집] 모달창 오픈 (10대 도구, 우측 탭, 하단 액션)
- * 4. 우측 이미지 설정: 세로 크기 맞춤 800px, 밝기, 테두리, 9방향 워터마크, EXIF 제거 저장
+ * 4. 우측 이미지 설정: 세로 크기 맞춤 800px, 밝기, 테두리, 워터마크(이미지/텍스트 9방향 자동 활성화), EXIF 제거 저장
  */
 
 import { downloadBlob, canvasToBlob, readFileAsDataURL, loadImage } from './utils.js';
@@ -32,10 +32,12 @@ let borderColor = '#000000';      // 테두리 색상
 let useWatermark = false;         // 워터마크 적용 여부
 let watermarkType = 'image';      // 'image' | 'text'
 let watermarkImg = null;          // 로드된 워터마크 이미지 객체
+let watermarkText = '방장 용용이'; // 텍스트 워터마크 문구
+let watermarkTextColor = '#ffffff'; // 텍스트 워터마크 색상
 let watermarkWidth = 300;         // 로고 너비 (px)
 let watermarkPosition = 'bottom-right'; // 9방향 위치
-let watermarkOpacity = 70;        // 농도 %
-let watermarkMargin = 30;         // 여백 px
+let watermarkOpacity = 70;        // 농도 % (0 ~ 100)
+let watermarkMargin = 30;         // 여백 px (0 ~ 500)
 
 // [내보내기 설정 상태]
 let exportFormat = 'jpeg';        // 'jpeg' | 'png' | 'webp'
@@ -400,25 +402,53 @@ function renderBottomPreviewCanvas(item) {
     ctx.drawImage(srcCanvas, borderPx, borderPx, finalW, finalH);
     ctx.restore();
 
-    // 워터마크 실시간 합성
-    if (useWatermark && watermarkImg) {
-        const wRatio = watermarkImg.naturalHeight / watermarkImg.naturalWidth;
-        const actualWmW = Math.min(watermarkWidth, finalW * 0.8);
-        const actualWmH = actualWmW * wRatio;
+    // 2. 워터마크 실시간 합성 (이미지 또는 텍스트)
+    if (useWatermark) {
+        if (watermarkType === 'image' && watermarkImg) {
+            const wRatio = watermarkImg.naturalHeight / watermarkImg.naturalWidth;
+            const actualWmW = Math.min(watermarkWidth, finalW * 0.8);
+            const actualWmH = actualWmW * wRatio;
 
-        const pos = calculateWatermarkCoordinates(
-            totalW,
-            totalH,
-            actualWmW,
-            actualWmH,
-            watermarkMargin,
-            watermarkPosition
-        );
+            const pos = calculateWatermarkCoordinates(
+                totalW,
+                totalH,
+                actualWmW,
+                actualWmH,
+                watermarkMargin,
+                watermarkPosition
+            );
 
-        ctx.save();
-        ctx.globalAlpha = Math.max(0, Math.min(1, watermarkOpacity / 100));
-        ctx.drawImage(watermarkImg, pos.x, pos.y, actualWmW, actualWmH);
-        ctx.restore();
+            ctx.save();
+            ctx.globalAlpha = Math.max(0, Math.min(1, watermarkOpacity / 100));
+            ctx.drawImage(watermarkImg, pos.x, pos.y, actualWmW, actualWmH);
+            ctx.restore();
+        } else if (watermarkType === 'text' && watermarkText.trim() !== '') {
+            ctx.save();
+            ctx.globalAlpha = Math.max(0, Math.min(1, watermarkOpacity / 100));
+            const fontSize = Math.max(14, Math.round(watermarkWidth / 8));
+            ctx.font = `bold ${fontSize}px Pretendard, sans-serif`;
+            ctx.fillStyle = watermarkTextColor;
+            ctx.shadowColor = 'rgba(0, 0, 0, 0.6)';
+            ctx.shadowBlur = 4;
+            ctx.shadowOffsetX = 1;
+            ctx.shadowOffsetY = 1;
+
+            const textMetrics = ctx.measureText(watermarkText);
+            const textW = textMetrics.width;
+            const textH = fontSize;
+
+            const pos = calculateWatermarkCoordinates(
+                totalW,
+                totalH,
+                textW,
+                textH,
+                watermarkMargin,
+                watermarkPosition
+            );
+
+            ctx.fillText(watermarkText, pos.x, pos.y + textH * 0.85);
+            ctx.restore();
+        }
     }
 }
 
@@ -502,30 +532,56 @@ function bindSidebarSettings() {
     // 4. 워터마크
     const chkWatermark = document.getElementById('chk-watermark');
     const selectWmType = document.getElementById('select-wm-type');
+    const wmImageGroup = document.getElementById('wm-image-file-group');
+    const wmTextGroup = document.getElementById('wm-text-group');
+    const wmSizeLabel = document.getElementById('wm-size-label');
+    const wmDelBtnGroup = document.getElementById('wm-delete-btn-group');
+
     const wmFileInput = document.getElementById('wm-file-input');
     const wmFileLabel = document.getElementById('wm-file-name-label');
+    const inputWmText = document.getElementById('input-wm-text');
+    const inputWmTextColor = document.getElementById('input-wm-text-color');
     const inputWmWidth = document.getElementById('input-wm-width');
     const btnDeleteLogo = document.getElementById('btn-delete-logo');
     const selectWmPos = document.getElementById('select-wm-position');
     const inputWmOpacity = document.getElementById('input-wm-opacity');
     const inputWmMargin = document.getElementById('input-wm-margin');
 
+    // 워터마크 체크박스 수동 토글
     if (chkWatermark) {
         chkWatermark.addEventListener('change', (e) => {
             useWatermark = e.target.checked;
-            if (selectedId) {
-                const item = images.find(img => img.id === selectedId);
-                if (item) renderBottomPreviewCanvas(item);
-            }
+            triggerPreviewUpdate();
         });
     }
 
+    // 워터마크 종류 변경 (이미지 파일 vs 텍스트)
     if (selectWmType) {
         selectWmType.addEventListener('change', (e) => {
             watermarkType = e.target.value;
+            if (watermarkType === 'text') {
+                if (wmImageGroup) wmImageGroup.style.display = 'none';
+                if (wmDelBtnGroup) wmDelBtnGroup.style.display = 'none';
+                if (wmTextGroup) wmTextGroup.style.display = 'block';
+                if (wmSizeLabel) wmSizeLabel.textContent = '글자 크기 기준 너비 · px';
+                // 텍스트 선택 시 자동으로 워터마크 체크 활성화
+                useWatermark = true;
+                if (chkWatermark) chkWatermark.checked = true;
+            } else {
+                if (wmImageGroup) wmImageGroup.style.display = 'block';
+                if (wmDelBtnGroup) wmDelBtnGroup.style.display = 'block';
+                if (wmTextGroup) wmTextGroup.style.display = 'none';
+                if (wmSizeLabel) wmSizeLabel.textContent = '로고 너비 · 출력 px';
+                if (watermarkImg) {
+                    useWatermark = true;
+                    if (chkWatermark) chkWatermark.checked = true;
+                }
+            }
+            triggerPreviewUpdate();
         });
     }
 
+    // 워터마크 이미지 파일 선택
     if (wmFileInput) {
         wmFileInput.addEventListener('change', async (e) => {
             const file = e.target.files[0];
@@ -533,11 +589,30 @@ function bindSidebarSettings() {
                 const dataUrl = await readFileAsDataURL(file);
                 watermarkImg = await loadImage(dataUrl);
                 if (wmFileLabel) wmFileLabel.textContent = file.name;
-                if (selectedId) {
-                    const item = images.find(img => img.id === selectedId);
-                    if (item) renderBottomPreviewCanvas(item);
-                }
+                
+                // 파일 선택 시 자동으로 워터마크 적용 활성화
+                useWatermark = true;
+                if (chkWatermark) chkWatermark.checked = true;
+                
+                triggerPreviewUpdate();
             }
+        });
+    }
+
+    // 텍스트 워터마크 입력
+    if (inputWmText) {
+        inputWmText.addEventListener('input', (e) => {
+            watermarkText = e.target.value;
+            useWatermark = true;
+            if (chkWatermark) chkWatermark.checked = true;
+            triggerPreviewUpdate();
+        });
+    }
+
+    if (inputWmTextColor) {
+        inputWmTextColor.addEventListener('input', (e) => {
+            watermarkTextColor = e.target.value;
+            triggerPreviewUpdate();
         });
     }
 
@@ -546,20 +621,14 @@ function bindSidebarSettings() {
             watermarkImg = null;
             if (wmFileInput) wmFileInput.value = '';
             if (wmFileLabel) wmFileLabel.textContent = '선택된 파일 없음';
-            if (selectedId) {
-                const item = images.find(img => img.id === selectedId);
-                if (item) renderBottomPreviewCanvas(item);
-            }
+            triggerPreviewUpdate();
         });
     }
 
     if (inputWmWidth) {
         inputWmWidth.addEventListener('input', (e) => {
             watermarkWidth = parseInt(e.target.value, 10) || 300;
-            if (selectedId) {
-                const item = images.find(img => img.id === selectedId);
-                if (item) renderBottomPreviewCanvas(item);
-            }
+            triggerPreviewUpdate();
         });
     }
 
@@ -567,10 +636,7 @@ function bindSidebarSettings() {
         selectWmPos.addEventListener('change', (e) => {
             watermarkPosition = e.target.value;
             syncPositionGridButtons();
-            if (selectedId) {
-                const item = images.find(img => img.id === selectedId);
-                if (item) renderBottomPreviewCanvas(item);
-            }
+            triggerPreviewUpdate();
         });
     }
 
@@ -582,10 +648,7 @@ function bindSidebarSettings() {
             btn.classList.add('active');
             watermarkPosition = btn.getAttribute('data-pos');
             if (selectWmPos) selectWmPos.value = watermarkPosition;
-            if (selectedId) {
-                const item = images.find(img => img.id === selectedId);
-                if (item) renderBottomPreviewCanvas(item);
-            }
+            triggerPreviewUpdate();
         });
     });
 
@@ -602,21 +665,22 @@ function bindSidebarSettings() {
     if (inputWmOpacity) {
         inputWmOpacity.addEventListener('input', (e) => {
             watermarkOpacity = parseInt(e.target.value, 10) || 70;
-            if (selectedId) {
-                const item = images.find(img => img.id === selectedId);
-                if (item) renderBottomPreviewCanvas(item);
-            }
+            triggerPreviewUpdate();
         });
     }
 
     if (inputWmMargin) {
         inputWmMargin.addEventListener('input', (e) => {
             watermarkMargin = parseInt(e.target.value, 10) || 30;
-            if (selectedId) {
-                const item = images.find(img => img.id === selectedId);
-                if (item) renderBottomPreviewCanvas(item);
-            }
+            triggerPreviewUpdate();
         });
+    }
+
+    function triggerPreviewUpdate() {
+        if (selectedId) {
+            const item = images.find(img => img.id === selectedId);
+            if (item) renderBottomPreviewCanvas(item);
+        }
     }
 
     // 5. 저장 형식 & JPG 품질
@@ -728,24 +792,53 @@ async function exportImages() {
             ctx.drawImage(srcCanvas, borderPx, borderPx, finalW, finalH);
             ctx.restore();
 
-            if (useWatermark && watermarkImg) {
-                const wRatio = watermarkImg.naturalHeight / watermarkImg.naturalWidth;
-                const actualWmW = Math.min(watermarkWidth, finalW * 0.8);
-                const actualWmH = actualWmW * wRatio;
+            // 워터마크 합성
+            if (useWatermark) {
+                if (watermarkType === 'image' && watermarkImg) {
+                    const wRatio = watermarkImg.naturalHeight / watermarkImg.naturalWidth;
+                    const actualWmW = Math.min(watermarkWidth, finalW * 0.8);
+                    const actualWmH = actualWmW * wRatio;
 
-                const pos = calculateWatermarkCoordinates(
-                    totalW,
-                    totalH,
-                    actualWmW,
-                    actualWmH,
-                    watermarkMargin,
-                    watermarkPosition
-                );
+                    const pos = calculateWatermarkCoordinates(
+                        totalW,
+                        totalH,
+                        actualWmW,
+                        actualWmH,
+                        watermarkMargin,
+                        watermarkPosition
+                    );
 
-                ctx.save();
-                ctx.globalAlpha = Math.max(0, Math.min(1, watermarkOpacity / 100));
-                ctx.drawImage(watermarkImg, pos.x, pos.y, actualWmW, actualWmH);
-                ctx.restore();
+                    ctx.save();
+                    ctx.globalAlpha = Math.max(0, Math.min(1, watermarkOpacity / 100));
+                    ctx.drawImage(watermarkImg, pos.x, pos.y, actualWmW, actualWmH);
+                    ctx.restore();
+                } else if (watermarkType === 'text' && watermarkText.trim() !== '') {
+                    ctx.save();
+                    ctx.globalAlpha = Math.max(0, Math.min(1, watermarkOpacity / 100));
+                    const fontSize = Math.max(14, Math.round(watermarkWidth / 8));
+                    ctx.font = `bold ${fontSize}px Pretendard, sans-serif`;
+                    ctx.fillStyle = watermarkTextColor;
+                    ctx.shadowColor = 'rgba(0, 0, 0, 0.6)';
+                    ctx.shadowBlur = 4;
+                    ctx.shadowOffsetX = 1;
+                    ctx.shadowOffsetY = 1;
+
+                    const textMetrics = ctx.measureText(watermarkText);
+                    const textW = textMetrics.width;
+                    const textH = fontSize;
+
+                    const pos = calculateWatermarkCoordinates(
+                        totalW,
+                        totalH,
+                        textW,
+                        textH,
+                        watermarkMargin,
+                        watermarkPosition
+                    );
+
+                    ctx.fillText(watermarkText, pos.x, pos.y + textH * 0.85);
+                    ctx.restore();
+                }
             }
 
             const blob = await canvasToBlob(outCanvas, mimeType, quality);
