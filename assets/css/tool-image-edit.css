@@ -2,54 +2,56 @@
  * ============================================================================
  * assets/css/tool-image-edit.css - [이미지 편집] 전용 격리 스타일시트
  * ============================================================================
- * [네임스페이스]: .tool-image-edit 및 모달 전용 스타일
+ * 스크린샷 1, 2, 3, 4번 100% 일치 디자인 시스템
  */
 
 /* --------------------------------------------------------------------------
-   1. 갤러리 이미지 그리드 (상단 목록)
+   1. 메인 작업 영역 및 상단 카드 그리드 (스크린샷 4번)
    -------------------------------------------------------------------------- */
 .tool-image-edit .image-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
-    gap: 14px;
+    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+    gap: 12px;
     width: 100%;
     padding: 10px 0;
 }
 
+/* 개별 사진 카드 */
 .tool-image-edit .image-card {
     background: #ffffff;
-    border: 2px solid var(--border-color);
+    border: 1.5px solid var(--border-color);
     border-radius: var(--radius-md);
     overflow: hidden;
     position: relative;
     cursor: pointer;
     transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-    box-shadow: var(--shadow-sm);
+    box-shadow: var(--shadow-xs);
     display: flex;
     flex-direction: column;
 }
 
 .tool-image-edit .image-card:hover {
-    transform: translateY(-2px);
-    border-color: var(--border-focus);
+    border-color: #8b5cf6;
     box-shadow: var(--shadow-md);
+    transform: translateY(-1px);
 }
 
+/* 선택된 카드 (스크린샷 4번 보라색 테두리) */
 .tool-image-edit .image-card.selected {
-    border-color: var(--primary-color);
-    box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.25);
-    background-color: #f5f3ff;
+    border: 2px solid #8b5cf6;
+    box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.2);
 }
 
 .tool-image-edit .image-thumb-wrap {
     width: 100%;
-    height: 110px;
-    background-color: #0f172a;
+    height: 100px;
+    background-color: #f8fafc;
     display: flex;
     align-items: center;
     justify-content: center;
     overflow: hidden;
     position: relative;
+    border-bottom: 1px solid #f1f5f9;
 }
 
 .tool-image-edit .image-thumb {
@@ -58,391 +60,115 @@
     object-fit: contain;
 }
 
-.tool-image-edit .image-order-badge {
-    position: absolute;
-    top: 6px;
-    left: 6px;
-    background: rgba(15, 23, 42, 0.75);
-    backdrop-filter: blur(4px);
-    color: #ffffff;
-    font-size: 11px;
-    font-weight: 700;
-    padding: 2px 7px;
-    border-radius: 12px;
-}
-
-.tool-image-edit .btn-card-delete {
-    position: absolute;
-    top: 6px;
-    right: 6px;
-    width: 24px;
-    height: 24px;
-    background: rgba(239, 68, 68, 0.85);
-    color: #ffffff;
-    border: none;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    opacity: 0;
-    transition: opacity 0.15s, transform 0.15s;
-}
-
-.tool-image-edit .image-card:hover .btn-card-delete {
-    opacity: 1;
-}
-
-.tool-image-edit .btn-card-delete:hover {
-    background: var(--color-danger);
-    transform: scale(1.1);
-}
-
-.tool-image-edit .btn-card-delete i {
-    width: 14px;
-    height: 14px;
-}
-
-.tool-image-edit .image-info-bar {
+.tool-image-edit .card-body {
     padding: 8px 10px;
-    background: #ffffff;
-    border-top: 1px solid var(--border-color);
     display: flex;
-    justify-content: space-between;
-    align-items: center;
+    flex-direction: column;
+    gap: 4px;
+    background: #ffffff;
 }
 
-.tool-image-edit .image-name {
-    font-size: 11.5px;
-    font-weight: 600;
+.tool-image-edit .card-title {
+    font-size: 12px;
+    font-weight: 700;
     color: var(--text-primary);
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-    max-width: 65px;
 }
 
-.tool-image-edit .image-dimensions {
-    font-size: 10.5px;
-    color: var(--text-muted);
-}
-
-/* --------------------------------------------------------------------------
-   2. 하단 대형 뷰어 패널 (이미지 선택 시 메인 영역 아래쪽에 표시)
-   -------------------------------------------------------------------------- */
-.tool-image-edit .viewer-panel {
-    width: 100%;
-    background-color: #ffffff;
-    border: 1px solid var(--border-color);
-    border-radius: var(--radius-lg);
-    box-shadow: var(--shadow-md);
-    margin-top: 16px;
-    overflow: hidden;
-    display: flex;
-    flex-direction: column;
-    animation: slideDown 0.25s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-.tool-image-edit .viewer-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 12px 18px;
-    background-color: #f8fafc;
-    border-bottom: 1px solid var(--border-color);
-}
-
-.tool-image-edit .viewer-title-group {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-}
-
-.tool-image-edit .viewer-tag {
-    background: var(--primary-color);
-    color: #ffffff;
+.tool-image-edit .card-resolution {
     font-size: 11px;
-    font-weight: 700;
-    padding: 3px 8px;
-    border-radius: 4px;
-    letter-spacing: 0.5px;
-}
-
-.tool-image-edit .viewer-photo-name {
-    font-size: 14px;
-    font-weight: 700;
-    color: var(--text-primary);
-}
-
-.tool-image-edit .viewer-photo-dim {
-    font-size: 12px;
-    font-weight: 500;
     color: var(--text-muted);
-    background: #e2e8f0;
-    padding: 2px 6px;
-    border-radius: 4px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
-.tool-image-edit .viewer-header-actions {
-    display: flex;
-    align-items: center;
-    gap: 8px;
+.tool-image-edit .card-btn-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 6px;
+    margin-top: 4px;
 }
 
-.tool-image-edit .viewer-btn-action {
-    background: #ffffff;
-    border: 1px solid var(--border-color);
-    color: var(--text-secondary);
-    padding: 5px 10px;
-    border-radius: var(--radius-sm);
-    font-size: 12px;
+.tool-image-edit .btn-card-action {
+    padding: 4px 6px;
+    font-size: 11.5px;
     font-weight: 600;
+    border: 1px solid var(--border-color);
+    background: #ffffff;
+    color: var(--text-secondary);
+    border-radius: var(--radius-sm);
     cursor: pointer;
-    display: flex;
-    align-items: center;
-    gap: 5px;
+    text-align: center;
     transition: all 0.15s;
 }
 
-.tool-image-edit .viewer-btn-action:hover {
+.tool-image-edit .btn-card-action:hover {
     background: var(--bg-muted);
     color: var(--text-primary);
 }
 
-.tool-image-edit .viewer-btn-action.active {
-    background: #ede9fe;
-    border-color: #8b5cf6;
-    color: #6d28d9;
-}
-
-.tool-image-edit .btn-viewer-close {
-    background: none;
-    border: none;
-    color: var(--text-muted);
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 6px;
-    border-radius: var(--radius-sm);
-    transition: all 0.15s;
-}
-
-.tool-image-edit .btn-viewer-close:hover {
-    color: var(--color-danger);
+.tool-image-edit .btn-card-action.btn-del:hover {
     background: #fee2e2;
-}
-
-/* 대형 캔버스 작업 영역 */
-.tool-image-edit .viewer-canvas-area {
-    background-color: #0f172a;
-    background-image: 
-        linear-gradient(45deg, #1e293b 25%, transparent 25%), 
-        linear-gradient(-45deg, #1e293b 25%, transparent 25%), 
-        linear-gradient(45deg, transparent 75%, #1e293b 75%), 
-        linear-gradient(-45deg, transparent 75%, #1e293b 75%);
-    background-size: 20px 20px;
-    background-position: 0 0, 0 10px, 10px -10px, -10px 0px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 24px;
-    position: relative;
-    min-height: 380px;
-    max-height: 520px;
-    overflow: auto;
-    user-select: none;
-}
-
-.tool-image-edit .viewer-canvas-container {
-    position: relative;
-    display: inline-block;
-    box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.6);
-}
-
-.tool-image-edit #viewer-main-canvas {
-    display: block;
-    max-width: 100%;
-    max-height: 460px;
-    object-fit: contain;
-    border-radius: 2px;
-}
-
-/* 크롭(자르기) 오버레이 레이어 */
-.tool-image-edit .crop-overlay-box {
-    position: absolute;
-    border: 2px dashed #3b82f6;
-    background: rgba(59, 130, 246, 0.15);
-    cursor: move;
-    box-sizing: border-box;
-    display: none;
-    z-index: 10;
-}
-
-.tool-image-edit .crop-handle {
-    position: absolute;
-    width: 10px;
-    height: 10px;
-    background: #ffffff;
-    border: 2px solid #3b82f6;
-    border-radius: 2px;
-}
-
-.tool-image-edit .crop-handle.tl { top: -5px; left: -5px; cursor: nwse-resize; }
-.tool-image-edit .crop-handle.tr { top: -5px; right: -5px; cursor: nesw-resize; }
-.tool-image-edit .crop-handle.bl { bottom: -5px; left: -5px; cursor: nesw-resize; }
-.tool-image-edit .crop-handle.br { bottom: -5px; right: -5px; cursor: nwse-resize; }
-
-/* 뷰어 하단 상태/안내 툴바 */
-.tool-image-edit .viewer-footer-toolbar {
-    padding: 10px 18px;
-    background: #fafbfc;
-    border-top: 1px solid var(--border-color);
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    font-size: 12px;
-    color: var(--text-muted);
-}
-
-.tool-image-edit .viewer-guide-tip {
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    color: var(--text-secondary);
-}
-
-.tool-image-edit .viewer-guide-tip i {
-    color: var(--primary-color);
-    width: 15px;
-    height: 15px;
+    color: var(--color-danger);
+    border-color: #fca5a5;
 }
 
 /* --------------------------------------------------------------------------
-   3. 우측 [이미지 설정 & 개별 편집] 사이드바 컴포넌트
+   2. 사진 클릭 시 아래쪽에 크게 나오는 [대형 뷰어] 영역 (스크린샷 4번)
    -------------------------------------------------------------------------- */
-
-/* 섹션 구분 카드 */
-.settings-section-card {
-    background: #ffffff;
-    border: 1px solid var(--border-color);
-    border-radius: var(--radius-lg);
-    padding: 16px;
-    display: flex;
-    flex-direction: column;
-    gap: 14px;
-    box-shadow: var(--shadow-xs);
-}
-
-.settings-section-card.active-photo {
-    border: 1.5px solid #818cf8;
-    background: #fdfefe;
-}
-
-.section-card-header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding-bottom: 8px;
-    border-bottom: 1px solid var(--border-color);
-}
-
-.section-card-title {
-    font-size: 13.5px;
-    font-weight: 800;
-    color: var(--text-primary);
-    display: flex;
-    align-items: center;
-    gap: 6px;
-}
-
-.section-card-title i {
-    color: var(--primary-color);
-    width: 16px;
-    height: 16px;
-}
-
-.badge-photo-name {
-    font-size: 11px;
-    font-weight: 600;
-    color: #4338ca;
-    background: #e0e7ff;
-    padding: 2px 7px;
-    border-radius: 4px;
-    max-width: 110px;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-}
-
-.no-photo-selected-msg {
-    padding: 20px 10px;
-    text-align: center;
-    color: var(--text-muted);
-    font-size: 12px;
-    line-height: 1.5;
+.tool-image-edit .bottom-preview-container {
+    width: 100%;
+    margin-top: 20px;
+    padding: 20px;
     background: #f8fafc;
-    border-radius: var(--radius-md);
     border: 1px dashed var(--border-color);
-}
-
-/* 그리드 버튼 모음 */
-.btn-grid-4 {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 4px;
-}
-
-.btn-grid-2 {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 6px;
-}
-
-.btn-sm-tool {
-    padding: 6px 4px;
-    font-size: 11.5px;
-    font-weight: 600;
-    border: 1px solid var(--border-color);
-    background: #ffffff;
-    color: var(--text-secondary);
-    border-radius: var(--radius-sm);
-    cursor: pointer;
+    border-radius: var(--radius-lg);
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    gap: 4px;
-    transition: all 0.15s;
+    min-height: 380px;
+    position: relative;
+    overflow: hidden;
 }
 
-.btn-sm-tool:hover {
-    background-color: var(--bg-muted);
-    color: var(--text-primary);
-    border-color: #cbd5e1;
-}
-
-.btn-sm-tool i {
-    width: 14px;
-    height: 14px;
-}
-
-/* 슬라이더 라벨 행 */
-.slider-label-row {
+.tool-image-edit .bottom-preview-canvas-wrap {
     display: flex;
-    justify-content: space-between;
+    align-items: center;
+    justify-content: center;
+    max-width: 100%;
+    max-height: 480px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    background: #ffffff;
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+.tool-image-edit #bottom-preview-canvas {
+    max-width: 100%;
+    max-height: 460px;
+    display: block;
+    object-fit: contain;
+}
+
+.tool-image-edit .bottom-preview-guide {
+    position: absolute;
+    bottom: 12px;
+    left: 16px;
     font-size: 12px;
-    color: var(--text-secondary);
-    font-weight: 600;
-    margin-bottom: 2px;
+    color: var(--text-muted);
+    background: rgba(255, 255, 255, 0.85);
+    padding: 4px 10px;
+    border-radius: 4px;
+    border: 1px solid var(--border-color);
 }
 
-.slider-val-badge {
-    color: var(--primary-color);
-    font-weight: 700;
-}
-
-/* 세로 크기 맞춤 박스 */
+/* --------------------------------------------------------------------------
+   3. 우측 [이미지 설정] 사이드바 컴포넌트 (스크린샷 1, 2, 4번 100% 일치)
+   -------------------------------------------------------------------------- */
 .height-fit-box {
     border: 1.5px solid #c7d2fe;
     background: #fdfdfe;
@@ -466,12 +192,18 @@
 .height-fit-box .checkbox-label input[type="checkbox"] {
     width: 16px;
     height: 16px;
-    accent-color: var(--primary-color);
+    accent-color: #8b5cf6;
 }
 
 .height-fit-subtext {
     font-size: 11px;
     color: var(--text-muted);
+}
+
+.setting-desc {
+    font-size: 11.5px;
+    color: var(--text-muted);
+    line-height: 1.5;
 }
 
 /* 테두리 색상 선택 박스 */
@@ -599,7 +331,7 @@
 }
 
 /* --------------------------------------------------------------------------
-   4. 정밀 편집 대화면 모달 (더블클릭 시)
+   4. 더블클릭 시 열리는 [사진 정밀 편집] 팝업 모달 (스크린샷 3번 100% 일치)
    -------------------------------------------------------------------------- */
 .modal-overlay {
     position: fixed;
@@ -607,145 +339,342 @@
     left: 0;
     right: 0;
     bottom: 0;
-    background: rgba(15, 23, 42, 0.75);
-    backdrop-filter: blur(6px);
-    z-index: 2000;
+    background: rgba(15, 23, 42, 0.7);
+    backdrop-filter: blur(5px);
+    z-index: 3000;
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 24px;
-    animation: fadeIn 0.2s ease-in-out;
+    padding: 20px;
+    animation: modalFadeIn 0.2s ease-out;
 }
 
-.modal-container {
+.modal-window {
     background: #ffffff;
     border-radius: var(--radius-xl);
     box-shadow: var(--shadow-xl);
-    width: 100%;
-    max-width: 1100px;
-    height: 85vh;
+    width: 95vw;
+    max-width: 1240px;
+    height: 90vh;
     display: flex;
     flex-direction: column;
     overflow: hidden;
 }
 
-.modal-header {
+/* 모달 헤더 (스크린샷 3번) */
+.modal-top-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 16px 24px;
+    padding: 14px 24px;
     border-bottom: 1px solid var(--border-color);
-    background: #fafbfc;
+    background: #ffffff;
 }
 
-.modal-title-group {
+.modal-title-wrap {
     display: flex;
-    align-items: center;
-    gap: 8px;
+    flex-direction: column;
+    gap: 2px;
 }
 
-.modal-title-group i {
-    color: var(--primary-color);
-    width: 20px;
-    height: 20px;
-}
-
-.modal-title {
+.modal-main-title {
     font-size: 17px;
     font-weight: 800;
     color: var(--text-primary);
 }
 
-.modal-header-actions .btn-icon {
-    background: none;
-    border: none;
+.modal-file-name {
+    font-size: 11.5px;
     color: var(--text-muted);
-    cursor: pointer;
-    display: flex;
-    padding: 6px;
-    border-radius: var(--radius-sm);
 }
 
-.modal-header-actions .btn-icon:hover {
+.btn-modal-close-round {
+    width: 34px;
+    height: 34px;
+    border: 1.5px solid var(--border-color);
+    border-radius: 8px;
+    background: #ffffff;
+    color: var(--text-secondary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.15s;
+}
+
+.btn-modal-close-round:hover {
+    border-color: #8b5cf6;
+    color: #6d28d9;
+    background: #f5f3ff;
+}
+
+/* 모달 상단 10대 도구 툴바 (스크린샷 3번) */
+.modal-tools-bar {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 10px 24px;
+    background: #fafbfc;
+    border-bottom: 1px solid var(--border-color);
+    overflow-x: auto;
+}
+
+.modal-tool-btn {
+    padding: 6px 14px;
+    font-size: 12.5px;
+    font-weight: 600;
+    background: #ffffff;
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    color: var(--text-secondary);
+    cursor: pointer;
+    white-space: nowrap;
+    transition: all 0.15s;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.modal-tool-btn:hover {
     background: var(--bg-muted);
     color: var(--text-primary);
 }
 
-.modal-body {
+.modal-tool-btn.active {
+    border: 1.5px solid #8b5cf6;
+    color: #6d28d9;
+    background: #f5f3ff;
+    font-weight: 700;
+}
+
+/* 모달 본문 (중앙 캔버스 + 우측 패널) */
+.modal-main-body {
     flex: 1;
     display: grid;
-    grid-template-columns: 1fr 300px;
+    grid-template-columns: 1fr 280px;
     overflow: hidden;
 }
 
-.canvas-workspace {
-    background: #0f172a;
+.modal-canvas-area {
+    background-color: #f1f3f9;
+    background-image: 
+        linear-gradient(45deg, #e2e8f0 25%, transparent 25%), 
+        linear-gradient(-45deg, #e2e8f0 25%, transparent 25%), 
+        linear-gradient(45deg, transparent 75%, #e2e8f0 75%), 
+        linear-gradient(-45deg, transparent 75%, #e2e8f0 75%);
+    background-size: 16px 16px;
+    background-position: 0 0, 0 8px, 8px -8px, -8px 0px;
     display: flex;
     align-items: center;
     justify-content: center;
     padding: 24px;
     overflow: auto;
     position: relative;
-}
-
-#editor-canvas {
-    max-width: 100%;
-    max-height: 100%;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
     user-select: none;
 }
 
-.modal-sidebar {
+.modal-canvas-container {
+    position: relative;
+    display: inline-block;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+    background: #ffffff;
+}
+
+#editor-canvas {
+    display: block;
+    max-width: 100%;
+    max-height: 520px;
+}
+
+/* 자르기 점선 박스 (스크린샷 3번 보라색 점선) */
+.modal-crop-box {
+    position: absolute;
+    border: 2px dashed #8b5cf6;
+    background: rgba(139, 92, 246, 0.08);
+    cursor: move;
+    box-sizing: border-box;
+    display: none;
+    z-index: 10;
+}
+
+.modal-crop-handle {
+    position: absolute;
+    width: 8px;
+    height: 8px;
+    background: #ffffff;
+    border: 2px solid #8b5cf6;
+    border-radius: 1px;
+}
+
+.modal-crop-handle.tl { top: -4px; left: -4px; cursor: nwse-resize; }
+.modal-crop-handle.tr { top: -4px; right: -4px; cursor: nesw-resize; }
+.modal-crop-handle.bl { bottom: -4px; left: -4px; cursor: nesw-resize; }
+.modal-crop-handle.br { bottom: -4px; right: -4px; cursor: nwse-resize; }
+
+/* 우측 사이드바 탭 (스크린샷 3번) */
+.modal-side-panel {
     background: #ffffff;
     border-left: 1px solid var(--border-color);
-    padding: 20px;
+    display: flex;
+    flex-direction: column;
     overflow-y: auto;
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
 }
 
-.tool-section {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-}
-
-.tool-section-title {
-    font-size: 12.5px;
-    font-weight: 700;
-    color: var(--text-muted);
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-}
-
-.modal-footer {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 14px 24px;
-    border-top: 1px solid var(--border-color);
+.modal-tab-nav {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    padding: 10px 14px;
+    gap: 6px;
+    border-bottom: 1px solid var(--border-color);
     background: #fafbfc;
 }
 
-.dim-info {
+.modal-tab-btn {
+    padding: 7px 10px;
+    font-size: 12px;
+    font-weight: 700;
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    background: #ffffff;
+    color: var(--text-secondary);
+    cursor: pointer;
+    text-align: center;
+    transition: all 0.15s;
+}
+
+.modal-tab-btn.active {
+    background: #ede9fe;
+    color: #6d28d9;
+    border-color: #8b5cf6;
+}
+
+.modal-tab-content {
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.panel-info-box {
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 6px;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.panel-info-title {
     font-size: 12.5px;
+    font-weight: 700;
+    color: var(--text-primary);
+}
+
+.panel-info-desc {
+    font-size: 11px;
     color: var(--text-muted);
+    line-height: 1.4;
+}
+
+.btn-grid-2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 6px;
+}
+
+.btn-modal-action {
+    padding: 6px 8px;
+    font-size: 12px;
     font-weight: 600;
+    background: #ffffff;
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    color: var(--text-secondary);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+    transition: all 0.15s;
+}
+
+.btn-modal-action:hover {
+    background: var(--bg-muted);
+    color: var(--text-primary);
+}
+
+.dim-input-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+}
+
+/* 모달 하단 푸터 바 (스크린샷 3번) */
+.modal-bottom-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 24px;
+    border-top: 1px solid var(--border-color);
+    background: #fafbfc;
+    gap: 16px;
+}
+
+.modal-footer-left {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.modal-footer-center {
+    flex: 1;
+    font-size: 11.5px;
+    color: var(--text-muted);
+    text-align: center;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .modal-footer-right {
     display: flex;
+    align-items: center;
     gap: 8px;
 }
 
-/* 애니메이션 */
-@keyframes slideDown {
-    from { opacity: 0; transform: translateY(-8px); }
-    to { opacity: 1; transform: translateY(0); }
+.btn-modal-footer {
+    padding: 7px 14px;
+    font-size: 12.5px;
+    font-weight: 600;
+    border-radius: 6px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    transition: all 0.15s;
+    border: 1px solid var(--border-color);
+    background: #ffffff;
+    color: var(--text-secondary);
 }
 
-@keyframes fadeIn {
+.btn-modal-footer:hover {
+    background: var(--bg-muted);
+    color: var(--text-primary);
+}
+
+.btn-modal-footer.btn-apply {
+    background: #8b5cf6;
+    border-color: #8b5cf6;
+    color: #ffffff;
+    font-weight: 700;
+}
+
+.btn-modal-footer.btn-apply:hover {
+    background: #7c3aed;
+}
+
+@keyframes modalFadeIn {
     from { opacity: 0; transform: scale(0.98); }
     to { opacity: 1; transform: scale(1); }
 }
