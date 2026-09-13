@@ -16,7 +16,7 @@ import { downloadBlob } from './utils.js';
 // 1. 모듈 내부 격리 상태 변수
 // ----------------------------------------------------------------------------
 let qrCodeInstance = null;
-let currentText = 'https://kdpmkt.com/';
+let currentText = 'https://bangjang.net';
 let currentColor = '#000000';
 let currentDotStyle = 'square';
 let currentCornerStyle = 'square';
@@ -121,7 +121,7 @@ function bindEvents() {
     // 1. URL / 텍스트 입력 실시간 반응
     if (inputText) {
         inputText.addEventListener('input', (e) => {
-            currentText = e.target.value.trim() || 'https://kdpmkt.com/';
+            currentText = e.target.value.trim() || 'https://bangjang.net';
             updateQRCode();
         });
     }
