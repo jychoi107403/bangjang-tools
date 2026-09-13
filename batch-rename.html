@@ -155,20 +155,21 @@
              2. 중앙 메인 작업 영역 ([파일명 일괄 변경] 스크린샷 100% 일치)
              ======================================================== -->
         <main class="main-content tool-batch-rename">
-            <header class="content-header">
-                <div class="breadcrumb">
-                    <span>모든 도구</span>
-                    <i data-lucide="chevron-right" class="breadcrumb-arrow"></i>
-                    <span class="current">파일명 일괄 변경</span>
+            <!-- 상단 1줄 콤팩트 툴바 (작업 공간 100% 확보) -->
+            <header class="tool-compact-header">
+                <div class="tool-compact-left">
+                    <a href="index.html" class="tool-back-link" title="모든 도구 목록으로"><i data-lucide="chevron-left"></i></a>
+                    <div class="tool-compact-badge-icon"><i data-lucide="copy-check"></i></div>
+                    <div class="tool-compact-title-wrap">
+                        <h1 class="tool-compact-title">파일명 일괄 변경</h1>
+                        <span class="tool-security-tag"><i data-lucide="shield-check"></i> 로컬 고속 ZIP 압축</span>
+                    </div>
                 </div>
-                <div class="sub-brand">방장 TOOLS / BATCH RENAME</div>
-                <h1 class="page-title">파일명 일괄 변경</h1>
-                <p class="page-description">
-                    여러 파일 이름을 공통 이름과 순번으로 한 번에 변경하세요. 파일 순서, 시작 번호와 번호 자릿수를 설정하고 변경될 이름을 미리 본 뒤 ZIP으로 다운로드합니다.
-                </p>
-                <div class="privacy-notice">
-                    <i data-lucide="info" class="notice-icon"></i>
-                    <span>파일 변환 및 이름 변경은 사용자 PC 브라우저 내에서 안전하게 즉시 처리됩니다.</span>
+                <div class="tool-compact-right">
+                    <button class="btn-help-trigger" id="btn-help-trigger" title="사용 방법 및 안내">
+                        <i data-lucide="help-circle"></i>
+                        <span>도움말</span>
+                    </button>
                 </div>
             </header>
 
@@ -260,6 +261,52 @@
                 </div>
             </section>
         </main>
+    </div>
+
+    <!-- 도움말 및 사용 안내 모달 팝업 -->
+    <div class="help-modal-backdrop" id="help-modal">
+        <div class="help-modal-card">
+            <div class="help-modal-header">
+                <div class="help-modal-header-title">
+                    <i data-lucide="help-circle"></i>
+                    <span>파일명 일괄 변경 가이드</span>
+                </div>
+                <button class="btn-close-modal" aria-label="닫기"><i data-lucide="x"></i></button>
+            </div>
+            <div class="help-modal-body">
+                <div class="help-step-item">
+                    <div class="help-step-num">1</div>
+                    <div class="help-step-text">
+                        <strong>파일 추가 또는 클립보드 붙여넣기</strong>
+                        <p><code>파일 추가</code> 버튼으로 여러 이미지를 선택하거나, 화면 캡처 후 <code>Ctrl+V</code>로 계속해서 이미지를 추가할 수 있습니다.</p>
+                    </div>
+                </div>
+                <div class="help-step-item">
+                    <div class="help-step-num">2</div>
+                    <div class="help-step-text">
+                        <strong>이름 및 순번 규칙 지정</strong>
+                        <p>공통 파일명(예: 상품사진), 시작 번호, 자릿수(예: 001, 002)를 지정하면 실시간으로 변경될 이름이 표에 미리보기됩니다.</p>
+                    </div>
+                </div>
+                <div class="help-step-item">
+                    <div class="help-step-num">3</div>
+                    <div class="help-step-text">
+                        <strong>원클릭 ZIP 압축 다운로드</strong>
+                        <p>하단의 <code>새 이름으로 ZIP 저장</code> 버튼을 누르면 브라우저 내에서 초고속 압축되어 즉시 저장됩니다.</p>
+                    </div>
+                </div>
+                <div class="help-security-callout">
+                    <i data-lucide="shield-check"></i>
+                    <div>
+                        <strong>안전한 로컬 처리</strong><br>
+                        파일은 서버로 전송되지 않으며, 사용자 컴퓨터의 브라우저 메모리 상에서만 안전하게 일괄 변경 및 압축됩니다.
+                    </div>
+                </div>
+            </div>
+            <div class="help-modal-footer">
+                <button class="btn-modal-confirm">확인</button>
+            </div>
+        </div>
     </div>
 
     <!-- 전역 모바일 네비게이션 및 반응형 드로어 스크립트 -->

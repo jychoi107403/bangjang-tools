@@ -120,20 +120,21 @@
 
         <!-- 중앙 메인 작업 영역 -->
         <main class="main-content tool-screen-record-gif">
-            <header class="content-header">
-                <div class="breadcrumb">
-                    <span>모든 도구</span>
-                    <i data-lucide="chevron-right" class="breadcrumb-arrow"></i>
-                    <span class="current">화면녹화 → GIF</span>
+            <!-- 상단 1줄 콤팩트 툴바 (작업 공간 100% 확보) -->
+            <header class="tool-compact-header">
+                <div class="tool-compact-left">
+                    <a href="index.html" class="tool-back-link" title="모든 도구 목록으로"><i data-lucide="chevron-left"></i></a>
+                    <div class="tool-compact-badge-icon"><i data-lucide="monitor-play"></i></div>
+                    <div class="tool-compact-title-wrap">
+                        <h1 class="tool-compact-title">화면녹화 → GIF</h1>
+                        <span class="tool-security-tag"><i data-lucide="shield-check"></i> 무설치 · 로컬 캡처</span>
+                    </div>
                 </div>
-                <div class="sub-brand">방장 TOOLS / SCREEN TO GIF</div>
-                <h1 class="page-title">화면녹화 → GIF</h1>
-                <p class="page-description">
-                    프로그램 설치 없이 브라우저 화면, 특정 윈도우 창, 전체 화면을 실시간 녹화하여 즉시 GIF 애니메이션으로 다운로드합니다.
-                </p>
-                <div class="privacy-notice">
-                    <i data-lucide="info" class="notice-icon"></i>
-                    <span>화면 녹화 데이터는 브라우저 내부 메모리에서만 처리되며 외부로 유출되지 않습니다.</span>
+                <div class="tool-compact-right">
+                    <button class="btn-help-trigger" id="btn-help-trigger" title="사용 방법 및 안내">
+                        <i data-lucide="help-circle"></i>
+                        <span>도움말</span>
+                    </button>
                 </div>
             </header>
 
@@ -164,6 +165,52 @@
                 </div>
             </div>
         </aside>
+    </div>
+
+    <!-- 도움말 및 사용 안내 모달 팝업 -->
+    <div class="help-modal-backdrop" id="help-modal">
+        <div class="help-modal-card">
+            <div class="help-modal-header">
+                <div class="help-modal-header-title">
+                    <i data-lucide="help-circle"></i>
+                    <span>화면녹화 → GIF 가이드</span>
+                </div>
+                <button class="btn-close-modal" aria-label="닫기"><i data-lucide="x"></i></button>
+            </div>
+            <div class="help-modal-body">
+                <div class="help-step-item">
+                    <div class="help-step-num">1</div>
+                    <div class="help-step-text">
+                        <strong>녹화 대상 선택</strong>
+                        <p>녹화 버튼을 누른 후 나타나는 브라우저 창에서 [전체 화면], [특정 창], [크롬 탭] 중 녹화할 대상을 선택합니다.</p>
+                    </div>
+                </div>
+                <div class="help-step-item">
+                    <div class="help-step-num">2</div>
+                    <div class="help-step-text">
+                        <strong>실시간 녹화 진행</strong>
+                        <p>필요한 시연 작업을 진행한 후 녹화 중지 버튼을 누릅니다.</p>
+                    </div>
+                </div>
+                <div class="help-step-item">
+                    <div class="help-step-num">3</div>
+                    <div class="help-step-text">
+                        <strong>GIF/MP4 즉시 저장</strong>
+                        <p>녹화된 영상을 확인하고 원하는 확장자로 즉시 다운로드합니다.</p>
+                    </div>
+                </div>
+                <div class="help-security-callout">
+                    <i data-lucide="shield-check"></i>
+                    <div>
+                        <strong>무설치 브라우저 보안</strong><br>
+                        별도 프로그램 설치 없이 웹 표준 Screen Capture API를 이용해 안전하게 동작합니다.
+                    </div>
+                </div>
+            </div>
+            <div class="help-modal-footer">
+                <button class="btn-modal-confirm">확인</button>
+            </div>
+        </div>
     </div>
 
     <!-- 공통 네비게이션 및 모바일 드로어 제어 스크립트 -->

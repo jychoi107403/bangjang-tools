@@ -120,20 +120,21 @@
 
         <!-- 중앙 메인 작업 영역 -->
         <main class="main-content tool-blog-formatter">
-            <header class="content-header">
-                <div class="breadcrumb">
-                    <span>모든 도구</span>
-                    <i data-lucide="chevron-right" class="breadcrumb-arrow"></i>
-                    <span class="current">블로그 본문 정리</span>
+            <!-- 상단 1줄 콤팩트 툴바 (작업 공간 100% 확보) -->
+            <header class="tool-compact-header">
+                <div class="tool-compact-left">
+                    <a href="index.html" class="tool-back-link" title="모든 도구 목록으로"><i data-lucide="chevron-left"></i></a>
+                    <div class="tool-compact-badge-icon"><i data-lucide="file-text"></i></div>
+                    <div class="tool-compact-title-wrap">
+                        <h1 class="tool-compact-title">블로그 본문 정리</h1>
+                        <span class="tool-security-tag"><i data-lucide="shield-check"></i> 로컬 임시저장</span>
+                    </div>
                 </div>
-                <div class="sub-brand">방장 TOOLS / BLOG FORMATTER</div>
-                <h1 class="page-title">블로그 본문 정리</h1>
-                <p class="page-description">
-                    복사한 글의 불필요한 태그와 숨겨진 서식을 제거하고 줄바꿈, 맞춤법, 글자 수, 키워드 밀도를 깔끔하게 정리합니다.
-                </p>
-                <div class="privacy-notice">
-                    <i data-lucide="info" class="notice-icon"></i>
-                    <span>작성 중인 모든 글은 로컬 브라우저에 임시 저장되어 유실되지 않습니다.</span>
+                <div class="tool-compact-right">
+                    <button class="btn-help-trigger" id="btn-help-trigger" title="사용 방법 및 안내">
+                        <i data-lucide="help-circle"></i>
+                        <span>도움말</span>
+                    </button>
                 </div>
             </header>
 
@@ -165,6 +166,52 @@
                 </div>
             </div>
         </aside>
+    </div>
+
+    <!-- 도움말 및 사용 안내 모달 팝업 -->
+    <div class="help-modal-backdrop" id="help-modal">
+        <div class="help-modal-card">
+            <div class="help-modal-header">
+                <div class="help-modal-header-title">
+                    <i data-lucide="help-circle"></i>
+                    <span>블로그 본문 정리 가이드</span>
+                </div>
+                <button class="btn-close-modal" aria-label="닫기"><i data-lucide="x"></i></button>
+            </div>
+            <div class="help-modal-body">
+                <div class="help-step-item">
+                    <div class="help-step-num">1</div>
+                    <div class="help-step-text">
+                        <strong>원고 붙여넣기</strong>
+                        <p>웹문서나 메모장에서 작성한 글을 에디터에 붙여넣습니다.</p>
+                    </div>
+                </div>
+                <div class="help-step-item">
+                    <div class="help-step-num">2</div>
+                    <div class="help-step-text">
+                        <strong>숨은 서식 제거 & 줄바꿈 정돈</strong>
+                        <p>불필요한 HTML 태그를 제거하고 네이버 스마트에디터나 티스토리에 최적화된 줄바꿈으로 자동 정리합니다.</p>
+                    </div>
+                </div>
+                <div class="help-step-item">
+                    <div class="help-step-num">3</div>
+                    <div class="help-step-text">
+                        <strong>키워드 분석 & 원클릭 복사</strong>
+                        <p>글자 수와 반복 키워드 빈도를 확인하고 깔끔해진 본문을 복사하여 블로그에 등록하세요.</p>
+                    </div>
+                </div>
+                <div class="help-security-callout">
+                    <i data-lucide="shield-check"></i>
+                    <div>
+                        <strong>원고 자동 로컬 백업</strong><br>
+                        작성 중인 글은 브라우저 LocalStorage에 실시간 저장되어 실수로 창을 닫아도 안전합니다.
+                    </div>
+                </div>
+            </div>
+            <div class="help-modal-footer">
+                <button class="btn-modal-confirm">확인</button>
+            </div>
+        </div>
     </div>
 
     <!-- 공통 네비게이션 및 모바일 드로어 제어 스크립트 -->

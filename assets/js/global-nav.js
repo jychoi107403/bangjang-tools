@@ -82,6 +82,56 @@
                 closeSidebar();
             }
         });
+
+        // ====================================================================
+        // 도움말 모달 팝업 제어
+        // ====================================================================
+        const helpBtn = document.querySelector('.btn-help-trigger');
+        const helpModal = document.querySelector('.help-modal-backdrop');
+        const closeHelpBtns = document.querySelectorAll('.btn-close-modal, .btn-modal-confirm');
+
+        function openHelpModal() {
+            if (helpModal) {
+                helpModal.classList.add('active');
+                document.body.style.overflow = 'hidden';
+            }
+        }
+
+        function closeHelpModal() {
+            if (helpModal) {
+                helpModal.classList.remove('active');
+                document.body.style.overflow = '';
+            }
+        }
+
+        if (helpBtn) {
+            helpBtn.addEventListener('click', (e) => {
+                e.preventDefault();
+                openHelpModal();
+            });
+        }
+
+        closeHelpBtns.forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                e.preventDefault();
+                closeHelpModal();
+            });
+        });
+
+        if (helpModal) {
+            helpModal.addEventListener('click', (e) => {
+                if (e.target === helpModal) {
+                    closeHelpModal();
+                }
+            });
+        }
+
+        // ESC 키로 도움말 모달 닫기
+        window.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && helpModal && helpModal.classList.contains('active')) {
+                closeHelpModal();
+            }
+        });
     }
 
     if (document.readyState === 'loading') {
@@ -90,3 +140,4 @@
         initGlobalNav();
     }
 })();
+

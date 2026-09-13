@@ -155,20 +155,21 @@
              2. 중앙 메인 작업 영역 ([QR 코드 생성] 스크린샷 100% 일치)
              ======================================================== -->
         <main class="main-content tool-qr-code">
-            <header class="content-header">
-                <div class="breadcrumb">
-                    <span>모든 도구</span>
-                    <i data-lucide="chevron-right" class="breadcrumb-arrow"></i>
-                    <span class="current">QR 코드 생성</span>
+            <!-- 상단 1줄 콤팩트 툴바 (작업 공간 100% 확보) -->
+            <header class="tool-compact-header">
+                <div class="tool-compact-left">
+                    <a href="index.html" class="tool-back-link" title="모든 도구 목록으로"><i data-lucide="chevron-left"></i></a>
+                    <div class="tool-compact-badge-icon"><i data-lucide="qr-code"></i></div>
+                    <div class="tool-compact-title-wrap">
+                        <h1 class="tool-compact-title">QR 코드 생성</h1>
+                        <span class="tool-security-tag"><i data-lucide="shield-check"></i> 무제한 고정 QR · 로컬 생성</span>
+                    </div>
                 </div>
-                <div class="sub-brand">방장 TOOLS / VECTOR QR</div>
-                <h1 class="page-title">QR 코드 생성</h1>
-                <p class="page-description">
-                    URL과 텍스트로 QR 코드를 무료 생성하세요. 색상, 점 스타일과 모서리 모양을 고르고 PNG·JPG·SVG로 저장합니다. 가입 없이 브라우저에서 이용합니다.
-                </p>
-                <div class="privacy-notice">
-                    <i data-lucide="info" class="notice-icon"></i>
-                    <span>저장하는 JPG·PNG·GIF의 촬영·위치·작성자 등 부가 메타정보를 제거합니다. 이미지 표시·애니메이션에 필요한 정보는 유지합니다.</span>
+                <div class="tool-compact-right">
+                    <button class="btn-help-trigger" id="btn-help-trigger" title="사용 방법 및 안내">
+                        <i data-lucide="help-circle"></i>
+                        <span>도움말</span>
+                    </button>
                 </div>
             </header>
 
@@ -267,6 +268,52 @@
                 </div>
             </div>
         </aside>
+    </div>
+
+    <!-- 도움말 및 사용 안내 모달 팝업 -->
+    <div class="help-modal-backdrop" id="help-modal">
+        <div class="help-modal-card">
+            <div class="help-modal-header">
+                <div class="help-modal-header-title">
+                    <i data-lucide="help-circle"></i>
+                    <span>QR 코드 생성기 사용 가이드</span>
+                </div>
+                <button class="btn-close-modal" aria-label="닫기"><i data-lucide="x"></i></button>
+            </div>
+            <div class="help-modal-body">
+                <div class="help-step-item">
+                    <div class="help-step-num">1</div>
+                    <div class="help-step-text">
+                        <strong>링크 또는 텍스트 입력</strong>
+                        <p>우측의 <code>내용 (URL 또는 텍스트)</code> 입력란에 연결할 웹사이트 주소(https://...)나 안내 문구를 입력하세요.</p>
+                    </div>
+                </div>
+                <div class="help-step-item">
+                    <div class="help-step-num">2</div>
+                    <div class="help-step-text">
+                        <strong>스타일 및 로고 맞춤 설정</strong>
+                        <p>QR 색상(보라/검정/파랑 등)과 점/모서리 패턴을 변경하고, 중앙에 원하는 브랜드 로고 이미지를 삽입할 수 있습니다.</p>
+                    </div>
+                </div>
+                <div class="help-step-item">
+                    <div class="help-step-num">3</div>
+                    <div class="help-step-text">
+                        <strong>포맷 및 해상도 선택 후 저장</strong>
+                        <p>PNG(일반용), JPG(배경 흰색), SVG(인쇄/인쇄물용 무손실 벡터) 및 최대 2048px 고화질로 즉시 다운로드하세요.</p>
+                    </div>
+                </div>
+                <div class="help-security-callout">
+                    <i data-lucide="shield-check"></i>
+                    <div>
+                        <strong>영구 사용 고정 QR</strong><br>
+                        생성된 QR 코드는 만료 기간이나 스캔 횟수 제한이 전혀 없는 영구 고정 QR 코드입니다.
+                    </div>
+                </div>
+            </div>
+            <div class="help-modal-footer">
+                <button class="btn-modal-confirm">확인</button>
+            </div>
+        </div>
     </div>
 
     <!-- 전역 모바일 네비게이션 및 반응형 드로어 스크립트 -->

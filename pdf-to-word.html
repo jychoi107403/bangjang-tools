@@ -120,20 +120,21 @@
 
         <!-- 중앙 메인 작업 영역 -->
         <main class="main-content tool-pdf-to-word">
-            <header class="content-header">
-                <div class="breadcrumb">
-                    <span>모든 도구</span>
-                    <i data-lucide="chevron-right" class="breadcrumb-arrow"></i>
-                    <span class="current">PDF → Word</span>
+            <!-- 상단 1줄 콤팩트 툴바 (작업 공간 100% 확보) -->
+            <header class="tool-compact-header">
+                <div class="tool-compact-left">
+                    <a href="index.html" class="tool-back-link" title="모든 도구 목록으로"><i data-lucide="chevron-left"></i></a>
+                    <div class="tool-compact-badge-icon"><i data-lucide="file-type-2"></i></div>
+                    <div class="tool-compact-title-wrap">
+                        <h1 class="tool-compact-title">PDF → Word</h1>
+                        <span class="tool-security-tag"><i data-lucide="shield-check"></i> 공문서 보안 로컬 변환</span>
+                    </div>
                 </div>
-                <div class="sub-brand">방장 TOOLS / PDF CONVERT</div>
-                <h1 class="page-title">PDF → Word</h1>
-                <p class="page-description">
-                    PDF 문서의 레이아웃, 표, 폰트, 이미지를 그대로 유지하면서 편집 가능한 MS Word(DOCX) 파일로 즉시 변환합니다.
-                </p>
-                <div class="privacy-notice">
-                    <i data-lucide="info" class="notice-icon"></i>
-                    <span>민감한 계약서 및 공문서도 서버 업로드 없이 브라우저에서 안전하게 변환됩니다.</span>
+                <div class="tool-compact-right">
+                    <button class="btn-help-trigger" id="btn-help-trigger" title="사용 방법 및 안내">
+                        <i data-lucide="help-circle"></i>
+                        <span>도움말</span>
+                    </button>
                 </div>
             </header>
 
@@ -163,6 +164,52 @@
                 </div>
             </div>
         </aside>
+    </div>
+
+    <!-- 도움말 및 사용 안내 모달 팝업 -->
+    <div class="help-modal-backdrop" id="help-modal">
+        <div class="help-modal-card">
+            <div class="help-modal-header">
+                <div class="help-modal-header-title">
+                    <i data-lucide="help-circle"></i>
+                    <span>PDF → Word 변환 가이드</span>
+                </div>
+                <button class="btn-close-modal" aria-label="닫기"><i data-lucide="x"></i></button>
+            </div>
+            <div class="help-modal-body">
+                <div class="help-step-item">
+                    <div class="help-step-num">1</div>
+                    <div class="help-step-text">
+                        <strong>PDF 문서 선택</strong>
+                        <p>변환할 PDF 문서를 업로드 영역에 끌어다 놓습니다.</p>
+                    </div>
+                </div>
+                <div class="help-step-item">
+                    <div class="help-step-num">2</div>
+                    <div class="help-step-text">
+                        <strong>레이아웃 무손실 분석</strong>
+                        <p>표, 서식, 이미지 배치를 그대로 유지하며 편집 가능한 Word(DOCX) 구조로 변환합니다.</p>
+                    </div>
+                </div>
+                <div class="help-step-item">
+                    <div class="help-step-num">3</div>
+                    <div class="help-step-text">
+                        <strong>DOCX 파일 다운로드</strong>
+                        <p>변환된 워드 문서를 즉시 다운로드하여 MS Word나 한글에서 바로 편집하세요.</p>
+                    </div>
+                </div>
+                <div class="help-security-callout">
+                    <i data-lucide="shield-check"></i>
+                    <div>
+                        <strong>기밀 문서 보호</strong><br>
+                        모든 변환 작업은 브라우저 내부에서만 실행되므로 대외비 계약서나 개인정보가 포함된 문서도 안전합니다.
+                    </div>
+                </div>
+            </div>
+            <div class="help-modal-footer">
+                <button class="btn-modal-confirm">확인</button>
+            </div>
+        </div>
     </div>
 
     <!-- 공통 네비게이션 및 모바일 드로어 제어 스크립트 -->

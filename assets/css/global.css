@@ -327,75 +327,420 @@ body {
    3. 중앙 메인 작업 영역
    ========================================================================== */
 .main-content {
-    padding: 24px 32px;
+    padding: 16px 24px;
     display: flex;
     flex-direction: column;
-    gap: 20px;
+    gap: 14px;
     min-width: 0;
     overflow-y: auto;
 }
 
-.content-header {
-    display: flex;
-    flex-direction: column;
-    gap: 6px;
-}
-
-.breadcrumb {
+/* ==========================================================================
+   3-1. 신규 콤팩트 도구 툴바 (스크롤 없이 첫 화면 작업 영역 극대화)
+   ========================================================================== */
+.tool-compact-header {
     display: flex;
     align-items: center;
-    gap: 6px;
-    font-size: 12px;
-    color: var(--text-muted);
-    font-weight: 500;
+    justify-content: space-between;
+    background: #ffffff;
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    padding: 10px 18px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
 }
 
-.breadcrumb-arrow {
+.tool-compact-left {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.tool-back-link {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    border-radius: var(--radius-sm);
+    background: var(--bg-muted);
+    color: var(--text-secondary);
+    text-decoration: none;
+    transition: all 0.15s ease;
+}
+
+.tool-back-link:hover {
+    background: #e2e8f0;
+    color: var(--text-primary);
+}
+
+.tool-back-link i {
+    width: 18px;
+    height: 18px;
+}
+
+.tool-compact-badge-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 34px;
+    height: 34px;
+    border-radius: 8px;
+    background: var(--primary-light);
+    color: var(--primary-color);
+}
+
+.tool-compact-badge-icon i {
+    width: 18px;
+    height: 18px;
+}
+
+.tool-compact-title-wrap {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.tool-compact-title {
+    font-size: 18px;
+    font-weight: 800;
+    color: var(--text-primary);
+    letter-spacing: -0.4px;
+    line-height: 1.2;
+    margin: 0;
+}
+
+.tool-security-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    background: #f0fdf4;
+    color: #166534;
+    border: 1px solid #bbf7d0;
+    font-size: 11px;
+    font-weight: 600;
+    padding: 3px 8px;
+    border-radius: 12px;
+}
+
+.tool-security-tag i {
+    width: 12px;
+    height: 12px;
+    color: #16a34a;
+}
+
+.tool-compact-right {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.btn-help-trigger {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: #ffffff;
+    border: 1px solid var(--border-color);
+    color: var(--text-secondary);
+    padding: 6px 12px;
+    font-size: 12.5px;
+    font-weight: 600;
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    transition: all 0.15s ease;
+}
+
+.btn-help-trigger:hover {
+    background: var(--bg-muted);
+    color: var(--primary-color);
+    border-color: var(--primary-color);
+}
+
+.btn-help-trigger i {
     width: 14px;
     height: 14px;
 }
 
-.sub-brand {
-    font-size: 11px;
-    font-weight: 700;
-    color: var(--primary-color);
-    letter-spacing: 0.5px;
-    text-transform: uppercase;
+/* ==========================================================================
+   3-2. 공통 도움말 모달 팝업 시스템
+   ========================================================================== */
+.help-modal-backdrop {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(15, 23, 42, 0.55);
+    backdrop-filter: blur(3px);
+    z-index: 3000;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity 0.2s ease;
 }
 
-.page-title {
-    font-size: 26px;
-    font-weight: 800;
-    color: var(--text-primary);
-    letter-spacing: -0.5px;
-    line-height: 1.2;
+.help-modal-backdrop.active {
+    display: flex;
+    opacity: 1;
 }
 
-.page-description {
-    font-size: 14px;
-    color: var(--text-secondary);
-    line-height: 1.6;
-    max-width: 850px;
+.help-modal-card {
+    background: #ffffff;
+    border-radius: var(--radius-lg);
+    width: 90%;
+    max-width: 520px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+    border: 1px solid var(--border-color);
+    overflow: hidden;
+    animation: modalSlideUp 0.25s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.privacy-notice {
+@keyframes modalSlideUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px) scale(0.97);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+.help-modal-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px 20px;
+    background: var(--bg-muted);
+    border-bottom: 1px solid var(--border-color);
+}
+
+.help-modal-header-title {
     display: flex;
     align-items: center;
     gap: 8px;
-    background-color: #f0fdf4;
-    border: 1px solid #bbf7d0;
-    padding: 10px 14px;
-    border-radius: var(--radius-md);
-    font-size: 12.5px;
-    color: #166534;
-    margin-top: 4px;
+    font-size: 16px;
+    font-weight: 800;
+    color: var(--text-primary);
 }
 
-.notice-icon {
-    width: 16px;
-    height: 16px;
+.help-modal-header-title i {
+    width: 18px;
+    height: 18px;
+    color: var(--primary-color);
+}
+
+.btn-close-modal {
+    background: transparent;
+    border: none;
+    color: var(--text-muted);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 4px;
+    border-radius: 4px;
+    transition: all 0.15s ease;
+}
+
+.btn-close-modal:hover {
+    background: #e2e8f0;
+    color: var(--text-primary);
+}
+
+.btn-close-modal i {
+    width: 18px;
+    height: 18px;
+}
+
+.help-modal-body {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    max-height: 70vh;
+    overflow-y: auto;
+}
+
+.help-step-item {
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+}
+
+.help-step-num {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 22px;
+    height: 22px;
+    background: var(--primary-light);
+    color: var(--primary-color);
+    font-size: 12px;
+    font-weight: 800;
+    border-radius: 50%;
+    flex-shrink: 0;
+    margin-top: 2px;
+}
+
+.help-step-text strong {
+    display: block;
+    font-size: 13.5px;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: 2px;
+}
+
+.help-step-text p {
+    font-size: 12.5px;
+    color: var(--text-secondary);
+    line-height: 1.5;
+}
+
+.help-security-callout {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: #f0fdf4;
+    border: 1px solid #bbf7d0;
+    padding: 12px 14px;
+    border-radius: var(--radius-md);
+    font-size: 12px;
+    color: #166534;
+}
+
+.help-security-callout i {
+    width: 20px;
+    height: 20px;
     color: #16a34a;
     flex-shrink: 0;
+}
+
+.help-modal-footer {
+    padding: 14px 20px;
+    border-top: 1px solid var(--border-color);
+    background: #ffffff;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.btn-modal-confirm {
+    background: var(--primary-color);
+    color: #ffffff;
+    border: none;
+    padding: 8px 18px;
+    font-size: 13px;
+    font-weight: 700;
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    transition: all 0.15s ease;
+}
+
+.btn-modal-confirm:hover {
+    background: var(--primary-hover);
+}
+
+/* ==========================================================================
+   3-3. 메인 홈 대시보드 큐레이션 및 추천 도구 카드 스타일
+   ========================================================================== */
+.recommended-section {
+    margin-bottom: 8px;
+}
+
+.recommended-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 12px;
+}
+
+.recommended-title {
+    font-size: 15px;
+    font-weight: 800;
+    color: var(--text-primary);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.recommended-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 14px;
+}
+
+.recommended-card {
+    background: #ffffff;
+    border: 1.5px solid var(--border-color);
+    border-radius: var(--radius-md);
+    padding: 14px;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    transition: all 0.2s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.recommended-card:hover {
+    border-color: var(--primary-color);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+}
+
+.recommended-icon-wrap {
+    width: 40px;
+    height: 40px;
+    border-radius: var(--radius-md);
+    background: var(--primary-light);
+    color: var(--primary-color);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.recommended-icon-wrap i {
+    width: 20px;
+    height: 20px;
+}
+
+.recommended-text {
+    flex: 1;
+    min-width: 0;
+}
+
+.recommended-tool-name {
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--text-primary);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: block;
+}
+
+.recommended-tool-desc {
+    font-size: 11.5px;
+    color: var(--text-muted);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: block;
+    margin-top: 2px;
+}
+
+.recommended-badge {
+    position: absolute;
+    top: 6px;
+    right: 6px;
+    background: #fef3c7;
+    color: #92400e;
+    font-size: 9.5px;
+    font-weight: 800;
+    padding: 2px 5px;
+    border-radius: 4px;
 }
 
 /* 작업 카드 */
@@ -886,4 +1231,34 @@ body {
     .btn-grid-3 {
         grid-template-columns: 1fr 1fr;
     }
+
+    /* 콤팩트 헤더 모바일 최적화 */
+    .tool-compact-header {
+        padding: 8px 12px;
+    }
+
+    .tool-compact-title {
+        font-size: 15px;
+    }
+
+    .tool-security-tag {
+        display: none; /* 모바일에서는 타이틀 공간 확보를 위해 숨김 (도움말 모달에서 확인 가능) */
+    }
+
+    /* 추천 도구 그리드 모바일 최적화 */
+    .recommended-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 10px;
+    }
+
+    .recommended-card {
+        padding: 10px;
+    }
 }
+
+@media (max-width: 480px) {
+    .recommended-grid {
+        grid-template-columns: 1fr;
+    }
+}
+

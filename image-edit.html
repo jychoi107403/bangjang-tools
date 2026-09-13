@@ -155,20 +155,21 @@
              2. 중앙 메인 작업 영역 ([이미지 편집] 스크린샷 1, 4번 일치)
              ======================================================== -->
         <main class="main-content tool-image-edit">
-            <header class="content-header">
-                <div class="breadcrumb">
-                    <span>모든 도구</span>
-                    <i data-lucide="chevron-right" class="breadcrumb-arrow"></i>
-                    <span class="current">이미지 편집</span>
+            <!-- 상단 1줄 콤팩트 툴바 (작업 공간 100% 확보) -->
+            <header class="tool-compact-header">
+                <div class="tool-compact-left">
+                    <a href="index.html" class="tool-back-link" title="모든 도구 목록으로"><i data-lucide="chevron-left"></i></a>
+                    <div class="tool-compact-badge-icon"><i data-lucide="image"></i></div>
+                    <div class="tool-compact-title-wrap">
+                        <h1 class="tool-compact-title">이미지 편집</h1>
+                        <span class="tool-security-tag"><i data-lucide="shield-check"></i> 캡처 일괄 편집 · 로컬 무손실</span>
+                    </div>
                 </div>
-                <div class="sub-brand">방장 TOOLS / QUICK EDIT</div>
-                <h1 class="page-title">이미지 편집</h1>
-                <p class="page-description">
-                    화면 캡처와 이미지들을 한 번에 모아 회전, 크롭, 세로 맞춤, 모자이크를 처리하고 일괄 저장합니다.
-                </p>
-                <div class="privacy-notice">
-                    <i data-lucide="info" class="notice-icon"></i>
-                    <span>저장하는 JPG·PNG·GIF의 촬영 위치·작성자 등 부가 메타정보를 제거합니다. 이미지 표시·애니메이션에 필요한 정보는 유지합니다.</span>
+                <div class="tool-compact-right">
+                    <button class="btn-help-trigger" id="btn-help-trigger" title="사용 방법 및 단축키 안내">
+                        <i data-lucide="help-circle"></i>
+                        <span>도움말</span>
+                    </button>
                 </div>
             </header>
 
@@ -631,6 +632,52 @@
                     <button class="btn-modal-footer" id="btn-modal-cancel">취소</button>
                     <button class="btn-modal-footer btn-apply" id="btn-modal-apply">적용</button>
                 </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 도움말 및 사용 안내 모달 팝업 -->
+    <div class="help-modal-backdrop" id="help-modal">
+        <div class="help-modal-card">
+            <div class="help-modal-header">
+                <div class="help-modal-header-title">
+                    <i data-lucide="help-circle"></i>
+                    <span>이미지 편집기 사용 가이드</span>
+                </div>
+                <button class="btn-close-modal" aria-label="닫기"><i data-lucide="x"></i></button>
+            </div>
+            <div class="help-modal-body">
+                <div class="help-step-item">
+                    <div class="help-step-num">1</div>
+                    <div class="help-step-text">
+                        <strong>캡처 후 바로 붙여넣기 (Ctrl+V)</strong>
+                        <p><code>Win+Shift+S</code>로 화면을 캡처한 후 웹 브라우저에서 <code>Ctrl+V</code>를 누르면 즉시 편집 보드에 추가됩니다.</p>
+                    </div>
+                </div>
+                <div class="help-step-item">
+                    <div class="help-step-num">2</div>
+                    <div class="help-step-text">
+                        <strong>더블클릭 정밀 편집 & 주석 그리기</strong>
+                        <p>사진 카드를 더블클릭하면 팝업 편집기가 열려 자르기(Crop), 회전, 텍스트 삽입, 화살표/도형 그리기, 모자이크를 적용할 수 있습니다.</p>
+                    </div>
+                </div>
+                <div class="help-step-item">
+                    <div class="help-step-num">3</div>
+                    <div class="help-step-text">
+                        <strong>세로 결합 & 일괄 압축 다운로드</strong>
+                        <p>우측 설정에서 <code>개별 파일 저장</code> 또는 <code>세로로 하나로 이어붙이기</code>를 선택하여 한 번에 다운로드하세요.</p>
+                    </div>
+                </div>
+                <div class="help-security-callout">
+                    <i data-lucide="shield-check"></i>
+                    <div>
+                        <strong>안전한 로컬 렌더링</strong><br>
+                        모든 캔버스 연산은 브라우저 하드웨어 가속을 이용해 로컬에서 즉시 실행되며 개인 파일이 서버로 유출되지 않습니다.
+                    </div>
+                </div>
+            </div>
+            <div class="help-modal-footer">
+                <button class="btn-modal-confirm">확인</button>
             </div>
         </div>
     </div>

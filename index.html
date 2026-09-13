@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>방장 용용이 - 무료 실무 도구 (이미지 편집·사진 분할)</title>
+    <title>방장 용용이 - 무료 실무 도구 모음 (배경 제거·QR코드·파일명 변경·모자이크)</title>
     
     <!-- Google Fonts (Pretendard & Inter) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -12,17 +12,283 @@
     
     <!-- Lucide Icons -->
     <script src="https://unpkg.com/lucide@latest"></script>
-    <!-- JSZip for ZIP download -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
     
-    <!-- 격리된 CSS 스타일시트 (공통 + 도구 전용 네임스페이스) -->
+    <!-- 공통 CSS -->
     <link rel="stylesheet" href="assets/css/global.css">
-    <link rel="stylesheet" href="assets/css/tool-image-edit.css">
+    <style>
+        /* 메인 대시보드 전용 스타일 */
+        .dashboard-container {
+            display: flex;
+            flex-direction: column;
+            gap: 28px;
+            max-width: 1200px;
+            margin: 0 auto;
+            width: 100%;
+        }
+
+        /* 1. 콤팩트 히어로 배너 */
+        .dashboard-hero {
+            background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+            border-radius: var(--radius-lg);
+            padding: 28px 32px;
+            color: #ffffff;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            box-shadow: 0 10px 25px rgba(15, 23, 42, 0.15);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .dashboard-hero::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -10%;
+            width: 300px;
+            height: 300px;
+            background: radial-gradient(circle, rgba(124, 58, 237, 0.25) 0%, transparent 70%);
+            border-radius: 50%;
+            pointer-events: none;
+        }
+
+        .hero-text-wrap {
+            max-width: 600px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: rgba(255, 255, 255, 0.12);
+            color: #facc15;
+            font-size: 12px;
+            font-weight: 700;
+            padding: 4px 10px;
+            border-radius: 20px;
+            margin-bottom: 10px;
+            backdrop-filter: blur(4px);
+        }
+
+        .hero-title {
+            font-size: 24px;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+            margin-bottom: 8px;
+            color: #ffffff;
+        }
+
+        .hero-desc {
+            font-size: 13.5px;
+            color: #cbd5e1;
+            line-height: 1.5;
+        }
+
+        .hero-search-box {
+            position: relative;
+            width: 300px;
+            z-index: 1;
+        }
+
+        .hero-search-input {
+            width: 100%;
+            padding: 10px 14px 10px 38px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: var(--radius-md);
+            color: #ffffff;
+            font-size: 13px;
+            outline: none;
+            transition: all 0.2s ease;
+        }
+
+        .hero-search-input::placeholder {
+            color: #94a3b8;
+        }
+
+        .hero-search-input:focus {
+            background: rgba(255, 255, 255, 0.2);
+            border-color: #a78bfa;
+            box-shadow: 0 0 0 3px rgba(167, 139, 250, 0.3);
+        }
+
+        .hero-search-icon {
+            position: absolute;
+            left: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 16px;
+            height: 16px;
+            color: #94a3b8;
+        }
+
+        /* 2. 카테고리별 도구 그리드 */
+        .category-section {
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+        }
+
+        .category-title-bar {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 16px;
+            font-weight: 800;
+            color: var(--text-primary);
+            padding-bottom: 6px;
+            border-bottom: 2px solid var(--border-color);
+        }
+
+        .category-title-bar i {
+            width: 20px;
+            height: 20px;
+            color: var(--primary-color);
+        }
+
+        .category-title-count {
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--text-muted);
+            background: var(--bg-muted);
+            padding: 2px 8px;
+            border-radius: 10px;
+        }
+
+        .tools-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+            gap: 16px;
+        }
+
+        .tool-card {
+            background: #ffffff;
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-lg);
+            padding: 20px;
+            text-decoration: none;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            transition: all 0.2s ease;
+            box-shadow: var(--shadow-sm);
+            position: relative;
+        }
+
+        .tool-card:hover {
+            border-color: var(--primary-color);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+        }
+
+        .tool-card-top {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .tool-icon-box {
+            width: 44px;
+            height: 44px;
+            border-radius: 10px;
+            background: var(--primary-light);
+            color: var(--primary-color);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: transform 0.2s ease;
+        }
+
+        .tool-card:hover .tool-icon-box {
+            transform: scale(1.08);
+            background: var(--primary-color);
+            color: #ffffff;
+        }
+
+        .tool-icon-box i {
+            width: 22px;
+            height: 22px;
+        }
+
+        .tool-badge-tag {
+            font-size: 10.5px;
+            font-weight: 700;
+            padding: 3px 8px;
+            border-radius: 12px;
+            background: #f1f5f9;
+            color: #475569;
+        }
+
+        .tool-badge-tag.hot {
+            background: #fee2e2;
+            color: #dc2626;
+        }
+
+        .tool-badge-tag.ai {
+            background: #f3e8ff;
+            color: #7e22ce;
+        }
+
+        .tool-badge-tag.new {
+            background: #ecfdf5;
+            color: #059669;
+        }
+
+        .tool-card-body h3 {
+            font-size: 16px;
+            font-weight: 800;
+            color: var(--text-primary);
+            margin-bottom: 6px;
+        }
+
+        .tool-card-body p {
+            font-size: 12.5px;
+            color: var(--text-secondary);
+            line-height: 1.5;
+        }
+
+        .tool-card-footer {
+            margin-top: auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            font-size: 12px;
+            font-weight: 700;
+            color: var(--primary-color);
+            padding-top: 10px;
+            border-top: 1px dashed #f1f5f9;
+        }
+
+        .tool-card-footer i {
+            width: 14px;
+            height: 14px;
+            transition: transform 0.15s ease;
+        }
+
+        .tool-card:hover .tool-card-footer i {
+            transform: translateX(3px);
+        }
+
+        @media (max-width: 768px) {
+            .dashboard-hero {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 16px;
+                padding: 20px;
+            }
+            .hero-search-box {
+                width: 100%;
+            }
+            .tools-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
 </head>
 <body>
-    <!-- ========================================================
-         0. 최상단 고정 브랜드 네비게이션 헤더
-         ======================================================== -->
+    <!-- 최상단 브랜드 네비게이션 헤더 -->
     <header class="global-navbar">
         <a href="index.html" class="brand-container">
             <div class="brand-logo-badge">
@@ -38,10 +304,8 @@
         </button>
     </header>
 
-    <div class="app-container">
-        <!-- ========================================================
-             1. 왼쪽 사이드바 (메뉴 네비게이션)
-             ======================================================== -->
+    <div class="app-container two-column-layout">
+        <!-- 왼쪽 사이드바 (메뉴 네비게이션) -->
         <aside class="sidebar">
             <div class="sidebar-header">
                 <a href="index.html" class="nav-item home-btn active" id="btn-home">
@@ -55,42 +319,12 @@
                 <div class="nav-group">
                     <div class="nav-group-title">이미지 도구</div>
                     <ul class="nav-list">
-                        <li>
-                            <a href="image-edit.html" class="nav-item active" data-tool="image-edit">
-                                <i data-lucide="image"></i>
-                                <span>이미지 편집</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="image-split.html" class="nav-item" data-tool="image-split">
-                                <i data-lucide="grid"></i>
-                                <span>사진 분할</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="remove-bg.html" class="nav-item" data-tool="remove-bg">
-                                <i data-lucide="image-minus"></i>
-                                <span>배경 제거·바꾸기</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="mosaic.html" class="nav-item" data-tool="mosaic">
-                                <i data-lucide="layout-grid"></i>
-                                <span>사진 모자이크</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="qr-code.html" class="nav-item" data-tool="qr-code">
-                                <i data-lucide="qr-code"></i>
-                                <span>QR 코드 생성</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="batch-rename.html" class="nav-item" data-tool="batch-rename">
-                                <i data-lucide="copy-check"></i>
-                                <span>파일명 일괄 변경</span>
-                            </a>
-                        </li>
+                        <li><a href="image-edit.html" class="nav-item" data-tool="image-edit"><i data-lucide="image"></i><span>이미지 편집</span></a></li>
+                        <li><a href="image-split.html" class="nav-item" data-tool="image-split"><i data-lucide="grid"></i><span>사진 분할</span></a></li>
+                        <li><a href="remove-bg.html" class="nav-item" data-tool="remove-bg"><i data-lucide="image-minus"></i><span>배경 제거·바꾸기</span></a></li>
+                        <li><a href="mosaic.html" class="nav-item" data-tool="mosaic"><i data-lucide="layout-grid"></i><span>사진 모자이크</span></a></li>
+                        <li><a href="qr-code.html" class="nav-item" data-tool="qr-code"><i data-lucide="qr-code"></i><span>QR 코드 생성</span></a></li>
+                        <li><a href="batch-rename.html" class="nav-item" data-tool="batch-rename"><i data-lucide="copy-check"></i><span>파일명 일괄 변경</span></a></li>
                     </ul>
                 </div>
 
@@ -98,24 +332,9 @@
                 <div class="nav-group">
                     <div class="nav-group-title">영상 도구</div>
                     <ul class="nav-list">
-                        <li>
-                            <a href="video-trim-gif.html" class="nav-item" data-tool="video-trim-gif">
-                                <i data-lucide="play-square"></i>
-                                <span>영상 구간 → GIF</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="video-to-gif.html" class="nav-item" data-tool="video-to-gif">
-                                <i data-lucide="film"></i>
-                                <span>영상 → GIF</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="screen-record-gif.html" class="nav-item" data-tool="screen-record-gif">
-                                <i data-lucide="monitor-play"></i>
-                                <span>화면녹화 → GIF</span>
-                            </a>
-                        </li>
+                        <li><a href="video-trim-gif.html" class="nav-item" data-tool="video-trim-gif"><i data-lucide="play-square"></i><span>영상 구간 → GIF</span></a></li>
+                        <li><a href="video-to-gif.html" class="nav-item" data-tool="video-to-gif"><i data-lucide="film"></i><span>영상 → GIF</span></a></li>
+                        <li><a href="screen-record-gif.html" class="nav-item" data-tool="screen-record-gif"><i data-lucide="monitor-play"></i><span>화면녹화 → GIF</span></a></li>
                     </ul>
                 </div>
 
@@ -123,23 +342,12 @@
                 <div class="nav-group">
                     <div class="nav-group-title">블로그 도구</div>
                     <ul class="nav-list">
-                        <li>
-                            <a href="blog-formatter.html" class="nav-item" data-tool="blog-formatter">
-                                <i data-lucide="file-text"></i>
-                                <span>블로그 본문 정리</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="pdf-to-word.html" class="nav-item" data-tool="pdf-to-word">
-                                <i data-lucide="file-type-2"></i>
-                                <span>PDF → Word</span>
-                            </a>
-                        </li>
+                        <li><a href="blog-formatter.html" class="nav-item" data-tool="blog-formatter"><i data-lucide="file-text"></i><span>블로그 본문 정리</span></a></li>
+                        <li><a href="pdf-to-word.html" class="nav-item" data-tool="pdf-to-word"><i data-lucide="file-type-2"></i><span>PDF → Word</span></a></li>
                     </ul>
                 </div>
             </nav>
 
-            <!-- 사이드바 하단: 보안 안내 배너 -->
             <div class="sidebar-footer">
                 <div class="security-card">
                     <i data-lucide="shield-check" class="security-icon"></i>
@@ -151,493 +359,294 @@
             </div>
         </aside>
 
-        <!-- ========================================================
-             2. 중앙 메인 작업 영역 ([이미지 편집] 스크린샷 1, 4번 일치)
-             ======================================================== -->
-        <main class="main-content tool-image-edit">
-            <header class="content-header">
-                <div class="breadcrumb">
-                    <span>모든 도구</span>
-                    <i data-lucide="chevron-right" class="breadcrumb-arrow"></i>
-                    <span class="current">이미지 편집</span>
-                </div>
-                <div class="sub-brand">방장 TOOLS / QUICK EDIT</div>
-                <h1 class="page-title">이미지 편집</h1>
-                <p class="page-description">
-                    화면 캡처와 이미지들을 한 번에 모아 회전, 크롭, 세로 맞춤, 모자이크를 처리하고 일괄 저장합니다.
-                </p>
-                <div class="privacy-notice">
-                    <i data-lucide="info" class="notice-icon"></i>
-                    <span>저장하는 JPG·PNG·GIF의 촬영 위치·작성자 등 부가 메타정보를 제거합니다. 이미지 표시·애니메이션에 필요한 정보는 유지합니다.</span>
-                </div>
-            </header>
-
-            <!-- 작업 영역 카드 -->
-            <section class="workspace-card">
-                <div class="workspace-toolbar">
-                    <div class="toolbar-guide">
-                        <strong>Win+Shift+S로 캡처 → Ctrl+V로 붙여넣기</strong>
-                        <span class="guide-sub">사진을 계속 추가하고, 더블클릭해 정밀 편집하세요.</span>
-                    </div>
-                    <div class="toolbar-actions">
-                        <button class="btn btn-primary" id="btn-paste">
-                            <i data-lucide="clipboard-paste"></i>
-                            <span>붙여넣기</span>
-                        </button>
-                        <label class="btn btn-secondary btn-file-input">
-                            <i data-lucide="image-plus"></i>
-                            <span>파일 추가</span>
-                            <input type="file" id="file-input" multiple accept="image/*" style="display: none;">
-                        </label>
-                        <button class="btn btn-outline" id="btn-clear-all">
-                            <i data-lucide="trash-2"></i>
-                            <span>전체 삭제</span>
-                        </button>
-                        <div class="count-badge" id="image-count-badge">0 / 30장 · 한 장 25MB 이하</div>
-                    </div>
-                </div>
-
-                <!-- 드래그 & 드롭 및 이미지 리스트 영역 -->
-                <div class="drop-zone" id="drop-zone">
-                    <div class="empty-state" id="empty-state">
-                        <div class="empty-state-icon">
-                            <i data-lucide="image-up"></i>
+        <!-- 중앙 메인 대시보드 영역 -->
+        <main class="main-content">
+            <div class="dashboard-container">
+                <!-- 1. 콤팩트 히어로 배너 -->
+                <section class="dashboard-hero">
+                    <div class="hero-text-wrap">
+                        <div class="hero-badge">
+                            <i data-lucide="sparkles"></i>
+                            <span>100% 무료 · 무설치 · 서버 업로드 없음</span>
                         </div>
-                        <p class="empty-state-title">이미지를 여기에 드래그하거나 <strong>Ctrl + V</strong>로 붙여넣으세요.</p>
-                        <p class="empty-state-desc">상단의 [붙여넣기] 또는 [파일 추가]도 사용할 수 있습니다.</p>
+                        <h2 class="hero-title">실무가 빨라지는 방장 용용이 도구함</h2>
+                        <p class="hero-desc">
+                            사진 편집, 배경 제거, QR 코드 생성부터 파일명 일괄 변경까지 웹 브라우저에서 안전하고 빠르게 처리하세요.
+                        </p>
                     </div>
-
-                    <!-- 1) 상단 사진 카드 갤러리 (스크린샷 4번) -->
-                    <div class="image-grid" id="image-grid" style="display: none;"></div>
-
-                    <!-- 2) 사진 선택 시 아래쪽에 크게 나오는 [대형 뷰어] (스크린샷 4번) -->
-                    <div class="bottom-preview-container" id="bottom-preview-container" style="display: none;">
-                        <div class="bottom-preview-canvas-wrap">
-                            <canvas id="bottom-preview-canvas"></canvas>
-                        </div>
-                        <div class="bottom-preview-guide">
-                            사진을 <strong>더블클릭</strong>하거나 카드 내 <strong>[편집]</strong>을 누르면 정밀 편집창이 열립니다.
-                        </div>
+                    <div class="hero-search-box">
+                        <i data-lucide="search" class="hero-search-icon"></i>
+                        <input type="text" id="tool-search-input" class="hero-search-input" placeholder="필요한 도구 검색 (예: QR, 배경...)">
                     </div>
-                </div>
-            </section>
+                </section>
 
-            <!-- 하단 저장 및 사용 가이드 섹션 -->
-            <div class="bottom-action-section">
-                <button class="btn btn-save-large" id="btn-save-images">
-                    <i data-lucide="download"></i>
-                    <span>이미지 저장</span>
-                </button>
+                <!-- 2. 자주 쓰는 추천 도구 TOP 4 -->
+                <section class="recommended-section">
+                    <div class="recommended-header">
+                        <h3 class="recommended-title">
+                            <span>🔥 자주 쓰는 추천 도구 TOP 4</span>
+                        </h3>
+                    </div>
+                    <div class="recommended-grid">
+                        <a href="remove-bg.html" class="recommended-card">
+                            <div class="recommended-badge">AI 파워</div>
+                            <div class="recommended-icon-wrap" style="background:#f3e8ff; color:#7e22ce;">
+                                <i data-lucide="image-minus"></i>
+                            </div>
+                            <div class="recommended-text">
+                                <strong class="recommended-tool-name">배경 제거·바꾸기</strong>
+                                <span class="recommended-tool-desc">1초 만에 깔끔한 누끼 따기</span>
+                            </div>
+                        </a>
 
-                <div class="guide-box">
-                    <h3 class="guide-title">이렇게 사용하세요</h3>
-                    <ol class="guide-steps">
-                        <li><strong>Win+Shift+S</strong>로 캡처한 뒤 이 화면에서 <strong>Ctrl+V</strong>로 붙여넣으세요. 파일 선택·끌어놓기도 가능합니다.</li>
-                        <li>사진을 <strong>클릭</strong>하면 아래쪽에 대형 화면으로 나타나며, <strong>더블클릭</strong> 또는 <strong>[편집]</strong>을 누르면 정밀 편집창이 열립니다.</li>
-                        <li>오른쪽 설정에서 [세로 크기 맞춤], [밝기], [워터마크]를 지정하면 아래쪽 화면에 실시간 반영되며, [이미지 저장]을 누르면 일괄 저장됩니다.</li>
-                    </ol>
-                    <p class="guide-footnote">
-                        저장 시 개인정보 및 촬영 위치가 포함된 EXIF 메타데이터를 100% 자동 제거하여 안전하게 보호합니다.
-                    </p>
-                </div>
+                        <a href="qr-code.html" class="recommended-card">
+                            <div class="recommended-badge">무제한</div>
+                            <div class="recommended-icon-wrap" style="background:#ede9fe; color:#6d28d9;">
+                                <i data-lucide="qr-code"></i>
+                            </div>
+                            <div class="recommended-text">
+                                <strong class="recommended-tool-name">QR 코드 생성</strong>
+                                <span class="recommended-tool-desc">로고 삽입 · 고화질 벡터 SVG</span>
+                            </div>
+                        </a>
+
+                        <a href="batch-rename.html" class="recommended-card">
+                            <div class="recommended-badge">초고속</div>
+                            <div class="recommended-icon-wrap" style="background:#e0f2fe; color:#0369a1;">
+                                <i data-lucide="copy-check"></i>
+                            </div>
+                            <div class="recommended-text">
+                                <strong class="recommended-tool-name">파일명 일괄 변경</strong>
+                                <span class="recommended-tool-desc">Ctrl+V 캡처 순번 매기기 & ZIP</span>
+                            </div>
+                        </a>
+
+                        <a href="mosaic.html" class="recommended-card">
+                            <div class="recommended-badge">얼굴 감지</div>
+                            <div class="recommended-icon-wrap" style="background:#fef3c7; color:#b45309;">
+                                <i data-lucide="layout-grid"></i>
+                            </div>
+                            <div class="recommended-text">
+                                <strong class="recommended-tool-name">사진 모자이크</strong>
+                                <span class="recommended-tool-desc">AI 얼굴 인식 및 프라이버시 보호</span>
+                            </div>
+                        </a>
+                    </div>
+                </section>
+
+                <!-- 3. 카테고리 1: 이미지 도구 (6종) -->
+                <section class="category-section" id="section-image-tools">
+                    <div class="category-title-bar">
+                        <i data-lucide="image"></i>
+                        <span>이미지 실무 도구</span>
+                        <span class="category-title-count">6개 도구</span>
+                    </div>
+                    <div class="tools-grid">
+                        <a href="remove-bg.html" class="tool-card">
+                            <div class="tool-card-top">
+                                <div class="tool-icon-box" style="background:#f3e8ff; color:#7e22ce;"><i data-lucide="image-minus"></i></div>
+                                <span class="tool-badge-tag ai">AI 인공지능</span>
+                            </div>
+                            <div class="tool-card-body">
+                                <h3>배경 제거·바꾸기</h3>
+                                <p>인물, 상품 사진의 배경을 1초 만에 분리하고 투명 PNG 또는 원하는 배경으로 합성합니다.</p>
+                            </div>
+                            <div class="tool-card-footer">
+                                <span>도구 열기</span>
+                                <i data-lucide="arrow-right"></i>
+                            </div>
+                        </a>
+
+                        <a href="qr-code.html" class="tool-card">
+                            <div class="tool-card-top">
+                                <div class="tool-icon-box" style="background:#ede9fe; color:#6d28d9;"><i data-lucide="qr-code"></i></div>
+                                <span class="tool-badge-tag hot">인기</span>
+                            </div>
+                            <div class="tool-card-body">
+                                <h3>QR 코드 생성</h3>
+                                <p>URL/텍스트로 무제한 고정 QR을 생성하고 색상, 로고 삽입, SVG 무손실 벡터로 다운로드합니다.</p>
+                            </div>
+                            <div class="tool-card-footer">
+                                <span>도구 열기</span>
+                                <i data-lucide="arrow-right"></i>
+                            </div>
+                        </a>
+
+                        <a href="batch-rename.html" class="tool-card">
+                            <div class="tool-card-top">
+                                <div class="tool-icon-box" style="background:#e0f2fe; color:#0369a1;"><i data-lucide="copy-check"></i></div>
+                                <span class="tool-badge-tag hot">업무 추천</span>
+                            </div>
+                            <div class="tool-card-body">
+                                <h3>파일명 일괄 변경</h3>
+                                <p>캡처와 사진들을 붙여넣어 일련번호와 규칙으로 이름을 일괄 변경하고 ZIP으로 즉시 저장합니다.</p>
+                            </div>
+                            <div class="tool-card-footer">
+                                <span>도구 열기</span>
+                                <i data-lucide="arrow-right"></i>
+                            </div>
+                        </a>
+
+                        <a href="mosaic.html" class="tool-card">
+                            <div class="tool-card-top">
+                                <div class="tool-icon-box" style="background:#fef3c7; color:#b45309;"><i data-lucide="layout-grid"></i></div>
+                                <span class="tool-badge-tag ai">얼굴 감지</span>
+                            </div>
+                            <div class="tool-card-body">
+                                <h3>사진 모자이크</h3>
+                                <p>AI 자동 얼굴 인식 및 드래그 마스킹으로 얼굴과 민감한 개인정보를 안전하게 가립니다.</p>
+                            </div>
+                            <div class="tool-card-footer">
+                                <span>도구 열기</span>
+                                <i data-lucide="arrow-right"></i>
+                            </div>
+                        </a>
+
+                        <a href="image-edit.html" class="tool-card">
+                            <div class="tool-card-top">
+                                <div class="tool-icon-box"><i data-lucide="image"></i></div>
+                                <span class="tool-badge-tag">기본 도구</span>
+                            </div>
+                            <div class="tool-card-body">
+                                <h3>이미지 편집</h3>
+                                <p>캡처 이미지를 모아 회전, 자르기, 도형/주석 그리기, 세로 이어붙이기를 일괄 처리합니다.</p>
+                            </div>
+                            <div class="tool-card-footer">
+                                <span>도구 열기</span>
+                                <i data-lucide="arrow-right"></i>
+                            </div>
+                        </a>
+
+                        <a href="image-split.html" class="tool-card">
+                            <div class="tool-card-top">
+                                <div class="tool-icon-box"><i data-lucide="grid"></i></div>
+                                <span class="tool-badge-tag">그리드 분할</span>
+                            </div>
+                            <div class="tool-card-body">
+                                <h3>사진 분할</h3>
+                                <p>사진 한 장을 2·4·8·16조각 또는 인스타 그리드로 나누어 개별/ZIP으로 저장합니다.</p>
+                            </div>
+                            <div class="tool-card-footer">
+                                <span>도구 열기</span>
+                                <i data-lucide="arrow-right"></i>
+                            </div>
+                        </a>
+                    </div>
+                </section>
+
+                <!-- 4. 카테고리 2: 영상 및 블로그 도구 -->
+                <section class="category-section" id="section-video-blog-tools">
+                    <div class="category-title-bar">
+                        <i data-lucide="film"></i>
+                        <span>영상 & 블로그 실무 도구</span>
+                        <span class="category-title-count">5개 도구</span>
+                    </div>
+                    <div class="tools-grid">
+                        <a href="video-trim-gif.html" class="tool-card">
+                            <div class="tool-card-top">
+                                <div class="tool-icon-box"><i data-lucide="play-square"></i></div>
+                                <span class="tool-badge-tag new">오픈 예정</span>
+                            </div>
+                            <div class="tool-card-body">
+                                <h3>영상 구간 → GIF</h3>
+                                <p>동영상에서 원하는 시작/종료 구간을 타임라인으로 잘라 고화질 움직이는 움짤(GIF)로 변환합니다.</p>
+                            </div>
+                            <div class="tool-card-footer">
+                                <span>도구 열기</span>
+                                <i data-lucide="arrow-right"></i>
+                            </div>
+                        </a>
+
+                        <a href="video-to-gif.html" class="tool-card">
+                            <div class="tool-card-top">
+                                <div class="tool-icon-box"><i data-lucide="film"></i></div>
+                                <span class="tool-badge-tag new">오픈 예정</span>
+                            </div>
+                            <div class="tool-card-body">
+                                <h3>영상 → GIF</h3>
+                                <p>MP4/WebM 동영상 전체를 블로그용 최적 용량과 해상도의 고품질 GIF로 일괄 변환합니다.</p>
+                            </div>
+                            <div class="tool-card-footer">
+                                <span>도구 열기</span>
+                                <i data-lucide="arrow-right"></i>
+                            </div>
+                        </a>
+
+                        <a href="screen-record-gif.html" class="tool-card">
+                            <div class="tool-card-top">
+                                <div class="tool-icon-box"><i data-lucide="monitor-play"></i></div>
+                                <span class="tool-badge-tag new">오픈 예정</span>
+                            </div>
+                            <div class="tool-card-body">
+                                <h3>화면녹화 → GIF</h3>
+                                <p>프로그램 설치 없이 브라우저 창이나 전체 화면을 실시간 녹화하여 즉시 GIF로 저장합니다.</p>
+                            </div>
+                            <div class="tool-card-footer">
+                                <span>도구 열기</span>
+                                <i data-lucide="arrow-right"></i>
+                            </div>
+                        </a>
+
+                        <a href="blog-formatter.html" class="tool-card">
+                            <div class="tool-card-top">
+                                <div class="tool-icon-box"><i data-lucide="file-text"></i></div>
+                                <span class="tool-badge-tag new">오픈 예정</span>
+                            </div>
+                            <div class="tool-card-body">
+                                <h3>블로그 본문 정리</h3>
+                                <p>불필요한 태그와 숨은 서식을 제거하고 줄바꿈, 맞춤법, 글자 수, 키워드 밀도를 정돈합니다.</p>
+                            </div>
+                            <div class="tool-card-footer">
+                                <span>도구 열기</span>
+                                <i data-lucide="arrow-right"></i>
+                            </div>
+                        </a>
+
+                        <a href="pdf-to-word.html" class="tool-card">
+                            <div class="tool-card-top">
+                                <div class="tool-icon-box"><i data-lucide="file-type-2"></i></div>
+                                <span class="tool-badge-tag new">오픈 예정</span>
+                            </div>
+                            <div class="tool-card-body">
+                                <h3>PDF → Word</h3>
+                                <p>표, 서식, 이미지를 유지하며 편집 가능한 MS Word(DOCX) 파일로 안전하게 변환합니다.</p>
+                            </div>
+                            <div class="tool-card-footer">
+                                <span>도구 열기</span>
+                                <i data-lucide="arrow-right"></i>
+                            </div>
+                        </a>
+                    </div>
+                </section>
             </div>
         </main>
-
-        <!-- ========================================================
-             3. 우측 [이미지 설정] 사이드바 (스크린샷 1, 2번 100% 일치)
-             ======================================================== -->
-        <aside class="settings-sidebar">
-            <h2 class="settings-header">이미지 설정</h2>
-
-            <div class="settings-scroll-area">
-                <!-- 1. 세로 크기 맞춤 박스 -->
-                <div class="height-fit-box">
-                    <label class="checkbox-label">
-                        <input type="checkbox" id="chk-height-fit">
-                        <span>세로 크기 맞춤 · 전체 사진</span>
-                    </label>
-                    <div class="setting-group">
-                        <label class="setting-sublabel">맞춤 세로 · px</label>
-                        <input type="number" id="input-height-fit" class="form-input" value="800" min="50" max="4096">
-                    </div>
-                    <div class="height-fit-subtext" id="height-fit-subtext">
-                        크기 변경 없음 · 사진별 편집 크기 유지
-                    </div>
-                </div>
-
-                <div class="setting-desc">
-                    체크하면 모든 사진의 세로를 맞추고, 가로는 각 사진의 비율에 맞춰 자동 조절합니다. 해제하면 개별 편집 크기로 저장합니다. 자르기·회전·크기 변경은 사진을 더블클릭하세요.
-                </div>
-
-                <!-- 2. 밝기 · % -->
-                <div class="setting-group">
-                    <label class="setting-label">밝기 · %</label>
-                    <input type="range" id="range-global-brightness" class="form-range" min="50" max="150" value="100">
-                </div>
-
-                <!-- 3. 테두리 · px -->
-                <div class="setting-group">
-                    <label class="setting-label">테두리 · px</label>
-                    <input type="number" id="input-border-px" class="form-input" value="0" min="0" max="100">
-                </div>
-
-                <!-- 4. 테두리 색 -->
-                <div class="setting-group">
-                    <label class="setting-label">테두리 색</label>
-                    <div class="color-picker-box">
-                        <input type="color" id="input-border-color" value="#000000">
-                        <span>색상 선택</span>
-                    </div>
-                </div>
-
-                <!-- 5. 워터마크 설정 -->
-                <div class="setting-group">
-                    <label class="setting-label">워터마크</label>
-                    <label class="checkbox-label mt-1">
-                        <input type="checkbox" id="chk-watermark">
-                        <span>워터마크 적용</span>
-                    </label>
-                </div>
-
-                <div class="setting-group">
-                    <label class="setting-label">종류</label>
-                    <select id="select-wm-type" class="form-select">
-                        <option value="image" selected>이미지 파일</option>
-                        <option value="text">텍스트</option>
-                    </select>
-                </div>
-
-                <!-- (1) 이미지 파일 선택 영역 -->
-                <div class="setting-group" id="wm-image-file-group">
-                    <label class="setting-label">워터마크 파일</label>
-                    <div class="watermark-file-row">
-                        <span class="watermark-file-display" id="wm-file-name-label">선택된 파일 없음</span>
-                        <label class="btn-file-search" for="wm-file-input">
-                            <span>찾기</span>
-                        </label>
-                        <input type="file" id="wm-file-input" accept="image/*" style="display: none;">
-                    </div>
-                    <div class="setting-desc mt-1">
-                        PNG · JPG · WebP · 25MB 이하. 투명 PNG는 배경 없이 합성됩니다.
-                    </div>
-                </div>
-
-                <!-- (2) 텍스트 입력 영역 (텍스트 선택 시 노출) -->
-                <div class="setting-group" id="wm-text-group" style="display: none;">
-                    <label class="setting-label">워터마크 문구</label>
-                    <input type="text" id="input-wm-text" class="form-input" value="방장 용용이" placeholder="표시할 문구 입력">
-                    <div class="color-picker-box mt-2">
-                        <input type="color" id="input-wm-text-color" value="#ffffff">
-                        <span>글자 색상</span>
-                    </div>
-                </div>
-
-                <div class="setting-group" id="wm-width-group">
-                    <label class="setting-label" id="wm-size-label">로고 너비 · 출력 px</label>
-                    <input type="number" id="input-wm-width" class="form-input" value="300" min="10" max="2000">
-                </div>
-
-                <div class="setting-group" id="wm-delete-btn-group">
-                    <button class="btn-delete-logo" id="btn-delete-logo">
-                        로고 삭제
-                    </button>
-                </div>
-
-                <!-- 위치 9방향 -->
-                <div class="setting-group">
-                    <label class="setting-label">위치</label>
-                    <select id="select-wm-position" class="form-select">
-                        <option value="top-left">왼쪽 위</option>
-                        <option value="top-center">가운데 위</option>
-                        <option value="top-right">오른쪽 위</option>
-                        <option value="center-left">왼쪽 가운데</option>
-                        <option value="center">정가운데</option>
-                        <option value="center-right">오른쪽 가운데</option>
-                        <option value="bottom-left">왼쪽 아래</option>
-                        <option value="bottom-center">가운데 아래</option>
-                        <option value="bottom-right" selected>오른쪽 아래</option>
-                    </select>
-
-                    <div class="wm-pos-grid">
-                        <button class="wm-pos-btn" data-pos="top-left">
-                            <span class="pos-icon">↖</span>
-                            <span>왼쪽 위</span>
-                        </button>
-                        <button class="wm-pos-btn" data-pos="top-center">
-                            <span class="pos-icon">↑</span>
-                            <span>가운데 위</span>
-                        </button>
-                        <button class="wm-pos-btn" data-pos="top-right">
-                            <span class="pos-icon">↗</span>
-                            <span>오른쪽 위</span>
-                        </button>
-                        <button class="wm-pos-btn" data-pos="center-left">
-                            <span class="pos-icon">←</span>
-                            <span>왼쪽 가운데</span>
-                        </button>
-                        <button class="wm-pos-btn" data-pos="center">
-                            <span class="pos-icon">●</span>
-                            <span>정가운데</span>
-                        </button>
-                        <button class="wm-pos-btn" data-pos="center-right">
-                            <span class="pos-icon">→</span>
-                            <span>오른쪽 가운데</span>
-                        </button>
-                        <button class="wm-pos-btn" data-pos="bottom-left">
-                            <span class="pos-icon">↙</span>
-                            <span>왼쪽 아래</span>
-                        </button>
-                        <button class="wm-pos-btn" data-pos="bottom-center">
-                            <span class="pos-icon">↓</span>
-                            <span>가운데 아래</span>
-                        </button>
-                        <button class="wm-pos-btn active" data-pos="bottom-right">
-                            <span class="pos-icon">↘</span>
-                            <span>오른쪽 아래</span>
-                        </button>
-                    </div>
-                </div>
-
-                <div class="setting-group">
-                    <label class="setting-label">농도 · %</label>
-                    <input type="number" id="input-wm-opacity" class="form-input" value="70" min="0" max="100">
-                </div>
-
-                <div class="setting-group">
-                    <label class="setting-label">여백 · 출력 px</label>
-                    <input type="number" id="input-wm-margin" class="form-input" value="30" min="0" max="500">
-                </div>
-
-                <!-- 6. 저장 형식 & JPG 품질 -->
-                <div class="setting-group">
-                    <label class="setting-label">저장 형식</label>
-                    <select id="select-save-format" class="form-select">
-                        <option value="jpeg" selected>JPG</option>
-                        <option value="png">PNG</option>
-                        <option value="webp">WebP</option>
-                    </select>
-                </div>
-
-                <div class="setting-group">
-                    <div class="slider-label-row">
-                        <label class="setting-label">JPG 품질 · %</label>
-                        <span id="val-jpg-quality" style="font-size: 12px; font-weight: 600; color: #8b5cf6;">90%</span>
-                    </div>
-                    <input type="range" id="range-jpg-quality" class="form-range" min="30" max="100" value="90">
-                </div>
-
-                <div class="setting-desc mt-2">
-                    개별 편집 후 세로 맞춤을 적용합니다. 세로 맞춤 결과는 가로·세로 최대 4096px입니다. JPG의 투명 배경은 흰색으로 저장합니다.
-                </div>
-            </div>
-        </aside>
     </div>
 
-    <!-- ========================================================
-         4. 더블클릭 시 열리는 [사진 정밀 편집] 팝업 모달창 (스크린샷 3번 100% 일치)
-         ======================================================== -->
-    <div class="modal-overlay" id="editor-modal" style="display: none;">
-        <div class="modal-window">
-            
-            <!-- (1) 모달 헤더 -->
-            <div class="modal-top-header">
-                <div class="modal-title-wrap">
-                    <h3 class="modal-main-title">사진 정밀 편집</h3>
-                    <span class="modal-file-name" id="modal-file-name">사진 이름.png</span>
-                </div>
-                <button class="btn-modal-close-round" id="btn-modal-close" title="닫기 (Esc)">
-                    <i data-lucide="x"></i>
-                </button>
-            </div>
-
-            <!-- (2) 상단 10대 도구 툴바 (스크린샷 3번) -->
-            <div class="modal-tools-bar">
-                <button class="modal-tool-btn active" data-tool="select" id="tool-btn-select">
-                    <span>선택·이동</span>
-                </button>
-                <button class="modal-tool-btn" data-tool="crop" id="tool-btn-crop">
-                    <span>자르기</span>
-                </button>
-                <button class="modal-tool-btn" data-tool="mosaic" id="tool-btn-mosaic">
-                    <span>모자이크</span>
-                </button>
-                <button class="modal-tool-btn" data-tool="pen" id="tool-btn-pen">
-                    <span>펜</span>
-                </button>
-                <button class="modal-tool-btn" data-tool="highlighter" id="tool-btn-highlighter">
-                    <span>형광펜</span>
-                </button>
-                <button class="modal-tool-btn" data-tool="line" id="tool-btn-line">
-                    <span>직선</span>
-                </button>
-                <button class="modal-tool-btn" data-tool="arrow" id="tool-btn-arrow">
-                    <span>화살표</span>
-                </button>
-                <button class="modal-tool-btn" data-tool="rect" id="tool-btn-rect">
-                    <span>사각형</span>
-                </button>
-                <button class="modal-tool-btn" data-tool="circle" id="tool-btn-circle">
-                    <span>원</span>
-                </button>
-                <button class="modal-tool-btn" data-tool="text" id="tool-btn-text">
-                    <span>텍스트</span>
-                </button>
-            </div>
-
-            <!-- (3) 모달 본문 (중앙 캔버스 + 우측 사이드바) -->
-            <div class="modal-main-body">
-                <div class="modal-canvas-area" id="modal-canvas-area">
-                    <div class="modal-canvas-container" id="modal-canvas-container">
-                        <canvas id="editor-canvas"></canvas>
-                        <!-- 자르기 점선 박스 -->
-                        <div class="modal-crop-box" id="modal-crop-box">
-                            <div class="modal-crop-handle tl"></div>
-                            <div class="modal-crop-handle tr"></div>
-                            <div class="modal-crop-handle bl"></div>
-                            <div class="modal-crop-handle br"></div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- 우측 탭 패널 (스크린샷 3번) -->
-                <aside class="modal-side-panel">
-                    <div class="modal-tab-nav">
-                        <button class="modal-tab-btn" id="tab-btn-object">객체 서식</button>
-                        <button class="modal-tab-btn active" id="tab-btn-photo">사진 전체</button>
-                    </div>
-
-                    <!-- 1. [사진 전체] 탭 내용 -->
-                    <div class="modal-tab-content" id="tab-content-photo">
-                        <div class="panel-info-box">
-                            <span class="panel-info-title">사진 전체</span>
-                            <span class="panel-info-desc">회전·크기 변경·자르기는 사진 전체에 적용됩니다.</span>
-                        </div>
-
-                        <!-- 사진 전체 회전·반전 -->
-                        <div class="setting-group">
-                            <label class="setting-label">사진 전체 회전·반전</label>
-                            <div class="btn-grid-2">
-                                <button class="btn-modal-action" id="btn-modal-rot-l">
-                                    <span>↶ 90°</span>
-                                </button>
-                                <button class="btn-modal-action" id="btn-modal-rot-r">
-                                    <span>↷ 90°</span>
-                                </button>
-                                <button class="btn-modal-action" id="btn-modal-flip-h">
-                                    <span>좌우 반전</span>
-                                </button>
-                                <button class="btn-modal-action" id="btn-modal-flip-v">
-                                    <span>상하 반전</span>
-                                </button>
-                            </div>
-                        </div>
-
-                        <!-- 미세 각도 · 도 -->
-                        <div class="setting-group">
-                            <label class="setting-label">미세 각도 · 도</label>
-                            <input type="number" id="input-modal-angle" class="form-input" value="0" min="-180" max="180">
-                            <button class="btn-modal-action mt-1 w-full" id="btn-modal-apply-angle">
-                                <span>각도 적용</span>
-                            </button>
-                        </div>
-
-                        <!-- 이미지 크기 변경 -->
-                        <div class="setting-group">
-                            <label class="setting-label">이미지 크기 변경</label>
-                            <div class="setting-desc mb-1">사진 전체를 확대하거나 축소합니다. 입력 후 크기 적용을 누르세요.</div>
-                            <div class="dim-input-row">
-                                <div>
-                                    <label class="setting-sublabel">너비 · px</label>
-                                    <input type="number" id="input-modal-w" class="form-input" value="800">
-                                </div>
-                                <div>
-                                    <label class="setting-sublabel">높이 · px</label>
-                                    <input type="number" id="input-modal-h" class="form-input" value="600">
-                                </div>
-                            </div>
-                            <label class="checkbox-label mt-1">
-                                <input type="checkbox" id="chk-modal-keep-ratio" checked>
-                                <span>비율 유지</span>
-                            </label>
-                            <button class="btn-modal-action mt-1 w-full" id="btn-modal-apply-size">
-                                <span>크기 적용</span>
-                            </button>
-                        </div>
-
-                        <!-- 자르기 -->
-                        <div class="setting-group">
-                            <label class="setting-label">자르기</label>
-                            <div class="setting-desc mb-1">남길 영역을 정합니다. 사진 전체 크기는 위에서 변경하세요.</div>
-                            <label class="setting-sublabel">비율</label>
-                            <select id="select-modal-crop-ratio" class="form-select">
-                                <option value="free" selected>자유 비율</option>
-                                <option value="1:1">1:1 (정사각형)</option>
-                                <option value="4:3">4:3 비율</option>
-                                <option value="16:9">16:9 비율</option>
-                            </select>
-                            <button class="btn-modal-action mt-1 w-full" id="btn-modal-apply-crop" style="color: #6d28d9; font-weight: 700;">
-                                <span>자르기 실행</span>
-                            </button>
-                        </div>
-                    </div>
-
-                    <!-- 2. [객체 서식] 탭 내용 -->
-                    <div class="modal-tab-content" id="tab-content-object" style="display: none;">
-                        <div class="panel-info-box">
-                            <span class="panel-info-title">객체 서식</span>
-                            <span class="panel-info-desc">선택된 선, 도형, 텍스트의 스타일을 변경합니다.</span>
-                        </div>
-
-                        <div class="setting-group">
-                            <label class="setting-label">색상</label>
-                            <div class="color-picker-box">
-                                <input type="color" id="input-object-color" value="#8b5cf6">
-                                <span>선택된 색상</span>
-                            </div>
-                        </div>
-
-                        <div class="setting-group">
-                            <label class="setting-label">선 두께 · px</label>
-                            <input type="range" id="range-object-width" class="form-range" min="1" max="50" value="4">
-                        </div>
-
-                        <div class="setting-group">
-                            <label class="setting-label">텍스트 크기 · px</label>
-                            <input type="range" id="range-object-fontsize" class="form-range" min="12" max="72" value="24">
-                        </div>
-                    </div>
-                </aside>
-            </div>
-
-            <!-- (4) 모달 하단 푸터 바 (스크린샷 3번) -->
-            <div class="modal-bottom-footer">
-                <div class="modal-footer-left">
-                    <button class="btn-modal-footer" id="btn-modal-undo" title="실행 취소">
-                        <span>↶ 실행 취소</span>
-                    </button>
-                    <button class="btn-modal-footer" id="btn-modal-redo" title="다시 실행">
-                        <span>↷ 다시 실행</span>
-                    </button>
-                    <button class="btn-modal-footer" id="btn-modal-reset">
-                        <span>원본 복원</span>
-                    </button>
-                </div>
-
-                <div class="modal-footer-center">
-                    도형 클릭·드래그로 선택·이동 · 회전 손잡이 · Delete / Backspace 삭제 · 겹쳐 그리기는 도구를 다시 선택하거나 Alt+드래그
-                </div>
-
-                <div class="modal-footer-right">
-                    <button class="btn-modal-footer" id="btn-modal-cancel">취소</button>
-                    <button class="btn-modal-footer btn-apply" id="btn-modal-apply">적용</button>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- 전역 모바일 네비게이션 및 반응형 드로어 스크립트 -->
+    <!-- 전역 모바일 네비게이션 및 검색 인터랙션 스크립트 -->
     <script src="assets/js/global-nav.js"></script>
-    <!-- ES 모듈(type="module") 로드로 완전 격리 -->
-    <script type="module" src="assets/js/tool-image-edit.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            if (window.lucide) window.lucide.createIcons();
+
+            // 도구 실시간 검색 기능
+            const searchInput = document.getElementById('tool-search-input');
+            const toolCards = document.querySelectorAll('.tools-grid .tool-card');
+
+            if (searchInput) {
+                searchInput.addEventListener('input', (e) => {
+                    const query = e.target.value.toLowerCase().trim();
+                    toolCards.forEach(card => {
+                        const title = card.querySelector('h3').textContent.toLowerCase();
+                        const desc = card.querySelector('p').textContent.toLowerCase();
+                        if (title.includes(query) || desc.includes(query)) {
+                            card.style.display = 'flex';
+                        } else {
+                            card.style.display = 'none';
+                        }
+                    });
+                });
+            }
+        });
+    </script>
 </body>
 </html>

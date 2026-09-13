@@ -155,20 +155,21 @@
              2. 중앙 메인 작업 영역 ([사진 모자이크] 네임스페이스 적용)
              ======================================================== -->
         <main class="main-content tool-mosaic">
-            <header class="content-header">
-                <div class="breadcrumb">
-                    <span>모든 도구</span>
-                    <i data-lucide="chevron-right" class="breadcrumb-arrow"></i>
-                    <span class="current">사진 모자이크</span>
+            <!-- 상단 1줄 콤팩트 툴바 (작업 공간 100% 확보) -->
+            <header class="tool-compact-header">
+                <div class="tool-compact-left">
+                    <a href="index.html" class="tool-back-link" title="모든 도구 목록으로"><i data-lucide="chevron-left"></i></a>
+                    <div class="tool-compact-badge-icon"><i data-lucide="layout-grid"></i></div>
+                    <div class="tool-compact-title-wrap">
+                        <h1 class="tool-compact-title">사진 모자이크</h1>
+                        <span class="tool-security-tag"><i data-lucide="shield-check"></i> 자동 얼굴 인식 · 로컬 마스킹</span>
+                    </div>
                 </div>
-                <div class="sub-brand">방장 TOOLS / PRIVACY MASK</div>
-                <h1 class="page-title">사진 모자이크</h1>
-                <p class="page-description">
-                    사진의 얼굴과 민감한 영역을 가리는 무료 모자이크 편집기. 네모·원형 영역, 픽셀·블러·랜덤 패턴, 강도 조절, 얼굴 감지와 여러 사진 ZIP 저장을 지원합니다.
-                </p>
-                <div class="privacy-notice">
-                    <i data-lucide="info" class="notice-icon"></i>
-                    <span>저장하는 JPG·PNG·GIF의 촬영 위치·작성자 등 부가 메타정보를 제거합니다. 이미지 표시·애니메이션에 필요한 정보는 유지합니다.</span>
+                <div class="tool-compact-right">
+                    <button class="btn-help-trigger" id="btn-help-trigger" title="사용 방법 및 단축키 안내">
+                        <i data-lucide="help-circle"></i>
+                        <span>도움말</span>
+                    </button>
                 </div>
             </header>
 
@@ -554,6 +555,52 @@
                 </div>
             </div>
         </aside>
+    </div>
+
+    <!-- 도움말 및 사용 안내 모달 팝업 -->
+    <div class="help-modal-backdrop" id="help-modal">
+        <div class="help-modal-card">
+            <div class="help-modal-header">
+                <div class="help-modal-header-title">
+                    <i data-lucide="help-circle"></i>
+                    <span>사진 모자이크 사용 가이드</span>
+                </div>
+                <button class="btn-close-modal" aria-label="닫기"><i data-lucide="x"></i></button>
+            </div>
+            <div class="help-modal-body">
+                <div class="help-step-item">
+                    <div class="help-step-num">1</div>
+                    <div class="help-step-text">
+                        <strong>사진 불러오기 & 클립보드 붙여넣기</strong>
+                        <p>사진을 드래그하거나 <code>Ctrl+V</code>로 붙여넣으세요. 여러 장의 사진을 동시에 등록해 탭으로 전환할 수 있습니다.</p>
+                    </div>
+                </div>
+                <div class="help-step-item">
+                    <div class="help-step-num">2</div>
+                    <div class="help-step-text">
+                        <strong>원클릭 자동 얼굴 인식 & 영역 드래그</strong>
+                        <p>우측의 <code>AI 얼굴 감지</code>를 누르면 사진 속 모든 얼굴에 자동으로 모자이크가 씌워집니다. 마우스로 직접 사각형/원형 영역을 드래그해도 됩니다.</p>
+                    </div>
+                </div>
+                <div class="help-step-item">
+                    <div class="help-step-num">3</div>
+                    <div class="help-step-text">
+                        <strong>모자이크 종류 & 강도 조절</strong>
+                        <p>픽셀(모자이크), 블러(흐림), 랜덤 패턴 중 선택하고 슬라이더로 크기 및 흐림 강도를 자유롭게 조절하세요.</p>
+                    </div>
+                </div>
+                <div class="help-security-callout">
+                    <i data-lucide="shield-check"></i>
+                    <div>
+                        <strong>개인정보 보호</strong><br>
+                        얼굴 감지 및 이미지 마스킹 처리는 브라우저 내부 AI 모델로 즉시 수행되며 사진이 외부 서버로 유출되지 않습니다.
+                    </div>
+                </div>
+            </div>
+            <div class="help-modal-footer">
+                <button class="btn-modal-confirm">확인</button>
+            </div>
+        </div>
     </div>
 
     <!-- 전역 모바일 네비게이션 및 반응형 드로어 스크립트 -->

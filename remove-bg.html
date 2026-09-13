@@ -156,20 +156,21 @@
              2. 중앙 메인 작업 영역 ([배경 제거·바꾸기] 네임스페이스 적용)
              ======================================================== -->
         <main class="main-content tool-remove-bg">
-            <header class="content-header">
-                <div class="breadcrumb">
-                    <span>모든 도구</span>
-                    <i data-lucide="chevron-right" class="breadcrumb-arrow"></i>
-                    <span class="current">배경 제거·바꾸기</span>
+            <!-- 상단 1줄 콤팩트 툴바 (작업 공간 100% 확보) -->
+            <header class="tool-compact-header">
+                <div class="tool-compact-left">
+                    <a href="index.html" class="tool-back-link" title="모든 도구 목록으로"><i data-lucide="chevron-left"></i></a>
+                    <div class="tool-compact-badge-icon"><i data-lucide="image-minus"></i></div>
+                    <div class="tool-compact-title-wrap">
+                        <h1 class="tool-compact-title">배경 제거·바꾸기</h1>
+                        <span class="tool-security-tag"><i data-lucide="shield-check"></i> 서버 전송 없는 안전한 로컬 AI</span>
+                    </div>
                 </div>
-                <div class="sub-brand">방장 TOOLS / QUICK EDIT</div>
-                <h1 class="page-title">배경 제거·바꾸기</h1>
-                <p class="page-description">
-                    무료 온라인 사진 배경 제거와 누끼 따기. 자동으로 배경을 지우고 투명·단색·그라데이션·다른 사진으로 바꾸세요. 지우기·복원 브러시로 경계를 보정합니다.
-                </p>
-                <div class="privacy-notice">
-                    <i data-lucide="info" class="notice-icon"></i>
-                    <span>저장하는 JPG·PNG·GIF의 촬영 위치·작성자 등 부가 메타정보를 제거합니다. 이미지 표시·애니메이션에 필요한 정보는 유지합니다.</span>
+                <div class="tool-compact-right">
+                    <button class="btn-help-trigger" id="btn-help-trigger" title="사용 방법 및 단축키 안내">
+                        <i data-lucide="help-circle"></i>
+                        <span>도움말</span>
+                    </button>
                 </div>
             </header>
 
@@ -416,6 +417,52 @@
                 </div>
             </div>
         </aside>
+    </div>
+
+    <!-- 도움말 및 사용 안내 모달 팝업 -->
+    <div class="help-modal-backdrop" id="help-modal">
+        <div class="help-modal-card">
+            <div class="help-modal-header">
+                <div class="help-modal-header-title">
+                    <i data-lucide="help-circle"></i>
+                    <span>배경 제거·바꾸기 사용 가이드</span>
+                </div>
+                <button class="btn-close-modal" aria-label="닫기"><i data-lucide="x"></i></button>
+            </div>
+            <div class="help-modal-body">
+                <div class="help-step-item">
+                    <div class="help-step-num">1</div>
+                    <div class="help-step-text">
+                        <strong>사진 불러오기 (초고속 클립보드 지원)</strong>
+                        <p>작업 영역으로 사진을 끌어다 놓거나, 화면 캡처 후 <code>Ctrl+V</code>를 누르면 즉시 사진이 로드됩니다.</p>
+                    </div>
+                </div>
+                <div class="help-step-item">
+                    <div class="help-step-num">2</div>
+                    <div class="help-step-text">
+                        <strong>초정밀 누끼 따기 & 브러시 보정</strong>
+                        <p>자동으로 인물/사물의 배경이 제거되며, 필요 시 우측의 <code>지우기/복원 브러시</code>로 세밀하게 수정할 수 있습니다.</p>
+                    </div>
+                </div>
+                <div class="help-step-item">
+                    <div class="help-step-num">3</div>
+                    <div class="help-step-text">
+                        <strong>배경색 변경 및 고화질 다운로드</strong>
+                        <p>투명 배경 그대로 저장하거나 원하는 단색/그라데이션/배경사진을 합성한 뒤 <code>저장하기</code>를 누르세요.</p>
+                    </div>
+                </div>
+                <div class="help-security-callout">
+                    <i data-lucide="shield-check"></i>
+                    <div>
+                        <strong>100% 프라이버시 보호</strong><br>
+                        모든 AI 연산과 이미지 처리는 사용자의 PC 브라우저(WebAssembly)에서 직접 수행되며 외부 서버로 절대 전송되지 않습니다.
+                    </div>
+                </div>
+            </div>
+            <div class="help-modal-footer">
+                <button class="btn-modal-confirm">확인</button>
+            </div>
+        </div>
     </div>
 
     <!-- 전역 모바일 네비게이션 및 반응형 드로어 스크립트 -->
