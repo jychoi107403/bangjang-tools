@@ -149,7 +149,7 @@
         </aside>
 
         <!-- ========================================================
-             2. 중앙 메인 작업 영역 ([이미지 편집] 네임스페이스 적용)
+             2. 중앙 메인 작업 영역 ([이미지 편집] 기본 뷰)
              ======================================================== -->
         <main class="main-content tool-image-edit">
             <header class="content-header">
@@ -161,7 +161,7 @@
                 <div class="sub-brand">방장 TOOLS / QUICK EDIT</div>
                 <h1 class="page-title">이미지 편집</h1>
                 <p class="page-description">
-                    화면 캡처와 이미지들을 한 번에 모아 회전, 크롭, 세로 이어붙이기, 모자이크를 처리하고 일괄 저장합니다.
+                    화면 캡처와 이미지들을 한 번에 모아 회전, 크롭, 세로 맞춤, 모자이크를 실시간으로 처리하고 일괄 저장합니다.
                 </p>
                 <div class="privacy-notice">
                     <i data-lucide="info" class="notice-icon"></i>
@@ -204,58 +204,53 @@
                         <p class="empty-state-desc">상단의 [붙여넣기] 또는 [파일 추가]도 사용할 수 있습니다.</p>
                     </div>
 
-                    <!-- 이미지 그리드 갤러리 -->
+                    <!-- 1) 상단 이미지 그리드 갤러리 -->
                     <div class="image-grid" id="image-grid" style="display: none;"></div>
 
-                    <!-- 사진 클릭 시 바로 아래 나타나는 인라인 편집 패널 -->
-                    <div class="inline-editor-panel" id="inline-editor-panel" style="display: none;">
-                        <div class="inline-editor-header">
-                            <div class="inline-editor-title">
-                                <i data-lucide="sliders"></i>
-                                <span id="inline-photo-name">사진 편집</span>
-                                <span class="inline-photo-dim" id="inline-photo-dim">(0 × 0px)</span>
+                    <!-- 2) 이미지 선택 시 바로 아래쪽에 나타나는 [대형 작업 뷰어] -->
+                    <div class="viewer-panel" id="viewer-panel" style="display: none;">
+                        <div class="viewer-header">
+                            <div class="viewer-title-group">
+                                <span class="viewer-tag">선택된 사진</span>
+                                <span class="viewer-photo-name" id="viewer-photo-name">사진 이름.png</span>
+                                <span class="viewer-photo-dim" id="viewer-photo-dim">0 × 0 px</span>
                             </div>
-                            <button class="btn-inline-close" id="btn-inline-close" title="편집창 닫기">
-                                <i data-lucide="x"></i>
-                            </button>
+                            <div class="viewer-header-actions">
+                                <button class="viewer-btn-action" id="btn-viewer-crop-mode" title="자르기 영역 지정">
+                                    <i data-lucide="crop"></i>
+                                    <span>자르기(Crop)</span>
+                                </button>
+                                <button class="viewer-btn-action" id="btn-viewer-mosaic-mode" title="모자이크 브러시">
+                                    <i data-lucide="grid"></i>
+                                    <span>모자이크 칠하기</span>
+                                </button>
+                                <button class="btn-viewer-close" id="btn-viewer-close" title="선택 해제 (닫기)">
+                                    <i data-lucide="x"></i>
+                                </button>
+                            </div>
                         </div>
-                        
-                        <div class="inline-editor-body">
-                            <div class="inline-canvas-wrapper">
-                                <canvas id="inline-canvas"></canvas>
-                            </div>
-                            
-                            <div class="inline-tools-sidebar">
-                                <div class="inline-tool-group">
-                                    <label class="inline-label">회전 / 반전</label>
-                                    <div class="btn-group-2">
-                                        <button class="btn btn-sm btn-tool" id="btn-inline-rot-left" title="왼쪽 90도 회전">
-                                            <i data-lucide="rotate-ccw"></i> <span>좌회전</span>
-                                        </button>
-                                        <button class="btn btn-sm btn-tool" id="btn-inline-rot-right" title="오른쪽 90도 회전">
-                                            <i data-lucide="rotate-cw"></i> <span>우회전</span>
-                                        </button>
-                                    </div>
-                                    <div class="btn-group-2 mt-2">
-                                        <button class="btn btn-sm btn-tool" id="btn-inline-flip-h" title="좌우 반전">
-                                            <i data-lucide="flip-horizontal"></i> <span>좌우반전</span>
-                                        </button>
-                                        <button class="btn btn-sm btn-tool" id="btn-inline-flip-v" title="상하 반전">
-                                            <i data-lucide="flip-vertical"></i> <span>상하반전</span>
-                                        </button>
-                                    </div>
-                                </div>
 
-                                <div class="inline-tool-group">
-                                    <p class="inline-help-text">사진을 <strong>더블 클릭</strong>하면 대화면 정밀 편집창이 열립니다.</p>
-                                </div>
-
-                                <div class="inline-actions">
-                                    <button class="btn btn-primary btn-block" id="btn-inline-apply">
-                                        <i data-lucide="check"></i> <span>편집 적용 완료</span>
-                                    </button>
+                        <!-- 캔버스 작업 영역 -->
+                        <div class="viewer-canvas-area" id="viewer-canvas-area">
+                            <div class="viewer-canvas-container" id="viewer-canvas-container">
+                                <canvas id="viewer-main-canvas"></canvas>
+                                <!-- 자르기 오버레이 드래그 박스 -->
+                                <div class="crop-overlay-box" id="crop-overlay-box">
+                                    <div class="crop-handle tl"></div>
+                                    <div class="crop-handle tr"></div>
+                                    <div class="crop-handle bl"></div>
+                                    <div class="crop-handle br"></div>
                                 </div>
                             </div>
+                        </div>
+
+                        <!-- 뷰어 하단 가이드바 -->
+                        <div class="viewer-footer-toolbar">
+                            <div class="viewer-guide-tip">
+                                <i data-lucide="sparkles"></i>
+                                <span id="viewer-status-tip">오른쪽 패널에서 회전·반전·색상 보정·자르기를 실시간으로 조작할 수 있습니다.</span>
+                            </div>
+                            <div class="viewer-dim-status" id="viewer-dim-status">원본 대비 100% 해상도 유지</div>
                         </div>
                     </div>
                 </div>
@@ -272,196 +267,321 @@
                     <h3 class="guide-title">이렇게 사용하세요</h3>
                     <ol class="guide-steps">
                         <li><strong>Win+Shift+S</strong>로 캡처한 뒤 이 화면에서 <strong>Ctrl+V</strong>로 붙여넣으세요. 파일 선택·끌어놓기도 가능합니다.</li>
-                        <li>사진을 <strong>클릭</strong>하면 하단에서 바로 회전·반전을 편집할 수 있으며, <strong>더블클릭</strong>하면 대화면 정밀 편집창이 열립니다.</li>
-                        <li>오른쪽 설정에서 세로 크기 맞춤, 밝기, 워터마크를 지정한 뒤 [이미지 저장]을 누르면 깔끔하게 일괄 저장됩니다.</li>
+                        <li>목록에서 사진을 <strong>클릭</strong>하면 아래쪽에 대형 화면이 나오고, <strong>오른쪽 패널</strong>에서 회전·자르기·색상·모자이크를 실시간으로 편집할 수 있습니다.</li>
+                        <li>오른쪽 설정에서 [세로 크기 맞춤], [워터마크]를 지정한 뒤 [이미지 저장]을 누르면 깔끔하게 일괄 저장됩니다.</li>
                     </ol>
                     <p class="guide-footnote">
-                        횟수 제한 없이 무료로 사용할 수 있습니다. 긴 영상이나 고해상도 사진은 기기 성능에 따라 처리 시간이 길어질 수 있습니다.
+                        저장 시 불필요한 메타정보(EXIF 위치 정보 등)를 100% 자동 제거하여 개인정보를 안전하게 보호합니다.
                     </p>
                 </div>
             </div>
         </main>
 
         <!-- ========================================================
-             3. 우측 [이미지 설정] 사이드바 (스크린샷 100% 일치)
+             3. 우측 [이미지 설정 & 개별 편집] 사이드바 (실시간 연동)
              ======================================================== -->
         <aside class="settings-sidebar">
             <h2 class="settings-header">이미지 설정</h2>
 
             <div class="settings-scroll-area">
-                <!-- 1. 세로 크기 맞춤 박스 -->
-                <div class="height-fit-box">
-                    <label class="checkbox-label">
-                        <input type="checkbox" id="chk-height-fit">
-                        <span>세로 크기 맞춤 · 전체 사진</span>
-                    </label>
+                
+                <!-- [섹션 1] 선택된 사진 개별 편집 (사진 클릭 시 활성화) -->
+                <div class="settings-section-card active-photo" id="card-selected-photo-edit">
+                    <div class="section-card-header">
+                        <div class="section-card-title">
+                            <i data-lucide="sliders"></i>
+                            <span>선택 사진 실시간 편집</span>
+                        </div>
+                        <span class="badge-photo-name" id="badge-selected-photo-name">선택 없음</span>
+                    </div>
+
+                    <!-- 사진이 선택되지 않았을 때 표시 -->
+                    <div class="no-photo-selected-msg" id="no-photo-selected-msg">
+                        위 목록에서 사진을 클릭하면<br>실시간 편집 도구가 활성화됩니다.
+                    </div>
+
+                    <!-- 사진이 선택되었을 때 활성화되는 편집 도구들 -->
+                    <div id="photo-edit-controls" style="display: none; display: flex; flex-direction: column; gap: 12px;">
+                        
+                        <!-- 1. 회전 및 반전 -->
+                        <div class="setting-group">
+                            <label class="setting-label">회전 / 반전</label>
+                            <div class="btn-grid-4">
+                                <button class="btn-sm-tool" id="btn-side-rot-left" title="왼쪽 90도 회전">
+                                    <i data-lucide="rotate-ccw"></i>
+                                    <span>좌 90°</span>
+                                </button>
+                                <button class="btn-sm-tool" id="btn-side-rot-right" title="오른쪽 90도 회전">
+                                    <i data-lucide="rotate-cw"></i>
+                                    <span>우 90°</span>
+                                </button>
+                                <button class="btn-sm-tool" id="btn-side-flip-h" title="좌우 반전">
+                                    <i data-lucide="flip-horizontal"></i>
+                                    <span>좌우</span>
+                                </button>
+                                <button class="btn-sm-tool" id="btn-side-flip-v" title="상하 반전">
+                                    <i data-lucide="flip-vertical"></i>
+                                    <span>상하</span>
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- 2. 색상 보정 (밝기 / 대비 / 채도) -->
+                        <div class="setting-group">
+                            <div class="slider-label-row">
+                                <label class="setting-label">개별 밝기</label>
+                                <span class="slider-val-badge" id="val-side-brightness">100%</span>
+                            </div>
+                            <input type="range" id="range-side-brightness" class="form-range" min="50" max="150" value="100">
+                        </div>
+
+                        <div class="setting-group">
+                            <div class="slider-label-row">
+                                <label class="setting-label">개별 대비</label>
+                                <span class="slider-val-badge" id="val-side-contrast">100%</span>
+                            </div>
+                            <input type="range" id="range-side-contrast" class="form-range" min="50" max="150" value="100">
+                        </div>
+
+                        <div class="setting-group">
+                            <div class="slider-label-row">
+                                <label class="setting-label">개별 채도</label>
+                                <span class="slider-val-badge" id="val-side-saturate">100%</span>
+                            </div>
+                            <input type="range" id="range-side-saturate" class="form-range" min="0" max="200" value="100">
+                        </div>
+
+                        <!-- 3. 자르기(Crop) 비율 & 실행 -->
+                        <div class="setting-group">
+                            <label class="setting-label">자르기(Crop) 비율</label>
+                            <div class="btn-grid-4">
+                                <button class="btn-sm-tool btn-crop-ratio active" data-ratio="free">
+                                    <span>자유</span>
+                                </button>
+                                <button class="btn-sm-tool btn-crop-ratio" data-ratio="1:1">
+                                    <span>1:1</span>
+                                </button>
+                                <button class="btn-sm-tool btn-crop-ratio" data-ratio="4:3">
+                                    <span>4:3</span>
+                                </button>
+                                <button class="btn-sm-tool btn-crop-ratio" data-ratio="16:9">
+                                    <span>16:9</span>
+                                </button>
+                            </div>
+                            <div class="btn-grid-2 mt-2">
+                                <button class="btn btn-sm btn-primary" id="btn-side-apply-crop">
+                                    <i data-lucide="check"></i> <span>자르기 적용</span>
+                                </button>
+                                <button class="btn btn-sm btn-outline" id="btn-side-cancel-crop">
+                                    <i data-lucide="x"></i> <span>자르기 취소</span>
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- 4. 모자이크 도구 -->
+                        <div class="setting-group">
+                            <div class="slider-label-row">
+                                <label class="setting-label">모자이크 브러시 크기</label>
+                                <span class="slider-val-badge" id="val-side-mosaic-size">20px</span>
+                            </div>
+                            <input type="range" id="range-side-mosaic-size" class="form-range" min="10" max="60" value="20">
+                            <p class="setting-desc mt-1">
+                                [모자이크 칠하기]를 누른 뒤 캔버스 위 가리고 싶은 부분을 드래그하세요.
+                            </p>
+                        </div>
+
+                        <!-- 5. 원본 초기화 -->
+                        <div class="setting-group mt-1">
+                            <button class="btn btn-sm btn-outline btn-block" id="btn-side-reset-photo" style="color: var(--color-danger); border-color: #fca5a5;">
+                                <i data-lucide="rotate-ccw"></i>
+                                <span>이 사진 원본으로 복구</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- [섹션 2] 전체 일괄 설정 (세로 맞춤, 테두리, 워터마크, 저장 형식) -->
+                <div class="settings-section-card">
+                    <div class="section-card-header">
+                        <div class="section-card-title">
+                            <i data-lucide="layers"></i>
+                            <span>전체 사진 일괄 설정</span>
+                        </div>
+                    </div>
+
+                    <!-- 1. 세로 크기 맞춤 박스 -->
+                    <div class="height-fit-box">
+                        <label class="checkbox-label">
+                            <input type="checkbox" id="chk-height-fit">
+                            <span>세로 크기 맞춤 · 전체 사진</span>
+                        </label>
+                        <div class="setting-group">
+                            <label class="setting-sublabel">맞춤 세로 · px</label>
+                            <input type="number" id="input-height-fit" class="form-input" value="800" min="50" max="4096">
+                        </div>
+                        <div class="height-fit-subtext" id="height-fit-subtext">
+                            크기 변경 없음 · 사진별 편집 크기 유지
+                        </div>
+                    </div>
+
+                    <div class="setting-desc">
+                        체크하면 모든 사진의 세로를 맞추고, 가로는 비율에 맞춰 자동 조절합니다.
+                    </div>
+
+                    <!-- 2. 전체 밝기 · % -->
                     <div class="setting-group">
-                        <label class="setting-sublabel">맞춤 세로 · px</label>
-                        <input type="number" id="input-height-fit" class="form-input" value="800" min="50" max="4096">
+                        <label class="setting-label">전체 밝기 · %</label>
+                        <input type="range" id="range-global-brightness" class="form-range" min="50" max="150" value="100">
                     </div>
-                    <div class="height-fit-subtext" id="height-fit-subtext">
-                        크기 변경 없음 · 사진별 편집 크기 유지
+
+                    <!-- 3. 테두리 · px & 색상 -->
+                    <div class="setting-group">
+                        <label class="setting-label">테두리 · px</label>
+                        <input type="number" id="input-border-px" class="form-input" value="0" min="0" max="100">
                     </div>
-                </div>
 
-                <div class="setting-desc">
-                    체크하면 모든 사진의 세로를 맞추고, 가로는 각 사진의 비율에 맞춰 자동 조절합니다. 해제하면 개별 편집 크기로 저장합니다. 자르기·회전·크기 변경은 사진을 더블클릭하세요.
-                </div>
-
-                <!-- 2. 밝기 · % -->
-                <div class="setting-group">
-                    <label class="setting-label">밝기 · %</label>
-                    <input type="range" id="range-global-brightness" class="form-range" min="50" max="150" value="100">
-                </div>
-
-                <!-- 3. 테두리 · px -->
-                <div class="setting-group">
-                    <label class="setting-label">테두리 · px</label>
-                    <input type="number" id="input-border-px" class="form-input" value="0" min="0" max="100">
-                </div>
-
-                <!-- 4. 테두리 색 -->
-                <div class="setting-group">
-                    <label class="setting-label">테두리 색</label>
-                    <div class="color-picker-box">
-                        <input type="color" id="input-border-color" value="#000000">
-                        <span>색상 선택</span>
+                    <div class="setting-group">
+                        <label class="setting-label">테두리 색</label>
+                        <div class="color-picker-box">
+                            <input type="color" id="input-border-color" value="#000000">
+                            <span>색상 선택</span>
+                        </div>
                     </div>
-                </div>
 
-                <!-- 5. 워터마크 설정 -->
-                <div class="setting-group">
-                    <label class="setting-label">워터마크</label>
-                    <label class="checkbox-label mt-1">
-                        <input type="checkbox" id="chk-watermark">
-                        <span>워터마크 적용</span>
-                    </label>
-                </div>
-
-                <div class="setting-group">
-                    <label class="setting-label">종류</label>
-                    <select id="select-wm-type" class="form-select">
-                        <option value="image" selected>이미지 파일</option>
-                        <option value="text">텍스트</option>
-                    </select>
-                </div>
-
-                <div class="setting-group">
-                    <label class="setting-label">워터마크 파일</label>
-                    <div class="watermark-file-row">
-                        <span class="watermark-file-display" id="wm-file-name-label">선택된 파일 없음</span>
-                        <label class="btn-file-search">
-                            <span>찾기</span>
-                            <input type="file" id="wm-file-input" accept="image/*" style="display: none;">
+                    <!-- 4. 워터마크 설정 -->
+                    <div class="setting-group">
+                        <label class="setting-label">워터마크</label>
+                        <label class="checkbox-label mt-1">
+                            <input type="checkbox" id="chk-watermark">
+                            <span>워터마크 적용</span>
                         </label>
                     </div>
-                    <div class="setting-desc mt-1">
-                        PNG · JPG · WebP · 25MB 이하. 투명 PNG는 배경 없이 합성됩니다.
+
+                    <div class="setting-group">
+                        <label class="setting-label">종류</label>
+                        <select id="select-wm-type" class="form-select">
+                            <option value="image" selected>이미지 파일</option>
+                            <option value="text">텍스트</option>
+                        </select>
                     </div>
-                </div>
 
-                <div class="setting-group">
-                    <label class="setting-label">로고 너비 · 출력 px</label>
-                    <input type="number" id="input-wm-width" class="form-input" value="300" min="10" max="2000">
-                </div>
+                    <div class="setting-group">
+                        <label class="setting-label">워터마크 파일</label>
+                        <div class="watermark-file-row">
+                            <span class="watermark-file-display" id="wm-file-name-label">선택된 파일 없음</span>
+                            <label class="btn-file-search">
+                                <span>찾기</span>
+                                <input type="file" id="wm-file-input" accept="image/*" style="display: none;">
+                            </label>
+                        </div>
+                        <div class="setting-desc mt-1">
+                            PNG · JPG · WebP · 25MB 이하. 투명 PNG는 배경 없이 합성됩니다.
+                        </div>
+                    </div>
 
-                <div class="setting-group">
-                    <button class="btn-delete-logo" id="btn-delete-logo">
-                        로고 삭제
-                    </button>
-                </div>
+                    <div class="setting-group">
+                        <label class="setting-label">로고 너비 · 출력 px</label>
+                        <input type="number" id="input-wm-width" class="form-input" value="300" min="10" max="2000">
+                    </div>
 
-                <!-- 위치 9방향 -->
-                <div class="setting-group">
-                    <label class="setting-label">위치</label>
-                    <select id="select-wm-position" class="form-select">
-                        <option value="top-left">왼쪽 위</option>
-                        <option value="top-center">가운데 위</option>
-                        <option value="top-right">오른쪽 위</option>
-                        <option value="center-left">왼쪽 가운데</option>
-                        <option value="center">정가운데</option>
-                        <option value="center-right">오른쪽 가운데</option>
-                        <option value="bottom-left">왼쪽 아래</option>
-                        <option value="bottom-center">가운데 아래</option>
-                        <option value="bottom-right" selected>오른쪽 아래</option>
-                    </select>
-
-                    <div class="wm-pos-grid">
-                        <button class="wm-pos-btn" data-pos="top-left">
-                            <span class="pos-icon">↖</span>
-                            <span>왼쪽 위</span>
-                        </button>
-                        <button class="wm-pos-btn" data-pos="top-center">
-                            <span class="pos-icon">↑</span>
-                            <span>가운데 위</span>
-                        </button>
-                        <button class="wm-pos-btn" data-pos="top-right">
-                            <span class="pos-icon">↗</span>
-                            <span>오른쪽 위</span>
-                        </button>
-                        <button class="wm-pos-btn" data-pos="center-left">
-                            <span class="pos-icon">←</span>
-                            <span>왼쪽 가운데</span>
-                        </button>
-                        <button class="wm-pos-btn" data-pos="center">
-                            <span class="pos-icon">●</span>
-                            <span>정가운데</span>
-                        </button>
-                        <button class="wm-pos-btn" data-pos="center-right">
-                            <span class="pos-icon">→</span>
-                            <span>오른쪽 가운데</span>
-                        </button>
-                        <button class="wm-pos-btn" data-pos="bottom-left">
-                            <span class="pos-icon">↙</span>
-                            <span>왼쪽 아래</span>
-                        </button>
-                        <button class="wm-pos-btn" data-pos="bottom-center">
-                            <span class="pos-icon">↓</span>
-                            <span>가운데 아래</span>
-                        </button>
-                        <button class="wm-pos-btn active" data-pos="bottom-right">
-                            <span class="pos-icon">↘</span>
-                            <span>오른쪽 아래</span>
+                    <div class="setting-group">
+                        <button class="btn-delete-logo" id="btn-delete-logo">
+                            로고 삭제
                         </button>
                     </div>
-                </div>
 
-                <div class="setting-group">
-                    <label class="setting-label">농도 · %</label>
-                    <input type="number" id="input-wm-opacity" class="form-input" value="70" min="0" max="100">
-                </div>
+                    <!-- 위치 9방향 -->
+                    <div class="setting-group">
+                        <label class="setting-label">위치</label>
+                        <select id="select-wm-position" class="form-select">
+                            <option value="top-left">왼쪽 위</option>
+                            <option value="top-center">가운데 위</option>
+                            <option value="top-right">오른쪽 위</option>
+                            <option value="center-left">왼쪽 가운데</option>
+                            <option value="center">정가운데</option>
+                            <option value="center-right">오른쪽 가운데</option>
+                            <option value="bottom-left">왼쪽 아래</option>
+                            <option value="bottom-center">가운데 아래</option>
+                            <option value="bottom-right" selected>오른쪽 아래</option>
+                        </select>
 
-                <div class="setting-group">
-                    <label class="setting-label">여백 · 출력 px</label>
-                    <input type="number" id="input-wm-margin" class="form-input" value="30" min="0" max="500">
-                </div>
-
-                <!-- 6. 저장 형식 & JPG 품질 -->
-                <div class="setting-group">
-                    <label class="setting-label">저장 형식</label>
-                    <select id="select-save-format" class="form-select">
-                        <option value="jpeg" selected>JPG</option>
-                        <option value="png">PNG</option>
-                        <option value="webp">WebP</option>
-                    </select>
-                </div>
-
-                <div class="setting-group">
-                    <div class="slider-label-row">
-                        <label class="setting-label">JPG 품질 · %</label>
-                        <span id="val-jpg-quality" style="font-size: 12px; font-weight: 600; color: var(--primary-color);">90%</span>
+                        <div class="wm-pos-grid">
+                            <button class="wm-pos-btn" data-pos="top-left">
+                                <span class="pos-icon">↖</span>
+                                <span>왼쪽 위</span>
+                            </button>
+                            <button class="wm-pos-btn" data-pos="top-center">
+                                <span class="pos-icon">↑</span>
+                                <span>가운데 위</span>
+                            </button>
+                            <button class="wm-pos-btn" data-pos="top-right">
+                                <span class="pos-icon">↗</span>
+                                <span>오른쪽 위</span>
+                            </button>
+                            <button class="wm-pos-btn" data-pos="center-left">
+                                <span class="pos-icon">←</span>
+                                <span>왼쪽 가운데</span>
+                            </button>
+                            <button class="wm-pos-btn" data-pos="center">
+                                <span class="pos-icon">●</span>
+                                <span>정가운데</span>
+                            </button>
+                            <button class="wm-pos-btn" data-pos="center-right">
+                                <span class="pos-icon">→</span>
+                                <span>오른쪽 가운데</span>
+                            </button>
+                            <button class="wm-pos-btn" data-pos="bottom-left">
+                                <span class="pos-icon">↙</span>
+                                <span>왼쪽 아래</span>
+                            </button>
+                            <button class="wm-pos-btn" data-pos="bottom-center">
+                                <span class="pos-icon">↓</span>
+                                <span>가운데 아래</span>
+                            </button>
+                            <button class="wm-pos-btn active" data-pos="bottom-right">
+                                <span class="pos-icon">↘</span>
+                                <span>오른쪽 아래</span>
+                            </button>
+                        </div>
                     </div>
-                    <input type="range" id="range-jpg-quality" class="form-range" min="30" max="100" value="90">
-                </div>
 
-                <div class="setting-desc mt-2">
-                    개별 편집 후 세로 맞춤을 적용합니다. 세로 맞춤 결과는 가로·세로 최대 4096px입니다. JPG의 투명 배경은 흰색으로 저장합니다.
+                    <div class="setting-group">
+                        <label class="setting-label">농도 · %</label>
+                        <input type="number" id="input-wm-opacity" class="form-input" value="70" min="0" max="100">
+                    </div>
+
+                    <div class="setting-group">
+                        <label class="setting-label">여백 · 출력 px</label>
+                        <input type="number" id="input-wm-margin" class="form-input" value="30" min="0" max="500">
+                    </div>
+
+                    <!-- 5. 저장 형식 & JPG 품질 -->
+                    <div class="setting-group">
+                        <label class="setting-label">저장 형식</label>
+                        <select id="select-save-format" class="form-select">
+                            <option value="jpeg" selected>JPG</option>
+                            <option value="png">PNG</option>
+                            <option value="webp">WebP</option>
+                        </select>
+                    </div>
+
+                    <div class="setting-group">
+                        <div class="slider-label-row">
+                            <label class="setting-label">JPG 품질 · %</label>
+                            <span id="val-jpg-quality" style="font-size: 12px; font-weight: 600; color: var(--primary-color);">90%</span>
+                        </div>
+                        <input type="range" id="range-jpg-quality" class="form-range" min="30" max="100" value="90">
+                    </div>
+
+                    <div class="setting-desc mt-2">
+                        개별 편집 후 세로 맞춤을 적용합니다. 세로 맞춤 결과는 가로·세로 최대 4096px입니다. JPG의 투명 배경은 흰색으로 저장합니다.
+                    </div>
                 </div>
             </div>
         </aside>
     </div>
 
-    <!-- 정밀 편집 전체화면 모달 -->
+    <!-- 정밀 편집 전체화면 모달 (더블클릭 시) -->
     <div class="modal-overlay" id="editor-modal" style="display: none;">
         <div class="modal-container">
             <div class="modal-header">

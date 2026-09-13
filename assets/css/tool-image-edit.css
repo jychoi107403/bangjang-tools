@@ -5,7 +5,9 @@
  * [네임스페이스]: .tool-image-edit 및 모달 전용 스타일
  */
 
-/* 갤러리 이미지 그리드 */
+/* --------------------------------------------------------------------------
+   1. 갤러리 이미지 그리드 (상단 목록)
+   -------------------------------------------------------------------------- */
 .tool-image-edit .image-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
@@ -36,6 +38,7 @@
 .tool-image-edit .image-card.selected {
     border-color: var(--primary-color);
     box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.25);
+    background-color: #f5f3ff;
 }
 
 .tool-image-edit .image-thumb-wrap {
@@ -124,19 +127,23 @@
     color: var(--text-muted);
 }
 
-/* 인라인 에디터 패널 */
-.tool-image-edit .inline-editor-panel {
+/* --------------------------------------------------------------------------
+   2. 하단 대형 뷰어 패널 (이미지 선택 시 메인 영역 아래쪽에 표시)
+   -------------------------------------------------------------------------- */
+.tool-image-edit .viewer-panel {
     width: 100%;
     background-color: #ffffff;
     border: 1px solid var(--border-color);
     border-radius: var(--radius-lg);
-    box-shadow: var(--shadow-lg);
+    box-shadow: var(--shadow-md);
     margin-top: 16px;
     overflow: hidden;
-    animation: fadeIn 0.2s ease-in-out;
+    display: flex;
+    flex-direction: column;
+    animation: slideDown 0.25s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.tool-image-edit .inline-editor-header {
+.tool-image-edit .viewer-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -145,28 +152,70 @@
     border-bottom: 1px solid var(--border-color);
 }
 
-.tool-image-edit .inline-editor-title {
+.tool-image-edit .viewer-title-group {
     display: flex;
     align-items: center;
-    gap: 8px;
+    gap: 10px;
+}
+
+.tool-image-edit .viewer-tag {
+    background: var(--primary-color);
+    color: #ffffff;
+    font-size: 11px;
+    font-weight: 700;
+    padding: 3px 8px;
+    border-radius: 4px;
+    letter-spacing: 0.5px;
+}
+
+.tool-image-edit .viewer-photo-name {
     font-size: 14px;
     font-weight: 700;
     color: var(--text-primary);
 }
 
-.tool-image-edit .inline-editor-title i {
-    width: 16px;
-    height: 16px;
-    color: var(--primary-color);
-}
-
-.tool-image-edit .inline-photo-dim {
+.tool-image-edit .viewer-photo-dim {
     font-size: 12px;
-    font-weight: 400;
+    font-weight: 500;
     color: var(--text-muted);
+    background: #e2e8f0;
+    padding: 2px 6px;
+    border-radius: 4px;
 }
 
-.tool-image-edit .btn-inline-close {
+.tool-image-edit .viewer-header-actions {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.tool-image-edit .viewer-btn-action {
+    background: #ffffff;
+    border: 1px solid var(--border-color);
+    color: var(--text-secondary);
+    padding: 5px 10px;
+    border-radius: var(--radius-sm);
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    transition: all 0.15s;
+}
+
+.tool-image-edit .viewer-btn-action:hover {
+    background: var(--bg-muted);
+    color: var(--text-primary);
+}
+
+.tool-image-edit .viewer-btn-action.active {
+    background: #ede9fe;
+    border-color: #8b5cf6;
+    color: #6d28d9;
+}
+
+.tool-image-edit .btn-viewer-close {
     background: none;
     border: none;
     color: var(--text-muted);
@@ -174,69 +223,185 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 4px;
-    border-radius: 4px;
+    padding: 6px;
+    border-radius: var(--radius-sm);
+    transition: all 0.15s;
 }
 
-.tool-image-edit .btn-inline-close:hover {
-    color: var(--text-primary);
-    background: var(--bg-muted);
+.tool-image-edit .btn-viewer-close:hover {
+    color: var(--color-danger);
+    background: #fee2e2;
 }
 
-.tool-image-edit .inline-editor-body {
-    display: grid;
-    grid-template-columns: 1fr 280px;
-    min-height: 320px;
-}
-
-.tool-image-edit .inline-canvas-wrapper {
+/* 대형 캔버스 작업 영역 */
+.tool-image-edit .viewer-canvas-area {
     background-color: #0f172a;
+    background-image: 
+        linear-gradient(45deg, #1e293b 25%, transparent 25%), 
+        linear-gradient(-45deg, #1e293b 25%, transparent 25%), 
+        linear-gradient(45deg, transparent 75%, #1e293b 75%), 
+        linear-gradient(-45deg, transparent 75%, #1e293b 75%);
+    background-size: 20px 20px;
+    background-position: 0 0, 0 10px, 10px -10px, -10px 0px;
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 16px;
+    padding: 24px;
     position: relative;
+    min-height: 380px;
+    max-height: 520px;
     overflow: auto;
+    user-select: none;
 }
 
-.tool-image-edit #inline-canvas {
+.tool-image-edit .viewer-canvas-container {
+    position: relative;
+    display: inline-block;
+    box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.6);
+}
+
+.tool-image-edit #viewer-main-canvas {
+    display: block;
     max-width: 100%;
-    max-height: 420px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+    max-height: 460px;
+    object-fit: contain;
+    border-radius: 2px;
 }
 
-.tool-image-edit .inline-tools-sidebar {
-    padding: 16px;
-    border-left: 1px solid var(--border-color);
+/* 크롭(자르기) 오버레이 레이어 */
+.tool-image-edit .crop-overlay-box {
+    position: absolute;
+    border: 2px dashed #3b82f6;
+    background: rgba(59, 130, 246, 0.15);
+    cursor: move;
+    box-sizing: border-box;
+    display: none;
+    z-index: 10;
+}
+
+.tool-image-edit .crop-handle {
+    position: absolute;
+    width: 10px;
+    height: 10px;
     background: #ffffff;
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
+    border: 2px solid #3b82f6;
+    border-radius: 2px;
 }
 
-.tool-image-edit .inline-tool-group {
+.tool-image-edit .crop-handle.tl { top: -5px; left: -5px; cursor: nwse-resize; }
+.tool-image-edit .crop-handle.tr { top: -5px; right: -5px; cursor: nesw-resize; }
+.tool-image-edit .crop-handle.bl { bottom: -5px; left: -5px; cursor: nesw-resize; }
+.tool-image-edit .crop-handle.br { bottom: -5px; right: -5px; cursor: nwse-resize; }
+
+/* 뷰어 하단 상태/안내 툴바 */
+.tool-image-edit .viewer-footer-toolbar {
+    padding: 10px 18px;
+    background: #fafbfc;
+    border-top: 1px solid var(--border-color);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 12px;
+    color: var(--text-muted);
+}
+
+.tool-image-edit .viewer-guide-tip {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    color: var(--text-secondary);
+}
+
+.tool-image-edit .viewer-guide-tip i {
+    color: var(--primary-color);
+    width: 15px;
+    height: 15px;
+}
+
+/* --------------------------------------------------------------------------
+   3. 우측 [이미지 설정 & 개별 편집] 사이드바 컴포넌트
+   -------------------------------------------------------------------------- */
+
+/* 섹션 구분 카드 */
+.settings-section-card {
+    background: #ffffff;
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-lg);
+    padding: 16px;
     display: flex;
     flex-direction: column;
+    gap: 14px;
+    box-shadow: var(--shadow-xs);
+}
+
+.settings-section-card.active-photo {
+    border: 1.5px solid #818cf8;
+    background: #fdfefe;
+}
+
+.section-card-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-bottom: 8px;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.section-card-title {
+    font-size: 13.5px;
+    font-weight: 800;
+    color: var(--text-primary);
+    display: flex;
+    align-items: center;
     gap: 6px;
 }
 
-.tool-image-edit .inline-label {
-    font-size: 12px;
-    font-weight: 700;
-    color: var(--text-muted);
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
+.section-card-title i {
+    color: var(--primary-color);
+    width: 16px;
+    height: 16px;
 }
 
-.tool-image-edit .btn-group-2 {
+.badge-photo-name {
+    font-size: 11px;
+    font-weight: 600;
+    color: #4338ca;
+    background: #e0e7ff;
+    padding: 2px 7px;
+    border-radius: 4px;
+    max-width: 110px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.no-photo-selected-msg {
+    padding: 20px 10px;
+    text-align: center;
+    color: var(--text-muted);
+    font-size: 12px;
+    line-height: 1.5;
+    background: #f8fafc;
+    border-radius: var(--radius-md);
+    border: 1px dashed var(--border-color);
+}
+
+/* 그리드 버튼 모음 */
+.btn-grid-4 {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 4px;
+}
+
+.btn-grid-2 {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 6px;
 }
 
-.tool-image-edit .btn-tool {
-    padding: 6px 10px;
-    font-size: 12px;
+.btn-sm-tool {
+    padding: 6px 4px;
+    font-size: 11.5px;
     font-weight: 600;
     border: 1px solid var(--border-color);
     background: #ffffff;
@@ -244,65 +409,55 @@
     border-radius: var(--radius-sm);
     cursor: pointer;
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
     gap: 4px;
+    transition: all 0.15s;
 }
 
-.tool-image-edit .btn-tool:hover {
+.btn-sm-tool:hover {
     background-color: var(--bg-muted);
     color: var(--text-primary);
+    border-color: #cbd5e1;
 }
 
-.tool-image-edit .slider-control {
-    display: flex;
-    flex-direction: column;
-    gap: 4px;
+.btn-sm-tool i {
+    width: 14px;
+    height: 14px;
 }
 
-.tool-image-edit .slider-label-row {
+/* 슬라이더 라벨 행 */
+.slider-label-row {
     display: flex;
     justify-content: space-between;
     font-size: 12px;
     color: var(--text-secondary);
-    font-weight: 500;
+    font-weight: 600;
+    margin-bottom: 2px;
 }
 
-.tool-image-edit .inline-help-text {
-    font-size: 11px;
-    color: var(--text-muted);
-    margin-top: 4px;
-    line-height: 1.4;
+.slider-val-badge {
+    color: var(--primary-color);
+    font-weight: 700;
 }
 
-.tool-image-edit .inline-actions {
-    margin-top: auto;
-}
-
-.tool-image-edit .btn-block {
-    width: 100%;
-}
-
-/* ==========================================================================
-   우측 [이미지 설정] 전용 상세 컴포넌트 스타일 (스크린샷 일치)
-   ========================================================================== */
-
-/* 1. 세로 크기 맞춤 박스 */
+/* 세로 크기 맞춤 박스 */
 .height-fit-box {
     border: 1.5px solid #c7d2fe;
     background: #fdfdfe;
     border-radius: var(--radius-lg);
-    padding: 16px;
+    padding: 14px;
     display: flex;
     flex-direction: column;
-    gap: 12px;
+    gap: 10px;
 }
 
 .height-fit-box .checkbox-label {
     display: flex;
     align-items: center;
     gap: 8px;
-    font-size: 13.5px;
+    font-size: 13px;
     font-weight: 700;
     color: var(--text-primary);
     cursor: pointer;
@@ -315,11 +470,11 @@
 }
 
 .height-fit-subtext {
-    font-size: 11.5px;
+    font-size: 11px;
     color: var(--text-muted);
 }
 
-/* 2. 테두리 색상 선택 박스 */
+/* 테두리 색상 선택 박스 */
 .color-picker-box {
     display: flex;
     align-items: center;
@@ -346,7 +501,7 @@
     font-weight: 500;
 }
 
-/* 3. 워터마크 파일 선택 행 */
+/* 워터마크 파일 선택 행 */
 .watermark-file-row {
     display: flex;
     align-items: center;
@@ -355,8 +510,8 @@
 
 .watermark-file-display {
     flex: 1;
-    padding: 8px 12px;
-    font-size: 12.5px;
+    padding: 7px 10px;
+    font-size: 12px;
     color: var(--text-muted);
     border: 1px solid var(--border-color);
     border-radius: var(--radius-md);
@@ -367,8 +522,8 @@
 }
 
 .btn-file-search {
-    padding: 8px 14px;
-    font-size: 12.5px;
+    padding: 7px 12px;
+    font-size: 12px;
     font-weight: 600;
     background: #ffffff;
     border: 1px solid var(--border-color);
@@ -399,16 +554,16 @@
     color: var(--color-danger);
 }
 
-/* 4. 3x3 9방향 워터마크 위치 버튼 그리드 */
+/* 3x3 9방향 워터마크 위치 버튼 그리드 */
 .wm-pos-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 6px;
-    margin-top: 8px;
+    margin-top: 6px;
 }
 
 .wm-pos-btn {
-    padding: 10px 4px;
+    padding: 8px 4px;
     background: #ffffff;
     border: 1px solid var(--border-color);
     border-radius: var(--radius-sm);
@@ -418,7 +573,7 @@
     align-items: center;
     justify-content: center;
     gap: 2px;
-    font-size: 10.5px;
+    font-size: 10px;
     color: var(--text-secondary);
     font-weight: 500;
     transition: all 0.15s;
@@ -426,7 +581,7 @@
 }
 
 .wm-pos-btn .pos-icon {
-    font-size: 13px;
+    font-size: 12px;
     font-weight: 700;
     line-height: 1;
 }
@@ -443,9 +598,9 @@
     font-weight: 700;
 }
 
-/* ==========================================================================
-   정밀 편집 대화면 모달
-   ========================================================================== */
+/* --------------------------------------------------------------------------
+   4. 정밀 편집 대화면 모달 (더블클릭 시)
+   -------------------------------------------------------------------------- */
 .modal-overlay {
     position: fixed;
     top: 0;
@@ -564,12 +719,6 @@
     letter-spacing: 0.5px;
 }
 
-.btn-grid-2 {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 6px;
-}
-
 .modal-footer {
     display: flex;
     justify-content: space-between;
@@ -588,6 +737,12 @@
 .modal-footer-right {
     display: flex;
     gap: 8px;
+}
+
+/* 애니메이션 */
+@keyframes slideDown {
+    from { opacity: 0; transform: translateY(-8px); }
+    to { opacity: 1; transform: translateY(0); }
 }
 
 @keyframes fadeIn {
