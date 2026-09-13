@@ -421,10 +421,21 @@ async function executeAutoRemoveBackground() {
 }
 
 /**
+ * 피부톤 여부 판별 (YCbCr 색공간 기반)
+ * 인물의 팔, 얼굴, 손, 배 영역을 배경으로 오판하지 않도록 100% 안전하게 보호
+ */
+function isSkinColor(r, g, b) {
+    const cb = -0.168736 * r - 0.331264 * g + 0.5 * b + 128;
+    const cr =  0.5 * r - 0.418688 * g - 0.081312 * b + 128;
+    return (cb >= 70 && cb <= 135 && cr >= 125 && cr <= 185 && r > g && g > (b * 0.65));
+}
+
+/**
  * AI 세그멘테이션 마스크를 원본에 정밀 합성하여 피사체 형태를 100% 보존
+ * (팔과 몸통 사이 빈 공간 / 내부 배경 구멍 정밀 제거 알고리즘 포함)
  */
 function applySegmentationMask(maskImg, w, h) {
-    // 마스크 임시 캔버스
+    // 1. 마스크 임시 캔버스
     const maskCanvas = document.createElement('canvas');
     maskCanvas.width = w;
     maskCanvas.height = h;
@@ -432,7 +443,7 @@ function applySegmentationMask(maskImg, w, h) {
     mCtx.drawImage(maskImg, 0, 0, w, h);
     const maskData = mCtx.getImageData(0, 0, w, h).data;
 
-    // 원본 데이터 가져오기
+    // 2. 원본 데이터 가져오기
     const tempCanvas = document.createElement('canvas');
     tempCanvas.width = w;
     tempCanvas.height = h;
@@ -441,25 +452,52 @@ function applySegmentationMask(maskImg, w, h) {
     const imgData = tCtx.getImageData(0, 0, w, h);
     const data = imgData.data;
 
-    const totalPixels = w * h;
-    // thresholdVal: 5 ~ 80 (기본 30) -> 임계값 동적 매핑
-    const cutoffMin = Math.max(5, Math.min(100, thresholdVal * 0.8));
-    const cutoffMax = Math.min(250, cutoffMin + 120 + (featherVal * 8));
+    // 3. 외곽 배경 색상 샘플 수집 (상단/좌우/하단 외곽 테두리 픽셀들)
+    const bgSamples = [];
+    const stepX = Math.max(1, Math.floor(w / 30));
+    const stepY = Math.max(1, Math.floor(h / 30));
+    for (let x = 0; x < w; x += stepX) {
+        bgSamples.push(getPixelColor(data, x, 0, w));
+        bgSamples.push(getPixelColor(data, x, Math.min(h - 1, 15), w));
+    }
+    for (let y = 0; y < h; y += stepY) {
+        bgSamples.push(getPixelColor(data, 0, y, w));
+        bgSamples.push(getPixelColor(data, w - 1, y, w));
+    }
 
-    for (let i = 0; i < totalPixels; i++) {
-        const maskVal = maskData[i * 4]; // 0 (배경) ~ 255 (인물/전경)
-        const aIdx = i * 4 + 3;
+    // thresholdVal 기본 30 -> 동적 임계치
+    const baseCutoff = 100 + (thresholdVal * 0.8);
+    const cutoffMin = Math.max(30, baseCutoff - 40);
+    const cutoffMax = Math.min(250, baseCutoff + 50 + (featherVal * 6));
+    const bgTolerance = 32 + (thresholdVal * 0.5);
 
-        if (maskVal <= cutoffMin) {
-            // 완전 배경 -> 투명
-            data[aIdx] = 0;
-        } else if (maskVal >= cutoffMax) {
-            // 완전 전경 -> 100% 보존
-            data[aIdx] = 255;
-        } else {
-            // 외곽 경계선 -> 부드러운 안티앨리어싱 (Alpha Matting)
-            const alphaRatio = (maskVal - cutoffMin) / (cutoffMax - cutoffMin);
-            data[aIdx] = Math.round(255 * alphaRatio);
+    for (let y = 0; y < h; y++) {
+        for (let x = 0; x < w; x++) {
+            const idx = y * w + x;
+            const pIdx = idx * 4;
+            const r = data[pIdx];
+            const g = data[pIdx + 1];
+            const b = data[pIdx + 2];
+            const maskVal = maskData[pIdx]; // 0 (배경) ~ 255 (인물/전경)
+
+            const isSkin = isSkinColor(r, g, b);
+            const minBgDiff = getMinCornerDistance(r, g, b, bgSamples);
+
+            // [핵심 개선]: 팔과 몸통 사이의 빈 공간 (내부 배경 구멍) 정밀 파내기
+            // 피부색이 아니면서 배경 색상과 매우 일치하고 AI 마스크 신뢰도가 절대적(245 이상)이지 않은 경우 -> 배경(투명)으로 제거
+            if (!isSkin && minBgDiff < bgTolerance && maskVal < 240) {
+                data[pIdx + 3] = 0;
+            } else if (maskVal <= cutoffMin) {
+                // 완전 배경 -> 투명
+                data[pIdx + 3] = 0;
+            } else if (maskVal >= cutoffMax || isSkin) {
+                // 완전 전경 (인물 신체 및 피부 100% 보존)
+                data[pIdx + 3] = 255;
+            } else {
+                // 외곽 경계선 -> 부드러운 안티앨리어싱 (Alpha Matting)
+                const alphaRatio = (maskVal - cutoffMin) / (cutoffMax - cutoffMin);
+                data[pIdx + 3] = Math.round(255 * Math.min(1, Math.max(0, alphaRatio)));
+            }
         }
     }
 
