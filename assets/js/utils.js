@@ -86,14 +86,24 @@ export function loadImage(src) {
 }
 
 /**
- * 바이트 크기를 사람이 읽기 쉬운 포맷(KB, MB)으로 변환합니다.
+ * 바이트 크기를 사람이 읽기 쉬운 포맷(B, KB, MB, GB)으로 변환합니다.
  * @param {number} bytes - 파일 크기(바이트)
- * @returns {string} 예: "1.24 MB"
+ * @returns {string} 예: "522.7 KB", "141.8 KB", "433 B"
  */
 export function formatBytes(bytes) {
-    if (bytes === 0) return '0 Bytes';
+    // 유효하지 않은 값, NaN, null, undefined, 0에 대한 안전한 방어 처리
+    if (bytes === undefined || bytes === null || isNaN(bytes) || bytes <= 0) {
+        return '0 B';
+    }
+    
+    // 1024 미만인 경우 바이트(B) 단위로 깔끔하게 표시
+    if (bytes < 1024) {
+        return `${Math.round(bytes)} B`;
+    }
+
     const k = 1024;
-    const sizes = ['Bytes', 'KB', 'MB', 'GB'];
+    const sizes = ['B', 'KB', 'MB', 'GB', 'TB'];
     const i = Math.floor(Math.log(bytes) / Math.log(k));
-    return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
+    const formatted = parseFloat((bytes / Math.pow(k, i)).toFixed(1));
+    return `${formatted} ${sizes[i]}`;
 }
