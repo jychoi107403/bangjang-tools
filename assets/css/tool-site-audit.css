@@ -402,7 +402,7 @@
     color: #ffffff;
 }
 
-.tool-site-audit .btn-share-icon {
+.tool-site-audit .btn-reset-icon {
     width: 34px;
     height: 34px;
     display: flex;
@@ -416,8 +416,10 @@
     transition: all 0.15s ease;
 }
 
-.tool-site-audit .btn-share-icon:hover {
-    background: #f1f5f9;
+.tool-site-audit .btn-reset-icon:hover {
+    background: #fee2e2;
+    color: #dc2626;
+    border-color: #dc2626;
 }
 
 /* 개별 통계 박스들 */
@@ -457,183 +459,111 @@
 }
 
 /* --------------------------------------------------------------------------
-   5. 상세 리포트 모달 (Detailed Report Modal)
+   5. 아래쪽 펼침 상세 리포트 섹션 (Inline Detailed Report Section)
    -------------------------------------------------------------------------- */
-.report-modal-backdrop {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    width: 100vw;
-    height: 100vh;
-    background: rgba(15, 23, 42, 0.65);
-    backdrop-filter: blur(6px);
-    -webkit-backdrop-filter: blur(6px);
-    z-index: 99999;
-    display: none;
-    align-items: center;
-    justify-content: center;
-    padding: 20px;
-    box-sizing: border-box;
-    animation: auditFadeIn 0.2s ease-out;
-}
-
-.report-modal-backdrop.active {
-    display: flex !important;
-}
-
-@keyframes auditFadeIn {
-    from {
-        opacity: 0;
-    }
-    to {
-        opacity: 1;
-    }
-}
-
-.report-modal-card {
-    background: #ffffff;
-    width: 100%;
-    max-width: 900px;
-    max-height: 88vh;
-    border-radius: 14px;
-    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25), 0 0 0 1px rgba(0, 0, 0, 0.05);
+.tool-site-audit .audit-detailed-section {
+    border-top: 1px solid #e2e8f0;
+    margin-top: 10px;
+    padding: 24px 28px;
     display: flex;
     flex-direction: column;
-    overflow: hidden;
-    animation: auditScaleUp 0.25s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-@keyframes auditScaleUp {
-    from {
-        opacity: 0;
-        transform: scale(0.96) translateY(8px);
-    }
-    to {
-        opacity: 1;
-        transform: scale(1) translateY(0);
-    }
-}
-
-.report-modal-header {
-    padding: 18px 24px;
-    border-bottom: 1px solid #e2e8f0;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
     background: #ffffff;
+    animation: auditFadeIn 0.25s ease-out;
 }
 
-.report-modal-title {
-    font-size: 17px;
-    font-weight: 800;
-    color: #0f172a;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-}
-
-.report-modal-body {
-    padding: 20px 24px;
-    overflow-y: auto;
-    flex: 1;
-    display: flex;
-    flex-direction: column;
+.tool-site-audit .detailed-table-header {
+    display: grid;
+    grid-template-columns: minmax(200px, 1fr) 110px 110px 130px;
     gap: 16px;
-    background: #ffffff;
+    padding: 12px 8px;
+    border-bottom: 2px solid #e2e8f0;
+    align-items: center;
 }
 
-.report-table-wrap {
-    width: 100%;
-    overflow-x: auto;
-    border: 1px solid #e2e8f0;
-    border-radius: 8px;
-    background: #ffffff;
-}
-
-.report-table {
-    width: 100%;
-    border-collapse: collapse;
-    font-size: 13px;
-    text-align: left;
-}
-
-.report-table th {
-    background: #f8fafc;
-    padding: 12px 14px;
-    font-weight: 700;
-    color: #475569;
-    border-bottom: 1px solid #e2e8f0;
-    white-space: nowrap;
-}
-
-.report-table td {
-    padding: 12px 14px;
-    border-bottom: 1px solid #f1f5f9;
+.tool-site-audit .col-head {
+    font-size: 18px;
+    font-weight: 800;
     color: #1e293b;
-    vertical-align: middle;
+    letter-spacing: -0.3px;
 }
 
-.report-table tr:last-child td {
+.tool-site-audit .col-head.col-original,
+.tool-site-audit .col-head.col-optimized,
+.tool-site-audit .col-head.col-difference {
+    text-align: right;
+}
+
+.tool-site-audit .detailed-table-body {
+    display: flex;
+    flex-direction: column;
+}
+
+.tool-site-audit .detailed-row {
+    display: grid;
+    grid-template-columns: minmax(200px, 1fr) 110px 110px 130px;
+    gap: 16px;
+    padding: 14px 8px;
+    border-bottom: 1px solid #e5e7eb;
+    align-items: center;
+    transition: background 0.15s ease;
+}
+
+.tool-site-audit .detailed-row:hover {
+    background: #f8fafc;
+}
+
+.tool-site-audit .detailed-row:last-child {
     border-bottom: none;
 }
 
-.report-table tr:hover td {
-    background: #f8fafc;
+.tool-site-audit .col-cell {
+    font-size: 13px;
+    line-height: 1.4;
 }
 
-.table-thumb {
-    width: 44px;
-    height: 44px;
-    border-radius: 6px;
-    object-fit: cover;
-    background: #f1f5f9;
-    border: 1px solid #e2e8f0;
+.tool-site-audit .col-cell.col-images {
+    min-width: 0;
+}
+
+.tool-site-audit .img-resource-link {
+    color: #1e293b;
+    text-decoration: underline;
+    text-underline-offset: 2px;
+    font-weight: 600;
+    font-size: 13px;
     display: block;
-}
-
-.table-img-name {
-    max-width: 260px;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
-    font-weight: 600;
+    transition: color 0.15s ease;
+}
+
+.tool-site-audit .img-resource-link:hover {
+    color: #2563eb;
+}
+
+.tool-site-audit .col-cell.col-original {
+    color: #64748b;
+    font-weight: 500;
+    text-align: right;
+}
+
+.tool-site-audit .col-cell.col-optimized {
     color: #0f172a;
-}
-
-.badge-savings-mini {
-    display: inline-block;
-    padding: 3px 8px;
-    background: #dcfce7;
-    color: #15803d;
     font-weight: 800;
+    text-align: right;
+}
+
+.tool-site-audit .col-cell.col-difference {
+    color: #65a30d; /* 스크린샷 1, 2의 라임그린 컬러 */
+    font-weight: 800;
+    text-align: right;
+}
+
+.tool-site-audit .col-cell.col-difference.already-optimized {
+    color: #94a3b8;
+    font-weight: 500;
     font-size: 12px;
-    border-radius: 5px;
-}
-
-.report-modal-footer {
-    padding: 14px 24px;
-    border-top: 1px solid #e2e8f0;
-    background: #f8fafc;
-    display: flex;
-    justify-content: flex-end;
-}
-
-.btn-report-confirm {
-    padding: 9px 24px;
-    background: #2563eb;
-    color: #ffffff;
-    font-weight: 700;
-    font-size: 14px;
-    border: none;
-    border-radius: 6px;
-    cursor: pointer;
-    transition: all 0.2s ease;
-}
-
-.btn-report-confirm:hover {
-    background: #1d4ed8;
 }
 
 /* --------------------------------------------------------------------------
@@ -684,5 +614,15 @@
     .tool-site-audit .metric-box {
         border-right: none;
         padding: 16px 20px;
+    }
+
+    .tool-site-audit .audit-detailed-section {
+        padding: 16px 12px;
+        overflow-x: auto;
+    }
+
+    .tool-site-audit .detailed-table-header,
+    .tool-site-audit .detailed-row {
+        min-width: 500px;
     }
 }

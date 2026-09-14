@@ -476,8 +476,8 @@
                                 <button type="button" class="btn-detailed-report" id="btn-show-report" data-i18n="audit.btn_show_report">
                                     상세 리포트 보기
                                 </button>
-                                <button type="button" class="btn-share-icon" id="btn-share-result" title="진단 결과 클립보드 복사">
-                                    <i data-lucide="share-2" style="width: 15px; height: 15px;"></i>
+                                <button type="button" class="btn-reset-icon" id="btn-reset-result" title="결과 닫기" data-i18n-title="audit.btn_reset">
+                                    <i data-lucide="x" style="width: 16px; height: 16px;"></i>
                                 </button>
                             </div>
                         </div>
@@ -506,47 +506,22 @@
                             <div class="metric-box-value highlight-green" id="res-new-speed">1.37 초</div>
                         </div>
                     </div>
+
+                    <!-- 5) 아래쪽 펼침 상세 진단 리포트 (스크린샷 1, 2와 100% 일치 인라인 테이블) -->
+                    <div class="audit-detailed-section" id="audit-detailed-section" style="display: none;">
+                        <div class="detailed-table-header">
+                            <div class="col-head col-images" data-i18n="audit.col_images">Images</div>
+                            <div class="col-head col-original" data-i18n="audit.col_original">Original</div>
+                            <div class="col-head col-optimized" data-i18n="audit.col_optimized">Optimized</div>
+                            <div class="col-head col-difference" data-i18n="audit.col_difference">Difference</div>
+                        </div>
+                        <div class="detailed-table-body" id="detailed-table-body">
+                            <!-- 실제 추출 및 시뮬레이션된 이미지 리스트 동적 렌더링 -->
+                        </div>
+                    </div>
                 </section>
             </div>
         </main>
-    </div>
-
-    <!-- 상세 리포트 모달 (Detailed Report Modal) -->
-    <div class="report-modal-backdrop" id="report-modal" style="display: none;">
-        <div class="report-modal-card">
-            <div class="report-modal-header">
-                <div class="report-modal-title">
-                    <i data-lucide="file-spreadsheet" style="color: #2563eb;"></i>
-                    <span data-i18n="audit.modal_title">이미지 최적화 상세 진단 리포트</span>
-                </div>
-                <button class="btn-close-modal btn-close-report-modal" aria-label="닫기"><i data-lucide="x"></i></button>
-            </div>
-            <div class="report-modal-body">
-                <div style="font-size: 13px; color: #64748b;">
-                    <span data-i18n="audit.target_page">대상 페이지:</span> <strong id="modal-report-url" style="color: #0f172a;">-</strong>
-                </div>
-                <div class="report-table-wrap">
-                    <table class="report-table">
-                        <thead>
-                            <tr>
-                                <th style="width: 60px;" data-i18n="audit.col_thumb">미리보기</th>
-                                <th data-i18n="audit.col_filename">파일명 / 리소스</th>
-                                <th data-i18n="audit.col_orig_size">현재 용량</th>
-                                <th data-i18n="audit.col_new_size">WebP 변환 시</th>
-                                <th data-i18n="audit.col_savings">절감률</th>
-                                <th data-i18n="audit.col_recommend">권장 최적화</th>
-                            </tr>
-                        </thead>
-                        <tbody id="report-table-body">
-                            <!-- 동적 렌더링 -->
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-            <div class="report-modal-footer">
-                <button class="btn-modal-confirm btn-report-confirm" data-i18n="btn.confirm">확인</button>
-            </div>
-        </div>
     </div>
 
     <!-- 도움말 모달 -->
