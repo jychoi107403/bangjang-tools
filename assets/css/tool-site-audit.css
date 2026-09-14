@@ -459,46 +459,73 @@
 /* --------------------------------------------------------------------------
    5. 상세 리포트 모달 (Detailed Report Modal)
    -------------------------------------------------------------------------- */
-.tool-site-audit .report-modal-backdrop {
+.report-modal-backdrop {
     position: fixed;
     top: 0;
     left: 0;
     right: 0;
     bottom: 0;
-    background: rgba(15, 23, 42, 0.6);
-    backdrop-filter: blur(4px);
-    z-index: 9999;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(15, 23, 42, 0.65);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+    z-index: 99999;
     display: none;
     align-items: center;
     justify-content: center;
     padding: 20px;
+    box-sizing: border-box;
+    animation: auditFadeIn 0.2s ease-out;
 }
 
-.tool-site-audit .report-modal-backdrop.active {
-    display: flex;
+.report-modal-backdrop.active {
+    display: flex !important;
 }
 
-.tool-site-audit .report-modal-card {
+@keyframes auditFadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+.report-modal-card {
     background: #ffffff;
     width: 100%;
     max-width: 900px;
-    max-height: 85vh;
-    border-radius: var(--radius-lg);
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+    max-height: 88vh;
+    border-radius: 14px;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25), 0 0 0 1px rgba(0, 0, 0, 0.05);
     display: flex;
     flex-direction: column;
     overflow: hidden;
+    animation: auditScaleUp 0.25s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.tool-site-audit .report-modal-header {
+@keyframes auditScaleUp {
+    from {
+        opacity: 0;
+        transform: scale(0.96) translateY(8px);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+    }
+}
+
+.report-modal-header {
     padding: 18px 24px;
     border-bottom: 1px solid #e2e8f0;
     display: flex;
     align-items: center;
     justify-content: space-between;
+    background: #ffffff;
 }
 
-.tool-site-audit .report-modal-title {
+.report-modal-title {
     font-size: 17px;
     font-weight: 800;
     color: #0f172a;
@@ -507,80 +534,106 @@
     gap: 8px;
 }
 
-.tool-site-audit .report-modal-body {
+.report-modal-body {
     padding: 20px 24px;
     overflow-y: auto;
     flex: 1;
     display: flex;
     flex-direction: column;
     gap: 16px;
+    background: #ffffff;
 }
 
-.tool-site-audit .report-table-wrap {
+.report-table-wrap {
     width: 100%;
     overflow-x: auto;
     border: 1px solid #e2e8f0;
     border-radius: 8px;
+    background: #ffffff;
 }
 
-.tool-site-audit .report-table {
+.report-table {
     width: 100%;
     border-collapse: collapse;
-    font-size: 12.5px;
+    font-size: 13px;
     text-align: left;
 }
 
-.tool-site-audit .report-table th {
+.report-table th {
     background: #f8fafc;
-    padding: 10px 12px;
+    padding: 12px 14px;
     font-weight: 700;
     color: #475569;
     border-bottom: 1px solid #e2e8f0;
+    white-space: nowrap;
 }
 
-.tool-site-audit .report-table td {
-    padding: 10px 12px;
+.report-table td {
+    padding: 12px 14px;
     border-bottom: 1px solid #f1f5f9;
     color: #1e293b;
     vertical-align: middle;
 }
 
-.tool-site-audit .report-table tr:last-child td {
+.report-table tr:last-child td {
     border-bottom: none;
 }
 
-.tool-site-audit .table-thumb {
-    width: 42px;
-    height: 42px;
-    border-radius: 4px;
-    object-fit: cover;
-    background: #f1f5f9;
+.report-table tr:hover td {
+    background: #f8fafc;
 }
 
-.tool-site-audit .table-img-name {
+.table-thumb {
+    width: 44px;
+    height: 44px;
+    border-radius: 6px;
+    object-fit: cover;
+    background: #f1f5f9;
+    border: 1px solid #e2e8f0;
+    display: block;
+}
+
+.table-img-name {
     max-width: 260px;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
     font-weight: 600;
+    color: #0f172a;
 }
 
-.tool-site-audit .badge-savings-mini {
+.badge-savings-mini {
     display: inline-block;
-    padding: 2px 6px;
+    padding: 3px 8px;
     background: #dcfce7;
     color: #15803d;
     font-weight: 800;
-    font-size: 11px;
-    border-radius: 4px;
+    font-size: 12px;
+    border-radius: 5px;
 }
 
-.tool-site-audit .report-modal-footer {
+.report-modal-footer {
     padding: 14px 24px;
     border-top: 1px solid #e2e8f0;
     background: #f8fafc;
     display: flex;
     justify-content: flex-end;
+}
+
+.btn-report-confirm {
+    padding: 9px 24px;
+    background: #2563eb;
+    color: #ffffff;
+    font-weight: 700;
+    font-size: 14px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.btn-report-confirm:hover {
+    background: #1d4ed8;
 }
 
 /* --------------------------------------------------------------------------

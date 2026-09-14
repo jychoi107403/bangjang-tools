@@ -81,7 +81,7 @@
     <link rel="stylesheet" href="assets/css/tool-site-audit.css">
 </head>
 
-<body>
+<body class="tool-site-audit-page">
     <!-- 최상단 브랜드 네비게이션 헤더 & 상단 GNB 드롭다운 -->
     <header class="global-navbar">
         <div class="navbar-left">
@@ -393,34 +393,34 @@
             </header>
 
             <div class="audit-container">
-                <!-- 1. 히어로 타이틀 (스크린샷 100% 일치) -->
+                <!-- 1. 히어로 타이틀 (한글 기본 / 다국어 지원) -->
                 <div class="audit-hero-header">
-                    <h2 class="audit-hero-title">Improve Your Website Performance</h2>
-                    <p class="audit-hero-desc">Test how much you can save by compressing your images</p>
+                    <h2 class="audit-hero-title" data-i18n="audit.hero_title">웹사이트 성능 개선하기</h2>
+                    <p class="audit-hero-desc" data-i18n="audit.hero_desc">이미지 압축으로 얼마나 많은 용량을 절약할 수 있는지 진단해보세요</p>
                 </div>
 
-                <!-- 2. 입력 카드 (스크린샷 100% 일치) -->
+                <!-- 2. 입력 카드 (한글 기본 / URL 기본값 빈값) -->
                 <section class="audit-input-card">
                     <div class="audit-card-icon-wrap">
                         <i data-lucide="crosshair" style="width: 20px; height: 20px;"></i>
                     </div>
                     <div>
-                        <h3 class="audit-card-title">Discover image savings on your website</h3>
-                        <p class="audit-card-desc">Paste the full link of a page to see how much you can save by compressing its images.</p>
+                        <h3 class="audit-card-title" data-i18n="audit.card_title">웹사이트 이미지 용량 절감 효과 확인</h3>
+                        <p class="audit-card-desc" data-i18n="audit.card_desc">페이지의 전체 링크를 붙여넣어 이미지를 압축했을 때 얼마나 절약할 수 있는지 확인하세요.</p>
                     </div>
 
                     <div class="audit-form-group">
-                        <label class="audit-input-label" for="input-url">Website URL</label>
+                        <label class="audit-input-label" for="input-url" data-i18n="audit.url_label">웹사이트 URL</label>
                         <div class="audit-input-row">
-                            <input type="url" id="input-url" class="audit-url-input" placeholder="https://example.com/page" value="https://aigazou.net/ko/features/nano-banana-pro#workspace">
+                            <input type="url" id="input-url" class="audit-url-input" placeholder="https://example.com/page" data-i18n-placeholder="audit.url_placeholder" value="">
                             <button type="button" id="btn-analyze" class="btn-analyze">
-                                <span>Analyze page</span>
+                                <span data-i18n="audit.btn_analyze">페이지 분석하기</span>
                             </button>
                         </div>
                     </div>
 
                     <div class="sample-url-wrap">
-                        <span>💡 빠른 테스트:</span>
+                        <span data-i18n="audit.quick_test">💡 빠른 테스트:</span>
                         <span class="sample-tag" data-url="https://aigazou.net/ko/features/nano-banana-pro#workspace">데모 페이지 1</span>
                         <span class="sample-tag" data-url="https://github.com">GitHub.com</span>
                         <span class="sample-tag" data-url="https://news.ycombinator.com">Hacker News</span>
@@ -438,18 +438,18 @@
                     </div>
                 </div>
 
-                <!-- 4. 스크린샷 100% 일치 결과 대시보드 카드 -->
+                <!-- 4. 결과 대시보드 카드 -->
                 <section class="audit-result-card" id="audit-result-card" style="display: none;">
                     <!-- 상단 URL 및 이미지 개수 헤더 -->
                     <div class="result-header-row">
                         <div class="result-url-wrap">
-                            <div class="result-url-label">Web page optimization results for</div>
-                            <div class="result-target-url" id="res-target-url">https://aigazou.net/ko/features/nano-banana-pro#workspace</div>
+                            <div class="result-url-label" data-i18n="audit.results_for">웹페이지 최적화 진단 결과:</div>
+                            <div class="result-target-url" id="res-target-url">-</div>
                         </div>
                         <div class="result-images-count-wrap">
                             <div class="count-text-group">
-                                <span class="count-label">Total images found</span>
-                                <span class="count-number" id="res-images-count">12</span>
+                                <span class="count-label" data-i18n="audit.total_images">발견된 이미지 총</span>
+                                <span class="count-number" id="res-images-count">0</span>
                             </div>
                             <div class="preview-thumb-box">
                                 <img id="res-thumb-img" src="assets/images/og-thumbnail.png" alt="preview thumbnail">
@@ -468,13 +468,13 @@
                                 </svg>
                                 <div class="donut-center-text">
                                     <span class="donut-percent" id="res-donut-percent">32%</span>
-                                    <span class="donut-sublabel">Savings</span>
+                                    <span class="donut-sublabel" data-i18n="audit.savings">용량 절감</span>
                                 </div>
                             </div>
 
                             <div class="donut-btn-row">
-                                <button type="button" class="btn-detailed-report" id="btn-show-report">
-                                    Show detailed report
+                                <button type="button" class="btn-detailed-report" id="btn-show-report" data-i18n="audit.btn_show_report">
+                                    상세 리포트 보기
                                 </button>
                                 <button type="button" class="btn-share-icon" id="btn-share-result" title="진단 결과 클립보드 복사">
                                     <i data-lucide="share-2" style="width: 15px; height: 15px;"></i>
@@ -482,28 +482,28 @@
                             </div>
                         </div>
 
-                        <!-- 2) 우측 상단 1: Total original image size -->
+                        <!-- 2) 우측 상단 1: 현재 이미지 총 용량 -->
                         <div class="metric-box">
-                            <div class="metric-box-label">Total original image size</div>
+                            <div class="metric-box-label" data-i18n="audit.orig_size_label">현재 이미지 총 용량</div>
                             <div class="metric-box-value" id="res-orig-size">1.3 MB</div>
                         </div>
 
-                        <!-- 3) 우측 상단 2: New total image size -->
+                        <!-- 3) 우측 상단 2: WebP 압축 후 예상 용량 -->
                         <div class="metric-box">
-                            <div class="metric-box-label">New total image size</div>
+                            <div class="metric-box-label" data-i18n="audit.new_size_label">WebP 압축 후 예상 용량</div>
                             <div class="metric-box-value highlight-green" id="res-new-size">936.4 KB</div>
                         </div>
 
-                        <!-- 4) 우측 하단 1: Original page load speed -->
+                        <!-- 4) 우측 하단 1: 현재 예상 로딩 시간 -->
                         <div class="metric-box no-bottom-border">
-                            <div class="metric-box-label">Original page load speed</div>
-                            <div class="metric-box-value" id="res-orig-speed">2.00 seconds</div>
+                            <div class="metric-box-label" data-i18n="audit.orig_speed_label">현재 예상 로딩 시간</div>
+                            <div class="metric-box-value" id="res-orig-speed">2.00 초</div>
                         </div>
 
-                        <!-- 5) 우측 하단 2: New page load speed -->
+                        <!-- 5) 우측 하단 2: 최적화 후 예상 로딩 시간 -->
                         <div class="metric-box no-bottom-border">
-                            <div class="metric-box-label">New page load speed</div>
-                            <div class="metric-box-value highlight-green" id="res-new-speed">1.37 seconds</div>
+                            <div class="metric-box-label" data-i18n="audit.new_speed_label">최적화 후 예상 로딩 시간</div>
+                            <div class="metric-box-value highlight-green" id="res-new-speed">1.37 초</div>
                         </div>
                     </div>
                 </section>
@@ -512,29 +512,29 @@
     </div>
 
     <!-- 상세 리포트 모달 (Detailed Report Modal) -->
-    <div class="report-modal-backdrop" id="report-modal">
+    <div class="report-modal-backdrop" id="report-modal" style="display: none;">
         <div class="report-modal-card">
             <div class="report-modal-header">
                 <div class="report-modal-title">
                     <i data-lucide="file-spreadsheet" style="color: #2563eb;"></i>
-                    <span>이미지 최적화 상세 진단 리포트</span>
+                    <span data-i18n="audit.modal_title">이미지 최적화 상세 진단 리포트</span>
                 </div>
                 <button class="btn-close-modal btn-close-report-modal" aria-label="닫기"><i data-lucide="x"></i></button>
             </div>
             <div class="report-modal-body">
                 <div style="font-size: 13px; color: #64748b;">
-                    대상 페이지: <strong id="modal-report-url" style="color: #0f172a;">-</strong>
+                    <span data-i18n="audit.target_page">대상 페이지:</span> <strong id="modal-report-url" style="color: #0f172a;">-</strong>
                 </div>
                 <div class="report-table-wrap">
                     <table class="report-table">
                         <thead>
                             <tr>
-                                <th style="width: 60px;">미리보기</th>
-                                <th>파일명 / 리소스</th>
-                                <th>현재 용량</th>
-                                <th>WebP 변환 시</th>
-                                <th>절감률</th>
-                                <th>권장 최적화</th>
+                                <th style="width: 60px;" data-i18n="audit.col_thumb">미리보기</th>
+                                <th data-i18n="audit.col_filename">파일명 / 리소스</th>
+                                <th data-i18n="audit.col_orig_size">현재 용량</th>
+                                <th data-i18n="audit.col_new_size">WebP 변환 시</th>
+                                <th data-i18n="audit.col_savings">절감률</th>
+                                <th data-i18n="audit.col_recommend">권장 최적화</th>
                             </tr>
                         </thead>
                         <tbody id="report-table-body">
@@ -564,7 +564,7 @@
                     <div class="help-step-num">1</div>
                     <div class="help-step-content">
                         <strong>웹사이트 URL 입력</strong>
-                        <p>진단하고자 하는 블로그, 랜딩페이지, 웹사이트의 전체 URL을 입력하고 [Analyze page] 버튼을 누르세요.</p>
+                        <p>진단하고자 하는 블로그, 랜딩페이지, 웹사이트의 전체 URL을 입력하고 [페이지 분석하기] 버튼을 누르세요.</p>
                     </div>
                 </div>
                 <div class="help-step-item">
@@ -578,7 +578,7 @@
                     <div class="help-step-num">3</div>
                     <div class="help-step-content">
                         <strong>상세 리포트 활용</strong>
-                        <p>[Show detailed report]를 눌러 어떤 이미지가 용량을 많이 차지하고 있는지 개별 확인하고 최적화하세요.</p>
+                        <p>[상세 리포트 보기]를 눌러 어떤 이미지가 용량을 많이 차지하고 있는지 개별 확인하고 최적화하세요.</p>
                     </div>
                 </div>
             </div>

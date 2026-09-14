@@ -142,7 +142,36 @@ const I18N_DICTIONARY = {
         "blog.faq_a1": "블로그 자동 발행이나 계정 연결 기능은 없습니다. 정리한 내용을 다운로드한 뒤 사용하는 블로그 편집기로 옮겨주세요.",
         "blog.faq_q2": "▼ TXT에도 중앙정렬이 저장되나요?",
         "blog.faq_a2": "TXT는 정렬 서식을 저장하지 않습니다. 이 도구에서 중앙정렬 미리보기를 확인한 뒤 실제 블로그 편집기에서 중앙정렬을 적용하세요.",
-        "blog.target_platform": "타겟 블로그 플랫폼"
+        "blog.target_platform": "타겟 블로그 플랫폼",
+
+        // 웹사이트 이미지 진단
+        "audit.hero_title": "웹사이트 성능 개선하기",
+        "audit.hero_desc": "이미지 압축으로 얼마나 많은 용량을 절약할 수 있는지 진단해보세요",
+        "audit.card_title": "웹사이트 이미지 용량 절감 효과 확인",
+        "audit.card_desc": "페이지의 전체 링크를 붙여넣어 이미지를 압축했을 때 얼마나 절약할 수 있는지 확인하세요.",
+        "audit.url_label": "웹사이트 URL",
+        "audit.url_placeholder": "https://example.com/page",
+        "audit.btn_analyze": "페이지 분석하기",
+        "audit.btn_analyzing": "분석 중...",
+        "audit.quick_test": "💡 빠른 테스트:",
+        "audit.results_for": "웹페이지 최적화 진단 결과:",
+        "audit.total_images": "발견된 이미지 총",
+        "audit.savings": "용량 절감",
+        "audit.btn_show_report": "상세 리포트 보기",
+        "audit.orig_size_label": "현재 이미지 총 용량",
+        "audit.new_size_label": "WebP 압축 후 예상 용량",
+        "audit.orig_speed_label": "현재 예상 로딩 시간",
+        "audit.new_speed_label": "최적화 후 예상 로딩 시간",
+        "audit.seconds": "초",
+        "audit.modal_title": "이미지 최적화 상세 진단 리포트",
+        "audit.target_page": "대상 페이지:",
+        "audit.col_thumb": "미리보기",
+        "audit.col_filename": "파일명 / 리소스",
+        "audit.col_orig_size": "현재 용량",
+        "audit.col_new_size": "WebP 변환 시",
+        "audit.col_savings": "절감률",
+        "audit.col_recommend": "권장 최적화",
+        "audit.recommend_webp": "WebP 변환 권장"
     },
     en: {
         // 브랜드 및 공통
@@ -278,7 +307,36 @@ const I18N_DICTIONARY = {
         "blog.faq_a1": "No automated publishing or account linking is included. Copy the formatted text and paste it into your favorite blog editor.",
         "blog.faq_q2": "▼ Does TXT file keep center alignment?",
         "blog.faq_a2": "Plain text files do not preserve alignment styles. Use this tool for visual preview and apply center alignment in your blog editor.",
-        "blog.target_platform": "Target Blog Platform"
+        "blog.target_platform": "Target Blog Platform",
+
+        // Website Image Audit
+        "audit.hero_title": "Improve Your Website Performance",
+        "audit.hero_desc": "Test how much you can save by compressing your images",
+        "audit.card_title": "Discover image savings on your website",
+        "audit.card_desc": "Paste the full link of a page to see how much you can save by compressing its images.",
+        "audit.url_label": "Website URL",
+        "audit.url_placeholder": "https://example.com/page",
+        "audit.btn_analyze": "Analyze page",
+        "audit.btn_analyzing": "Analyzing...",
+        "audit.quick_test": "💡 Quick Test:",
+        "audit.results_for": "Web page optimization results for",
+        "audit.total_images": "Total images found",
+        "audit.savings": "Savings",
+        "audit.btn_show_report": "Show detailed report",
+        "audit.orig_size_label": "Total original image size",
+        "audit.new_size_label": "New total image size",
+        "audit.orig_speed_label": "Original page load speed",
+        "audit.new_speed_label": "New page load speed",
+        "audit.seconds": "seconds",
+        "audit.modal_title": "Image Optimization Detailed Report",
+        "audit.target_page": "Target Page:",
+        "audit.col_thumb": "Preview",
+        "audit.col_filename": "File / Resource",
+        "audit.col_orig_size": "Current Size",
+        "audit.col_new_size": "With WebP",
+        "audit.col_savings": "Savings",
+        "audit.col_recommend": "Recommendation",
+        "audit.recommend_webp": "Convert to WebP"
     }
 };
 

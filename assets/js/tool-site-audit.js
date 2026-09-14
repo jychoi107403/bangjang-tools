@@ -382,10 +382,12 @@ function renderAuditResult(data) {
     const valOrigSpeed = document.getElementById('res-orig-speed');
     const valNewSpeed = document.getElementById('res-new-speed');
 
+    const secUnit = window.i18n ? window.i18n.t('audit.seconds', '초') : '초';
+
     if (valOrigSize) valOrigSize.textContent = formatBytes(data.totalOrigBytes);
     if (valNewSize) valNewSize.textContent = formatBytes(data.totalNewBytes);
-    if (valOrigSpeed) valOrigSpeed.textContent = `${data.origLoadSpeed} seconds`;
-    if (valNewSpeed) valNewSpeed.textContent = `${data.newLoadSpeed} seconds`;
+    if (valOrigSpeed) valOrigSpeed.textContent = `${data.origLoadSpeed} ${secUnit}`;
+    if (valNewSpeed) valNewSpeed.textContent = `${data.newLoadSpeed} ${secUnit}`;
 
     if (window.lucide) {
         window.lucide.createIcons();
@@ -407,14 +409,17 @@ function bindReportModalEvents() {
         btnShowReport.addEventListener('click', () => {
             if (!currentAuditResult) return;
             populateReportTable(currentAuditResult);
+            modalBackdrop.style.display = 'flex';
             modalBackdrop.classList.add('active');
             document.body.style.overflow = 'hidden';
+            if (window.lucide) window.lucide.createIcons();
         });
     }
 
     const closeModal = () => {
         if (modalBackdrop) {
             modalBackdrop.classList.remove('active');
+            modalBackdrop.style.display = 'none';
             document.body.style.overflow = '';
         }
     };
@@ -454,6 +459,8 @@ function populateReportTable(data) {
 
     tbody.innerHTML = '';
 
+    const recText = window.i18n ? window.i18n.t('audit.recommend_webp', 'WebP 변환 권장') : 'WebP 변환 권장';
+
     data.images.forEach(img => {
         const tr = document.createElement('tr');
         tr.innerHTML = `
@@ -470,7 +477,7 @@ function populateReportTable(data) {
                 <span class="badge-savings-mini">-${img.savingsPercent}%</span>
             </td>
             <td>
-                <span style="font-size: 11.5px; color: #2563eb; font-weight: 600;">WebP 변환 권장</span>
+                <span style="font-size: 11.5px; color: #2563eb; font-weight: 600;">${recText}</span>
             </td>
         `;
         tbody.appendChild(tr);
@@ -491,9 +498,11 @@ function showLoadingUI(show) {
 
     if (btnAnalyze) {
         btnAnalyze.disabled = show;
+        const analyzingText = window.i18n ? window.i18n.t('audit.btn_analyzing', '분석 중...') : '분석 중...';
+        const analyzeText = window.i18n ? window.i18n.t('audit.btn_analyze', '페이지 분석하기') : '페이지 분석하기';
         btnAnalyze.innerHTML = show 
-            ? `<i data-lucide="loader-2" class="spin" style="width:16px;height:16px;"></i> <span>분석 중...</span>`
-            : `<span>Analyze page</span>`;
+            ? `<i data-lucide="loader-2" class="spin" style="width:16px;height:16px;"></i> <span>${analyzingText}</span>`
+            : `<span>${analyzeText}</span>`;
         if (window.lucide) window.lucide.createIcons();
     }
 }
