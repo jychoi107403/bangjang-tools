@@ -1,0 +1,635 @@
+/**
+ * ============================================================================
+ * assets/css/tool-site-audit.css - [웹사이트 분석 / 이미지 성능 진단] 전용 스타일시트
+ * ============================================================================
+ * [스크린샷 100% 일치 디자인 시스템]
+ * 1. 헤더: "Improve Your Website Performance"
+ * 2. 입력 카드: "Discover image savings on your website" + URL 입력창 + [Analyze page] 버튼
+ * 3. 결과 대시보드:
+ *    - 상단: Web page optimization results for [URL] + Total images found [12] + 썸네일
+ *    - 하단 4분할:
+ *      * [좌측]: 원형 도넛 SVG 차트 (32% Savings) + [Show detailed report] 버튼 + [X]
+ *      * [우측 상단]: Total original image size (1.3 MB) vs New total image size (936.4 KB 초록색)
+ *      * [우측 하단]: Original page load speed (2.00 seconds) vs New page load speed (1.37 seconds 초록색)
+ * 4. 상세 리포트 모달/확장 테이블: 발견된 이미지별 개별 절감 효과 리스트
+ */
+
+/* --------------------------------------------------------------------------
+   1. 헤더 및 전체 레이아웃
+   -------------------------------------------------------------------------- */
+.tool-site-audit .audit-container {
+    max-width: 920px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    width: 100%;
+}
+
+.tool-site-audit .audit-hero-header {
+    text-align: center;
+    padding: 10px 0 6px 0;
+}
+
+.tool-site-audit .audit-hero-title {
+    font-size: 32px;
+    font-weight: 800;
+    color: #1e3a8a; /* 짙은 블루 톤 */
+    letter-spacing: -0.6px;
+    margin-bottom: 8px;
+}
+
+.tool-site-audit .audit-hero-desc {
+    font-size: 15px;
+    color: #475569;
+    font-weight: 500;
+}
+
+/* --------------------------------------------------------------------------
+   2. URL 입력 카드 (Discover image savings on your website)
+   -------------------------------------------------------------------------- */
+.tool-site-audit .audit-input-card {
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: var(--radius-lg);
+    padding: 28px 32px;
+    box-shadow: 0 4px 20px rgba(15, 23, 42, 0.04);
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    position: relative;
+}
+
+.tool-site-audit .audit-card-icon-wrap {
+    width: 38px;
+    height: 38px;
+    border-radius: 8px;
+    background: #eff6ff;
+    border: 1px solid #dbeafe;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #2563eb;
+}
+
+.tool-site-audit .audit-card-title {
+    font-size: 20px;
+    font-weight: 800;
+    color: #0f172a;
+    letter-spacing: -0.4px;
+    margin-top: 4px;
+    margin-bottom: 4px;
+}
+
+.tool-site-audit .audit-card-desc {
+    font-size: 13.5px;
+    color: #64748b;
+    margin-bottom: 8px;
+}
+
+.tool-site-audit .audit-form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.tool-site-audit .audit-input-label {
+    font-size: 12.5px;
+    font-weight: 700;
+    color: #334155;
+}
+
+.tool-site-audit .audit-input-row {
+    display: flex;
+    gap: 10px;
+}
+
+.tool-site-audit .audit-url-input {
+    flex: 1;
+    height: 46px;
+    padding: 0 16px;
+    font-size: 14px;
+    font-family: inherit;
+    border: 1.5px solid #cbd5e1;
+    border-radius: 6px;
+    color: #1e293b;
+    background: #ffffff;
+    transition: all 0.2s ease;
+}
+
+.tool-site-audit .audit-url-input:focus {
+    outline: none;
+    border-color: #2563eb;
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
+}
+
+.tool-site-audit .btn-analyze {
+    height: 46px;
+    padding: 0 24px;
+    background: #0284c7; /* 스크린샷과 동일한 파란색 버튼 */
+    color: #ffffff;
+    font-size: 14px;
+    font-weight: 700;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    white-space: nowrap;
+    transition: all 0.2s ease;
+}
+
+.tool-site-audit .btn-analyze:hover {
+    background: #0369a1;
+    box-shadow: 0 4px 12px rgba(2, 132, 199, 0.3);
+}
+
+.tool-site-audit .btn-analyze:disabled {
+    opacity: 0.65;
+    cursor: not-allowed;
+}
+
+/* 빠른 테스트 샘플 태그 */
+.tool-site-audit .sample-url-wrap {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    flex-wrap: wrap;
+    font-size: 12px;
+    color: #64748b;
+    margin-top: 4px;
+}
+
+.tool-site-audit .sample-tag {
+    background: #f1f5f9;
+    padding: 3px 8px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.15s ease;
+}
+
+.tool-site-audit .sample-tag:hover {
+    background: #e2e8f0;
+    color: #2563eb;
+}
+
+/* --------------------------------------------------------------------------
+   3. 로딩 / 프로그레스 바
+   -------------------------------------------------------------------------- */
+.tool-site-audit .audit-progress-card {
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: var(--radius-lg);
+    padding: 24px 32px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    text-align: center;
+}
+
+.tool-site-audit .progress-track {
+    width: 100%;
+    height: 8px;
+    background: #f1f5f9;
+    border-radius: 4px;
+    overflow: hidden;
+    position: relative;
+}
+
+.tool-site-audit .progress-bar-fill {
+    height: 100%;
+    width: 0%;
+    background: linear-gradient(90deg, #3b82f6, #06b6d4);
+    border-radius: 4px;
+    transition: width 0.3s ease;
+}
+
+.tool-site-audit .progress-status-text {
+    font-size: 13.5px;
+    font-weight: 600;
+    color: #334155;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
+
+/* --------------------------------------------------------------------------
+   4. 스크린샷 100% 일치 결과 대시보드 카드
+   -------------------------------------------------------------------------- */
+.tool-site-audit .audit-result-card {
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    box-shadow: 0 6px 24px rgba(15, 23, 42, 0.05);
+    display: flex;
+    flex-direction: column;
+}
+
+/* 상단 URL 및 이미지 개수 헤더 */
+.tool-site-audit .result-header-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 22px 30px;
+    border-bottom: 1px solid #f1f5f9;
+    gap: 20px;
+}
+
+.tool-site-audit .result-url-wrap {
+    flex: 1;
+    min-width: 0;
+}
+
+.tool-site-audit .result-url-label {
+    font-size: 12px;
+    color: #64748b;
+    margin-bottom: 4px;
+}
+
+.tool-site-audit .result-target-url {
+    font-size: 19px;
+    font-weight: 800;
+    color: #0f172a;
+    word-break: break-all;
+    line-height: 1.35;
+}
+
+.tool-site-audit .result-images-count-wrap {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    border-left: 1px solid #f1f5f9;
+    padding-left: 24px;
+}
+
+.tool-site-audit .count-text-group {
+    display: flex;
+    flex-direction: column;
+}
+
+.tool-site-audit .count-label {
+    font-size: 12px;
+    color: #64748b;
+    white-space: nowrap;
+}
+
+.tool-site-audit .count-number {
+    font-size: 28px;
+    font-weight: 800;
+    color: #0f172a;
+    line-height: 1.1;
+}
+
+.tool-site-audit .preview-thumb-box {
+    width: 80px;
+    height: 48px;
+    border-radius: 6px;
+    overflow: hidden;
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.tool-site-audit .preview-thumb-box img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* 하단 4분할 + 원형 차트 메인 그리드 */
+.tool-site-audit .result-metrics-grid {
+    display: grid;
+    grid-template-columns: 280px 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+}
+
+/* 좌측 도넛 차트 영역 (2행 차지) */
+.tool-site-audit .metric-donut-col {
+    grid-row: 1 / span 2;
+    border-right: 1px solid #f1f5f9;
+    padding: 28px 24px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 18px;
+    background: #ffffff;
+}
+
+.tool-site-audit .donut-chart-wrap {
+    position: relative;
+    width: 130px;
+    height: 130px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.tool-site-audit .donut-svg {
+    width: 100%;
+    height: 100%;
+    transform: rotate(-90deg);
+}
+
+.tool-site-audit .donut-bg {
+    fill: none;
+    stroke: #f1f5f9;
+    stroke-width: 9;
+}
+
+.tool-site-audit .donut-progress {
+    fill: none;
+    stroke: #84cc16; /* 스크린샷과 동일한 밝은 연두색 프로그레스 */
+    stroke-width: 9;
+    stroke-linecap: round;
+    stroke-dasharray: 283;
+    stroke-dashoffset: 192;
+    transition: stroke-dashoffset 1s ease-out;
+}
+
+.tool-site-audit .donut-center-text {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.tool-site-audit .donut-percent {
+    font-size: 26px;
+    font-weight: 900;
+    color: #0f172a;
+    line-height: 1;
+}
+
+.tool-site-audit .donut-sublabel {
+    font-size: 11.5px;
+    color: #64748b;
+    margin-top: 3px;
+}
+
+.tool-site-audit .donut-btn-row {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    width: 100%;
+    max-width: 220px;
+}
+
+.tool-site-audit .btn-detailed-report {
+    flex: 1;
+    padding: 8px 12px;
+    font-size: 12px;
+    font-weight: 700;
+    color: #1e293b;
+    background: #ffffff;
+    border: 1.5px solid #0f172a;
+    border-radius: 4px;
+    cursor: pointer;
+    text-align: center;
+    transition: all 0.15s ease;
+    white-space: nowrap;
+}
+
+.tool-site-audit .btn-detailed-report:hover {
+    background: #0f172a;
+    color: #ffffff;
+}
+
+.tool-site-audit .btn-share-icon {
+    width: 34px;
+    height: 34px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1.5px solid #0f172a;
+    border-radius: 4px;
+    background: #ffffff;
+    color: #1e293b;
+    cursor: pointer;
+    transition: all 0.15s ease;
+}
+
+.tool-site-audit .btn-share-icon:hover {
+    background: #f1f5f9;
+}
+
+/* 개별 통계 박스들 */
+.tool-site-audit .metric-box {
+    padding: 24px 28px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 6px;
+    border-right: 1px solid #f1f5f9;
+    border-bottom: 1px solid #f1f5f9;
+}
+
+.tool-site-audit .metric-box:nth-child(3n) {
+    border-right: none;
+}
+
+.tool-site-audit .metric-box.no-bottom-border {
+    border-bottom: none;
+}
+
+.tool-site-audit .metric-box-label {
+    font-size: 12px;
+    color: #64748b;
+    font-weight: 500;
+}
+
+.tool-site-audit .metric-box-value {
+    font-size: 24px;
+    font-weight: 800;
+    color: #1e3a8a; /* 짙은 네이비 */
+    letter-spacing: -0.4px;
+}
+
+.tool-site-audit .metric-box-value.highlight-green {
+    color: #84cc16; /* 스크린샷 연두색 강조 */
+}
+
+/* --------------------------------------------------------------------------
+   5. 상세 리포트 모달 (Detailed Report Modal)
+   -------------------------------------------------------------------------- */
+.tool-site-audit .report-modal-backdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(15, 23, 42, 0.6);
+    backdrop-filter: blur(4px);
+    z-index: 9999;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+
+.tool-site-audit .report-modal-backdrop.active {
+    display: flex;
+}
+
+.tool-site-audit .report-modal-card {
+    background: #ffffff;
+    width: 100%;
+    max-width: 900px;
+    max-height: 85vh;
+    border-radius: var(--radius-lg);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+.tool-site-audit .report-modal-header {
+    padding: 18px 24px;
+    border-bottom: 1px solid #e2e8f0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.tool-site-audit .report-modal-title {
+    font-size: 17px;
+    font-weight: 800;
+    color: #0f172a;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.tool-site-audit .report-modal-body {
+    padding: 20px 24px;
+    overflow-y: auto;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.tool-site-audit .report-table-wrap {
+    width: 100%;
+    overflow-x: auto;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+}
+
+.tool-site-audit .report-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 12.5px;
+    text-align: left;
+}
+
+.tool-site-audit .report-table th {
+    background: #f8fafc;
+    padding: 10px 12px;
+    font-weight: 700;
+    color: #475569;
+    border-bottom: 1px solid #e2e8f0;
+}
+
+.tool-site-audit .report-table td {
+    padding: 10px 12px;
+    border-bottom: 1px solid #f1f5f9;
+    color: #1e293b;
+    vertical-align: middle;
+}
+
+.tool-site-audit .report-table tr:last-child td {
+    border-bottom: none;
+}
+
+.tool-site-audit .table-thumb {
+    width: 42px;
+    height: 42px;
+    border-radius: 4px;
+    object-fit: cover;
+    background: #f1f5f9;
+}
+
+.tool-site-audit .table-img-name {
+    max-width: 260px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    font-weight: 600;
+}
+
+.tool-site-audit .badge-savings-mini {
+    display: inline-block;
+    padding: 2px 6px;
+    background: #dcfce7;
+    color: #15803d;
+    font-weight: 800;
+    font-size: 11px;
+    border-radius: 4px;
+}
+
+.tool-site-audit .report-modal-footer {
+    padding: 14px 24px;
+    border-top: 1px solid #e2e8f0;
+    background: #f8fafc;
+    display: flex;
+    justify-content: flex-end;
+}
+
+/* --------------------------------------------------------------------------
+   6. 반응형 미디어 쿼리 (모바일 대응)
+   -------------------------------------------------------------------------- */
+@media (max-width: 768px) {
+    .tool-site-audit .audit-hero-title {
+        font-size: 24px;
+    }
+
+    .tool-site-audit .audit-input-card {
+        padding: 20px 18px;
+    }
+
+    .tool-site-audit .audit-input-row {
+        flex-direction: column;
+    }
+
+    .tool-site-audit .btn-analyze {
+        width: 100%;
+    }
+
+    .tool-site-audit .result-header-row {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 16px;
+    }
+
+    .tool-site-audit .result-images-count-wrap {
+        border-left: none;
+        padding-left: 0;
+        width: 100%;
+        justify-content: space-between;
+    }
+
+    .tool-site-audit .result-metrics-grid {
+        grid-template-columns: 1fr;
+        grid-template-rows: auto;
+    }
+
+    .tool-site-audit .metric-donut-col {
+        grid-row: auto;
+        border-right: none;
+        border-bottom: 1px solid #f1f5f9;
+        padding: 20px 16px;
+    }
+
+    .tool-site-audit .metric-box {
+        border-right: none;
+        padding: 16px 20px;
+    }
+}

@@ -144,4 +144,15 @@
         <xhtml:link rel="alternate" hreflang="en" href="https://tools.bangjang.net/pdf-to-word.html" />
         <xhtml:link rel="alternate" hreflang="x-default" href="https://tools.bangjang.net/pdf-to-word.html" />
     </url>
+
+    <!-- 13. 웹사이트 이미지 진단 -->
+    <url>
+        <loc>https://tools.bangjang.net/site-audit.html</loc>
+        <lastmod>2026-09-15</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.85</priority>
+        <xhtml:link rel="alternate" hreflang="ko" href="https://tools.bangjang.net/site-audit.html" />
+        <xhtml:link rel="alternate" hreflang="en" href="https://tools.bangjang.net/site-audit.html" />
+        <xhtml:link rel="alternate" hreflang="x-default" href="https://tools.bangjang.net/site-audit.html" />
+    </url>
 </urlset>

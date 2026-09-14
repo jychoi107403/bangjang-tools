@@ -16,9 +16,11 @@ const I18N_DICTIONARY = {
         "nav.image_tools": "이미지 도구",
         "nav.video_tools": "영상 도구",
         "nav.blog_tools": "블로그 도구",
+        "nav.site_tools": "웹사이트 분석",
         "nav.image_tools_badge": "7개 도구",
         "nav.video_tools_badge": "3개 도구",
         "nav.blog_tools_badge": "2개 도구",
+        "nav.site_tools_badge": "1개 도구",
         
         // 도구 목록
         "tool.image_compress": "이미지 용량 줄이기",
@@ -33,6 +35,7 @@ const I18N_DICTIONARY = {
         "tool.screen_record_gif": "화면녹화 → GIF",
         "tool.blog_formatter": "블로그 본문 정리",
         "tool.pdf_to_word": "PDF → Word",
+        "tool.site_audit": "웹사이트 이미지 진단",
 
         // 공통 버튼 및 라벨
         "btn.help": "도움말",
@@ -149,9 +152,11 @@ const I18N_DICTIONARY = {
         "nav.image_tools": "Image Tools",
         "nav.video_tools": "Video Tools",
         "nav.blog_tools": "Blog & Docs",
+        "nav.site_tools": "Website Audit",
         "nav.image_tools_badge": "7 Tools",
         "nav.video_tools_badge": "3 Tools",
         "nav.blog_tools_badge": "2 Tools",
+        "nav.site_tools_badge": "1 Tool",
         
         // 도구 목록
         "tool.image_compress": "Compress Image",
@@ -166,6 +171,7 @@ const I18N_DICTIONARY = {
         "tool.screen_record_gif": "Screen Record → GIF",
         "tool.blog_formatter": "Blog Text Formatter",
         "tool.pdf_to_word": "PDF → Word",
+        "tool.site_audit": "Website Image Audit",
 
         // 공통 버튼 및 라벨
         "btn.help": "Guide",
