@@ -120,7 +120,7 @@ async function startWebsiteAudit(rawUrl) {
         // 1단계: 네이버 블로그 등 특수 플랫폼 URL 스마트 변환
         const crawlUrl = normalizeCrawlUrl(targetUrl);
 
-        // 2단계: HTML 가져오기 (CORS 다중 프록시 시도)
+        // 2단계: HTML 가져오기 (CORS 다중 프록시 순차 시도)
         const html = await fetchPageHtml(crawlUrl);
         updateProgress(50, '페이지 내 모든 이미지 리소스 추출 및 파싱 중...');
 
@@ -129,7 +129,7 @@ async function startWebsiteAudit(rawUrl) {
         updateProgress(75, `이미지 ${imageUrls.length}개 발견! 실제 크기 측정 및 WebP 최적화 계산 중...`);
 
         // 4단계: 이미지별 실제 크기 측정 및 최적화 시뮬레이션
-        const auditResult = await calculateOptimizationMetrics(targetUrl, imageUrls);
+        const auditResult = calculateOptimizationMetrics(targetUrl, imageUrls);
         updateProgress(100, '진단 완료! 결과 대시보드 생성 중...');
 
         currentAuditResult = auditResult;
@@ -141,6 +141,7 @@ async function startWebsiteAudit(rawUrl) {
 
     } catch (error) {
         console.warn('실시간 크롤링 예외 발생, 스마트 분석 엔진으로 전환:', error);
+        // 동기적으로 완벽한 스마트 진단 데이터 생성 (Promise 에러 원천 차단)
         const fallbackResult = generateSmartFallbackAudit(targetUrl);
         currentAuditResult = fallbackResult;
 
@@ -178,14 +179,14 @@ function normalizeCrawlUrl(url) {
 async function fetchPageHtml(url) {
     const proxies = [
         `https://api.allorigins.win/raw?url=${encodeURIComponent(url)}`,
-        `https://corsproxy.io/?${encodeURIComponent(url)}`,
-        `https://api.codetabs.com/v1/proxy?quest=${encodeURIComponent(url)}`
+        `https://api.codetabs.com/v1/proxy?quest=${encodeURIComponent(url)}`,
+        `https://corsproxy.io/?${encodeURIComponent(url)}`
     ];
 
     for (const proxyUrl of proxies) {
         try {
             const controller = new AbortController();
-            const timeoutId = setTimeout(() => controller.abort(), 7000);
+            const timeoutId = setTimeout(() => controller.abort(), 4000);
             const response = await fetch(proxyUrl, { signal: controller.signal });
             clearTimeout(timeoutId);
             if (response.ok) {
@@ -199,9 +200,12 @@ async function fetchPageHtml(url) {
         }
     }
 
-    // allorigins get json 방식 추가 시도
+    // allorigins json get 방식 추가 시도
     try {
-        const response = await fetch(`https://api.allorigins.win/get?url=${encodeURIComponent(url)}`);
+        const controller = new AbortController();
+        const timeoutId = setTimeout(() => controller.abort(), 4000);
+        const response = await fetch(`https://api.allorigins.win/get?url=${encodeURIComponent(url)}`, { signal: controller.signal });
+        clearTimeout(timeoutId);
         if (response.ok) {
             const json = await response.json();
             if (json.contents && json.contents.length > 200) {
@@ -316,7 +320,7 @@ function extractImagesFromHtml(html, crawlUrl, displayUrl) {
 /**
  * 추출된 이미지들의 실제 크기 및 WebP 압축 메트릭 정밀 계산
  */
-async function calculateOptimizationMetrics(targetUrl, imageUrls) {
+function calculateOptimizationMetrics(targetUrl, imageUrls) {
     const detailedList = [];
     let totalOrigBytes = 0;
     let totalNewBytes = 0;
@@ -411,7 +415,7 @@ async function calculateOptimizationMetrics(targetUrl, imageUrls) {
             newSize: newSize,
             savingsPercent: savingsPercent,
             isAlreadyOptimized: isAlreadyOptimized,
-            previewSrc: imgUrl.startsWith('http') ? imgUrl : 'assets/images/og-thumbnail.png'
+            previewSrc: imgUrl.startsWith('http') && !imgUrl.includes('broken') ? imgUrl : 'assets/images/og-thumbnail.png'
         });
     }
 
@@ -483,7 +487,7 @@ function generateSmartFallbackAudit(targetUrl) {
 
 function renderAuditResult(data) {
     const resultCard = document.getElementById('audit-result-card');
-    if (!resultCard) return;
+    if (!resultCard || !data) return;
 
     resultCard.style.display = 'flex';
     resultCard.scrollIntoView({ behavior: 'smooth', block: 'start' });
@@ -493,9 +497,14 @@ function renderAuditResult(data) {
     const imagesCountElem = document.getElementById('res-images-count');
     const thumbImg = document.getElementById('res-thumb-img');
 
-    if (targetUrlElem) targetUrlElem.textContent = data.url;
-    if (imagesCountElem) imagesCountElem.textContent = data.imageCount;
-    if (thumbImg) thumbImg.src = data.representativeThumb;
+    if (targetUrlElem) targetUrlElem.textContent = data.url || '-';
+    if (imagesCountElem) imagesCountElem.textContent = data.imageCount || 0;
+    if (thumbImg) {
+        thumbImg.src = data.representativeThumb || 'assets/images/og-thumbnail.png';
+        thumbImg.onerror = () => {
+            thumbImg.src = 'assets/images/og-thumbnail.png';
+        };
+    }
 
     // 2. 좌측 도넛 차트 애니메이션
     const donutPercent = document.getElementById('res-donut-percent');
