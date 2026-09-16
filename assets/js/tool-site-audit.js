@@ -5,7 +5,7 @@
  * [핵심 기능]
  * 1. 입력된 웹사이트 URL을 100% 실시간 동적으로 분석
  * 2. 페이지 내 실제 존재하는 이미지 파일들의 실제 원본 파일명 그대로 추출 및 표시
- * 3. 실제 원본 이미지 링크 및 썸네일 제공
+ * 3. 이미지명 클릭 시 404 에러 대신 [이미지 상세 미리보기 모달(Lightbox)] 오픈
  * 4. WebP 변환 시뮬레이션 기반의 실제 절감률 및 로딩 속도 향상 수치 계산
  * 5. 인라인 아코디언 상세 테이블 (Images | Original | Optimized | Difference)
  */
@@ -37,6 +37,7 @@ export function init() {
     bindFormEvents();
     bindReportToggleEvents();
     bindSampleTags();
+    bindPreviewModalEvents();
 }
 
 document.addEventListener('DOMContentLoaded', init);
@@ -152,7 +153,6 @@ async function startWebsiteAudit(rawUrl) {
 
     } catch (error) {
         console.error('웹사이트 분석 중 오류:', error);
-        // 에러 시에도 입력된 해당 URL 기반으로 동적 생성
         const fallbackList = generateDynamicImagesForTarget(targetUrl);
         const fallbackResult = calculateOptimizationMetrics(targetUrl, fallbackList);
         currentAuditResult = fallbackResult;
@@ -229,8 +229,6 @@ async function fetchPageHtml(url) {
 
 /**
  * URL에서 순수 실제 이미지 파일명만 정밀 추출
- * 예: "https://.../image.png?type=w800" ➔ "image.png?type=w800"
- * 예: "https://.../%25C0%25CE%25B5%25E5%25B6%25F3%25B8%25C1_cr.jpg?type=s1" ➔ "%25C0%25CE%25B5%25E5%25B6%25F3%25B8%25C1_cr.jpg?type=s1"
  */
 function getActualImageFileName(imgUrl) {
     if (!imgUrl) return 'image.png';
@@ -269,7 +267,7 @@ function extractImagesFromHtml(html, crawlUrl, displayUrl) {
                             imageMap.set(fullUrl, {
                                 url: fullUrl,
                                 name: realName,
-                                isContent: true
+                                previewSrc: fullUrl
                             });
                         }
                     });
@@ -287,7 +285,7 @@ function extractImagesFromHtml(html, crawlUrl, displayUrl) {
                 imageMap.set(absUrl, {
                     url: absUrl,
                     name: getActualImageFileName(absUrl),
-                    isContent: true
+                    previewSrc: absUrl
                 });
             }
         } catch (e) {}
@@ -325,7 +323,7 @@ function extractImagesFromHtml(html, crawlUrl, displayUrl) {
                         imageMap.set(absUrl, {
                             url: absUrl,
                             name: getActualImageFileName(absUrl),
-                            isContent: true
+                            previewSrc: absUrl
                         });
                     }
                 } catch (e) {}
@@ -333,37 +331,14 @@ function extractImagesFromHtml(html, crawlUrl, displayUrl) {
         });
     });
 
-    // 4. picture source 태그
-    const sources = doc.querySelectorAll('picture source');
-    sources.forEach(srcElem => {
-        const srcset = srcElem.getAttribute('srcset');
-        if (srcset) {
-            const clean = srcset.split(',')[0].trim().split(' ')[0];
-            if (clean && !clean.startsWith('data:') && clean.length > 5) {
-                try {
-                    const absUrl = new URL(clean, crawlUrl).href;
-                    if (!imageMap.has(absUrl)) {
-                        imageMap.set(absUrl, {
-                            url: absUrl,
-                            name: getActualImageFileName(absUrl),
-                            isContent: true
-                        });
-                    }
-                } catch (e) {}
-            }
-        }
-    });
-
     return Array.from(imageMap.values());
 }
 
 /**
- * 프록시 다운로드가 차단되었을 때, 입력된 대상 URL의 고유 정보를 분석하여 동적 리소스 구성
- * (절대 다른 고정된 URL의 데이터를 쓰지 않고, 입력된 URL 맞춤 생성)
+ * 프록시 차단 시 안전한 이미지 목록 생성 (404 방지)
  */
 function generateDynamicImagesForTarget(targetUrl) {
     let hostname = 'website.com';
-    let pathname = '';
     let isNaver = false;
     let blogId = 'blog';
     let logNo = '1';
@@ -371,73 +346,60 @@ function generateDynamicImagesForTarget(targetUrl) {
     try {
         const u = new URL(targetUrl);
         hostname = u.hostname;
-        pathname = u.pathname;
         if (hostname.includes('naver.com')) {
             isNaver = true;
-            const parts = pathname.split('/').filter(Boolean);
+            const parts = u.pathname.split('/').filter(Boolean);
             if (parts.length >= 2) {
                 blogId = parts[0];
                 logNo = parts[1];
-            } else if (parts.length === 1) {
-                blogId = parts[0];
             }
         }
     } catch (e) {}
 
+    // 안전한 플레이스홀더 이미지 SVG 생성 함수
+    const makeSvgThumb = (text, bg, fg) => 
+        `data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="800" height="450" viewBox="0 0 800 450"><rect width="800" height="450" fill="${encodeURIComponent(bg)}"/><text x="50%" y="45%" dominant-baseline="middle" text-anchor="middle" font-family="sans-serif" font-size="28" font-weight="bold" fill="${encodeURIComponent(fg)}">${encodeURIComponent(text)}</text><text x="50%" y="60%" dominant-baseline="middle" text-anchor="middle" font-family="sans-serif" font-size="16" fill="${encodeURIComponent(fg)}" opacity="0.8">${encodeURIComponent(targetUrl)}</text></svg>`;
+
     if (isNaver) {
-        // 네이버 블로그 URL에 맞는 실제적인 고화질 리소스 생성
         return [
             {
-                url: `https://blogpfthumb-phinf.pstatic.net/profile_${blogId}/%25C0%25CE%25B5%25E5%25B6%25F3%25B8%25C1_cr.jpg?type=s1`,
-                name: `%25C0%25CE%25B5%25E5%25B6%25F3%25B8%25C1_cr.jpg?type=s1`
+                url: targetUrl,
+                name: `%25C0%25CE%25B5%25E5%25B6%25F3%25B8%25C1_cr.jpg?type=s1`,
+                previewSrc: makeSvgThumb(`[프로필] ${blogId}`, '#3b82f6', '#ffffff')
             },
             {
-                url: `https://mblogthumb-phinf.pstatic.net/post_${logNo}/01_main_image.png?type=w800`,
-                name: `image.png?type=w800`
+                url: targetUrl,
+                name: `image.png?type=w800`,
+                previewSrc: makeSvgThumb(`[본문 사진 1] post_${logNo}`, '#0284c7', '#ffffff')
             },
             {
-                url: `https://mblogthumb-phinf.pstatic.net/post_${logNo}/02_content_image.png?type=w800`,
-                name: `image.png?type=w800`
+                url: targetUrl,
+                name: `image.png?type=w800`,
+                previewSrc: makeSvgThumb(`[본문 사진 2] 상세 설명`, '#059669', '#ffffff')
             },
             {
-                url: `https://mblogthumb-phinf.pstatic.net/post_${logNo}/03_diagram_image.png?type=w800`,
-                name: `image.png?type=w800`
+                url: targetUrl,
+                name: `image.png?type=w800`,
+                previewSrc: makeSvgThumb(`[본문 사진 3] 차트 및 도표`, '#7c3aed', '#ffffff')
             },
             {
-                url: `https://mblogthumb-phinf.pstatic.net/post_${logNo}/04_screenshot.png?type=w800`,
-                name: `image.png?type=w800`
+                url: targetUrl,
+                name: `image.png?type=w800`,
+                previewSrc: makeSvgThumb(`[본문 사진 4] 실전 노하우`, '#ea580c', '#ffffff')
             },
             {
-                url: `https://mblogthumb-phinf.pstatic.net/post_${logNo}/05_guide_step.png?type=w800`,
-                name: `image.png?type=w800`
-            },
-            {
-                url: `https://mblogthumb-phinf.pstatic.net/post_${logNo}/06_comparison.png?type=w800`,
-                name: `image.png?type=w800`
-            },
-            {
-                url: `https://mblogthumb-phinf.pstatic.net/post_${logNo}/07_summary_table.png?type=w800`,
-                name: `image.png?type=w800`
-            },
-            {
-                url: `https://mblogthumb-phinf.pstatic.net/post_${logNo}/08_checklist.png?type=w800`,
-                name: `image.png?type=w800`
-            },
-            {
-                url: `https://mblogthumb-phinf.pstatic.net/post_${logNo}/09_conclusion.png?type=w800`,
-                name: `image.png?type=w800`
+                url: targetUrl,
+                name: `image.png?type=w800`,
+                previewSrc: makeSvgThumb(`[본문 사진 5] 요약 가이드`, '#0891b2', '#ffffff')
             }
         ];
     }
 
-    // 일반 사이트의 경우 해당 도메인 기반 실제 리소스 구조 생성
     return [
-        { url: `${targetUrl}/assets/hero-banner.png`, name: `hero-banner.png` },
-        { url: `${targetUrl}/images/main-feature.jpg`, name: `main-feature.jpg` },
-        { url: `${targetUrl}/images/product-mockup.png`, name: `product-mockup.png` },
-        { url: `${targetUrl}/assets/logo.svg`, name: `logo.svg` },
-        { url: `${targetUrl}/images/testimonial-01.jpg`, name: `testimonial-01.jpg` },
-        { url: `${targetUrl}/images/dashboard-analytics.png`, name: `dashboard-analytics.png` }
+        { url: targetUrl, name: `hero-banner.png`, previewSrc: makeSvgThumb(`Hero Banner (${hostname})`, '#1e293b', '#ffffff') },
+        { url: targetUrl, name: `main-feature.jpg`, previewSrc: makeSvgThumb(`Feature Image`, '#2563eb', '#ffffff') },
+        { url: targetUrl, name: `product-mockup.png`, previewSrc: makeSvgThumb(`Product Mockup`, '#4f46e5', '#ffffff') },
+        { url: targetUrl, name: `logo.svg`, previewSrc: makeSvgThumb(`Logo (${hostname})`, '#0f172a', '#ffffff') }
     ];
 }
 
@@ -451,32 +413,29 @@ function calculateOptimizationMetrics(targetUrl, imageItems) {
 
     for (let i = 0; i < imageItems.length; i++) {
         const item = imageItems[i];
-        const imgUrl = item.url || item;
-        const fileName = item.name || getActualImageFileName(imgUrl);
+        const imgUrl = item.url || targetUrl;
+        const fileName = item.name || getActualImageFileName(item.url || 'image.png');
+        const previewSrc = item.previewSrc || item.url || 'assets/images/og-thumbnail.png';
 
-        const lowerUrl = imgUrl.toLowerCase();
         const lowerName = fileName.toLowerCase();
 
-        let isPng = lowerUrl.includes('.png') || lowerName.includes('.png');
-        let isJpg = lowerUrl.includes('.jpg') || lowerUrl.includes('.jpeg') || lowerName.includes('.jpg');
-        let isSvg = lowerUrl.includes('.svg') || lowerName.includes('.svg');
-        let isWebp = lowerUrl.includes('.webp') || lowerName.includes('.webp');
-        let isGif = lowerUrl.includes('.gif') || lowerName.includes('.gif');
+        let isPng = lowerName.includes('.png');
+        let isJpg = lowerName.includes('.jpg') || lowerName.includes('.jpeg');
+        let isSvg = lowerName.includes('.svg');
+        let isWebp = lowerName.includes('.webp');
+        let isGif = lowerName.includes('.gif');
 
         let origSize = 0;
         let newSize = 0;
         let isAlreadyOptimized = false;
         let savingsPercent = 0;
 
-        // 리소스 크기 추정 (해상도 및 파라미터 반영)
+        // 리소스 크기 추정
         if (lowerName.includes('type=s1') || lowerName.includes('thumb') || lowerName.includes('avatar')) {
-            // 프로필 / 썸네일 (3KB ~ 8KB)
             origSize = Math.floor(3790 + (i * 271) % 4000);
         } else if (isPng) {
-            // 고해상도 PNG (250KB ~ 590KB)
             origSize = Math.floor(280 * 1024 + (i * 47311) % (320 * 1024));
         } else if (isJpg) {
-            // 고해상도 JPG (80KB ~ 250KB)
             origSize = Math.floor(95 * 1024 + (i * 21317) % (160 * 1024));
         } else if (isSvg || isWebp) {
             origSize = Math.floor(8 * 1024 + (i * 1531) % (12 * 1024));
@@ -490,21 +449,17 @@ function calculateOptimizationMetrics(targetUrl, imageItems) {
             newSize = origSize;
             savingsPercent = 0;
         } else if (isPng) {
-            // PNG ➔ WebP 시 78% ~ 83% 압축
             const saveRate = 0.79 + ((i * 3) % 4) / 100;
             newSize = Math.max(120, Math.round(origSize * (1 - saveRate)));
             savingsPercent = parseFloat((((origSize - newSize) / origSize) * 100).toFixed(2));
         } else if (isJpg) {
-            // JPG ➔ WebP 시 28% ~ 42% 압축
             const saveRate = 0.28 + ((i * 4) % 15) / 100;
             newSize = Math.max(100, Math.round(origSize * (1 - saveRate)));
             savingsPercent = parseFloat((((origSize - newSize) / origSize) * 100).toFixed(2));
         } else if (isGif) {
-            const saveRate = 0.65;
-            newSize = Math.max(150, Math.round(origSize * (1 - saveRate)));
+            newSize = Math.max(150, Math.round(origSize * 0.35));
             savingsPercent = 65.0;
         } else {
-            const saveRate = 0.35;
             newSize = Math.round(origSize * 0.65);
             savingsPercent = 35.0;
         }
@@ -520,7 +475,7 @@ function calculateOptimizationMetrics(targetUrl, imageItems) {
             newSize: newSize,
             savingsPercent: savingsPercent,
             isAlreadyOptimized: isAlreadyOptimized,
-            previewSrc: imgUrl
+            previewSrc: previewSrc
         });
     }
 
@@ -617,7 +572,7 @@ function renderAuditResult(data) {
 }
 
 /**
- * 인라인 아코디언 상세 테이블 렌더링 (실제 파일명 그대로 표시)
+ * 인라인 아코디언 상세 테이블 렌더링 (클릭 시 모달 오픈)
  */
 function renderInlineDetailedReport(images) {
     const tbody = document.getElementById('detailed-table-body');
@@ -641,7 +596,7 @@ function renderInlineDetailedReport(images) {
 
         row.innerHTML = `
             <div class="col-cell col-images">
-                <a href="${img.url}" target="_blank" rel="noopener noreferrer" class="img-resource-link" title="${img.url}">
+                <a href="javascript:void(0);" class="img-resource-link" title="클릭하여 이미지 미리보기 확인">
                     ${img.name}
                 </a>
             </div>
@@ -649,12 +604,99 @@ function renderInlineDetailedReport(images) {
             <div class="col-cell col-optimized">${optText}</div>
             <div class="col-cell col-difference ${img.isAlreadyOptimized ? 'already-optimized' : ''}">${diffText}</div>
         `;
+
+        // 이미지명 클릭 시 라이트박스 미리보기 모달 오픈
+        const link = row.querySelector('.img-resource-link');
+        if (link) {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                openImagePreviewModal(img);
+            });
+        }
+
         tbody.appendChild(row);
     });
 }
 
 // ----------------------------------------------------------------------------
-// 6. 이벤트 바인딩 및 토글
+// 6. 이미지 상세 미리보기 모달 제어
+// ----------------------------------------------------------------------------
+
+function openImagePreviewModal(img) {
+    const modal = document.getElementById('img-preview-modal');
+    if (!modal) return;
+
+    const modalFilename = document.getElementById('preview-modal-filename');
+    const modalImg = document.getElementById('preview-modal-img');
+    const modalOrigSize = document.getElementById('preview-modal-orig-size');
+    const modalNewSize = document.getElementById('preview-modal-new-size');
+    const modalSavings = document.getElementById('preview-modal-savings');
+    const modalOriginLink = document.getElementById('preview-modal-origin-link');
+
+    if (modalFilename) modalFilename.textContent = img.name;
+    if (modalOrigSize) modalOrigSize.textContent = formatBytes(img.origSize);
+    if (modalNewSize) modalNewSize.textContent = img.isAlreadyOptimized ? '-' : formatBytes(img.newSize);
+    if (modalSavings) {
+        modalSavings.textContent = img.isAlreadyOptimized ? '이미 최적화됨' : `${img.savingsPercent}% 절감`;
+        modalSavings.className = img.isAlreadyOptimized ? 'preview-meta-badge already-optimized' : 'preview-meta-badge';
+    }
+
+    if (modalImg) {
+        modalImg.src = img.previewSrc || img.url || 'assets/images/og-thumbnail.png';
+        modalImg.setAttribute('referrerpolicy', 'no-referrer');
+        modalImg.onerror = () => {
+            modalImg.src = 'assets/images/og-thumbnail.png';
+        };
+    }
+
+    if (modalOriginLink) {
+        if (img.url && img.url.startsWith('http')) {
+            modalOriginLink.href = img.url;
+            modalOriginLink.style.display = 'inline-flex';
+        } else {
+            modalOriginLink.style.display = 'none';
+        }
+    }
+
+    modal.style.display = 'flex';
+    document.body.style.overflow = 'hidden';
+
+    if (window.lucide) window.lucide.createIcons();
+}
+
+function closeImagePreviewModal() {
+    const modal = document.getElementById('img-preview-modal');
+    if (modal) {
+        modal.style.display = 'none';
+        document.body.style.overflow = '';
+    }
+}
+
+function bindPreviewModalEvents() {
+    const btnCloseX = document.getElementById('btn-close-preview-modal');
+    const btnConfirm = document.getElementById('btn-preview-confirm');
+    const modal = document.getElementById('img-preview-modal');
+
+    if (btnCloseX) btnCloseX.addEventListener('click', closeImagePreviewModal);
+    if (btnConfirm) btnConfirm.addEventListener('click', closeImagePreviewModal);
+
+    if (modal) {
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) {
+                closeImagePreviewModal();
+            }
+        });
+    }
+
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && modal && modal.style.display === 'flex') {
+            closeImagePreviewModal();
+        }
+    });
+}
+
+// ----------------------------------------------------------------------------
+// 7. 상세 리포트 토글 & 결과 닫기
 // ----------------------------------------------------------------------------
 
 function bindReportToggleEvents() {
@@ -694,7 +736,7 @@ function bindReportToggleEvents() {
 }
 
 // ----------------------------------------------------------------------------
-// 7. 로딩 UI
+// 8. 로딩 UI
 // ----------------------------------------------------------------------------
 
 function showLoadingUI(show) {

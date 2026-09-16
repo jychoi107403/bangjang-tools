@@ -626,3 +626,211 @@
         min-width: 500px;
     }
 }
+
+/* --------------------------------------------------------------------------
+   7. 이미지 상세 미리보기 라이트박스 모달 (Image Preview Lightbox Modal)
+   -------------------------------------------------------------------------- */
+.img-preview-modal-backdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(15, 23, 42, 0.75);
+    backdrop-filter: blur(6px);
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    animation: auditFadeIn 0.2s ease-out;
+}
+
+.img-preview-modal-card {
+    background: #ffffff;
+    border-radius: 14px;
+    max-width: 640px;
+    width: 100%;
+    max-height: 90vh;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.25);
+    border: 1px solid #e2e8f0;
+    animation: modalPopIn 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes modalPopIn {
+    0% { transform: scale(0.95); opacity: 0; }
+    100% { transform: scale(1); opacity: 1; }
+}
+
+.img-preview-modal-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px 20px;
+    border-bottom: 1px solid #f1f5f9;
+    background: #f8fafc;
+}
+
+.img-preview-title-wrap {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    min-width: 0;
+}
+
+.img-preview-filename {
+    font-size: 14px;
+    font-weight: 700;
+    color: #0f172a;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.btn-close-preview-modal {
+    width: 32px;
+    height: 32px;
+    border-radius: 6px;
+    border: none;
+    background: transparent;
+    color: #64748b;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.15s ease;
+}
+
+.btn-close-preview-modal:hover {
+    background: #e2e8f0;
+    color: #0f172a;
+}
+
+.img-preview-modal-body {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    overflow-y: auto;
+}
+
+.img-preview-stage {
+    width: 100%;
+    min-height: 220px;
+    max-height: 380px;
+    background: #f1f5f9;
+    background-image: linear-gradient(45deg, #e2e8f0 25%, transparent 25%),
+                      linear-gradient(-45deg, #e2e8f0 25%, transparent 25%),
+                      linear-gradient(45deg, transparent 75%, #e2e8f0 75%),
+                      linear-gradient(-45deg, transparent 75%, #e2e8f0 75%);
+    background-size: 16px 16px;
+    background-position: 0 0, 0 8px, 8px -8px, -8px 0px;
+    border-radius: 8px;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid #cbd5e1;
+}
+
+.img-preview-stage img {
+    max-width: 100%;
+    max-height: 360px;
+    object-fit: contain;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.img-preview-meta-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    padding: 12px 16px;
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+}
+
+.preview-meta-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2px;
+}
+
+.preview-meta-label {
+    font-size: 11px;
+    color: #64748b;
+    font-weight: 600;
+}
+
+.preview-meta-val {
+    font-size: 15px;
+    font-weight: 800;
+    color: #1e3a8a;
+}
+
+.preview-meta-val.highlight {
+    color: #65a30d;
+}
+
+.preview-meta-badge {
+    font-size: 12px;
+    font-weight: 800;
+    color: #ffffff;
+    background: #84cc16;
+    padding: 2px 8px;
+    border-radius: 12px;
+}
+
+.preview-meta-divider {
+    width: 1px;
+    height: 24px;
+    background: #e2e8f0;
+}
+
+.img-preview-modal-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 14px 20px;
+    border-top: 1px solid #f1f5f9;
+    background: #ffffff;
+}
+
+.btn-open-origin-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 13px;
+    font-weight: 600;
+    color: #2563eb;
+    text-decoration: none;
+    padding: 6px 12px;
+    border-radius: 6px;
+    transition: all 0.15s ease;
+}
+
+.btn-open-origin-link:hover {
+    background: #eff6ff;
+    text-decoration: underline;
+}
+
+.btn-preview-close {
+    padding: 8px 20px;
+    font-size: 13px;
+    font-weight: 700;
+    color: #ffffff;
+    background: #0f172a;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.15s ease;
+}
+
+.btn-preview-close:hover {
+    background: #334155;
+}
+

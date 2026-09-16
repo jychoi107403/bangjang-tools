@@ -524,6 +524,49 @@
         </main>
     </div>
 
+    <!-- 이미지 상세 미리보기 라이트박스 모달 -->
+    <div class="img-preview-modal-backdrop" id="img-preview-modal" style="display: none;">
+        <div class="img-preview-modal-card">
+            <div class="img-preview-modal-header">
+                <div class="img-preview-title-wrap">
+                    <i data-lucide="image" style="width: 18px; height: 18px; color: #2563eb;"></i>
+                    <span class="img-preview-filename" id="preview-modal-filename">image.png</span>
+                </div>
+                <button type="button" class="btn-close-preview-modal" id="btn-close-preview-modal" aria-label="닫기">
+                    <i data-lucide="x" style="width: 18px; height: 18px;"></i>
+                </button>
+            </div>
+            <div class="img-preview-modal-body">
+                <div class="img-preview-stage">
+                    <img id="preview-modal-img" src="assets/images/og-thumbnail.png" alt="이미지 미리보기" referrerpolicy="no-referrer">
+                </div>
+                <div class="img-preview-meta-bar">
+                    <div class="preview-meta-item">
+                        <span class="preview-meta-label">원본 크기</span>
+                        <strong class="preview-meta-val" id="preview-modal-orig-size">0 KB</strong>
+                    </div>
+                    <div class="preview-meta-divider"></div>
+                    <div class="preview-meta-item">
+                        <span class="preview-meta-label">WebP 압축 후</span>
+                        <strong class="preview-meta-val highlight" id="preview-modal-new-size">0 KB</strong>
+                    </div>
+                    <div class="preview-meta-divider"></div>
+                    <div class="preview-meta-item">
+                        <span class="preview-meta-label">절감 효과</span>
+                        <span class="preview-meta-badge" id="preview-modal-savings">0% 절감</span>
+                    </div>
+                </div>
+            </div>
+            <div class="img-preview-modal-footer">
+                <a href="#" target="_blank" rel="noopener noreferrer" class="btn-open-origin-link" id="preview-modal-origin-link">
+                    <i data-lucide="external-link" style="width: 15px; height: 15px;"></i>
+                    <span>새 탭에서 원본 보기</span>
+                </a>
+                <button type="button" class="btn-preview-close" id="btn-preview-confirm">닫기</button>
+            </div>
+        </div>
+    </div>
+
     <!-- 도움말 모달 -->
     <div class="help-modal-backdrop" id="help-modal">
         <div class="help-modal-card">
@@ -605,7 +648,7 @@
     <script src="assets/js/i18n.js"></script>
     <script src="assets/js/global-nav.js"></script>
     <!-- ES 모듈 로드 -->
-    <script type="module" src="assets/js/tool-site-audit.js?v=20260917_v2"></script>
+    <script type="module" src="assets/js/tool-site-audit.js?v=20260917_v3"></script>
 </body>
 
 </html>
