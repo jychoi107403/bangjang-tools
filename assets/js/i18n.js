@@ -170,7 +170,22 @@ const I18N_DICTIONARY = {
         "audit.col_optimized": "최적화 후",
         "audit.col_difference": "절감률",
         "audit.already_optimized": "Already optimized",
-        "audit.recommend_webp": "WebP 변환 권장"
+        "audit.recommend_webp": "WebP 변환 권장",
+
+        // 추가된 Placeholders 및 Badges
+        "placeholder.search": "필요한 도구 검색 (예: QR, 변환...)",
+        "placeholder.batch_rename": "새 파일명 입력",
+        "placeholder.blog_content": "블로그 본문을 입력하거나 붙여넣으세요.\n원문은 유지되고 줄바꿈만 정리됩니다.",
+        "placeholder.blog_hashtag": "예: 블로그, 자동화 #키워드",
+        "placeholder.wm_text": "표시할 텍스트 입력",
+        "placeholder.width": "너비",
+        "placeholder.height": "높이",
+        "placeholder.mosaic_wm": "예: 방장 용용이 서명 등",
+        "placeholder.mosaic_filename": "파일명 입력",
+        "placeholder.qr_url": "https://tools.bangjang.net",
+        "badge.hot": "추천",
+        "badge.face_detect": "얼굴감지",
+        "badge.ai": "AI"
     },
     en: {
         // 브랜드 및 공통
@@ -334,7 +349,22 @@ const I18N_DICTIONARY = {
         "audit.col_optimized": "Optimized",
         "audit.col_difference": "Difference",
         "audit.already_optimized": "Already optimized",
-        "audit.recommend_webp": "Convert to WebP"
+        "audit.recommend_webp": "Convert to WebP",
+
+        // Added Placeholders and Badges
+        "placeholder.search": "Search tools (e.g., QR, Resize...)",
+        "placeholder.batch_rename": "Enter new file name",
+        "placeholder.blog_content": "Paste your blog draft here.\nOriginal text remains intact, only line breaks are formatted.",
+        "placeholder.blog_hashtag": "e.g. blog, automation #keyword",
+        "placeholder.wm_text": "Enter text to display",
+        "placeholder.width": "Width",
+        "placeholder.height": "Height",
+        "placeholder.mosaic_wm": "e.g. My blog watermark",
+        "placeholder.mosaic_filename": "Enter file name",
+        "placeholder.qr_url": "https://tools.bangjang.net",
+        "badge.hot": "HOT",
+        "badge.face_detect": "Face Detect",
+        "badge.ai": "AI"
     }
 };
 
