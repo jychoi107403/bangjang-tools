@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="ko">
 <head>
     <!-- Google tag (gtag.js) - Google Analytics -->
@@ -12,15 +12,15 @@
     </script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title data-i18n="tool.mosaic">?ъ쭊 紐⑥옄?댄겕 - 諛⑹옣 ?⑹슜??(臾대즺 ?ㅻТ ?꾧뎄)</title>
+    <title data-i18n="tool.mosaic">사진 모자이크 - 방장 용용이 (무료 실무 도구)</title>
     
-    <!-- 湲濡쒕쾶 寃?됱뿏吏?理쒖쟻??(Global SEO Meta Tags) -->
-    <meta name="description" content="100% 臾대즺 釉뚮씪?곗? ?ъ쭊 紐⑥옄?댄겕 諛?釉붾윭 泥섎━湲? AI ?먮룞 ?쇨뎬 媛먯? 紐⑥옄?댄겕, ?좏깮 ?곸뿭 釉붾윭, ?뚰꽣留덊겕 異붽?瑜??쒕쾭 ?낅줈???놁씠 ?덉쟾?섍쾶 ?ㅽ뻾?섏꽭??">
-    <meta name="keywords" content="?ъ쭊 紐⑥옄?댄겕, ?쇨뎬 紐⑥옄?댄겕, 釉붾윭 泥섎━, ?ъ쭊 ?먮━寃? AI ?쇨뎬 媛먯?, photo mosaic online, blur image free, face blur">
+    <!-- 글로벌 검색엔진 최적화 (Global SEO Meta Tags) -->
+    <meta name="description" content="100% 무료 브라우저 사진 모자이크 및 블러 처리기! AI 자동 얼굴 감지 모자이크, 선택 영역 블러, 워터마크 추가를 서버 업로드 없이 안전하게 실행하세요.">
+    <meta name="keywords" content="사진 모자이크, 얼굴 모자이크, 블러 처리, 사진 흐리게, AI 얼굴 감지, photo mosaic online, blur image free, face blur">
     <meta name="author" content="Bangjang Tools">
     <link rel="canonical" href="https://tools.bangjang.net/mosaic.html">
 
-    <!-- ?ㅺ뎅???щ·??吏??(Hreflang) -->
+    <!-- 다국어 크롤러 지원 (Hreflang) -->
     <link rel="alternate" hreflang="ko" href="https://tools.bangjang.net/mosaic.html" />
     <link rel="alternate" hreflang="en" href="https://tools.bangjang.net/mosaic.html" />
     <link rel="alternate" hreflang="x-default" href="https://tools.bangjang.net/mosaic.html" />
@@ -28,8 +28,8 @@
     <!-- Open Graph -->
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://tools.bangjang.net/mosaic.html">
-    <meta property="og:title" content="?ъ쭊 紐⑥옄?댄겕 & AI ?쇨뎬 釉붾윭 - 諛⑹옣 ?⑹슜??>
-    <meta property="og:description" content="AI ?먮룞 ?쇨뎬 ?몄떇 紐⑥옄?댄겕 諛??곸뿭 釉붾윭/?뚰꽣留덊겕瑜?100% 濡쒖뺄?먯꽌 ?덉쟾?섍쾶 泥섎━">
+    <meta property="og:title" content="사진 모자이크 & AI 얼굴 블러 - 방장 용용이">
+    <meta property="og:description" content="AI 자동 얼굴 인식 모자이크 및 영역 블러/워터마크를 100% 로컬에서 안전하게 처리">
     <meta property="og:image" content="https://tools.bangjang.net/assets/images/og-thumbnail.png">
 
     <!-- Twitter Card -->
@@ -37,12 +37,12 @@
     <meta name="twitter:title" content="Free Photo Mosaic & AI Face Blur - Bangjang Tools">
     <meta name="twitter:description" content="Blur faces and sensitive photo areas directly in your browser. 100% Client-side privacy.">
 
-    <!-- 援ъ“?붾맂 ?곗씠??(JSON-LD WebApplication Schema) -->
+    <!-- 구조화된 데이터 (JSON-LD WebApplication Schema) -->
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
       "@type": "WebApplication",
-      "name": "?ъ쭊 紐⑥옄?댄겕 諛?釉붾윭 ?꾧뎄 (Photo Mosaic & Blur)",
+      "name": "사진 모자이크 및 블러 도구 (Photo Mosaic & Blur)",
       "url": "https://tools.bangjang.net/mosaic.html",
       "applicationCategory": "PhotoEditor",
       "operatingSystem": "All",
@@ -55,7 +55,7 @@
     }
     </script>
 
-    <!-- 援ш? ?좊뱶?쇱뒪 (Google AdSense) ?곕룞 ?ㅽ겕由쏀듃 -->
+    <!-- 구글 애드센스 (Google AdSense) 연동 스크립트 -->
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-0000000000000000" crossorigin="anonymous"></script>
 
     <!-- Google Fonts (Pretendard & Inter) -->
@@ -68,29 +68,29 @@
     <!-- JSZip for ZIP download -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
     
-    <!-- 寃⑸━??CSS ?ㅽ??쇱떆??(怨듯넻 + ?ъ쭊 紐⑥옄?댄겕 ?꾩슜 ?ㅼ엫?ㅽ럹?댁뒪) -->
+    <!-- 격리된 CSS 스타일시트 (공통 + 사진 모자이크 전용 네임스페이스) -->
     <link rel="stylesheet" href="assets/css/global.css?v=20260913_v3">
     <link rel="stylesheet" href="assets/css/tool-mosaic.css">
 </head>
 <body class="tool-mosaic-page">
-    <!-- 理쒖긽??釉뚮옖???ㅻ퉬寃뚯씠???ㅻ뜑 & ?곷떒 GNB ?쒕∼?ㅼ슫 (蹂댁????덈낫???硫붾돱) -->
+    <!-- 최상단 브랜드 네비게이션 헤더 & 상단 GNB 드롭다운 (보였다 안보였다 메뉴) -->
     <header class="global-navbar">
         <div class="navbar-left">
             <a href="index.html" class="brand-container">
-                <div class="brand-logo-badge"><span>諛⑹옣</span></div>
+                <div class="brand-logo-badge"><span>방장</span></div>
                 <div class="brand-text-group">
-                    <h1 class="brand-title" data-i18n="brand.title">諛⑹옣 ?⑹슜??/h1>
-                    <span class="brand-subtitle" data-i18n="brand.subtitle">臾대즺 ?ㅻТ ?꾧뎄</span>
+                    <h1 class="brand-title" data-i18n="brand.title">방장 용용이</h1>
+                    <span class="brand-subtitle" data-i18n="brand.subtitle">무료 실무 도구</span>
                 </div>
             </a>
 
-            <!-- ?곷떒 移댄뀒怨좊━ GNB ?쒕∼?ㅼ슫 硫붾돱 -->
+            <!-- 상단 카테고리 GNB 드롭다운 메뉴 -->
             <nav class="gnb-menu">
-                <!-- 1. ?대?吏 ?꾧뎄 ?쒕∼?ㅼ슫 -->
+                <!-- 1. 이미지 도구 드롭다운 -->
                 <div class="gnb-dropdown-item active" data-category="image">
                     <button class="gnb-tab-btn" type="button">
                         <i data-lucide="image" style="width: 16px; height: 16px;"></i>
-                        <span data-i18n="nav.image_tools">?대?吏 ?꾧뎄</span>
+                        <span data-i18n="nav.image_tools">이미지 도구</span>
                         <i data-lucide="chevron-down" class="gnb-arrow"></i>
                     </button>
                     <div class="gnb-dropdown-layer">
@@ -98,52 +98,52 @@
                         <ul class="gnb-sublist">
                             <li>
                                 <a href="image-compress.html" class="gnb-sublink">
-                                    <div class="gnb-sublink-left"><i data-lucide="file-down"></i><span data-i18n="tool.image_compress">?대?吏 ?⑸웾 以꾩씠湲?/span></div>
-                                    <span class="gnb-badge hot">異붿쿇</span>
+                                    <div class="gnb-sublink-left"><i data-lucide="file-down"></i><span data-i18n="tool.image_compress">이미지 용량 줄이기</span></div>
+                                    <span class="gnb-badge hot">추천</span>
                                 </a>
                             </li>
                             <li>
                                 <a href="image-edit.html" class="gnb-sublink">
-                                    <div class="gnb-sublink-left"><i data-lucide="image"></i><span data-i18n="tool.image_edit">?대?吏 ?몄쭛</span></div>
+                                    <div class="gnb-sublink-left"><i data-lucide="image"></i><span data-i18n="tool.image_edit">이미지 편집</span></div>
                                 </a>
                             </li>
                             <li>
                                 <a href="image-split.html" class="gnb-sublink">
-                                    <div class="gnb-sublink-left"><i data-lucide="grid"></i><span data-i18n="tool.image_split">?ъ쭊 遺꾪븷</span></div>
+                                    <div class="gnb-sublink-left"><i data-lucide="grid"></i><span data-i18n="tool.image_split">사진 분할</span></div>
                                 </a>
                             </li>
                             <li>
                                 <a href="remove-bg.html" class="gnb-sublink">
-                                    <div class="gnb-sublink-left"><i data-lucide="image-minus"></i><span data-i18n="tool.remove_bg">諛곌꼍 ?쒓굅쨌諛붽씀湲?/span></div>
+                                    <div class="gnb-sublink-left"><i data-lucide="image-minus"></i><span data-i18n="tool.remove_bg">배경 제거·바꾸기</span></div>
                                     <span class="gnb-badge ai">AI</span>
                                 </a>
                             </li>
                             <li>
                                 <a href="mosaic.html" class="gnb-sublink active">
-                                    <div class="gnb-sublink-left"><i data-lucide="layout-grid"></i><span data-i18n="tool.mosaic">?ъ쭊 紐⑥옄?댄겕</span></div>
-                                    <span class="gnb-badge">?쇨뎬媛먯?</span>
+                                    <div class="gnb-sublink-left"><i data-lucide="layout-grid"></i><span data-i18n="tool.mosaic">사진 모자이크</span></div>
+                                    <span class="gnb-badge">얼굴감지</span>
                                 </a>
                             </li>
                             <li>
                                 <a href="qr-code.html" class="gnb-sublink">
-                                    <div class="gnb-sublink-left"><i data-lucide="qr-code"></i><span data-i18n="tool.qr_code">QR 肄붾뱶 ?앹꽦</span></div>
+                                    <div class="gnb-sublink-left"><i data-lucide="qr-code"></i><span data-i18n="tool.qr_code">QR 코드 생성</span></div>
                                 </a>
                             </li>
                             <li>
                                 <a href="batch-rename.html" class="gnb-sublink">
-                                    <div class="gnb-sublink-left"><i data-lucide="copy-check"></i><span data-i18n="tool.batch_rename">?뚯씪紐??쇨큵 蹂寃?/span></div>
-                                    <span class="gnb-badge hot">異붿쿇</span>
+                                    <div class="gnb-sublink-left"><i data-lucide="copy-check"></i><span data-i18n="tool.batch_rename">파일명 일괄 변경</span></div>
+                                    <span class="gnb-badge hot">추천</span>
                                 </a>
                             </li>
                         </ul>
                     </div>
                 </div>
 
-                <!-- 2. ?곸긽 ?꾧뎄 ?쒕∼?ㅼ슫 -->
+                <!-- 2. 영상 도구 드롭다운 -->
                 <div class="gnb-dropdown-item" data-category="video">
                     <button class="gnb-tab-btn" type="button">
                         <i data-lucide="film" style="width: 16px; height: 16px;"></i>
-                        <span data-i18n="nav.video_tools">?곸긽 ?꾧뎄</span>
+                        <span data-i18n="nav.video_tools">영상 도구</span>
                         <i data-lucide="chevron-down" class="gnb-arrow"></i>
                     </button>
                     <div class="gnb-dropdown-layer">
@@ -151,30 +151,30 @@
                         <ul class="gnb-sublist">
                             <li>
                                 <a href="video-trim-gif.html" class="gnb-sublink">
-                                    <div class="gnb-sublink-left"><i data-lucide="play-square"></i><span data-i18n="tool.video_trim_gif">?곸긽 援ш컙 ??GIF</span></div>
-                                    <span class="gnb-badge new">?ㅽ뵂?덉젙</span>
+                                    <div class="gnb-sublink-left"><i data-lucide="play-square"></i><span data-i18n="tool.video_trim_gif">영상 구간 → GIF</span></div>
+                                    <span class="gnb-badge new">오픈예정</span>
                                 </a>
                             </li>
                             <li>
                                 <a href="video-to-gif.html" class="gnb-sublink">
-                                    <div class="gnb-sublink-left"><i data-lucide="film"></i><span data-i18n="tool.video_to_gif">?곸긽 ??GIF</span></div>
-                                    <span class="gnb-badge new">?ㅽ뵂?덉젙</span>
+                                    <div class="gnb-sublink-left"><i data-lucide="film"></i><span data-i18n="tool.video_to_gif">영상 → GIF</span></div>
+                                    <span class="gnb-badge new">오픈예정</span>
                                 </a>
                             </li>
                             <li>
                                 <a href="screen-record-gif.html" class="gnb-sublink">
-                                    <div class="gnb-sublink-left"><i data-lucide="monitor-play"></i><span data-i18n="tool.screen_record_gif">?붾㈃?뱁솕 ??GIF</span></div>
+                                    <div class="gnb-sublink-left"><i data-lucide="monitor-play"></i><span data-i18n="tool.screen_record_gif">화면녹화 → GIF</span></div>
                                 </a>
                             </li>
                         </ul>
                     </div>
                 </div>
 
-                <!-- 3. 釉붾줈洹??꾧뎄 ?쒕∼?ㅼ슫 -->
+                <!-- 3. 블로그 도구 드롭다운 -->
                 <div class="gnb-dropdown-item" data-category="blog">
                     <button class="gnb-tab-btn" type="button">
                         <i data-lucide="file-text" style="width: 16px; height: 16px;"></i>
-                        <span data-i18n="nav.blog_tools">釉붾줈洹??꾧뎄</span>
+                        <span data-i18n="nav.blog_tools">블로그 도구</span>
                         <i data-lucide="chevron-down" class="gnb-arrow"></i>
                     </button>
                     <div class="gnb-dropdown-layer">
@@ -182,24 +182,24 @@
                         <ul class="gnb-sublist">
                             <li>
                                 <a href="blog-formatter.html" class="gnb-sublink">
-                                    <div class="gnb-sublink-left"><i data-lucide="file-text"></i><span data-i18n="tool.blog_formatter">釉붾줈洹?蹂몃Ц ?뺣━</span></div>
+                                    <div class="gnb-sublink-left"><i data-lucide="file-text"></i><span data-i18n="tool.blog_formatter">블로그 본문 정리</span></div>
                                 </a>
                             </li>
                             <li>
                                 <a href="pdf-to-word.html" class="gnb-sublink">
-                                    <div class="gnb-sublink-left"><i data-lucide="file-type-2"></i><span data-i18n="tool.pdf_to_word">PDF ??Word</span></div>
-                                    <span class="gnb-badge new">?ㅽ뵂?덉젙</span>
+                                    <div class="gnb-sublink-left"><i data-lucide="file-type-2"></i><span data-i18n="tool.pdf_to_word">PDF → Word</span></div>
+                                    <span class="gnb-badge new">오픈예정</span>
                                 </a>
                             </li>
                         </ul>
                     </div>
                 </div>
 
-                <!-- 4. ?뱀궗?댄듃 遺꾩꽍 ?쒕∼?ㅼ슫 -->
+                <!-- 4. 웹사이트 분석 드롭다운 -->
                 <div class="gnb-dropdown-item" data-category="site">
                     <button class="gnb-tab-btn" type="button">
                         <i data-lucide="globe" style="width: 16px; height: 16px;"></i>
-                        <span data-i18n="nav.site_tools">?뱀궗?댄듃 遺꾩꽍</span>
+                        <span data-i18n="nav.site_tools">웹사이트 분석</span>
                         <i data-lucide="chevron-down" class="gnb-arrow"></i>
                     </button>
                     <div class="gnb-dropdown-layer">
@@ -207,8 +207,8 @@
                         <ul class="gnb-sublist">
                             <li>
                                 <a href="site-audit.html" class="gnb-sublink">
-                                    <div class="gnb-sublink-left"><i data-lucide="gauge"></i><span data-i18n="tool.site_audit">?뱀궗?댄듃 ?대?吏 吏꾨떒</span></div>
-                                    <span class="gnb-badge hot">異붿쿇</span>
+                                    <div class="gnb-sublink-left"><i data-lucide="gauge"></i><span data-i18n="tool.site_audit">웹사이트 이미지 진단</span></div>
+                                    <span class="gnb-badge hot">추천</span>
                                 </a>
                             </li>
                         </ul>
@@ -218,13 +218,13 @@
         </div>
 
         <div class="navbar-right">
-            <!-- ?ㅺ뎅???몄뼱 ?꾪솚 ?좉? 踰꾪듉 (KO / EN) -->
+            <!-- 다국어 언어 전환 토글 버튼 (KO / EN) -->
             <div class="lang-switcher-wrap" aria-label="Language Selector">
                 <button class="lang-btn active" data-lang="ko" type="button">KO</button>
                 <button class="lang-btn" data-lang="en" type="button">EN</button>
             </div>
-            <a href="index.html" class="btn-nav-home" title="紐⑤뱺 ?꾧뎄 ?덉쑝濡?><i data-lucide="layout-grid"></i><span data-i18n="nav.all_tools">紐⑤뱺 ?꾧뎄</span></a>
-            <button class="mobile-menu-toggle" id="mobile-menu-toggle" aria-label="硫붾돱 ?닿린">
+            <a href="index.html" class="btn-nav-home" title="모든 도구 홈으로"><i data-lucide="layout-grid"></i><span data-i18n="nav.all_tools">모든 도구</span></a>
+            <button class="mobile-menu-toggle" id="mobile-menu-toggle" aria-label="메뉴 열기">
                 <i data-lucide="menu"></i>
             </button>
         </div>
@@ -232,388 +232,388 @@
 
     <div class="app-container">
         <!-- ========================================================
-             1. ?쇱そ ?ъ씠?쒕컮 (硫붾돱 ?ㅻ퉬寃뚯씠??
+             1. 왼쪽 사이드바 (메뉴 네비게이션)
              ======================================================== -->
         <aside class="sidebar">
             <div class="sidebar-header">
                 <a href="index.html" class="nav-item home-btn" id="btn-home">
                     <i data-lucide="home"></i>
-                    <span>紐⑤뱺 ?꾧뎄</span>
+                    <span>모든 도구</span>
                 </a>
             </div>
 
             <nav class="sidebar-nav">
-                <!-- ?뱀뀡 1: ?대?吏 ?꾧뎄 -->
+                <!-- 섹션 1: 이미지 도구 -->
                 <div class="nav-group">
-                    <div class="nav-group-title">?대?吏 ?꾧뎄</div>
+                    <div class="nav-group-title">이미지 도구</div>
                     <ul class="nav-list">
                         <li>
                             <a href="image-compress.html" class="nav-item" data-tool="image-compress">
                                 <i data-lucide="file-down"></i>
-                                <span>?대?吏 ?⑸웾 以꾩씠湲?/span>
+                                <span>이미지 용량 줄이기</span>
                             </a>
                         </li>
                         <li>
                             <a href="image-edit.html" class="nav-item" data-tool="image-edit">
                                 <i data-lucide="image"></i>
-                                <span>?대?吏 ?몄쭛</span>
+                                <span>이미지 편집</span>
                             </a>
                         </li>
                         <li>
                             <a href="image-split.html" class="nav-item" data-tool="image-split">
                                 <i data-lucide="grid"></i>
-                                <span>?ъ쭊 遺꾪븷</span>
+                                <span>사진 분할</span>
                             </a>
                         </li>
                         <li>
                             <a href="remove-bg.html" class="nav-item" data-tool="remove-bg">
                                 <i data-lucide="image-minus"></i>
-                                <span>諛곌꼍 ?쒓굅쨌諛붽씀湲?/span>
+                                <span>배경 제거·바꾸기</span>
                             </a>
                         </li>
                         <li>
                             <a href="mosaic.html" class="nav-item active" data-tool="mosaic">
                                 <i data-lucide="layout-grid"></i>
-                                <span>?ъ쭊 紐⑥옄?댄겕</span>
+                                <span>사진 모자이크</span>
                             </a>
                         </li>
                         <li>
                             <a href="qr-code.html" class="nav-item" data-tool="qr-code">
                                 <i data-lucide="qr-code"></i>
-                                <span>QR 肄붾뱶 ?앹꽦</span>
+                                <span>QR 코드 생성</span>
                             </a>
                         </li>
                         <li>
                             <a href="batch-rename.html" class="nav-item" data-tool="batch-rename">
                                 <i data-lucide="copy-check"></i>
-                                <span>?뚯씪紐??쇨큵 蹂寃?/span>
+                                <span>파일명 일괄 변경</span>
                             </a>
                         </li>
                     </ul>
                 </div>
 
-                <!-- ?뱀뀡 2: ?곸긽 ?꾧뎄 -->
+                <!-- 섹션 2: 영상 도구 -->
                 <div class="nav-group">
-                    <div class="nav-group-title">?곸긽 ?꾧뎄</div>
+                    <div class="nav-group-title">영상 도구</div>
                     <ul class="nav-list">
                         <li>
                             <a href="video-trim-gif.html" class="nav-item" data-tool="video-trim-gif">
                                 <i data-lucide="play-square"></i>
-                                <span>?곸긽 援ш컙 ??GIF</span>
+                                <span>영상 구간 → GIF</span>
                             </a>
                         </li>
                         <li>
                             <a href="video-to-gif.html" class="nav-item" data-tool="video-to-gif">
                                 <i data-lucide="film"></i>
-                                <span>?곸긽 ??GIF</span>
+                                <span>영상 → GIF</span>
                             </a>
                         </li>
                         <li>
                             <a href="screen-record-gif.html" class="nav-item" data-tool="screen-record-gif">
                                 <i data-lucide="monitor-play"></i>
-                                <span>?붾㈃?뱁솕 ??GIF</span>
+                                <span>화면녹화 → GIF</span>
                             </a>
                         </li>
                     </ul>
                 </div>
 
-                <!-- ?뱀뀡 3: 釉붾줈洹??꾧뎄 -->
+                <!-- 섹션 3: 블로그 도구 -->
                 <div class="nav-group">
-                    <div class="nav-group-title">釉붾줈洹??꾧뎄</div>
+                    <div class="nav-group-title">블로그 도구</div>
                     <ul class="nav-list">
                         <li>
                             <a href="blog-formatter.html" class="nav-item" data-tool="blog-formatter">
                                 <i data-lucide="file-text"></i>
-                                <span>釉붾줈洹?蹂몃Ц ?뺣━</span>
+                                <span>블로그 본문 정리</span>
                             </a>
                         </li>
                         <li>
                             <a href="pdf-to-word.html" class="nav-item" data-tool="pdf-to-word">
                                 <i data-lucide="file-type-2"></i>
-                                <span>PDF ??Word</span>
+                                <span>PDF → Word</span>
                             </a>
                         </li>
                     </ul>
                 </div>
 
-                <!-- ?뱀뀡 4: ?뱀궗?댄듃 遺꾩꽍 -->
+                <!-- 섹션 4: 웹사이트 분석 -->
                 <div class="nav-group">
-                    <div class="nav-group-title" data-i18n="nav.site_tools">?뱀궗?댄듃 遺꾩꽍</div>
+                    <div class="nav-group-title" data-i18n="nav.site_tools">웹사이트 분석</div>
                     <ul class="nav-list">
                         <li>
                             <a href="site-audit.html" class="nav-item" data-tool="site-audit">
                                 <i data-lucide="gauge"></i>
-                                <span>?뱀궗?댄듃 ?대?吏 吏꾨떒</span>
+                                <span>웹사이트 이미지 진단</span>
                             </a>
                         </li>
                     </ul>
                 </div>
             </nav>
 
-            <!-- ?ъ씠?쒕컮 ?섎떒: 蹂댁븞 ?덈궡 諛곕꼫 -->
+            <!-- 사이드바 하단: 보안 안내 배너 -->
             <div class="sidebar-footer">
                 <div class="security-card">
                     <i data-lucide="shield-check" class="security-icon"></i>
                     <div class="security-text">
-                        <strong>???뚯씪? ??湲곌린?먯꽌</strong>
-                        <p>?좏깮???뚯씪? ?쒕쾭???낅줈?쒗븯吏 ?딆뒿?덈떎.</p>
+                        <strong>내 파일은 내 기기에서</strong>
+                        <p>선택한 파일은 서버에 업로드하지 않습니다.</p>
                     </div>
                 </div>
             </div>
         </aside>
 
         <!-- ========================================================
-             2. 以묒븰 硫붿씤 ?묒뾽 ?곸뿭 ([?ъ쭊 紐⑥옄?댄겕] ?ㅼ엫?ㅽ럹?댁뒪 ?곸슜)
+             2. 중앙 메인 작업 영역 ([사진 모자이크] 네임스페이스 적용)
              ======================================================== -->
         <main class="main-content tool-mosaic">
-            <!-- ?곷떒 1以?肄ㅽ뙥???대컮 (?묒뾽 怨듦컙 100% ?뺣낫) -->
+            <!-- 상단 1줄 콤팩트 툴바 (작업 공간 100% 확보) -->
             <header class="tool-compact-header">
                 <div class="tool-compact-left">
-                    <a href="index.html" class="tool-back-link" title="紐⑤뱺 ?꾧뎄 紐⑸줉?쇰줈"><i data-lucide="chevron-left"></i></a>
+                    <a href="index.html" class="tool-back-link" title="모든 도구 목록으로"><i data-lucide="chevron-left"></i></a>
                     <div class="tool-compact-badge-icon"><i data-lucide="layout-grid"></i></div>
                     <div class="tool-compact-title-wrap">
-                        <h1 class="tool-compact-title">?ъ쭊 紐⑥옄?댄겕</h1>
-                        <span class="tool-security-tag"><i data-lucide="shield-check"></i> ?먮룞 ?쇨뎬 ?몄떇 쨌 濡쒖뺄 留덉뒪??/span>
+                        <h1 class="tool-compact-title">사진 모자이크</h1>
+                        <span class="tool-security-tag"><i data-lucide="shield-check"></i> 자동 얼굴 인식 · 로컬 마스킹</span>
                     </div>
                 </div>
                 <div class="tool-compact-right">
-                    <button class="btn-help-trigger" id="btn-help-trigger" title="?ъ슜 諛⑸쾿 諛??⑥텞???덈궡">
+                    <button class="btn-help-trigger" id="btn-help-trigger" title="사용 방법 및 단축키 안내">
                         <i data-lucide="help-circle"></i>
-                        <span>?꾩?留?/span>
+                        <span>도움말</span>
                     </button>
                 </div>
             </header>
 
-            <!-- ?묒뾽 ?곸뿭 移대뱶 -->
+            <!-- 작업 영역 카드 -->
             <section class="workspace-card">
                 <div class="workspace-toolbar">
                     <div class="toolbar-guide">
-                        <strong>Win+Shift+S濡?罹≪쿂 ??Ctrl+V濡?遺숈뿬?ｊ린</strong>
-                        <span class="guide-sub">?ъ쭊??怨꾩냽 異붽??섍퀬, ?ъ쭊留덈떎 媛由??곸뿭??吏?뺥븯?몄슂.</span>
+                        <strong>Win+Shift+S로 캡처 → Ctrl+V로 붙여넣기</strong>
+                        <span class="guide-sub">사진을 계속 추가하고, 사진마다 가릴 영역을 지정하세요.</span>
                     </div>
                     <div class="toolbar-actions">
                         <button class="btn btn-primary" id="btn-mosaic-paste">
                             <i data-lucide="clipboard-paste"></i>
-                            <span>遺숈뿬?ｊ린</span>
+                            <span>붙여넣기</span>
                         </button>
                         <label class="btn btn-secondary btn-file-input">
                             <i data-lucide="image-plus"></i>
-                            <span>?뚯씪 異붽?</span>
+                            <span>파일 추가</span>
                             <input type="file" id="mosaic-file-input" accept="image/*" multiple style="display: none;">
                         </label>
                         <button class="btn btn-outline" id="btn-mosaic-clear">
                             <i data-lucide="trash-2"></i>
-                            <span>?꾩껜 ??젣</span>
+                            <span>전체 삭제</span>
                         </button>
-                        <div class="count-badge" id="mosaic-status-banner">?ъ쭊??異붽??댁＜?몄슂.</div>
+                        <div class="count-badge" id="mosaic-status-banner">사진을 추가해주세요.</div>
                     </div>
                 </div>
 
-                <!-- ?쒕옒洹?& ?쒕∼ 諛?罹붾쾭???곸뿭 -->
+                <!-- 드래그 & 드롭 및 캔버스 영역 -->
                 <div class="drop-zone" id="mosaic-drop-zone">
-                    <!-- 鍮??곹깭 ?덈궡 -->
+                    <!-- 빈 상태 안내 -->
                     <div class="empty-state" id="mosaic-empty-state">
                         <div class="empty-state-icon">
                             <i data-lucide="layout-grid"></i>
                         </div>
-                        <p class="empty-state-title">紐⑥옄?댄겕???대?吏瑜??ш린???쒕옒洹명븯嫄곕굹 <strong>Ctrl + V</strong>濡?遺숈뿬?ｌ쑝?몄슂.</p>
-                        <p class="empty-state-desc">?곷떒??[遺숈뿬?ｊ린] ?먮뒗 [?뚯씪 異붽?]濡??щ윭 ?μ쓽 ?ъ쭊????踰덉뿉 ?깅줉?????덉뒿?덈떎.</p>
+                        <p class="empty-state-title">모자이크할 이미지를 여기에 드래그하거나 <strong>Ctrl + V</strong>로 붙여넣으세요.</p>
+                        <p class="empty-state-desc">상단의 [붙여넣기] 또는 [파일 추가]로 여러 장의 사진을 한 번에 등록할 수 있습니다.</p>
                         <p class="empty-state-desc" style="margin-top: 14px; font-size: 11.5px;">
-                            理쒕? 30??쨌 ????25MB ?댄븯 쨌 寃곌낵 理쒕? 4,096px
+                            최대 30장 · 한 장 25MB 이하 · 결과 최대 4,096px
                         </p>
                     </div>
 
-                    <!-- ?ъ쭊 濡쒕뱶 ???몄텧?섎뒗 ?묒뾽 ?곸뿭 -->
+                    <!-- 사진 로드 시 노출되는 작업 영역 -->
                     <div class="mosaic-workspace" id="mosaic-workspace" style="display: none;">
-                        <!-- 1. ?곷떒 ?ㅼ쨷 ?ъ쭊 移대뱶 媛ㅻ윭由?洹몃━??-->
+                        <!-- 1. 상단 다중 사진 카드 갤러리 그리드 -->
                         <div class="mosaic-gallery-grid" id="mosaic-gallery-grid">
-                            <!-- JS濡??ъ쭊 移대뱶媛 ?숈쟻?쇰줈 異붽??⑸땲??-->
+                            <!-- JS로 사진 카드가 동적으로 추가됩니다 -->
                         </div>
 
-                        <!-- 2. 以묒븰 硫붿씤 酉곗뼱 罹붾쾭??而⑦뀒?대꼫 -->
+                        <!-- 2. 중앙 메인 뷰어 캔버스 컨테이너 -->
                         <div class="mosaic-viewer-container" id="mosaic-viewer-container">
                             <div class="mosaic-canvas-wrapper" id="mosaic-canvas-wrapper">
                                 <canvas id="mosaic-canvas"></canvas>
                             </div>
                             <div class="mosaic-canvas-guide-text">
-                                鍮?怨녹쓣 ?쒕옒洹명븯硫????곸뿭 쨌 ?곸뿭 ?덉쓣 ?쒕옒洹명븯硫??대룞<br>
-                                ?뚮몢由ъ쓽 8媛??먯옟?대줈 ?ш린 議곗젅 쨌 Ctrl+???뺣? 쨌 ??踰꾪듉 ?쒕옒洹??대룞
+                                빈 곳을 드래그하면 새 영역 · 영역 안을 드래그하면 이동<br>
+                                테두리의 8개 손잡이로 크기 조절 · Ctrl+휠 확대 · 휠 버튼 드래그 이동
                             </div>
                         </div>
                     </div>
                 </div>
             </section>
 
-            <!-- ?섎떒 ???諛??≪뀡 ?뱀뀡 (?ㅽ겕由곗꺑 100% ?쇱튂) -->
+            <!-- 하단 저장 및 액션 섹션 (스크린샷 100% 일치) -->
             <div class="bottom-action-section mt-4" id="mosaic-bottom-actions" style="display: none;">
-                <!-- 1. ?꾩껜 ?ъ쭊 ZIP ???踰꾪듉 -->
+                <!-- 1. 전체 사진 ZIP 저장 버튼 -->
                 <div class="batch-zip-action-row">
                     <button class="btn btn-outline btn-zip-large" id="btn-save-all-zip">
                         <i data-lucide="archive"></i>
-                        <span>?꾩껜 ?ъ쭊 ZIP ???/span>
+                        <span>전체 사진 ZIP 저장</span>
                     </button>
                     <span class="zip-notice-text">
-                        ?좏깮???ъ쭊??紐⑥옄?댄겕 ?곸뿭怨?媛뺣룄瑜?媛쒕퀎濡??좎??⑸땲?? ?????媛??ъ쭊???뺤씤?섏꽭??
+                        선택한 사진의 모자이크 영역과 강도를 개별로 유지합니다. 저장 전 각 사진을 확인하세요.
                     </span>
                 </div>
 
-                <!-- 2. ?좏깮 ?ъ쭊 ??????蹂대씪??踰꾪듉 -->
+                <!-- 2. 선택 사진 저장 대형 보라색 버튼 -->
                 <div class="single-save-action-row">
                     <button class="btn btn-save-large btn-mosaic-save" id="btn-save-current-image">
                         <i data-lucide="download"></i>
-                        <span>?좏깮 ?ъ쭊 ???/span>
+                        <span>선택 사진 저장</span>
                     </button>
                     <span class="face-detect-status-msg" id="face-detect-status-msg">
-                        <!-- ?쇨뎬 媛먯? 寃곌낵 ?곹깭 臾멸뎄 -->
+                        <!-- 얼굴 감지 결과 상태 문구 -->
                     </span>
                 </div>
 
-                <!-- 3. ?ъ슜 媛?대뱶 諛뺤뒪 -->
+                <!-- 3. 사용 가이드 박스 -->
                 <div class="guide-box">
-                    <h3 class="guide-title">?대젃寃??ъ슜?섏꽭??/h3>
+                    <h3 class="guide-title">이렇게 사용하세요</h3>
                     <ol class="guide-steps">
-                        <li><strong>Win+Shift+S</strong>濡?罹≪쿂 ??<strong>Ctrl+V</strong>濡??ъ쭊??怨꾩냽 異붽??섏꽭?? ?곷떒??遺숈뿬?ｊ린쨌?뚯씪 異붽?쨌?꾩껜 ??젣媛 ?덉뒿?덈떎.</li>
-                        <li>?ъ쭊 紐⑸줉?먯꽌 ???μ뵫 ?좏깮?섍퀬 媛由??곸뿭怨?媛뺣룄瑜?吏?뺥븯?몄슂. ?ъ쭊蹂??묒뾽???좎??⑸땲??</li>
-                        <li><strong>[?쇨뎬 ?먮룞 媛먯?]</strong>瑜??꾨Ⅴ硫??ъ쭊 ???쇨뎬?ㅼ쓣 ?먮룞?쇰줈 李얠븘 紐⑥옄?댄겕 ?곸뿭???앹꽦?⑸땲??</li>
-                        <li><strong>[?좏깮 ?ъ쭊 ???</strong> ?먮뒗 <strong>[?꾩껜 ?ъ쭊 ZIP ???</strong>???뚮윭 媛怨듬맂 ?ъ쭊???덉쟾?섍쾶 ?대젮諛쏆쑝?몄슂.</li>
+                        <li><strong>Win+Shift+S</strong>로 캡처 후 <strong>Ctrl+V</strong>로 사진을 계속 추가하세요. 상단에 붙여넣기·파일 추가·전체 삭제가 있습니다.</li>
+                        <li>사진 목록에서 한 장씩 선택하고 가릴 영역과 강도를 지정하세요. 사진별 작업이 유지됩니다.</li>
+                        <li><strong>[얼굴 자동 감지]</strong>를 누르면 사진 속 얼굴들을 자동으로 찾아 모자이크 영역을 생성합니다.</li>
+                        <li><strong>[선택 사진 저장]</strong> 또는 <strong>[전체 사진 ZIP 저장]</strong>을 눌러 가공된 사진을 안전하게 내려받으세요.</li>
                     </ol>
                     <p class="guide-footnote">
-                        ?잛닔 ?쒗븳 ?놁씠 臾대즺濡??ъ슜?????덉뒿?덈떎. 湲??ъ쭊?대굹 怨좏빐?곷룄 ?대?吏??湲곌린 ?깅뒫???곕씪 泥섎━ ?쒓컙???쎄컙 湲몄뼱吏????덉뒿?덈떎.
+                        횟수 제한 없이 무료로 사용할 수 있습니다. 긴 사진이나 고해상도 이미지는 기기 성능에 따라 처리 시간이 약간 길어질 수 있습니다.
                     </p>
                 </div>
             </div>
         </main>
 
         <!-- ========================================================
-             3. ?곗륫 ?ㅼ젙 ?ъ씠?쒕컮 ([紐⑥옄?댄겕 ?몄쭛] ?꾩슜 ?듭뀡)
+             3. 우측 설정 사이드바 ([모자이크 편집] 전용 옵션)
              ======================================================== -->
         <aside class="settings-sidebar">
-            <h2 class="settings-header">紐⑥옄?댄겕 ?몄쭛</h2>
+            <h2 class="settings-header">모자이크 편집</h2>
 
             <div class="settings-scroll-area">
-                <!-- 1. ?곸뿭 ?묒뾽 ?쒕∼?ㅼ슫 -->
+                <!-- 1. 영역 작업 드롭다운 -->
                 <div class="setting-group">
-                    <label class="setting-label">?곸뿭 ?묒뾽</label>
+                    <label class="setting-label">영역 작업</label>
                     <select id="select-area-mode" class="form-select">
-                        <option value="draw" selected>???곸뿭 洹몃━湲?/option>
-                        <option value="select">?곸뿭 ?좏깮 / ?대룞</option>
+                        <option value="draw" selected>새 영역 그리기</option>
+                        <option value="select">영역 선택 / 이동</option>
                     </select>
                 </div>
 
-                <!-- 2. ?섎룎由ш린 / ?ㅼ떆 ?ㅽ뻾 -->
+                <!-- 2. 되돌리기 / 다시 실행 -->
                 <div class="setting-group">
                     <div class="btn-grid-2">
                         <button class="btn btn-outline" id="btn-undo" disabled>
                             <i data-lucide="undo-2"></i>
-                            <span>?섎룎由ш린</span>
+                            <span>되돌리기</span>
                         </button>
                         <button class="btn btn-outline" id="btn-redo" disabled>
                             <i data-lucide="redo-2"></i>
-                            <span>?ㅼ떆 ?ㅽ뻾</span>
+                            <span>다시 실행</span>
                         </button>
                     </div>
                 </div>
 
-                <!-- 3. ?꾩껜 ?곸뿭 & ?쇨뎬 ?먮룞 媛먯? 踰꾪듉 -->
+                <!-- 3. 전체 영역 & 얼굴 자동 감지 버튼 -->
                 <div class="setting-group">
                     <button class="btn btn-outline w-full mb-2" id="btn-select-all-area">
-                        <span>?꾩껜 ?곸뿭</span>
+                        <span>전체 영역</span>
                     </button>
                     <button class="btn btn-outline w-full" id="btn-detect-faces">
                         <i data-lucide="sparkles"></i>
-                        <span>?쇨뎬 ?먮룞 媛먯?</span>
+                        <span>얼굴 자동 감지</span>
                     </button>
                     
                     <div class="form-check-row mt-2">
                         <label class="form-check-label">
                             <input type="checkbox" id="chk-auto-face-on-load">
-                            <span>遺덈윭?????쇨뎬 ?먮룞 ?곸슜</span>
+                            <span>불러올 때 얼굴 자동 적용</span>
                         </label>
                     </div>
 
                     <div class="setting-item mt-2">
-                        <label class="setting-sublabel">?쇨뎬 ?щ갚 쨌 %</label>
+                        <label class="setting-sublabel">얼굴 여백 · %</label>
                         <input type="number" id="input-face-padding" class="form-input" value="30" min="0" max="100">
                     </div>
                     
                     <p class="engine-tip-text mt-2">
-                        ?먮룞 媛먯????쇨뎬???볦튌 ???덉뼱?? 寃곌낵瑜?吏곸젒 ?뺤씤?섍퀬 ?꾩슂???곸뿭??異붽??섏꽭??
+                        자동 감지는 얼굴을 놓칠 수 있어요. 결과를 직접 확인하고 필요한 영역을 추가하세요.
                     </p>
                 </div>
 
-                <!-- 4. ?곸뿭 移??좏깮 紐⑸줉 ([?곸뿭 1], [?곸뿭 2] ...) -->
+                <!-- 4. 영역 칩 선택 목록 ([영역 1], [영역 2] ...) -->
                 <div class="setting-group">
-                    <label class="setting-label">?좏깮 ?곸뿭</label>
+                    <label class="setting-label">선택 영역</label>
                     <div class="area-chips-container" id="area-chips-container">
-                        <!-- ?숈쟻?쇰줈 [?곸뿭 1], [?곸뿭 2] 踰꾪듉 移⑹씠 異붽??⑸땲??-->
+                        <!-- 동적으로 [영역 1], [영역 2] 버튼 칩이 추가됩니다 -->
                     </div>
                 </div>
 
-                <!-- 5. ?꾩튂 諛??ш린 (?꾩튂 X, Y / ?곸뿭 ?덈퉬, ?믪씠) -->
+                <!-- 5. 위치 및 크기 (위치 X, Y / 영역 너비, 높이) -->
                 <div class="setting-group">
                     <div class="form-row">
                         <div class="form-col">
-                            <label class="setting-sublabel">?꾩튂 X</label>
+                            <label class="setting-sublabel">위치 X</label>
                             <input type="number" id="input-area-x" class="form-input" value="0">
                         </div>
                         <div class="form-col">
-                            <label class="setting-sublabel">?꾩튂 Y</label>
+                            <label class="setting-sublabel">위치 Y</label>
                             <input type="number" id="input-area-y" class="form-input" value="0">
                         </div>
                     </div>
                     <div class="form-row mt-2">
                         <div class="form-col">
-                            <label class="setting-sublabel">?곸뿭 ?덈퉬</label>
+                            <label class="setting-sublabel">영역 너비</label>
                             <input type="number" id="input-area-w" class="form-input" value="0">
                         </div>
                         <div class="form-col">
-                            <label class="setting-sublabel">?곸뿭 ?믪씠</label>
+                            <label class="setting-sublabel">영역 높이</label>
                             <input type="number" id="input-area-h" class="form-input" value="0">
                         </div>
                     </div>
                 </div>
 
-                <!-- 6. ?⑦꽩 & 紐⑥뼇 -->
+                <!-- 6. 패턴 & 모양 -->
                 <div class="setting-group">
-                    <label class="setting-label">?⑦꽩</label>
+                    <label class="setting-label">패턴</label>
                     <select id="select-mosaic-pattern" class="form-select">
-                        <option value="pixel-coarse" selected>嫄곗튇 ?쎌?</option>
-                        <option value="pixel-smooth">遺?쒕윭???쎌?</option>
-                        <option value="blur">釉붾윭</option>
-                        <option value="random">?쒕뜡 ?⑦꽩</option>
+                        <option value="pixel-coarse" selected>거친 픽셀</option>
+                        <option value="pixel-smooth">부드러운 픽셀</option>
+                        <option value="blur">블러</option>
+                        <option value="random">랜덤 패턴</option>
                     </select>
 
-                    <label class="setting-label mt-3">紐⑥뼇</label>
+                    <label class="setting-label mt-3">모양</label>
                     <select id="select-mosaic-shape" class="form-select">
-                        <option value="rect" selected>?ㅻえ</option>
-                        <option value="circle">?먰삎</option>
+                        <option value="rect" selected>네모</option>
+                        <option value="circle">원형</option>
                     </select>
                 </div>
 
-                <!-- 7. 紐⑥옄?댄겕 媛뺣룄 ?щ씪?대뜑 -->
+                <!-- 7. 모자이크 강도 슬라이더 -->
                 <div class="setting-group">
                     <div class="setting-label-row">
-                        <label class="setting-label">紐⑥옄?댄겕 媛뺣룄</label>
-                        <span class="range-val-badge" id="badge-mosaic-intensity">媛뺣룄 22</span>
+                        <label class="setting-label">모자이크 강도</label>
+                        <span class="range-val-badge" id="badge-mosaic-intensity">강도 22</span>
                     </div>
                     <input type="range" id="range-mosaic-intensity" class="form-range" min="5" max="80" value="22">
                 </div>
 
-                <!-- 8. ?곸뿭 ??젣 / 吏?곌린 踰꾪듉 -->
+                <!-- 8. 영역 삭제 / 지우기 버튼 -->
                 <div class="setting-group">
                     <button class="btn btn-danger-outline w-full mb-2" id="btn-delete-current-area">
-                        ?좏깮 ?곸뿭 ??젣
+                        선택 영역 삭제
                     </button>
                     <button class="btn btn-outline w-full" id="btn-clear-all-areas">
-                        ?곸뿭 紐⑤몢 吏?곌린
+                        영역 모두 지우기
                     </button>
                 </div>
 
-                <!-- 9. 蹂닿린 (?뺣?/異뺤냼/?붾㈃ 留욎땄) -->
+                <!-- 9. 보기 (확대/축소/화면 맞춤) -->
                 <div class="setting-group">
-                    <label class="setting-label">蹂닿린</label>
+                    <label class="setting-label">보기</label>
                     <div class="setting-item">
-                        <label class="setting-sublabel">?뺣? 쨌 %</label>
+                        <label class="setting-sublabel">확대 · %</label>
                         <input type="number" id="input-zoom-percent" class="form-input" value="100" min="20" max="500">
                     </div>
                     <div class="btn-grid-2 mt-2">
@@ -625,134 +625,134 @@
                         </button>
                     </div>
                     <button class="btn btn-outline w-full mt-2" id="btn-zoom-fit">
-                        ?붾㈃ 留욎땄
+                        화면 맞춤
                     </button>
                 </div>
 
-                <!-- 10. ?뚰꽣留덊겕 ?ㅼ젙 (image-edit? 100% ?숈씪???꾨꼍??洹쒓꺽) -->
+                <!-- 10. 워터마크 설정 (image-edit와 100% 동일한 완벽한 규격) -->
                 <div class="setting-group">
                     <label class="checkbox-label">
                         <input type="checkbox" id="chk-watermark-enable">
-                        <span>?뚰꽣留덊겕 ?곸슜</span>
+                        <span>워터마크 적용</span>
                     </label>
                 </div>
 
                 <div id="watermark-options-panel">
                     <div class="setting-group">
-                        <label class="setting-label">醫낅쪟</label>
+                        <label class="setting-label">종류</label>
                         <select id="select-watermark-type" class="form-select">
-                            <option value="image" selected>?대?吏</option>
-                            <option value="text">?띿뒪??/option>
+                            <option value="image" selected>이미지</option>
+                            <option value="text">텍스트</option>
                         </select>
                     </div>
 
-                    <!-- ?대?吏 ?뚰꽣留덊겕 ?뚯씪 ?곸뿭 -->
+                    <!-- 이미지 워터마크 파일 영역 -->
                     <div class="setting-group" id="wm-image-group">
-                        <label class="setting-label">?뚰꽣留덊겕 ?뚯씪</label>
+                        <label class="setting-label">워터마크 파일</label>
                         <div class="watermark-file-row">
-                            <span class="watermark-file-display" id="wm-file-name-label">?좏깮???뚯씪 ?놁쓬</span>
+                            <span class="watermark-file-display" id="wm-file-name-label">선택한 파일 없음</span>
                             <label class="btn-file-search" for="wm-file-input">
-                                <span>李얘린</span>
+                                <span>찾기</span>
                             </label>
                             <input type="file" id="wm-file-input" accept="image/*" style="display: none;">
                         </div>
                         <div class="setting-desc mt-1">
-                            PNG 쨌 JPG 쨌 WebP 쨌 25MB ?댄븯. ?щ챸 PNG??諛곌꼍 ?놁씠 ?⑹꽦?⑸땲??
+                            PNG · JPG · WebP · 25MB 이하. 투명 PNG는 배경 없이 합성됩니다.
                         </div>
                         <button class="btn-delete-logo" id="btn-wm-remove-logo">
-                            濡쒓퀬 ??젣
+                            로고 삭제
                         </button>
                     </div>
 
-                    <!-- ?띿뒪???뚰꽣留덊겕 ?낅젰 ?곸뿭 -->
+                    <!-- 텍스트 워터마크 입력 영역 -->
                     <div class="setting-group" id="wm-text-group" style="display: none;">
-                        <label class="setting-label">?뚰꽣留덊겕 臾멸뎄</label>
-                        <input type="text" id="input-wm-text" class="form-input" placeholder="?? 諛⑹옣 ?⑹슜??臾대떒諛고룷 湲덉?">
+                        <label class="setting-label">워터마크 문구</label>
+                        <input type="text" id="input-wm-text" class="form-input" placeholder="예: 방장 용용이 무단배포 금지">
                     </div>
 
-                    <!-- 濡쒓퀬 ?덈퉬 -->
+                    <!-- 로고 너비 -->
                     <div class="setting-group" id="wm-width-group">
-                        <label class="setting-label">濡쒓퀬 ?덈퉬 쨌 px</label>
+                        <label class="setting-label">로고 너비 · px</label>
                         <input type="number" id="input-wm-logo-width" class="form-input" value="300" min="20" max="4096">
                     </div>
 
-                    <!-- ?뚰꽣留덊겕 遺덊닾紐낅룄 -->
+                    <!-- 워터마크 불투명도 -->
                     <div class="setting-group">
-                        <label class="setting-label">遺덊닾紐낅룄 쨌 %</label>
+                        <label class="setting-label">불투명도 · %</label>
                         <input type="range" id="range-wm-opacity" class="form-range" min="10" max="100" value="80">
                     </div>
 
-                    <!-- ?뚰꽣留덊겕 ?꾩튂 (9諛⑺뼢 ?꾨꼍 ?뺣젹 洹몃━?? -->
+                    <!-- 워터마크 위치 (9방향 완벽 정렬 그리드) -->
                     <div class="setting-group">
-                        <label class="setting-label">?꾩튂</label>
+                        <label class="setting-label">위치</label>
                         <select id="select-wm-pos" class="form-select mb-2">
-                            <option value="top-left">?쇱そ ??/option>
-                            <option value="top-center">媛?대뜲 ??/option>
-                            <option value="top-right">?ㅻⅨ履???/option>
-                            <option value="center-left">?쇱そ 媛?대뜲</option>
-                            <option value="center">?뺢??대뜲</option>
-                            <option value="center-right">?ㅻⅨ履?媛?대뜲</option>
-                            <option value="bottom-left">?쇱そ ?꾨옒</option>
-                            <option value="bottom-center">媛?대뜲 ?꾨옒</option>
-                            <option value="bottom-right" selected>?ㅻⅨ履??꾨옒</option>
+                            <option value="top-left">왼쪽 위</option>
+                            <option value="top-center">가운데 위</option>
+                            <option value="top-right">오른쪽 위</option>
+                            <option value="center-left">왼쪽 가운데</option>
+                            <option value="center">정가운데</option>
+                            <option value="center-right">오른쪽 가운데</option>
+                            <option value="bottom-left">왼쪽 아래</option>
+                            <option value="bottom-center">가운데 아래</option>
+                            <option value="bottom-right" selected>오른쪽 아래</option>
                         </select>
 
                         <div class="wm-pos-grid">
                             <button type="button" class="wm-pos-btn" data-pos="top-left">
-                                <span class="pos-icon">??/span>
-                                <span class="pos-text">?쇱そ<br>??/span>
+                                <span class="pos-icon">↖</span>
+                                <span class="pos-text">왼쪽<br>위</span>
                             </button>
                             <button type="button" class="wm-pos-btn" data-pos="top-center">
-                                <span class="pos-icon">??/span>
-                                <span class="pos-text">媛?대뜲<br>??/span>
+                                <span class="pos-icon">↑</span>
+                                <span class="pos-text">가운데<br>위</span>
                             </button>
                             <button type="button" class="wm-pos-btn" data-pos="top-right">
-                                <span class="pos-icon">??/span>
-                                <span class="pos-text">?ㅻⅨ履?br>??/span>
+                                <span class="pos-icon">↗</span>
+                                <span class="pos-text">오른쪽<br>위</span>
                             </button>
                             <button type="button" class="wm-pos-btn" data-pos="center-left">
-                                <span class="pos-icon">??/span>
-                                <span class="pos-text">?쇱そ<br>媛?대뜲</span>
+                                <span class="pos-icon">←</span>
+                                <span class="pos-text">왼쪽<br>가운데</span>
                             </button>
                             <button type="button" class="wm-pos-btn" data-pos="center">
-                                <span class="pos-icon">??/span>
-                                <span class="pos-text">?뺢??대뜲</span>
+                                <span class="pos-icon">●</span>
+                                <span class="pos-text">정가운데</span>
                             </button>
                             <button type="button" class="wm-pos-btn" data-pos="center-right">
-                                <span class="pos-icon">??/span>
-                                <span class="pos-text">?ㅻⅨ履?br>媛?대뜲</span>
+                                <span class="pos-icon">→</span>
+                                <span class="pos-text">오른쪽<br>가운데</span>
                             </button>
                             <button type="button" class="wm-pos-btn" data-pos="bottom-left">
-                                <span class="pos-icon">??/span>
-                                <span class="pos-text">?쇱そ<br>?꾨옒</span>
+                                <span class="pos-icon">↙</span>
+                                <span class="pos-text">왼쪽<br>아래</span>
                             </button>
                             <button type="button" class="wm-pos-btn" data-pos="bottom-center">
-                                <span class="pos-icon">??/span>
-                                <span class="pos-text">媛?대뜲<br>?꾨옒</span>
+                                <span class="pos-icon">↓</span>
+                                <span class="pos-text">가운데<br>아래</span>
                             </button>
                             <button type="button" class="wm-pos-btn active" data-pos="bottom-right">
-                                <span class="pos-icon">??/span>
-                                <span class="pos-text">?ㅻⅨ履?br>?꾨옒</span>
+                                <span class="pos-icon">↘</span>
+                                <span class="pos-text">오른쪽<br>아래</span>
                             </button>
                         </div>
                     </div>
 
                     <div class="setting-group">
-                        <label class="setting-label">?щ갚 쨌 px</label>
+                        <label class="setting-label">여백 · px</label>
                         <input type="number" id="input-wm-margin" class="form-input" value="16" min="0" max="200">
                     </div>
                 </div>
 
-                <!-- 11. ????듭뀡 (?뚯씪紐? ?뺤떇) -->
+                <!-- 11. 저장 옵션 (파일명, 형식) -->
                 <div class="setting-group">
-                    <label class="setting-label">???/label>
+                    <label class="setting-label">저장</label>
                     <div class="setting-item">
-                        <label class="setting-sublabel">?뚯씪紐?쨌 鍮덉뭏? ?먮낯 ?대쫫</label>
-                        <input type="text" id="input-save-filename" class="form-input" placeholder="?뚯씪紐??낅젰">
+                        <label class="setting-sublabel">파일명 · 빈칸은 원본 이름</label>
+                        <input type="text" id="input-save-filename" class="form-input" placeholder="파일명 입력">
                     </div>
 
                     <div class="setting-item mt-3">
-                        <label class="setting-sublabel">????뺤떇</label>
+                        <label class="setting-sublabel">저장 형식</label>
                         <select id="select-save-format" class="form-select">
                             <option value="png" selected>PNG</option>
                             <option value="jpeg">JPG</option>
@@ -761,16 +761,16 @@
                     </div>
 
                     <p class="engine-tip-text mt-3">
-                        湲?蹂??4096px瑜??섎뒗 ?ъ쭊? 異뺤냼?⑸땲?? 諛⑺뼢?ㅻ줈 ?좏깮 ?곸뿭???대룞?섍퀬 Shift瑜??④퍡 ?꾨Ⅴ硫?10px???대룞?⑸땲??
+                        긴 변이 4096px를 넘는 사진은 축소합니다. 방향키로 선택 영역을 이동하고 Shift를 함께 누르면 10px씩 이동합니다.
                     </p>
                 </div>
 
-                <!-- 12. 援ш? ?좊뱶?쇱뒪 ?ъ씠?쒕컮 諛섏쓳??愿묎퀬 ?щ’ (300x250) -->
+                <!-- 12. 구글 애드센스 사이드바 반응형 광고 슬롯 (300x250) -->
                 <div class="adsense-slot-container adsense-sidebar-slot">
-                    <span class="adsense-label" data-i18n="label.sponsor">?ㅽ룿??愿묎퀬</span>
+                    <span class="adsense-label" data-i18n="label.sponsor">스폰서 광고</span>
                     <!-- 
-                        [Google AdSense 愿묎퀬 ?⑥쐞 肄붾뱶 ?쎌엯 ?곸뿭]
-                        ?ъ궗 ?뱀씤 ??諛쒓툒??<ins class="adsbygoogle" ...></ins> 肄붾뱶瑜??ш린???ｌ쑝?쒕㈃ ?⑸땲??
+                        [Google AdSense 광고 단위 코드 삽입 영역]
+                        심사 승인 후 발급된 <ins class="adsbygoogle" ...></ins> 코드를 여기에 넣으시면 됩니다.
                     -->
                     <div class="adsense-placeholder">
                         <i data-lucide="sparkles"></i>
@@ -781,95 +781,94 @@
         </aside>
     </div>
 
-    <!-- ?꾩?留?諛??ъ슜 ?덈궡 紐⑤떖 ?앹뾽 -->
+    <!-- 도움말 및 사용 안내 모달 팝업 -->
     <div class="help-modal-backdrop" id="help-modal">
         <div class="help-modal-card">
             <div class="help-modal-header">
                 <div class="help-modal-header-title">
                     <i data-lucide="help-circle"></i>
-                    <span>?ъ쭊 紐⑥옄?댄겕 ?ъ슜 媛?대뱶</span>
+                    <span>사진 모자이크 사용 가이드</span>
                 </div>
-                <button class="btn-close-modal" aria-label="?リ린"><i data-lucide="x"></i></button>
+                <button class="btn-close-modal" aria-label="닫기"><i data-lucide="x"></i></button>
             </div>
             <div class="help-modal-body">
                 <div class="help-step-item">
                     <div class="help-step-num">1</div>
                     <div class="help-step-text">
-                        <strong>?ъ쭊 遺덈윭?ㅺ린 & ?대┰蹂대뱶 遺숈뿬?ｊ린</strong>
-                        <p>?ъ쭊???쒕옒洹명븯嫄곕굹 <code>Ctrl+V</code>濡?遺숈뿬?ｌ쑝?몄슂. ?щ윭 ?μ쓽 ?ъ쭊???숈떆???깅줉????쑝濡??꾪솚?????덉뒿?덈떎.</p>
+                        <strong>사진 불러오기 & 클립보드 붙여넣기</strong>
+                        <p>사진을 드래그하거나 <code>Ctrl+V</code>로 붙여넣으세요. 여러 장의 사진을 동시에 등록해 탭으로 전환할 수 있습니다.</p>
                     </div>
                 </div>
                 <div class="help-step-item">
                     <div class="help-step-num">2</div>
                     <div class="help-step-text">
-                        <strong>?먰겢由??먮룞 ?쇨뎬 ?몄떇 & ?곸뿭 ?쒕옒洹?/strong>
-                        <p>?곗륫??<code>AI ?쇨뎬 媛먯?</code>瑜??꾨Ⅴ硫??ъ쭊 ??紐⑤뱺 ?쇨뎬???먮룞?쇰줈 紐⑥옄?댄겕媛 ?뚯썙吏묐땲?? 留덉슦?ㅻ줈 吏곸젒 ?ш컖???먰삎 ?곸뿭???쒕옒洹명빐???⑸땲??</p>
+                        <strong>원클릭 자동 얼굴 인식 & 영역 드래그</strong>
+                        <p>우측의 <code>AI 얼굴 감지</code>를 누르면 사진 속 모든 얼굴에 자동으로 모자이크가 씌워집니다. 마우스로 직접 사각형/원형 영역을 드래그해도 됩니다.</p>
                     </div>
                 </div>
                 <div class="help-step-item">
                     <div class="help-step-num">3</div>
                     <div class="help-step-text">
-                        <strong>紐⑥옄?댄겕 醫낅쪟 & 媛뺣룄 議곗젅</strong>
-                        <p>?쎌?(紐⑥옄?댄겕), 釉붾윭(?먮┝), ?쒕뜡 ?⑦꽩 以??좏깮?섍퀬 ?щ씪?대뜑濡??ш린 諛??먮┝ 媛뺣룄瑜??먯쑀濡?쾶 議곗젅?섏꽭??</p>
+                        <strong>모자이크 종류 & 강도 조절</strong>
+                        <p>픽셀(모자이크), 블러(흐림), 랜덤 패턴 중 선택하고 슬라이더로 크기 및 흐림 강도를 자유롭게 조절하세요.</p>
                     </div>
                 </div>
                 <div class="help-security-callout">
                     <i data-lucide="shield-check"></i>
                     <div>
-                        <strong>媛쒖씤?뺣낫 蹂댄샇</strong><br>
-                        ?쇨뎬 媛먯? 諛??대?吏 留덉뒪??泥섎━??釉뚮씪?곗? ?대? AI 紐⑤뜽濡?利됱떆 ?섑뻾?섎ŉ ?ъ쭊???몃? ?쒕쾭濡??좎텧?섏? ?딆뒿?덈떎.
+                        <strong>개인정보 보호</strong><br>
+                        얼굴 감지 및 이미지 마스킹 처리는 브라우저 내부 AI 모델로 즉시 수행되며 사진이 외부 서버로 유출되지 않습니다.
                     </div>
                 </div>
             </div>
             <div class="help-modal-footer">
-                <button class="btn-modal-confirm" data-i18n="btn.confirm">?뺤씤</button>
+                <button class="btn-modal-confirm" data-i18n="btn.confirm">확인</button>
             </div>
         </div>
     </div>
 
-    <!-- 湲濡쒕쾶 ?명꽣 (?좊뱶?쇱뒪 ?뱀씤 ?꾩닔 留곹겕 & 蹂댁븞 ?덈궡) -->
+    <!-- 글로벌 푸터 (애드센스 승인 필수 링크 & 보안 안내) -->
     <footer class="global-footer">
         <div class="footer-inner">
             <div class="footer-top">
                 <div class="footer-brand">
-                    <span class="brand-logo-badge" style="width: 26px; height: 26px; font-size: 11px;">諛⑹옣</span>
-                    <span class="footer-brand-title" data-i18n="brand.title">諛⑹옣 ?⑹슜??/span>
+                    <span class="brand-logo-badge" style="width: 26px; height: 26px; font-size: 11px;">방장</span>
+                    <span class="footer-brand-title" data-i18n="brand.title">방장 용용이</span>
                 </div>
                 <div class="footer-links">
-                    <button class="footer-link-btn btn-terms-trigger" type="button" data-i18n="footer.terms">?댁슜?쎄?</button>
-                    <button class="footer-link-btn btn-privacy-trigger" type="button" data-i18n="footer.privacy">媛쒖씤?뺣낫泥섎━諛⑹묠</button>
-                    <a href="https://tools.bangjang.net" target="_blank" rel="noopener" class="footer-link-btn" data-i18n="footer.contact">臾몄쓽?섍린</a>
+                    <button class="footer-link-btn btn-terms-trigger" type="button" data-i18n="footer.terms">이용약관</button>
+                    <button class="footer-link-btn btn-privacy-trigger" type="button" data-i18n="footer.privacy">개인정보처리방침</button>
+                    <a href="https://tools.bangjang.net" target="_blank" rel="noopener" class="footer-link-btn" data-i18n="footer.contact">문의하기</a>
                 </div>
             </div>
             <div class="footer-bottom">
                 <div class="footer-security-badge">
                     <i data-lucide="shield-check"></i>
-                    <span data-i18n="label.security_notice">100% 濡쒖뺄 泥섎━ (?쒕쾭 ?낅줈???놁쓬)</span>
+                    <span data-i18n="label.security_notice">100% 로컬 처리 (서버 업로드 없음)</span>
                 </div>
-                <div>짤 2026 Bangjang Tools. All rights reserved.</div>
+                <div>© 2026 Bangjang Tools. All rights reserved.</div>
             </div>
         </div>
     </footer>
 
-    <!-- 媛쒖씤?뺣낫泥섎━諛⑹묠 & ?댁슜?쎄? ?앹뾽 紐⑤떖 -->
+    <!-- 개인정보처리방침 & 이용약관 팝업 모달 -->
     <div class="legal-modal-backdrop" id="legal-modal">
         <div class="legal-modal-card">
             <div class="legal-modal-header">
-                <div class="legal-modal-title" id="legal-modal-title">?쎄? ?덈궡</div>
-                <button class="btn-close-modal btn-close-legal" aria-label="?リ린"><i data-lucide="x"></i></button>
+                <div class="legal-modal-title" id="legal-modal-title">약관 안내</div>
+                <button class="btn-close-modal btn-close-legal" aria-label="닫기"><i data-lucide="x"></i></button>
             </div>
             <div class="legal-modal-body" id="legal-modal-body"></div>
             <div class="legal-modal-footer">
-                <button class="btn-modal-confirm btn-legal-confirm" data-i18n="btn.confirm">?뺤씤</button>
+                <button class="btn-modal-confirm btn-legal-confirm" data-i18n="btn.confirm">확인</button>
             </div>
         </div>
     </div>
 
-    <!-- ?ㅺ뎅??踰덉뿭 ?붿쭊 諛??꾩뿭 ?ㅻ퉬寃뚯씠???ㅽ겕由쏀듃 -->
+    <!-- 다국어 번역 엔진 및 전역 네비게이션 스크립트 -->
     <script src="assets/js/i18n.js"></script>
     <script src="assets/js/global-nav.js"></script>
-    <!-- ES 紐⑤뱢(type="module") 濡쒕뱶濡??꾩쟾 寃⑸━ -->
+    <!-- ES 모듈(type="module") 로드로 완전 격리 -->
     <script type="module" src="assets/js/tool-mosaic.js"></script>
 </body>
 </html>
-
