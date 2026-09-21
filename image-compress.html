@@ -379,17 +379,17 @@
             <!-- 상단 1줄 콤팩트 툴바 -->
             <header class="tool-compact-header">
                 <div class="tool-compact-left">
-                    <a href="index.html" class="tool-back-link" title="모든 도구 목록으로"><i data-lucide="chevron-left"></i></a>
+                    <a href="index.html" class="tool-back-link" title="모든 도구 목록으로" data-i18n-title="nav.home_tooltip"><i data-lucide="chevron-left"></i></a>
                     <div class="tool-compact-badge-icon"><i data-lucide="file-down"></i></div>
                     <div class="tool-compact-title-wrap">
-                        <h1 class="tool-compact-title">이미지 용량 줄이기</h1>
-                        <span class="tool-security-tag"><i data-lucide="shield-check"></i> 100% 로컬 스마트 압축 · 개인정보 보호</span>
+                        <h1 class="tool-compact-title" data-i18n="tool.image_compress">이미지 용량 줄이기</h1>
+                        <span class="tool-security-tag" data-i18n="compress.security_tag"><i data-lucide="shield-check"></i> 100% 로컬 스마트 압축 · 개인정보 보호</span>
                     </div>
                 </div>
                 <div class="tool-compact-right">
-                    <button class="btn-help-trigger" id="btn-help-trigger" title="사용 방법 안내">
+                    <button class="btn-help-trigger" id="btn-help-trigger" title="사용 방법 안내" data-i18n-title="compress.help_title">
                         <i data-lucide="help-circle"></i>
-                        <span>도움말</span>
+                        <span data-i18n="compress.help_btn">도움말</span>
                     </button>
                 </div>
             </header>
@@ -398,22 +398,22 @@
             <section class="workspace-card">
                 <div class="workspace-toolbar">
                     <div class="toolbar-guide">
-                        <strong>Win+Shift+S로 캡처 → Ctrl+V로 붙여넣기</strong>
-                        <span class="guide-sub">사진을 계속 추가하여 용량을 최대 90%까지 안전하게 줄이세요.</span>
+                        <strong data-i18n="compress.guide_main">Win+Shift+S로 캡처 → Ctrl+V로 붙여넣기</strong>
+                        <span class="guide-sub" data-i18n="compress.guide_sub">사진을 계속 추가하여 용량을 최대 90%까지 안전하게 줄이세요.</span>
                     </div>
                     <div class="toolbar-actions">
                         <button class="btn btn-primary" id="btn-paste">
                             <i data-lucide="clipboard-paste"></i>
-                            <span>붙여넣기</span>
+                            <span data-i18n="compress.btn_paste">붙여넣기</span>
                         </button>
                         <label class="btn btn-secondary btn-file-input">
                             <i data-lucide="image-plus"></i>
-                            <span>파일 추가</span>
+                            <span data-i18n="compress.btn_add_file">파일 추가</span>
                             <input type="file" id="file-input" multiple accept="image/*" style="display: none;">
                         </label>
                         <button class="btn btn-outline" id="btn-clear-all">
                             <i data-lucide="trash-2"></i>
-                            <span>전체 삭제</span>
+                            <span data-i18n="compress.btn_clear_all">전체 삭제</span>
                         </button>
                         <div class="count-badge" id="image-count-badge">0 / 50장 · 한 장 30MB 이하</div>
                     </div>
@@ -422,15 +422,15 @@
                 <!-- 전체 압축 통계 요약 바 (이미지 등록 시 노출) -->
                 <div class="compress-summary-bar" id="compress-summary-bar" style="display: none;">
                     <div class="summary-item">
-                        <span class="summary-label"><i data-lucide="file"></i> 총 원본 용량</span>
+                        <span class="summary-label"><i data-lucide="file"></i> <span data-i18n="compress.summary_orig">총 원본 용량</span></span>
                         <span class="summary-value" id="sum-orig-size">0 KB</span>
                     </div>
                     <div class="summary-item">
-                        <span class="summary-label"><i data-lucide="file-check"></i> 압축 후 용량</span>
+                        <span class="summary-label"><i data-lucide="file-check"></i> <span data-i18n="compress.summary_comp">압축 후 용량</span></span>
                         <span class="summary-value highlight" id="sum-comp-size">0 KB</span>
                     </div>
                     <div class="summary-item">
-                        <span class="summary-label"><i data-lucide="trending-down"></i> 총 절감 효과</span>
+                        <span class="summary-label"><i data-lucide="trending-down"></i> <span data-i18n="compress.summary_saving">총 절감 효과</span></span>
                         <span class="summary-value highlight" id="sum-savings-rate">0 KB 절약 (0%)</span>
                     </div>
                 </div>
@@ -441,8 +441,8 @@
                         <div class="empty-state-icon">
                             <i data-lucide="image-down"></i>
                         </div>
-                        <p class="empty-state-title">이미지를 여기에 드래그하거나 <strong>Ctrl + V</strong>로 붙여넣으세요.</p>
-                        <p class="empty-state-desc">상단의 [붙여넣기] 또는 [파일 추가]도 사용할 수 있습니다.</p>
+                        <p class="empty-state-title" data-i18n="compress.empty_title">이미지를 여기에 드래그하거나 <strong>Ctrl + V</strong>로 붙여넣으세요.</p>
+                        <p class="empty-state-desc" data-i18n="compress.empty_desc">상단의 [붙여넣기] 또는 [파일 추가]도 사용할 수 있습니다.</p>
                     </div>
 
                     <!-- 사진 카드 그리드 -->
@@ -452,18 +452,18 @@
                     <div class="compare-viewer-container" id="compare-viewer-container" style="display: none;">
                         <div class="compare-viewer-title">
                             <i data-lucide="split-square-vertical" style="width: 16px; height: 16px; color: #8b5cf6;"></i>
-                            <span>실시간 화질 및 용량 비교 (선택한 이미지)</span>
+                            <span data-i18n="compress.compare_title">실시간 화질 및 용량 비교 (선택한 이미지)</span>
                         </div>
                         <div class="compare-dual-wrap">
                             <div class="compare-box">
-                                <span class="compare-tag">원본</span>
+                                <span class="compare-tag" data-i18n="compress.compare_orig">원본</span>
                                 <div class="compare-img-wrap">
                                     <img id="compare-img-orig" alt="원본 미리보기">
                                 </div>
                                 <div class="compare-meta" id="compare-meta-orig">-</div>
                             </div>
                             <div class="compare-box">
-                                <span class="compare-tag" style="background:#10b981;">압축 결과</span>
+                                <span class="compare-tag" style="background:#10b981;" data-i18n="compress.compare_result">압축 결과</span>
                                 <div class="compare-img-wrap">
                                     <img id="compare-img-comp" alt="압축본 미리보기">
                                 </div>
@@ -479,22 +479,22 @@
                 <div style="display: flex; gap: 10px; flex-wrap: wrap;">
                     <button class="btn btn-save-large" id="btn-save-images">
                         <i data-lucide="download"></i>
-                        <span>압축 이미지 일괄 저장 (ZIP)</span>
+                        <span data-i18n="compress.btn_download_zip">압축 이미지 일괄 저장 (ZIP)</span>
                     </button>
                     <button class="btn btn-secondary" id="btn-copy-clipboard" style="padding: 12px 20px; font-size: 14px; font-weight: 700; border-radius: var(--radius-md);">
                         <i data-lucide="copy"></i>
-                        <span>선택 이미지 복사</span>
+                        <span data-i18n="compress.btn_copy">선택 이미지 복사</span>
                     </button>
                 </div>
 
                 <div class="guide-box">
-                    <h3 class="guide-title">이렇게 사용하세요</h3>
+                    <h3 class="guide-title" data-i18n="compress.help_sec_title">이렇게 사용하세요</h3>
                     <ol class="guide-steps">
-                        <li><strong>Win+Shift+S</strong>로 캡처한 뒤 이 화면에서 <strong>Ctrl+V</strong>로 바로 붙여넣으세요. 파일 추가 및 드래그앤드롭도 지원합니다.</li>
-                        <li>우측 [압축 설정]에서 <strong>[스마트 권장 압축]</strong> 또는 원하는 <strong>품질/해상도/포맷</strong>을 지정하면 실시간으로 용량이 절감됩니다.</li>
-                        <li>[압축 이미지 일괄 저장]을 누르면 모든 사진이 압축된 <strong>ZIP 파일</strong>로 즉시 다운로드됩니다.</li>
+                        <li data-i18n="compress.help_li_1"><strong>Win+Shift+S</strong>로 캡처한 뒤 이 화면에서 <strong>Ctrl+V</strong>로 바로 붙여넣으세요. 파일 추가 및 드래그앤드롭도 지원합니다.</li>
+                        <li data-i18n="compress.help_li_2">우측 [압축 설정]에서 <strong>[스마트 권장 압축]</strong> 또는 원하는 <strong>품질/해상도/포맷</strong>을 지정하면 실시간으로 용량이 절감됩니다.</li>
+                        <li data-i18n="compress.help_li_3">[압축 이미지 일괄 저장]을 누르면 모든 사진이 압축된 <strong>ZIP 파일</strong>로 즉시 다운로드됩니다.</li>
                     </ol>
-                    <p class="guide-footnote">
+                    <p class="guide-footnote" data-i18n="compress.help_notice">
                         저장 시 개인정보 및 촬영 위치가 포함된 EXIF 메타데이터를 100% 자동 제거하여 안전하게 보호합니다.
                     </p>
                 </div>
@@ -505,47 +505,47 @@
              3. 우측 [압축 설정] 사이드바
              ======================================================== -->
         <aside class="settings-sidebar">
-            <h2 class="settings-header">압축 설정</h2>
+            <h2 class="settings-header" data-i18n="compress.set_header">압축 설정</h2>
 
             <div class="settings-scroll-area">
                 <!-- 1. 압축 모드 선택 -->
                 <div class="setting-group">
-                    <label class="setting-label">압축 모드</label>
+                    <label class="setting-label" data-i18n="compress.set_mode">압축 모드</label>
                     <div class="setting-mode-grid">
                         <button type="button" class="mode-btn active" data-mode="smart">
                             <i data-lucide="sparkles" style="width: 15px; height: 15px; color: #8b5cf6;"></i>
-                            <span>스마트 압축 (원본 포맷 유지 · 최적화)</span>
+                            <span data-i18n="compress.mode_smart">스마트 압축 (원본 포맷 유지 · 최적화)</span>
                         </button>
                         <button type="button" class="mode-btn" data-mode="custom">
                             <i data-lucide="sliders" style="width: 15px; height: 15px;"></i>
-                            <span>사용자 지정 (품질/해상도 직접 조절)</span>
+                            <span data-i18n="compress.mode_custom">사용자 지정 (품질/해상도 직접 조절)</span>
                         </button>
                         <button type="button" class="mode-btn" data-mode="target">
                             <i data-lucide="target" style="width: 15px; height: 15px;"></i>
-                            <span>목표 용량 맞춤 (장당 용량 제한)</span>
+                            <span data-i18n="compress.mode_target">목표 용량 맞춤 (장당 용량 제한)</span>
                         </button>
                     </div>
                 </div>
 
                 <!-- 2. 출력 포맷 선택 -->
                 <div class="setting-group">
-                    <label class="setting-label">출력 포맷</label>
+                    <label class="setting-label" data-i18n="compress.set_format">출력 포맷</label>
                     <div class="radio-group" style="display: flex; flex-direction: column; gap: 8px;">
                         <label class="radio-label">
                             <input type="radio" name="format-choice" value="original" checked>
-                            <span>원본 포맷 유지 (PNG는 PNG, JPG는 JPG)</span>
+                            <span data-i18n="compress.fmt_orig">원본 포맷 유지 (PNG는 PNG, JPG는 JPG)</span>
                         </label>
                         <label class="radio-label">
                             <input type="radio" name="format-choice" value="webp">
-                            <span>WebP (차세대 초고효율 포맷 일괄 변환)</span>
+                            <span data-i18n="compress.fmt_webp">WebP (차세대 초고효율 포맷 일괄 변환)</span>
                         </label>
                         <label class="radio-label">
                             <input type="radio" name="format-choice" value="jpeg">
-                            <span>JPEG (표준 사진 형식 일괄 변환)</span>
+                            <span data-i18n="compress.fmt_jpeg">JPEG (표준 사진 형식 일괄 변환)</span>
                         </label>
                         <label class="radio-label">
                             <input type="radio" name="format-choice" value="png">
-                            <span>PNG (투명도 유지 포맷 일괄 변환)</span>
+                            <span data-i18n="compress.fmt_png">PNG (투명도 유지 포맷 일괄 변환)</span>
                         </label>
                     </div>
                 </div>
@@ -554,14 +554,14 @@
                 <div id="custom-options-wrap" style="display: none;">
                     <div class="setting-group">
                         <div class="setting-header-row">
-                            <label class="setting-label" style="margin-bottom:0;">압축 품질</label>
+                            <label class="setting-label" style="margin-bottom:0;" data-i18n="compress.set_quality">압축 품질</label>
                             <span class="quality-badge" id="quality-badge">80%</span>
                         </div>
                         <input type="range" id="range-quality" class="form-range" min="10" max="100" value="80">
                         <div style="display: flex; justify-content: space-between; font-size: 10.5px; color: var(--text-muted); margin-top: 4px;">
-                            <span>최대 압축 (10%)</span>
-                            <span>균형 (80%)</span>
-                            <span>최고 화질 (100%)</span>
+                            <span data-i18n="compress.qual_min">최대 압축 (10%)</span>
+                            <span data-i18n="compress.qual_bal">균형 (80%)</span>
+                            <span data-i18n="compress.qual_max">최고 화질 (100%)</span>
                         </div>
                     </div>
 
@@ -569,16 +569,16 @@
                     <div class="setting-group">
                         <label class="setting-label">최대 해상도 (긴 변 리사이즈)</label>
                         <select id="select-resize" class="form-select">
-                            <option value="original" selected>원본 해상도 유지</option>
-                            <option value="1920">FHD (최대 1920px)</option>
-                            <option value="1280">HD (최대 1280px · 웹 추천)</option>
-                            <option value="800">블로그/메일용 (최대 800px)</option>
-                            <option value="custom">직접 너비 입력</option>
+                            <option value="original" selected data-i18n="compress.res_orig">원본 해상도 유지</option>
+                            <option value="1920" data-i18n="compress.res_fhd">FHD (최대 1920px)</option>
+                            <option value="1280" data-i18n="compress.res_hd">HD (최대 1280px · 웹 추천)</option>
+                            <option value="800" data-i18n="compress.res_blog">블로그/메일용 (최대 800px)</option>
+                            <option value="custom" data-i18n="compress.res_custom">직접 너비 입력</option>
                         </select>
                     </div>
 
                     <div class="setting-group" id="custom-width-wrap" style="display: none;">
-                        <label class="setting-sublabel">최대 너비 · px</label>
+                        <label class="setting-sublabel" data-i18n="compress.set_width">최대 너비 · px</label>
                         <input type="number" id="input-custom-width" class="form-input" value="1200" min="100" max="8000">
                     </div>
                 </div>
@@ -586,10 +586,10 @@
                 <!-- 5. 목표 용량 옵션 -->
                 <div id="target-options-wrap" style="display: none;">
                     <div class="setting-group">
-                        <label class="setting-label">목표 파일 크기 (장당 최대)</label>
+                        <label class="setting-label" data-i18n="compress.set_target_size">목표 파일 크기 (장당 최대)</label>
                         <div style="display: flex; align-items: center; gap: 8px;">
                             <input type="number" id="input-target-kb" class="form-input" value="500" min="50" max="10000" step="50">
-                            <span style="font-size: 13px; font-weight: 700; color: var(--text-secondary);">KB 이하</span>
+                            <span style="font-size: 13px; font-weight: 700; color: var(--text-secondary);" data-i18n="compress.unit_kb">KB 이하</span> <span data-i18n="compress.unit_kb" style="display:none;"></span>
                         </div>
                         <div class="setting-desc" style="margin-top: 6px;">
                             설정한 용량 이하가 되도록 화질을 자동으로 단계별 최적화합니다.
@@ -610,7 +610,7 @@
             <div class="help-modal-header">
                 <div class="help-modal-title">
                     <i data-lucide="help-circle"></i>
-                    <span>이미지 용량 줄이기 사용 가이드</span>
+                    <span data-i18n="compress.modal_title">이미지 용량 줄이기 사용 가이드</span>
                 </div>
                 <button class="btn-close-modal" aria-label="닫기"><i data-lucide="x"></i></button>
             </div>
@@ -618,28 +618,28 @@
                 <div class="help-step-item">
                     <div class="help-step-num">1</div>
                     <div class="help-step-content">
-                        <strong>이미지 추가 또는 캡처 붙여넣기</strong>
-                        <p>Win+Shift+S(Mac: Cmd+Shift+4)로 캡처 후 Ctrl+V로 붙여넣거나, [파일 추가] 및 드래그앤드롭으로 이미지를 등록하세요.</p>
+                        <strong data-i18n="compress.m_add_title">이미지 추가 또는 캡처 붙여넣기</strong>
+                        <p data-i18n="compress.m_add_desc">Win+Shift+S(Mac: Cmd+Shift+4)로 캡처 후 Ctrl+V로 붙여넣거나, [파일 추가] 및 드래그앤드롭으로 이미지를 등록하세요.</p>
                     </div>
                 </div>
                 <div class="help-step-item">
                     <div class="help-step-num">2</div>
                     <div class="help-step-content">
-                        <strong>압축 모드 및 품질 선택</strong>
-                        <p>스마트 권장 압축(WebP)을 사용하면 화질 손실 없이 파일 크기를 80~90% 절감할 수 있습니다.</p>
+                        <strong data-i18n="compress.m_mode_title">압축 모드 및 품질 선택</strong>
+                        <p data-i18n="compress.m_mode_desc">스마트 권장 압축(WebP)을 사용하면 화질 손실 없이 파일 크기를 80~90% 절감할 수 있습니다.</p>
                     </div>
                 </div>
                 <div class="help-step-item">
                     <div class="help-step-num">3</div>
                     <div class="help-step-content">
-                        <strong>일괄 저장 또는 복사</strong>
+                        <strong data-i18n="compress.m_save_title">일괄 저장 또는 복사</strong>
                         <p>개별 이미지를 다운로드하거나 [압축 이미지 일괄 저장]을 눌러 ZIP 파일로 한 번에 다운로드하세요.</p>
                     </div>
                 </div>
                 <div class="help-security-callout">
                     <i data-lucide="shield-check"></i>
                     <div>
-                        <strong>100% 브라우저 로컬 처리</strong><br>
+                        <strong data-i18n="compress.m_local_title">100% 브라우저 로컬 처리</strong><br>
                         모든 압축 처리는 고객님의 PC 브라우저 내부에서만 실행되며, 이미지가 외부 서버로 절대 전송되지 않아 안심하고 사용하실 수 있습니다.
                     </div>
                 </div>

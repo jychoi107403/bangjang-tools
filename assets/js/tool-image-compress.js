@@ -81,7 +81,7 @@ function bindPasteEvents() {
                 const file = items[i].getAsFile();
                 if (file) {
                     e.preventDefault();
-                    await addImageFromFile(file, `캡처_${formatTimestamp(Date.now())}.png`);
+                    await addImageFromFile(file, `${window.i18n.t('compress.default_name', '이미지')}_${formatTimestamp(Date.now())}.png`);
                 }
             }
         }
@@ -99,17 +99,17 @@ function bindPasteEvents() {
                         for (const type of types) {
                             const blob = await item.getType(type);
                             const ext = type.split('/')[1] || 'png';
-                            const file = new File([blob], `붙여넣기_${formatTimestamp(Date.now())}.${ext}`, { type });
+                            const file = new File([blob], `${window.i18n.t('compress.default_name', '이미지')}_${formatTimestamp(Date.now())}.${ext}`, { type });
                             await addImageFromFile(file);
                             found = true;
                         }
                     }
-                    if (!found) alert('클립보드에 복사된 이미지가 없습니다.\nWin + Shift + S로 캡처 후 다시 눌러주세요.');
+                    if (!found) alert(window.i18n.t('compress.msg_no_clipboard', '클립보드에 복사된 이미지가 없습니다.\nWin + Shift + S로 캡처 후 다시 눌러주세요.'));
                 } else {
-                    alert('Ctrl + V 키를 눌러 캡처 이미지를 붙여넣어 주세요.');
+                    alert(window.i18n.t('compress.msg_paste_guide', 'Ctrl + V 키를 눌러 캡처 이미지를 붙여넣어 주세요.'));
                 }
             } catch (err) {
-                alert('Ctrl + V 단축키를 사용하여 화면에 바로 붙여넣어 주세요.');
+                alert(window.i18n.t('compress.msg_paste_direct', 'Ctrl + V 단축키를 사용하여 화면에 바로 붙여넣어 주세요.'));
             }
         });
     }
@@ -132,7 +132,7 @@ function bindFileInputEvents() {
     if (btnClearAll) {
         btnClearAll.addEventListener('click', () => {
             if (images.length === 0) return;
-            if (confirm('등록된 모든 이미지를 목록에서 삭제하시겠습니까?')) {
+            if (confirm(window.i18n.t('compress.msg_confirm_clear', '등록된 모든 이미지를 목록에서 삭제하시겠습니까?'))) {
                 images = [];
                 selectedId = null;
                 updateGalleryUI();
@@ -183,7 +183,7 @@ function bindDragAndDrop() {
  */
 async function addImageFromFile(file, customName = '') {
     if (images.length >= 50) {
-        alert('한 번에 최대 50장까지 추가할 수 있습니다.');
+        alert(window.i18n.t('compress.msg_max_limit', '한 번에 최대 50장까지 추가할 수 있습니다.'));
         return;
     }
 
@@ -192,7 +192,7 @@ async function addImageFromFile(file, customName = '') {
         const img = await loadImage(dataUrl);
 
         const id = 'img_' + Date.now() + '_' + Math.random().toString(36).substring(2, 7);
-        const originalName = customName || file.name || `이미지_${images.length + 1}`;
+        const originalName = customName || file.name || `${window.i18n.t('compress.default_name', '이미지')}_${images.length + 1}`;
 
         // 원본 포맷 감지 (png, jpeg, webp 등)
         let origMime = file.type || 'image/png';
@@ -237,7 +237,7 @@ async function addImageFromFile(file, customName = '') {
         updateGalleryUI();
     } catch (error) {
         console.error('이미지 로드/압축 실패:', error);
-        alert('이미지를 불러오는 중 오류가 발생했습니다.');
+        alert(window.i18n.t('compress.msg_load_err', '이미지를 불러오는 중 오류가 발생했습니다.'));
     }
 }
 
@@ -428,7 +428,7 @@ function updateGalleryUI() {
         if (summaryBar) summaryBar.style.display = 'none';
         if (listContainer) listContainer.style.display = 'none';
         if (compareViewer) compareViewer.style.display = 'none';
-        if (countBadge) countBadge.textContent = '0 / 50장 · 한 장 30MB 이하';
+        if (countBadge) countBadge.textContent = '0 / 50 · ' + window.i18n.t('compress.badge_limit', '장당 30MB 이하');
         return;
     }
 
@@ -440,7 +440,7 @@ function updateGalleryUI() {
     }
     if (compareViewer) compareViewer.style.display = 'flex';
 
-    if (countBadge) countBadge.textContent = `${images.length} / 50장 · 원본 포맷 자동 유지`;
+    if (countBadge) countBadge.textContent = window.i18n.t('compress.badge_status_orig', '{0} / 50장 · 원본 포맷 자동 유지').replace('{0}', images.length);
 
     // 1. 전체 통계 계산 및 표시
     let totalOrigBytes = 0;
@@ -459,7 +459,7 @@ function updateGalleryUI() {
 
     if (summaryOrig) summaryOrig.textContent = formatBytes(totalOrigBytes);
     if (summaryComp) summaryComp.textContent = formatBytes(totalCompBytes);
-    if (summarySavings) summarySavings.textContent = `${formatBytes(totalSavedBytes)} 절약 (-${totalSavingsPercent}%)`;
+    if (summarySavings) summarySavings.textContent = window.i18n.t('compress.stat_saving', '{0} 절약 (-{1}%)').replace('{0}', formatBytes(totalSavedBytes)).replace('{1}', totalSavingsPercent);
 
     // 2. 스크린샷과 100% 동일한 리스트 아이템 렌더링
     listContainer.innerHTML = '';
@@ -660,7 +660,7 @@ function bindActionButtons() {
     if (btnSaveAllZip) {
         btnSaveAllZip.addEventListener('click', async () => {
             if (images.length === 0) {
-                alert('압축할 이미지를 먼저 추가해 주세요.');
+                alert(window.i18n.t('compress.msg_need_add', '압축할 이미지를 먼저 추가해 주세요.'));
                 return;
             }
 
@@ -670,13 +670,13 @@ function bindActionButtons() {
             }
 
             if (typeof JSZip === 'undefined') {
-                alert('ZIP 압축 라이브러리를 불러오는 중입니다. 잠시 후 다시 시도해 주세요.');
+                alert(window.i18n.t('compress.msg_zip_loading', 'ZIP 압축 라이브러리를 불러오는 중입니다. 잠시 후 다시 시도해 주세요.'));
                 return;
             }
 
             btnSaveAllZip.disabled = true;
             const originalText = btnSaveAllZip.innerHTML;
-            btnSaveAllZip.innerHTML = `<i data-lucide="loader-2" class="spin"></i> <span>ZIP 압축 생성 중...</span>`;
+            btnSaveAllZip.innerHTML = `<i data-lucide="loader-2" class="spin"></i> <span>${window.i18n.t('compress.msg_zip_creating', 'ZIP 파일 생성 중...')}</span>`;
             if (window.lucide) window.lucide.createIcons();
 
             try {
@@ -695,7 +695,7 @@ function bindActionButtons() {
                 downloadBlob(content, `방장_용량압축_${formatDateForFilename(new Date())}.zip`);
             } catch (err) {
                 console.error('ZIP 생성 실패:', err);
-                alert('ZIP 파일 생성 중 오류가 발생했습니다.');
+                alert(window.i18n.t('compress.msg_zip_err', 'ZIP 파일 생성 중 오류가 발생했습니다.'));
             } finally {
                 btnSaveAllZip.disabled = false;
                 btnSaveAllZip.innerHTML = originalText;
@@ -710,7 +710,7 @@ function bindActionButtons() {
         btnCopyClipboard.addEventListener('click', async () => {
             const selectedItem = images.find(img => img.id === selectedId) || images[0];
             if (!selectedItem) {
-                alert('복사할 이미지를 선택해 주세요.');
+                alert(window.i18n.t('compress.msg_need_select', '복사할 이미지를 선택해 주세요.'));
                 return;
             }
 
@@ -727,14 +727,14 @@ function bindActionButtons() {
                         await navigator.clipboard.write([
                             new ClipboardItem({ 'image/png': blob })
                         ]);
-                        alert('압축된 이미지가 클립보드에 복사되었습니다!\n원하는 곳에 Ctrl+V로 붙여넣으세요.');
+                        alert(window.i18n.t('compress.msg_copy_success', '압축된 이미지가 클립보드에 복사되었습니다.\n원하는 곳에 Ctrl+V로 붙여넣으세요.'));
                     }, 'image/png');
                 } else {
-                    alert('현재 브라우저 환경에서는 클립보드 이미지 직접 복사를 지원하지 않습니다.');
+                    alert(window.i18n.t('compress.msg_copy_unsupported', '현재 브라우저 환경에서는 클립보드 이미지 직접 복사를 지원하지 않습니다.'));
                 }
             } catch (err) {
                 console.error('클립보드 복사 실패:', err);
-                alert('클립보드 복사에 실패했습니다. [저장] 버튼을 이용해 주세요.');
+                alert(window.i18n.t('compress.msg_copy_err', '클립보드 복사에 실패했습니다. [다운로드] 버튼을 사용해 주세요.'));
             }
         });
     }
