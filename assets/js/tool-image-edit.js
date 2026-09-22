@@ -95,7 +95,8 @@ function bindPasteEvents() {
                 const file = items[i].getAsFile();
                 if (file) {
                     e.preventDefault();
-                    await addImageFromFile(file, `캡처_${Date.now()}`);
+                    const imgName = window.i18n ? window.i18n.t('edit.default_img_name') : '이미지';
+                    await addImageFromFile(file, `${imgName}_${Date.now()}`);
                 }
             }
         }
@@ -112,17 +113,18 @@ function bindPasteEvents() {
                         const types = item.types.filter(t => t.startsWith('image/'));
                         for (const type of types) {
                             const blob = await item.getType(type);
-                            const file = new File([blob], `붙여넣기_${Date.now()}.${type.split('/')[1] || 'png'}`, { type });
+                            const imgName = window.i18n ? window.i18n.t('edit.default_img_name') : '이미지';
+                            const file = new File([blob], `${imgName}_${Date.now()}.${type.split('/')[1] || 'png'}`, { type });
                             await addImageFromFile(file);
                             found = true;
                         }
                     }
-                    if (!found) alert('클립보드에 복사된 이미지가 없습니다.\nWin + Shift + S로 캡처 후 다시 눌러주세요.');
+                    if (!found) alert(window.i18n ? window.i18n.t('edit.msg_no_clip') : '클립보드에 복사된 이미지가 없습니다.\\nWin + Shift + S로 캡처 후 다시 눌러주세요.');
                 } else {
-                    alert('Ctrl + V 키를 눌러 캡처 이미지를 붙여넣어 주세요.');
+                    alert(window.i18n ? window.i18n.t('edit.msg_paste_guide') : 'Ctrl + V 키를 눌러 캡처 이미지를 붙여넣어 주세요.');
                 }
             } catch (err) {
-                alert('Ctrl + V 단축키를 사용하여 화면에 바로 붙여넣어 주세요.');
+                alert(window.i18n ? window.i18n.t('edit.msg_paste_direct') : 'Ctrl + V 단축키를 사용하여 화면에 바로 붙여넣어 주세요.');
             }
         });
     }
@@ -144,7 +146,8 @@ function bindFileInputEvents() {
     if (btnClearAll) {
         btnClearAll.addEventListener('click', () => {
             if (images.length === 0) return;
-            if (confirm('등록된 모든 이미지를 삭제하시겠습니까?')) {
+            const msg = window.i18n ? window.i18n.t('edit.msg_confirm_clear') : '등록된 모든 이미지를 삭제하시겠습니까?';
+            if (confirm(msg)) {
                 images = [];
                 selectedId = null;
                 updateGalleryUI();
@@ -185,11 +188,12 @@ function bindDragAndDrop() {
 /** 이미지 파일 등록 */
 async function addImageFromFile(file, customName = '') {
     if (images.length >= 30) {
-        alert('최대 30장까지만 추가할 수 있습니다.');
+        alert(window.i18n ? window.i18n.t('edit.msg_limit_exceeded') : '최대 30장까지만 추가할 수 있습니다.');
         return;
     }
     if (file.size > 25 * 1024 * 1024) {
-        alert(`'${file.name}' 파일이 25MB를 초과하여 추가할 수 없습니다.`);
+        const msg = window.i18n ? window.i18n.t('edit.msg_file_too_large').replace('{0}', file.name) : `'${file.name}' 파일이 25MB를 초과하여 추가할 수 없습니다.`;
+        alert(msg);
         return;
     }
 
@@ -257,7 +261,10 @@ function updateGalleryUI() {
     const imageGrid = document.getElementById('image-grid');
     const badge = document.getElementById('image-count-badge');
 
-    if (badge) badge.textContent = `${images.length} / 30장 · 한 장 25MB 이하`;
+    if (badge) {
+        const text = window.i18n ? window.i18n.t('edit.badge_status').replace('{0}', images.length).replace('{1}', 30 - images.length) : `${images.length} / 30장 · 한 장 25MB 이하`;
+        badge.textContent = text;
+    }
 
     if (images.length === 0) {
         if (emptyState) emptyState.style.display = 'block';
@@ -284,8 +291,8 @@ function updateGalleryUI() {
                     <div class="card-title" title="${item.name}">${index + 1}. ${item.name}</div>
                     <div class="card-resolution" id="res-${item.id}">${getResolutionString(item)}</div>
                     <div class="card-btn-row">
-                        <button class="btn-card-action btn-edit" title="정밀 편집">편집</button>
-                        <button class="btn-card-action btn-del" title="삭제">삭제</button>
+                        <button class="btn-card-action btn-edit" title="${window.i18n ? window.i18n.t('edit.card_edit') : '정밀 편집'}" data-i18n-title="edit.card_edit">${window.i18n ? window.i18n.t('edit.card_edit') : '편집'}</button>
+                        <button class="btn-card-action btn-del" title="${window.i18n ? window.i18n.t('edit.card_del') : '삭제'}" data-i18n-title="edit.card_del">${window.i18n ? window.i18n.t('edit.card_del') : '삭제'}</button>
                     </div>
                 </div>
             `;
@@ -478,7 +485,11 @@ function bindSidebarSettings() {
         chkHeightFit.addEventListener('change', (e) => {
             isHeightFit = e.target.checked;
             if (heightSubtext) {
-                heightSubtext.textContent = isHeightFit ? `모든 사진 세로 ${targetHeightPx}px 자동 맞춤` : '크기 변경 없음 · 사진별 편집 크기 유지';
+                if (isHeightFit) {
+            heightSubtext.textContent = window.i18n ? window.i18n.t('edit.height_status_on').replace('{0}', targetHeightPx) : `모든 사진 세로 ${targetHeightPx}px 자동 맞춤`;
+        } else {
+            heightSubtext.textContent = window.i18n ? window.i18n.t('edit.height_status_off') : '크기 변경 없음 · 사진별 편집 크기 유지';
+        }
             }
             updateAllCardResolutions();
         });
@@ -488,7 +499,7 @@ function bindSidebarSettings() {
         inputHeightFit.addEventListener('input', (e) => {
             targetHeightPx = parseInt(e.target.value, 10) || 800;
             if (isHeightFit && heightSubtext) {
-                heightSubtext.textContent = `모든 사진 세로 ${targetHeightPx}px 자동 맞춤`;
+                heightSubtext.textContent = window.i18n ? window.i18n.t('edit.height_status_on').replace('{0}', targetHeightPx) : `모든 사진 세로 ${targetHeightPx}px 자동 맞춤`;
             }
             updateAllCardResolutions();
         });
@@ -563,7 +574,7 @@ function bindSidebarSettings() {
                 if (wmImageGroup) wmImageGroup.style.display = 'none';
                 if (wmDelBtnGroup) wmDelBtnGroup.style.display = 'none';
                 if (wmTextGroup) wmTextGroup.style.display = 'block';
-                if (wmSizeLabel) wmSizeLabel.textContent = '글자 크기 기준 너비 · px';
+                if (wmSizeLabel) wmSizeLabel.textContent = window.i18n ? window.i18n.t('edit.wm_size_text') : '글꼴 크기 기호 너비 · px';
                 // 텍스트 선택 시 자동으로 워터마크 체크 활성화
                 useWatermark = true;
                 if (chkWatermark) chkWatermark.checked = true;
@@ -571,7 +582,7 @@ function bindSidebarSettings() {
                 if (wmImageGroup) wmImageGroup.style.display = 'block';
                 if (wmDelBtnGroup) wmDelBtnGroup.style.display = 'block';
                 if (wmTextGroup) wmTextGroup.style.display = 'none';
-                if (wmSizeLabel) wmSizeLabel.textContent = '로고 너비 · 출력 px';
+                if (wmSizeLabel) wmSizeLabel.textContent = window.i18n ? window.i18n.t('edit.wm_size_img') : '로고 너비 · 출력 px';
                 if (watermarkImg) {
                     useWatermark = true;
                     if (chkWatermark) chkWatermark.checked = true;
@@ -620,7 +631,7 @@ function bindSidebarSettings() {
         btnDeleteLogo.addEventListener('click', () => {
             watermarkImg = null;
             if (wmFileInput) wmFileInput.value = '';
-            if (wmFileLabel) wmFileLabel.textContent = '선택된 파일 없음';
+            if (wmFileLabel) wmFileLabel.textContent = window.i18n ? window.i18n.t('edit.wm_file_none') : '선택된 파일 없음';
             triggerPreviewUpdate();
         });
     }
@@ -731,7 +742,7 @@ function calculateWatermarkCoordinates(imgW, imgH, wmW, wmH, margin, posKey) {
 /** 일괄 이미지 다운로드 (EXIF 메타데이터 제거) */
 async function exportImages() {
     if (images.length === 0) {
-        alert('저장할 이미지를 먼저 등록해주세요.');
+        alert(window.i18n ? window.i18n.t('edit.msg_need_add') : '저장할 이미지를 먼저 등록해주세요.');
         return;
     }
 
@@ -739,7 +750,7 @@ async function exportImages() {
     const origHTML = btnSave ? btnSave.innerHTML : '';
     if (btnSave) {
         btnSave.disabled = true;
-        btnSave.innerHTML = `<i data-lucide="loader" class="spin-icon"></i> <span>이미지 처리 중...</span>`;
+        btnSave.innerHTML = `<i data-lucide="loader" class="spin-icon"></i> <span>${window.i18n ? window.i18n.t('edit.msg_processing') : '이미지 처리 중...'}</span>`;
         if (window.lucide) window.lucide.createIcons();
     }
 
@@ -855,7 +866,7 @@ async function exportImages() {
 
     } catch (err) {
         console.error('저장 오류:', err);
-        alert('저장 중 오류가 발생했습니다: ' + err.message);
+        alert(window.i18n ? window.i18n.t('edit.msg_save_err').replace('{0}', err.message) : '저장 중 오류가 발생했습니다: ' + err.message);
     } finally {
         if (btnSave) {
             btnSave.disabled = false;
@@ -907,7 +918,7 @@ function bindModalEditor() {
     // [원본 복원]
     if (btnReset) {
         btnReset.addEventListener('click', () => {
-            if (modalTargetItem && confirm('모든 편집을 취소하고 원본 이미지로 복원하시겠습니까?')) {
+            if (modalTargetItem && confirm(window.i18n ? window.i18n.t('edit.msg_confirm_reset') : '모든 편집을 취소하고 원본 이미지로 복원하시겠습니까?')) {
                 const origImg = modalTargetItem.originalImg;
                 modalCanvas.width = origImg.naturalWidth;
                 modalCanvas.height = origImg.naturalHeight;
@@ -1196,8 +1207,8 @@ function bindModalCanvasDrawing() {
         }
 
         if (activeModalTool === 'text') {
-            const textInput = prompt('삽입할 텍스트를 입력하세요:');
-            if (textInput) {
+            const textInput = prompt(window.i18n ? window.i18n.t('edit.msg_prompt_text') : '삽입할 텍스트를 입력하세요:');
+            if (textInput && textInput.trim()) {
                 modalCtx.font = `bold ${objectFontSize}px Pretendard, sans-serif`;
                 modalCtx.fillStyle = objectColor;
                 modalCtx.fillText(textInput, modalDrawStart.x, modalDrawStart.y);
@@ -1334,7 +1345,7 @@ function hideModalCropBox() {
 
 function applyModalCrop() {
     if (!modalCanvas || !modalCropRect || modalCropRect.w <= 5 || modalCropRect.h <= 5) {
-        alert('캔버스에서 자를 영역을 마우스로 드래그하여 지정해주세요.');
+        alert(window.i18n ? window.i18n.t('edit.msg_crop_warn') : '캔버스에서 자를 영역을 마우스로 드래그하여 지정해주세요.');
         return;
     }
 
