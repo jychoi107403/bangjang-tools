@@ -617,6 +617,17 @@ const I18N_DICTIONARY = {
         "compress.stat_saving": "{0} Saved (-{1}%)",
         "compress.stat_none": "0 KB Saved (0%)",
         "compress.default_name": "Image"
+            // Batch Rename
+            'batch.apply_compress': '이미지 압축 적용 (저장 시 자동 변환)',
+            'batch.compress_format': '출력 포맷 (WebP 권장)',
+            'batch.compress_quality': '압축 품질',
+            'batch.msg_no_files': '저장할 파일이 없습니다. 먼저 파일을 추가해주세요.',
+            'batch.msg_loading_zip': 'ZIP 압축 라이브러리를 로드하는 중입니다. 잠시 후 다시 시도해주세요.',
+            'batch.msg_zipping': 'ZIP 압축 중...',
+            'batch.msg_compressing': '이미지 압축 중...',
+            'batch.msg_save_success': '총 {0}개 파일이 \'{1}\'(으)로 저장되었습니다.',
+            'batch.msg_save_err': 'ZIP 압축 다운로드 중 오류가 발생했습니다: {0}',
+            'batch.default_common': '상품이미지',
     }
 };
 

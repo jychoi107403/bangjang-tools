@@ -10,7 +10,7 @@
  * 5. JSZip 라이브러리를 활용한 원본 파일 무손실 일괄 ZIP 압축 다운로드
  */
 
-import { downloadBlob } from './utils.js';
+import { downloadBlob, canvasToBlob, readFileAsDataURL, loadImage } from './utils.js';
 
 // ----------------------------------------------------------------------------
 // 1. 모듈 내부 상태 변수
@@ -31,6 +31,11 @@ let btnSortByName = null;
 let tableBody = null;
 let emptyRow = null;
 let btnSaveZip = null;
+let chkApplyCompress = null;
+let compressOptionsBox = null;
+let selCompressFormat = null;
+let rangeCompressQuality = null;
+let valCompressQuality = null;
 let noticeMsg = null;
 
 /**
@@ -56,6 +61,11 @@ function init() {
     tableBody = document.getElementById('rename-table-body');
     emptyRow = document.getElementById('rename-empty-row');
     btnSaveZip = document.getElementById('btn-save-zip');
+    chkApplyCompress = document.getElementById('chk-apply-compress');
+    compressOptionsBox = document.getElementById('rename-compress-options');
+    selCompressFormat = document.getElementById('select-compress-format');
+    rangeCompressQuality = document.getElementById('range-compress-quality');
+    valCompressQuality = document.getElementById('val-compress-quality');
     noticeMsg = document.getElementById('action-notice-msg');
 
     // 이벤트 리스너 바인딩
@@ -222,6 +232,27 @@ function bindOptionInputs() {
             updateTableRowsOnly();
         });
     });
+
+    if (chkApplyCompress) {
+        chkApplyCompress.addEventListener('change', (e) => {
+            if (compressOptionsBox) {
+                compressOptionsBox.style.display = e.target.checked ? 'grid' : 'none';
+            }
+            updateTableRowsOnly();
+        });
+    }
+
+    if (selCompressFormat) {
+        selCompressFormat.addEventListener('change', () => {
+            updateTableRowsOnly();
+        });
+    }
+
+    if (rangeCompressQuality) {
+        rangeCompressQuality.addEventListener('input', (e) => {
+            if (valCompressQuality) valCompressQuality.textContent = e.target.value;
+        });
+    }
 }
 
 function bindSortAndClear() {
@@ -279,8 +310,16 @@ function updateStatusBadge() {
 /**
  * 변경 후 파일명 계산 로직
  */
-function calculateNewFilename(index, ext) {
-    const commonName = inputCommonName ? (inputCommonName.value.trim() || '상품이미지') : '상품이미지';
+function calculateNewFilename(index, originalExt, isImage = false) {
+    let ext = originalExt;
+    if (chkApplyCompress && chkApplyCompress.checked && isImage) {
+        const format = selCompressFormat ? selCompressFormat.value : 'webp';
+        if (format === 'webp') ext = 'webp';
+        else if (format === 'jpeg') ext = 'jpg';
+        else if (format === 'png') ext = 'png';
+    }
+
+    const commonName = inputCommonName ? (inputCommonName.value.trim() || (window.i18n ? window.i18n.t('batch.default_common', '상품이미지') : '상품이미지')) : (window.i18n ? window.i18n.t('batch.default_common', '상품이미지') : '상품이미지');
     const startNum = inputStartNum ? (parseInt(inputStartNum.value, 10) || 1) : 1;
     const digitCount = inputDigitCount ? Math.max(1, Math.min(10, parseInt(inputDigitCount.value, 10) || 3)) : 3;
 
@@ -311,7 +350,8 @@ function renderTable() {
     }
 
     filesList.forEach((item, index) => {
-        const newFilename = calculateNewFilename(index, item.ext);
+        const isImg = item.file && item.file.type.startsWith('image/');
+        const newFilename = calculateNewFilename(index, item.ext, isImg);
         const tr = document.createElement('tr');
 
         tr.innerHTML = `
@@ -367,7 +407,8 @@ function updateTableRowsOnly() {
     filesList.forEach((item, index) => {
         const el = document.getElementById(`renamed-name-${item.id}`);
         if (el) {
-            el.textContent = calculateNewFilename(index, item.ext);
+            const isImg = item.file && item.file.type.startsWith('image/');
+            el.textContent = calculateNewFilename(index, item.ext, isImg);
         }
     });
 }
@@ -403,42 +444,82 @@ function bindZipDownload() {
 
     btnSaveZip.addEventListener('click', async () => {
         if (filesList.length === 0) {
-            alert('저장할 파일이 없습니다. 먼저 파일을 추가해주세요.');
+            alert(window.i18n ? window.i18n.t('batch.msg_no_files', '저장할 파일이 없습니다. 먼저 파일을 추가해주세요.') : '저장할 파일이 없습니다. 먼저 파일을 추가해주세요.');
             return;
         }
 
         if (!window.JSZip) {
-            alert('ZIP 압축 라이브러리를 로드하는 중입니다. 잠시 후 다시 시도해주세요.');
+            alert(window.i18n ? window.i18n.t('batch.msg_loading_zip', 'ZIP 압축 라이브러리를 로드하는 중입니다. 잠시 후 다시 시도해주세요.') : 'ZIP 압축 라이브러리를 로드하는 중입니다. 잠시 후 다시 시도해주세요.');
             return;
         }
 
         const originalBtnHtml = btnSaveZip.innerHTML;
         btnSaveZip.disabled = true;
-        btnSaveZip.innerHTML = `<i data-lucide="loader-2" class="spin-icon"></i> <span>ZIP 압축 중...</span>`;
+        btnSaveZip.innerHTML = `<i data-lucide="loader-2" class="spin-icon"></i> <span>${window.i18n ? window.i18n.t('batch.msg_zipping', 'ZIP 압축 중...') : 'ZIP 압축 중...'}</span>`;
         if (window.lucide) window.lucide.createIcons();
 
         try {
             const zip = new window.JSZip();
+            const isCompressEnabled = chkApplyCompress && chkApplyCompress.checked;
+            const targetFormat = selCompressFormat ? selCompressFormat.value : 'webp';
+            const targetQuality = rangeCompressQuality ? parseInt(rangeCompressQuality.value, 10) / 100 : 0.8;
 
             // 변경된 이름으로 파일들을 ZIP에 추가
             for (let i = 0; i < filesList.length; i++) {
                 const item = filesList[i];
-                const newName = calculateNewFilename(i, item.ext);
-                zip.file(newName, item.file);
+                let finalFile = item.file;
+                const isImg = item.file.type.startsWith('image/');
+                
+                if (isCompressEnabled && isImg) {
+                    btnSaveZip.innerHTML = `<i data-lucide="loader-2" class="spin-icon"></i> <span>${i+1}/${filesList.length} ${window.i18n ? window.i18n.t('batch.msg_compressing', '이미지 압축 중...') : '이미지 압축 중...'}</span>`;
+                    
+                    try {
+                        const dataUrl = await readFileAsDataURL(item.file);
+                        const img = await loadImage(dataUrl);
+                        
+                        const canvas = document.createElement('canvas');
+                        canvas.width = img.naturalWidth || img.width;
+                        canvas.height = img.naturalHeight || img.height;
+                        const ctx = canvas.getContext('2d');
+                        
+                        let mimeType = item.file.type;
+                        if (targetFormat === 'webp') mimeType = 'image/webp';
+                        else if (targetFormat === 'jpeg') mimeType = 'image/jpeg';
+                        else if (targetFormat === 'png') mimeType = 'image/png';
+                        
+                        if (mimeType === 'image/jpeg') {
+                            ctx.fillStyle = '#ffffff';
+                            ctx.fillRect(0, 0, canvas.width, canvas.height);
+                        }
+                        ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+                        
+                        finalFile = await canvasToBlob(canvas, mimeType, targetQuality);
+                    } catch (e) {
+                        console.error('이미지 압축 실패:', e);
+                        // 실패 시 원본 파일 사용
+                    }
+                }
+                
+                const newName = calculateNewFilename(i, item.ext, isImg);
+                zip.file(newName, finalFile);
             }
+
+            btnSaveZip.innerHTML = `<i data-lucide="loader-2" class="spin-icon"></i> <span>${window.i18n ? window.i18n.t('batch.msg_zipping', 'ZIP 압축 중...') : 'ZIP 압축 중...'}</span>`;
 
             // ZIP 생성
             const zipBlob = await zip.generateAsync({ type: 'blob' });
-            const commonName = inputCommonName ? (inputCommonName.value.trim() || '파일명_일괄변경') : '파일명_일괄변경';
+            const commonName = inputCommonName ? (inputCommonName.value.trim() || (window.i18n ? window.i18n.t('batch.default_common', '파일명_일괄변경') : '파일명_일괄변경')) : '파일명_일괄변경';
             const zipFilename = `${commonName}_일괄저장.zip`;
 
             downloadBlob(zipBlob, zipFilename);
 
-            showNoticeMessage(`총 ${filesList.length}개 파일이 '${zipFilename}'으로 저장되었습니다.`);
+            const msg = window.i18n ? window.i18n.t('batch.msg_save_success').replace('{0}', filesList.length).replace('{1}', zipFilename) : `총 ${filesList.length}개 파일이 '${zipFilename}'으로 저장되었습니다.`;
+            showNoticeMessage(msg);
 
         } catch (err) {
             console.error('ZIP 저장 오류:', err);
-            alert('ZIP 압축 다운로드 중 오류가 발생했습니다: ' + err.message);
+            const errMsg = window.i18n ? window.i18n.t('batch.msg_save_err').replace('{0}', err.message) : 'ZIP 압축 다운로드 중 오류가 발생했습니다: ' + err.message;
+            alert(errMsg);
         } finally {
             btnSaveZip.disabled = false;
             btnSaveZip.innerHTML = originalBtnHtml;

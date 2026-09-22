@@ -391,3 +391,21 @@
     }
 }
 
+
+/* 3-1. 이미지 압축 옵션 */
+.tool-batch-rename .rename-compress-wrapper {
+    margin-top: 4px;
+    margin-bottom: 4px;
+}
+
+.tool-batch-rename .checkbox-label {
+    cursor: pointer;
+    font-size: 14px;
+    color: var(--text-primary);
+}
+
+.tool-batch-rename .checkbox-label input[type="checkbox"] {
+    width: 16px;
+    height: 16px;
+    accent-color: var(--primary-color);
+}

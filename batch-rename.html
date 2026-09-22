@@ -431,6 +431,29 @@
                     </div>
                 </div>
 
+                <!-- 3-1. 이미지 용량 줄이기 압축 옵션 -->
+                <div class="rename-compress-wrapper">
+                    <label class="checkbox-label" style="margin-bottom: 12px; display: inline-flex; align-items: center; gap: 8px;">
+                        <input type="checkbox" id="chk-apply-compress">
+                        <strong data-i18n="batch.apply_compress">이미지 압축 적용 (저장 시 자동 변환)</strong>
+                    </label>
+                    <div id="rename-compress-options" class="rename-compress-options" style="display: none; grid-template-columns: 1fr 1fr; gap: 16px; background: var(--bg-secondary); padding: 16px; border-radius: var(--radius-md);">
+                        <div class="option-col">
+                            <label class="option-label" data-i18n="batch.compress_format">출력 포맷 (WebP 권장)</label>
+                            <select id="select-compress-format" class="rename-input">
+                                <option value="webp" selected data-i18n="compress.fmt_webp">WebP (차세대 초고효율 포맷 일괄 변환)</option>
+                                <option value="jpeg" data-i18n="compress.fmt_jpeg">JPEG (표준 사진 형식 일괄 변환)</option>
+                                <option value="png" data-i18n="compress.fmt_png">PNG (투명도 유지 포맷 일괄 변환)</option>
+                                <option value="original" data-i18n="compress.fmt_orig">원본 포맷 유지 (PNG는 PNG, JPG는 JPG)</option>
+                            </select>
+                        </div>
+                        <div class="option-col">
+                            <label class="option-label" data-i18n="batch.compress_quality">압축 품질: <span id="val-compress-quality" style="color:var(--primary-color);">80</span>%</label>
+                            <input type="range" id="range-compress-quality" class="form-range" min="10" max="100" value="80" style="margin-top: 10px;">
+                        </div>
+                    </div>
+                </div>
+
                 <!-- 4. 통계 및 정렬 바 -->
                 <div class="rename-sub-bar">
                     <span class="sub-info-text">최대 2,000개 · 합계 300MB 이하</span>
