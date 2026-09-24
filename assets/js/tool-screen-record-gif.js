@@ -213,7 +213,7 @@ class ScreenRecordToGifTool {
             this.mediaStream = await navigator.mediaDevices.getDisplayMedia({
                 video: {
                     cursor: "always",
-                    displaySurface: "monitor"
+                    displaySurface: "browser"
                 },
                 audio: false
             });
