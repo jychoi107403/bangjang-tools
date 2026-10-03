@@ -596,6 +596,9 @@ function renderInlineDetailedReport(images) {
 
         row.innerHTML = `
             <div class="col-cell col-images">
+                <div class="inline-preview-thumb">
+                    <img src="${img.previewSrc || img.url || 'assets/images/og-thumbnail.png'}" alt="thumb" class="detailed-thumb-img" referrerpolicy="no-referrer">
+                </div>
                 <a href="javascript:void(0);" class="img-resource-link" title="클릭하여 이미지 미리보기 확인">
                     ${img.name}
                 </a>

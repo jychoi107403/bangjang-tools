@@ -61,7 +61,11 @@ export function init() {
 }
 
 // DOM 로드 시 자동 실행
-document.addEventListener('DOMContentLoaded', init);
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', init);
+} else {
+    init();
+}
 
 // ----------------------------------------------------------------------------
 // 3. 이미지 입력 이벤트 (붙여넣기, 파일 선택, 드래그앤드롭)
@@ -120,7 +124,7 @@ function bindFileInputEvents() {
     const fileInput = document.getElementById('file-input');
     if (fileInput) {
         fileInput.addEventListener('change', async (e) => {
-            const files = Array.from(e.target.files).filter(f => f.type.startsWith('image/'));
+            const files = Array.from(e.target.files).filter(f => f.type.startsWith('image/') || /\\.(jpg|jpeg|png|webp|gif|bmp)$/i.test(f.name));
             for (const file of files) {
                 await addImageFromFile(file);
             }
@@ -163,7 +167,7 @@ function bindDragAndDrop() {
     });
 
     dropZone.addEventListener('drop', async (e) => {
-        const files = Array.from(e.dataTransfer.files).filter(f => f.type.startsWith('image/'));
+        const files = Array.from(e.dataTransfer.files).filter(f => f.type.startsWith('image/') || /\\.(jpg|jpeg|png|webp|gif|bmp)$/i.test(f.name));
         if (files.length === 0) return;
 
         for (const file of files) {
@@ -337,6 +341,12 @@ async function compressSingleItem(item, loadedImg = null) {
         if (reducedBlob.size < blob.size) {
             blob = reducedBlob;
         }
+    }
+
+    // 최종적으로 압축 용량이 원본보다 크거나 같으면 원본 파일을 그대로 사용 (PNG 포함)
+    if (blob.size >= item.origSize) {
+        blob = item.origFile;
+        mimeType = item.origType;
     }
 
     // 6. 결과 정보 기록
