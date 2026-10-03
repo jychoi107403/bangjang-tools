@@ -481,10 +481,10 @@ function updateGalleryUI() {
 
         const isSavingsPositive = item.savingsPercent > 0;
         const savingsText = isSavingsPositive 
-            ? `-${Math.round(item.savingsPercent)}%` 
-            : `${Math.round(item.savingsPercent)}%`;
+            ? `-${Math.round(item.savingsPercent || 0)}%` 
+            : `${Math.round(item.savingsPercent || 0)}%`;
         
-        const badgeLabel = item.formatExt.toUpperCase();
+        const badgeLabel = (item.formatExt || item.targetMime?.split('/')[1] || 'PNG').toUpperCase();
 
         row.innerHTML = `
             <!-- 1. 좌측 썸네일 박스 -->
@@ -562,23 +562,27 @@ function updateGalleryUI() {
 
 /** 하단 원본 vs 압축본 비교 뷰어 갱신 */
 function updateCompareViewer() {
-    const selectedItem = images.find(img => img.id === selectedId) || images[0];
-    if (!selectedItem) return;
+    try {
+        const selectedItem = images.find(img => img.id === selectedId) || images[0];
+        if (!selectedItem) return;
 
-    const imgOrig = document.getElementById('compare-img-orig');
-    const imgComp = document.getElementById('compare-img-comp');
-    const metaOrig = document.getElementById('compare-meta-orig');
-    const metaComp = document.getElementById('compare-meta-comp');
+        const imgOrig = document.getElementById('compare-img-orig');
+        const imgComp = document.getElementById('compare-img-comp');
+        const metaOrig = document.getElementById('compare-meta-orig');
+        const metaComp = document.getElementById('compare-meta-comp');
 
-    if (imgOrig) imgOrig.src = selectedItem.origSrc;
-    if (imgComp) imgComp.src = selectedItem.compressedSrc || selectedItem.origSrc;
+        if (imgOrig) imgOrig.src = selectedItem.origSrc || '';
+        if (imgComp) imgComp.src = selectedItem.compressedSrc || selectedItem.origSrc || '';
 
-    if (metaOrig) {
-        metaOrig.textContent = `${formatBytes(selectedItem.origSize)} · ${selectedItem.origWidth}×${selectedItem.origHeight}px`;
-    }
-    if (metaComp) {
-        const ext = selectedItem.formatExt.toUpperCase();
-        metaComp.textContent = `${formatBytes(selectedItem.compressedSize)} (-${Math.round(selectedItem.savingsPercent)}%) · ${ext} · ${selectedItem.compressedWidth}×${selectedItem.compressedHeight}px`;
+        if (metaOrig) {
+            metaOrig.textContent = `${formatBytes(selectedItem.origSize)} · ${selectedItem.origWidth || 0}×${selectedItem.origHeight || 0}px`;
+        }
+        if (metaComp) {
+            const ext = (selectedItem.formatExt || selectedItem.targetMime?.split('/')[1] || 'PNG').toUpperCase();
+            metaComp.textContent = `${formatBytes(selectedItem.compressedSize)} (-${Math.round(selectedItem.savingsPercent || 0)}%) · ${ext} · ${selectedItem.compressedWidth || 0}×${selectedItem.compressedHeight || 0}px`;
+        }
+    } catch (err) {
+        console.error('updateCompareViewer error:', err);
     }
 }
 
