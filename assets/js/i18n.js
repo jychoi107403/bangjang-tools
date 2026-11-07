@@ -323,7 +323,46 @@ const I18N_DICTIONARY = {
         "batch.msg_compressing": "이미지 압축 중...",
         "batch.msg_save_success": "총 {0}개 파일이 '{1}'(으)로 저장되었습니다.",
         "batch.msg_save_err": "ZIP 압축 다운로드 중 오류가 발생했습니다: {0}",
-        "batch.default_common": "상품이미지"
+        "batch.default_common": "상품이미지",
+
+        // 영상 구간 → GIF (video-trim-gif)
+        "vtrim.btn_select_video": "동영상 선택",
+        "vtrim.btn_change_video": "다른 영상 선택",
+        "vtrim.btn_loop_preview": "선택 구간 반복 재생",
+        "vtrim.btn_create_gif": "선택 구간 GIF 만들기",
+        "vtrim.empty_title": "구간을 자를 동영상을 끌어다 놓으세요",
+        "vtrim.empty_desc": "MP4, WebM, MOV 영상을 업로드하면 원하는 시작·종료 구간만 정밀하게 잘라 고화질 GIF로 변환합니다.",
+        "vtrim.label_start": "시작 시간 (초)",
+        "vtrim.label_end": "종료 시간 (초)",
+        "vtrim.btn_set_cur_start": "현재 위치를 시작점으로",
+        "vtrim.btn_set_cur_end": "현재 위치를 종료점으로",
+        "vtrim.label_fps": "초당 프레임 수 (FPS)",
+        "vtrim.label_width": "출력 가로 해상도",
+        "vtrim.label_speed": "재생 배속",
+        "vtrim.result_title": "완성된 GIF 미리보기",
+        "vtrim.btn_download": "GIF 파일 다운로드",
+
+        // 영상 → GIF (video-to-gif)
+        "v2gif.empty_title": "GIF로 변환할 동영상을 끌어다 놓으세요",
+        "v2gif.empty_desc": "MP4, MOV, WebM 영상을 넣으면 블로그·웹사이트에 최적화된 용량과 해상도로 GIF를 자동 생성합니다.",
+        "v2gif.btn_select": "동영상 파일 선택",
+        "v2gif.btn_sample": "샘플 영상으로 원클릭 변환 체험",
+        "v2gif.btn_convert": "지금 GIF로 고속 변환하기",
+        "v2gif.preset_label": "용량·화질 최적화 프리셋",
+        "v2gif.max_len_label": "최대 변환 길이 제한",
+        "v2gif.orig_video": "원본 동영상",
+        "v2gif.converted_gif": "변환된 GIF 움짤",
+        "v2gif.btn_download": "최적화 GIF 다운로드",
+
+        // PDF → Word (pdf-to-word)
+        "pdf2word.empty_title": "워드(DOCX)로 변환할 PDF 문서를 끌어다 놓으세요",
+        "pdf2word.empty_desc": "기밀 계약서나 공문서도 외부 서버 전송 없이 브라우저 내부에서 문단·제목 구조를 분석하여 MS Word(.docx) 파일로 안전하게 변환합니다.",
+        "pdf2word.btn_select": "PDF 문서 선택",
+        "pdf2word.btn_sample": "샘플 PDF로 즉시 변환 체험",
+        "pdf2word.btn_download_docx": "Word (.docx) 파일 다운로드",
+        "pdf2word.btn_download_txt": "텍스트 (.txt) 다운로드",
+        "pdf2word.btn_copy_text": "추출 본문 복사",
+        "pdf2word.preview_title": "변환된 문서 내용 미리보기 (직접 수정 가능)"
     },
     en: {
         // 브랜드 및 공통
@@ -640,7 +679,46 @@ const I18N_DICTIONARY = {
         "batch.msg_compressing": "Compressing images...",
         "batch.msg_save_success": "Saved {0} files as '{1}'.",
         "batch.msg_save_err": "Error while downloading ZIP: {0}",
-        "batch.default_common": "product_image"
+        "batch.default_common": "product_image",
+
+        // Video Trim to GIF (video-trim-gif)
+        "vtrim.btn_select_video": "Select Video",
+        "vtrim.btn_change_video": "Change Video",
+        "vtrim.btn_loop_preview": "Loop Selected Range",
+        "vtrim.btn_create_gif": "Create GIF from Range",
+        "vtrim.empty_title": "Drag & Drop a Video to Trim",
+        "vtrim.empty_desc": "Upload MP4, WebM, or MOV video and trim the exact start/end range into a high-quality animated GIF.",
+        "vtrim.label_start": "Start Time (sec)",
+        "vtrim.label_end": "End Time (sec)",
+        "vtrim.btn_set_cur_start": "Set Current as Start",
+        "vtrim.btn_set_cur_end": "Set Current as End",
+        "vtrim.label_fps": "Frame Rate (FPS)",
+        "vtrim.label_width": "Output Width",
+        "vtrim.label_speed": "Playback Speed",
+        "vtrim.result_title": "Generated GIF Preview",
+        "vtrim.btn_download": "Download GIF",
+
+        // Video to GIF (video-to-gif)
+        "v2gif.empty_title": "Drag & Drop a Video to Convert to GIF",
+        "v2gif.empty_desc": "Upload MP4, MOV, or WebM videos to automatically generate web-optimized animated GIFs.",
+        "v2gif.btn_select": "Select Video File",
+        "v2gif.btn_sample": "Try with Sample Video",
+        "v2gif.btn_convert": "Convert to GIF Now",
+        "v2gif.preset_label": "Optimization Preset",
+        "v2gif.max_len_label": "Max Duration Limit",
+        "v2gif.orig_video": "Original Video",
+        "v2gif.converted_gif": "Converted Animated GIF",
+        "v2gif.btn_download": "Download Optimized GIF",
+
+        // PDF to Word (pdf-to-word)
+        "pdf2word.empty_title": "Drag & Drop a PDF Document to Convert to Word",
+        "pdf2word.empty_desc": "Convert confidential PDFs into editable Microsoft Word (.docx) files 100% locally in your browser without server uploads.",
+        "pdf2word.btn_select": "Select PDF File",
+        "pdf2word.btn_sample": "Try with Sample PDF",
+        "pdf2word.btn_download_docx": "Download Word (.docx)",
+        "pdf2word.btn_download_txt": "Download Text (.txt)",
+        "pdf2word.btn_copy_text": "Copy Extracted Text",
+        "pdf2word.preview_title": "Converted Document Preview (Editable)"
     }
 };
 

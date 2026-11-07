@@ -66,47 +66,167 @@
     
     <!-- Lucide Icons -->
     <script src="https://unpkg.com/lucide@latest"></script>
+    <!-- PDF.js & JSZip (100% 브라우저 로컬 PDF 파싱 및 OpenXML DOCX 패키징) -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+    <script>
+        if (window.pdfjsLib) {
+            window.pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+        }
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
     
     <!-- 공통 CSS -->
     <link rel="stylesheet" href="assets/css/global.css?v=20260913_v3">
     <style>
-        .coming-soon-card {
+        .pdf2word-drop-zone {
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            padding: 80px 20px;
+            padding: 68px 24px;
             text-align: center;
             background: #ffffff;
             border-radius: var(--radius-lg);
-            border: 1px dashed var(--border-color);
+            border: 2px dashed var(--border-color);
+            transition: all 0.2s ease;
+            cursor: pointer;
         }
-        .coming-soon-badge {
-            display: inline-block;
+        .pdf2word-drop-zone.drag-over,
+        .pdf2word-drop-zone:hover {
+            border-color: var(--primary-color);
+            background: #faf5ff;
+        }
+        .pdf2word-drop-icon {
+            width: 64px;
+            height: 64px;
+            border-radius: 18px;
             background: var(--primary-light);
             color: var(--primary-color);
-            font-size: 13px;
-            font-weight: 700;
-            padding: 6px 14px;
-            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             margin-bottom: 16px;
         }
-        .coming-soon-title {
-            font-size: 20px;
+        .pdf2word-drop-title {
+            font-size: 18px;
             font-weight: 800;
             color: var(--text-primary);
-            margin-bottom: 10px;
+            margin-bottom: 8px;
         }
-        .coming-soon-desc {
-            font-size: 14px;
+        .pdf2word-drop-desc {
+            font-size: 13.5px;
             color: var(--text-muted);
             max-width: 500px;
             line-height: 1.6;
+            margin-bottom: 20px;
+        }
+        .pdf2word-drop-actions {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        .pdf2word-progress-box {
+            display: none;
+            background: #faf5ff;
+            border: 1px solid #d8b4fe;
+            border-radius: 12px;
+            padding: 24px;
+            text-align: center;
+        }
+        .pdf2word-progress-track {
+            width: 100%;
+            max-width: 360px;
+            height: 10px;
+            background: #e9d5ff;
+            border-radius: 999px;
+            overflow: hidden;
+            margin: 12px auto 0;
+        }
+        .pdf2word-progress-bar {
+            height: 100%;
+            width: 0%;
+            background: var(--primary-color);
+            transition: width 0.2s ease;
+        }
+        .pdf2word-result-section {
+            display: none;
+            flex-direction: column;
+            gap: 14px;
+        }
+        .pdf2word-toolbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: #f8fafc;
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 12px 16px;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        .pdf2word-doc-meta {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+        .pdf2word-doc-title {
+            font-size: 14px;
+            font-weight: 800;
+            color: var(--text-primary);
+        }
+        .pdf2word-doc-stats {
+            font-size: 12px;
+            font-weight: 700;
+            color: var(--primary-color);
+            background: var(--primary-light);
+            padding: 4px 10px;
+            border-radius: 20px;
+        }
+        .pdf2word-action-group {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+        .pdf2word-editor-card {
+            background: #ffffff;
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 16px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        .pdf2word-editor-label {
+            font-size: 13px;
+            font-weight: 700;
+            color: var(--text-muted);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .pdf2word-preview-editor {
+            width: 100%;
+            min-height: 360px;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 16px;
+            font-family: 'Pretendard', sans-serif;
+            font-size: 14px;
+            line-height: 1.75;
+            color: var(--text-primary);
+            resize: vertical;
+            outline: none;
+        }
+        .pdf2word-preview-editor:focus {
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.12);
         }
     </style>
 </head>
 <body>
-    <!-- 최상단 브랜드 네비게이션 헤더 & 상단 GNB 드롭다운 (보였다 안보였다 메뉴) -->
+    <!-- 최상단 브랜드 네비게이션 헤더 & 상단 GNB 드롭다운 -->
     <header class="global-navbar">
         <div class="navbar-left">
             <a href="index.html" class="brand-container">
@@ -119,7 +239,6 @@
 
             <!-- 상단 카테고리 GNB 드롭다운 메뉴 -->
             <nav class="gnb-menu">
-                <!-- 1. 이미지 도구 드롭다운 -->
                 <div class="gnb-dropdown-item" data-category="image">
                     <button class="gnb-tab-btn" type="button">
                         <i data-lucide="image" style="width: 16px; height: 16px;"></i>
@@ -185,13 +304,13 @@
                             <li>
                                 <a href="video-trim-gif.html" class="gnb-sublink">
                                     <div class="gnb-sublink-left"><i data-lucide="play-square"></i><span data-i18n="tool.video_trim_gif">영상 구간 → GIF</span></div>
-                                    <span class="gnb-badge new" data-i18n="badge.coming_soon">오픈예정</span>
+                                    <span class="gnb-badge hot">NEW</span>
                                 </a>
                             </li>
                             <li>
                                 <a href="video-to-gif.html" class="gnb-sublink">
                                     <div class="gnb-sublink-left"><i data-lucide="film"></i><span data-i18n="tool.video_to_gif">영상 → GIF</span></div>
-                                    <span class="gnb-badge new" data-i18n="badge.coming_soon">오픈예정</span>
+                                    <span class="gnb-badge hot">NEW</span>
                                 </a>
                             </li>
                             <li>
@@ -221,7 +340,7 @@
                             <li>
                                 <a href="pdf-to-word.html" class="gnb-sublink active">
                                     <div class="gnb-sublink-left"><i data-lucide="file-type-2"></i><span data-i18n="tool.pdf_to_word">PDF → Word</span></div>
-                                    <span class="gnb-badge new" data-i18n="badge.coming_soon">오픈예정</span>
+                                    <span class="gnb-badge hot">NEW</span>
                                 </a>
                             </li>
                         </ul>
@@ -251,7 +370,6 @@
         </div>
 
         <div class="navbar-right">
-            <!-- 다국어 언어 전환 토글 버튼 (KO / EN) -->
             <div class="lang-switcher-wrap" aria-label="Language Selector">
                 <button class="lang-btn active" data-lang="ko" type="button">KO</button>
                 <button class="lang-btn" data-lang="en" type="button">EN</button>
@@ -304,7 +422,6 @@
                     </ul>
                 </div>
 
-                <!-- 섹션 4: 웹사이트 분석 -->
                 <div class="nav-group">
                     <div class="nav-group-title" data-i18n="nav.site_tools">웹사이트 분석</div>
                     <ul class="nav-list">
@@ -331,17 +448,22 @@
 
         <!-- 중앙 메인 작업 영역 -->
         <main class="main-content tool-pdf-to-word">
-            <!-- 상단 1줄 콤팩트 툴바 (작업 공간 100% 확보) -->
+            <!-- 상단 1줄 콤팩트 툴바 -->
             <header class="tool-compact-header">
                 <div class="tool-compact-left">
                     <a href="index.html" class="tool-back-link" title="모든 도구 목록으로"><i data-lucide="chevron-left"></i></a>
                     <div class="tool-compact-badge-icon"><i data-lucide="file-type-2"></i></div>
                     <div class="tool-compact-title-wrap">
-                        <h1 class="tool-compact-title">PDF → Word</h1>
+                        <h1 class="tool-compact-title" data-i18n="tool.pdf_to_word">PDF → Word</h1>
                         <span class="tool-security-tag"><i data-lucide="shield-check"></i> 공문서 보안 로컬 변환</span>
                     </div>
                 </div>
                 <div class="tool-compact-right">
+                    <input type="file" id="pdf2word-file-input" accept="application/pdf,.pdf" style="display: none;">
+                    <button class="btn-secondary" id="btn-pdf2word-change" type="button" style="display: none; height: 34px; font-size: 13px;">
+                        <i data-lucide="folder-open" style="width: 15px; height: 15px;"></i>
+                        <span>다른 PDF 선택</span>
+                    </button>
                     <button class="btn-help-trigger" id="btn-help-trigger" title="사용 방법 및 안내">
                         <i data-lucide="help-circle"></i>
                         <span>도움말</span>
@@ -350,15 +472,66 @@
             </header>
 
             <section class="workspace-card">
-                <div class="coming-soon-card">
-                    <div class="coming-soon-badge">오픈 예정 기능</div>
-                    <div class="empty-state-icon" style="margin-bottom: 20px;">
-                        <i data-lucide="file-type-2" style="width: 48px; height: 48px; color: var(--primary-color);"></i>
+                <!-- 1. 초기 드래그 앤 드롭 업로드 영역 -->
+                <div class="pdf2word-drop-zone" id="pdf2word-drop-zone">
+                    <div class="pdf2word-drop-icon">
+                        <i data-lucide="file-type-2" style="width: 32px; height: 32px;"></i>
                     </div>
-                    <h2 class="coming-soon-title">고성능 무손실 PDF 워드 변환기</h2>
-                    <p class="coming-soon-desc">
-                        표 깨짐 없이 한국어 문서를 완벽하게 인식하는 로컬 PDF 변환 엔진이 곧 탑재됩니다.
+                    <h2 class="pdf2word-drop-title" data-i18n="pdf2word.empty_title">워드(DOCX)로 변환할 PDF 문서를 끌어다 놓으세요</h2>
+                    <p class="pdf2word-drop-desc" data-i18n="pdf2word.empty_desc">
+                        기밀 계약서나 공문서도 외부 서버 전송 없이 브라우저 내부에서 문단·제목 구조를 분석하여 MS Word(.docx) 파일로 안전하게 변환합니다.
                     </p>
+                    <div class="pdf2word-drop-actions">
+                        <button class="btn-primary" id="btn-pdf2word-select" type="button">
+                            <i data-lucide="upload"></i>
+                            <span data-i18n="pdf2word.btn_select">PDF 문서 선택</span>
+                        </button>
+                        <button class="btn-secondary" id="btn-pdf2word-sample" type="button">
+                            <i data-lucide="file-check-2"></i>
+                            <span data-i18n="pdf2word.btn_sample">샘플 PDF로 즉시 변환 체험</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- 2. 분석 프로그레스 박스 -->
+                <div class="pdf2word-progress-box" id="pdf2word-progress-box">
+                    <strong id="pdf2word-progress-text" style="font-size: 14px; color: var(--primary-color);">PDF 문서 구조 분석 중...</strong>
+                    <div class="pdf2word-progress-track">
+                        <div class="pdf2word-progress-bar" id="pdf2word-progress-bar"></div>
+                    </div>
+                </div>
+
+                <!-- 3. 변환 결과 미리보기 및 편집 워크스페이스 -->
+                <div class="pdf2word-result-section" id="pdf2word-result-section">
+                    <div class="pdf2word-toolbar">
+                        <div class="pdf2word-doc-meta">
+                            <i data-lucide="file-text" style="width: 18px; height: 18px; color: var(--primary-color);"></i>
+                            <span class="pdf2word-doc-title" id="pdf2word-doc-title">document.pdf</span>
+                            <span class="pdf2word-doc-stats" id="pdf2word-doc-stats">총 1페이지 · 0자</span>
+                        </div>
+                        <div class="pdf2word-action-group">
+                            <button class="btn-secondary" id="btn-pdf2word-copy" type="button" style="height: 36px; font-size: 13px;">
+                                <i data-lucide="copy" style="width: 14px; height: 14px;"></i>
+                                <span data-i18n="pdf2word.btn_copy_text">추출 본문 복사</span>
+                            </button>
+                            <button class="btn-secondary" id="btn-pdf2word-download-txt" type="button" style="height: 36px; font-size: 13px;">
+                                <i data-lucide="file-down" style="width: 14px; height: 14px;"></i>
+                                <span data-i18n="pdf2word.btn_download_txt">텍스트 (.txt) 다운로드</span>
+                            </button>
+                            <button class="btn-primary" id="btn-pdf2word-download-docx" type="button" style="height: 36px; font-size: 13px;">
+                                <i data-lucide="download" style="width: 15px; height: 15px;"></i>
+                                <span data-i18n="pdf2word.btn_download_docx">Word (.docx) 파일 다운로드</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="pdf2word-editor-card">
+                        <div class="pdf2word-editor-label">
+                            <span data-i18n="pdf2word.preview_title">변환된 문서 내용 미리보기 (직접 수정 가능)</span>
+                            <span style="font-size: 12px; color: var(--primary-color);">💡 내용을 수정한 뒤 다운로드하면 수정본 그대로 Word(.docx)에 반영됩니다.</span>
+                        </div>
+                        <textarea id="pdf2word-preview-editor" class="pdf2word-preview-editor" spellcheck="false"></textarea>
+                    </div>
                 </div>
             </section>
         </main>
@@ -370,9 +543,44 @@
                 <div class="setting-group">
                     <label class="setting-label">출력 문서 포맷</label>
                     <select class="form-select">
-                        <option value="docx" selected>Microsoft Word (.docx)</option>
+                        <option value="docx" selected>Microsoft Word (.docx 표준)</option>
                     </select>
                 </div>
+
+                <div class="setting-group">
+                    <label class="setting-label">기본 워드 글꼴(Font)</label>
+                    <select class="form-select" id="pdf2word-select-font">
+                        <option value="맑은 고딕" selected>맑은 고딕 (Malgun Gothic · 표준)</option>
+                        <option value="바탕">바탕체 (공문서·명조 스타일)</option>
+                        <option value="돋움">돋움체 (깔끔한 고딕)</option>
+                        <option value="Arial">Arial (영문 문서 권장)</option>
+                    </select>
+                </div>
+
+                <div class="setting-group">
+                    <label class="setting-label">페이지 구분 방식</label>
+                    <select class="form-select" id="pdf2word-select-pagebreak">
+                        <option value="line" selected>페이지 번호 구분선 삽입</option>
+                        <option value="break">실제 Word 페이지 나누기 적용</option>
+                    </select>
+                </div>
+
+                <div class="setting-group">
+                    <label style="display: flex; align-items: center; gap: 8px; font-size: 13px; font-weight: 600; cursor: pointer;">
+                        <input type="checkbox" id="pdf2word-check-heading" checked style="width: 16px; height: 16px; accent-color: var(--primary-color);">
+                        <span>대제목·번호 제목 자동 굵게 강조</span>
+                    </label>
+                </div>
+
+                <div class="setting-group">
+                    <label class="setting-label">저장 파일명</label>
+                    <input type="text" id="pdf2word-input-filename" class="form-input" value="방장_변환문서" placeholder="저장할 파일명 입력">
+                </div>
+
+                <button class="btn-primary" id="btn-pdf2word-download-sidebar" type="button" style="width: 100%; justify-content: center; height: 44px; font-size: 14px; margin-bottom: 16px;">
+                    <i data-lucide="download"></i>
+                    <span data-i18n="pdf2word.btn_download_docx">Word (.docx) 파일 다운로드</span>
+                </button>
 
                 <!-- 애드센스 반응형 사이드바 광고 슬롯 (300x250 직사각형) -->
                 <div class="adsense-slot-container adsense-sidebar-slot">
@@ -386,7 +594,7 @@
         </aside>
     </div>
 
-    <!-- 도움말 및 사용 안내 모달 팝업 (기본 숨김) -->
+    <!-- 도움말 및 사용 안내 모달 팝업 -->
     <div class="help-modal-backdrop" id="help-modal" style="display: none;">
         <div class="help-modal-card">
             <div class="help-modal-header">
@@ -401,21 +609,21 @@
                     <div class="help-step-num">1</div>
                     <div class="help-step-text">
                         <strong>PDF 문서 선택</strong>
-                        <p>변환할 PDF 문서를 업로드 영역에 끌어다 놓습니다.</p>
+                        <p>변환할 PDF 문서를 업로드 영역에 끌어다 놓거나 샘플 PDF로 즉시 테스트합니다.</p>
                     </div>
                 </div>
                 <div class="help-step-item">
                     <div class="help-step-num">2</div>
                     <div class="help-step-text">
-                        <strong>레이아웃 무손실 분석</strong>
-                        <p>표, 서식, 이미지 배치를 그대로 유지하며 편집 가능한 Word(DOCX) 구조로 변환합니다.</p>
+                        <strong>내용 미리보기 및 실시간 편집</strong>
+                        <p>페이지별로 추출된 텍스트와 문단을 확인하고 필요한 경우 화면에서 바로 오탈자를 수정합니다.</p>
                     </div>
                 </div>
                 <div class="help-step-item">
                     <div class="help-step-num">3</div>
                     <div class="help-step-text">
                         <strong>DOCX 파일 다운로드</strong>
-                        <p>변환된 워드 문서를 즉시 다운로드하여 MS Word나 한글에서 바로 편집하세요.</p>
+                        <p>변환된 워드(.docx) 문서를 즉시 다운로드하여 MS Word, 한컴오피스, 구글 문서에서 바로 편집하세요.</p>
                     </div>
                 </div>
                 <div class="help-security-callout">
@@ -432,7 +640,7 @@
         </div>
     </div>
 
-    <!-- 글로벌 푸터 (애드센스 승인 필수 링크 & 보안 안내) -->
+    <!-- 글로벌 푸터 -->
     <footer class="global-footer">
         <div class="footer-inner">
             <div class="footer-top">
@@ -456,7 +664,7 @@
         </div>
     </footer>
 
-    <!-- 개인정보처리방침 & 이용약관 팝업 모달 (기본 숨김) -->
+    <!-- 개인정보처리방침 & 이용약관 팝업 모달 -->
     <div class="legal-modal-backdrop" id="legal-modal" style="display: none;">
         <div class="legal-modal-card">
             <div class="legal-modal-header">
@@ -470,9 +678,10 @@
         </div>
     </div>
 
-    <!-- 다국어 번역 엔진 및 전역 네비게이션 스크립트 (캐시 방지 버전 파라미터 적용) -->
+    <!-- 다국어 번역 엔진 및 전역 네비게이션 스크립트 -->
     <script src="assets/js/i18n.js?v=20260913_v3"></script>
     <script src="assets/js/global-nav.js?v=20260913_v3"></script>
+    <script src="assets/js/tool-pdf-to-word.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             if (window.lucide) window.lucide.createIcons();
