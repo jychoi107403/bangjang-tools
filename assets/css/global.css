@@ -390,16 +390,18 @@ body {
    ========================================================================== */
 .app-container {
     display: grid;
-    grid-template-columns: 1fr 320px; /* 좌측 사이드바가 상단 GNB로 이동하여 메인 작업 영역이 100% 꽉 참! */
+    grid-template-columns: minmax(0, 1fr) 340px; /* 좌측 메인 작업 영역(1fr) + 우측 설정 사이드바(340px) */
     min-height: calc(100vh - 60px);
     background-color: var(--bg-app);
     width: 100%;
+    align-items: start;
 }
 
-/* 우측 사이드바가 없는 페이지 (index.html 등) */
+/* 우측 사이드바가 없는 페이지 (index.html, batch-rename.html, site-audit.html 등) */
 .app-container.two-column-layout,
-.app-container.full-width {
-    grid-template-columns: 1fr;
+.app-container.full-width,
+.app-container:not(:has(.settings-sidebar)) {
+    grid-template-columns: minmax(0, 1fr);
 }
 
 /* ==========================================================================
@@ -407,6 +409,11 @@ body {
    ========================================================================== */
 .sidebar {
     display: none; /* 데스크톱에서는 상단 GNB 드롭다운으로 대체 */
+    flex-direction: column;
+    background-color: #ffffff;
+    border-right: 1px solid var(--border-color);
+    padding: 16px;
+    overflow-y: auto;
 }
 
 
@@ -1101,7 +1108,10 @@ body {
 /* ==========================================================================
    5. 공통 버튼 & 폼 컨트롤
    ========================================================================== */
-.btn {
+.btn,
+.btn-primary,
+.btn-secondary,
+.btn-outline {
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -1291,33 +1301,57 @@ body {
 .w-full { width: 100%; }
 
 /* ==========================================================================
-   6. 전역 반응형 미디어 쿼리 (태블릿 & 스마트폰 완벽 대응)
+   6. 전역 반응형 미디어 쿼리 (노트북 · 태블릿 · 스마트폰 3단계 완벽 대응)
    ========================================================================== */
 
-/* 태블릿 가로 및 소형 데스크톱 (1025px ~ 1200px) */
+/* 2단계: 소형 노트북 및 축소 창 (961px ~ 1200px) - 좌측 메인(1fr) + 우측 설정(300px) 2단 유지 */
 @media (max-width: 1200px) {
     .app-container {
-        grid-template-columns: 210px 1fr 290px;
+        grid-template-columns: minmax(0, 1fr) 300px;
+    }
+    .app-container.two-column-layout,
+    .app-container.full-width,
+    .app-container:not(:has(.settings-sidebar)) {
+        grid-template-columns: minmax(0, 1fr);
+    }
+    .navbar-left {
+        gap: 18px;
+    }
+    .gnb-tab-btn {
+        padding: 0 11px;
+        font-size: 13.5px;
     }
     .main-content {
-        padding: 20px 24px;
+        padding: 16px 20px;
     }
 }
 
-/* 태블릿 세로 (769px ~ 1024px) */
-@media (max-width: 1024px) {
+/* 3단계: 태블릿 및 반창 모드 (960px 이하) - 상단 메인(100%) + 하단 설정(100%) 수직 1단 배치 */
+@media (max-width: 960px) {
+    .global-navbar {
+        padding: 0 16px;
+    }
+    .navbar-left {
+        gap: 12px;
+    }
+    .gnb-tab-btn {
+        padding: 0 8px;
+        font-size: 13px;
+    }
+    .btn-nav-home {
+        padding: 6px 10px;
+        font-size: 12.5px;
+    }
     .app-container {
         display: flex;
-        flex-direction: row;
+        flex-direction: column;
+        width: 100%;
         min-height: calc(100vh - 60px);
     }
-    .sidebar {
-        width: 210px;
-        flex-shrink: 0;
-    }
     .main-content {
-        flex: 1;
-        padding: 20px 20px;
+        width: 100%;
+        flex: none;
+        padding: 16px 18px;
     }
     .settings-sidebar {
         width: 100%;
@@ -1325,7 +1359,10 @@ body {
         height: auto;
         border-left: none;
         border-top: 1px solid var(--border-color);
-        margin-top: 24px;
+        margin-top: 8px;
+    }
+    .settings-scroll-area {
+        overflow-y: visible;
     }
 }
 

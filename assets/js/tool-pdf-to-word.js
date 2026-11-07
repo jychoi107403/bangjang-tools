@@ -477,3 +477,4 @@ startxref
 document.addEventListener('DOMContentLoaded', () => {
     window.pdfToWordTool = new PdfToWordTool();
 });
+

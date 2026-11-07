@@ -45,14 +45,16 @@
 }
 
 /* 우측 설정 사이드바 내 인라인 헤더 */
-.tool-image-split .setting-header-inline {
+.tool-image-split .setting-header-inline,
+.settings-sidebar .setting-header-inline {
     display: flex;
     justify-content: space-between;
     align-items: center;
     margin-bottom: 6px;
 }
 
-.tool-image-split .btn-link-sm {
+.tool-image-split .btn-link-sm,
+.settings-sidebar .btn-link-sm {
     background: none;
     border: none;
     color: var(--primary-color);
@@ -63,17 +65,20 @@
     padding: 0;
 }
 
-.tool-image-split .btn-link-sm:hover {
+.tool-image-split .btn-link-sm:hover,
+.settings-sidebar .btn-link-sm:hover {
     color: var(--primary-hover);
 }
 
-.tool-image-split .form-check-row {
+.tool-image-split .form-check-row,
+.settings-sidebar .form-check-row {
     display: flex;
     justify-content: space-between;
     align-items: center;
 }
 
-.tool-image-split .form-check-label {
+.tool-image-split .form-check-label,
+.settings-sidebar .form-check-label {
     display: flex;
     align-items: center;
     gap: 6px;

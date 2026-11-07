@@ -236,14 +236,16 @@
 /* --------------------------------------------------------------------------
    3. 우측 [압축 설정] 사이드바 세부 요소
    -------------------------------------------------------------------------- */
-.tool-image-compress .setting-mode-grid {
+.tool-image-compress .setting-mode-grid,
+.settings-sidebar .setting-mode-grid {
     display: grid;
     grid-template-columns: 1fr;
     gap: 8px;
     margin-bottom: 14px;
 }
 
-.tool-image-compress .mode-btn {
+.tool-image-compress .mode-btn,
+.settings-sidebar .mode-btn {
     display: flex;
     align-items: center;
     gap: 8px;
@@ -257,21 +259,25 @@
     cursor: pointer;
     text-align: left;
     transition: all 0.15s ease;
+    font-family: inherit;
 }
 
-.tool-image-compress .mode-btn:hover {
+.tool-image-compress .mode-btn:hover,
+.settings-sidebar .mode-btn:hover {
     border-color: #8b5cf6;
     background: #f5f3ff;
 }
 
-.tool-image-compress .mode-btn.active {
+.tool-image-compress .mode-btn.active,
+.settings-sidebar .mode-btn.active {
     border-color: #8b5cf6;
     background: #f5f3ff;
     color: #7c3aed;
     font-weight: 700;
 }
 
-.tool-image-compress .quality-badge {
+.tool-image-compress .quality-badge,
+.settings-sidebar .quality-badge {
     display: inline-block;
     padding: 2px 7px;
     background: #8b5cf6;
@@ -282,11 +288,22 @@
     margin-left: auto;
 }
 
-.tool-image-compress .setting-header-row {
+.tool-image-compress .setting-header-row,
+.settings-sidebar .setting-header-row {
     display: flex;
     align-items: center;
     justify-content: space-between;
     margin-bottom: 6px;
+}
+
+.settings-sidebar .radio-label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--text-secondary);
+    cursor: pointer;
 }
 
 /* --------------------------------------------------------------------------

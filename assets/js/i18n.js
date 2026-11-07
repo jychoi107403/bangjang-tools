@@ -246,7 +246,7 @@ const I18N_DICTIONARY = {
         "compress.summary_orig": "총 원본 용량",
         "compress.summary_comp": "압축 후 용량",
         "compress.summary_saving": "총 절감 효과",
-        "compress.empty_title": "이미지를 여기에 드래그하거나 <strong>Ctrl + V</strong>로 붙여넣으세요.",
+        "compress.empty_title": "이미지를 여기에 드래그하거나 Ctrl + V로 붙여넣으세요.",
         "compress.empty_desc": "상단의 [붙여넣기] 또는 [파일 추가]도 사용할 수 있습니다.",
         "compress.compare_title": "실시간 화질 및 용량 비교 (선택한 이미지)",
         "compress.compare_orig": "원본",
@@ -254,9 +254,9 @@ const I18N_DICTIONARY = {
         "compress.btn_download_zip": "압축 이미지 일괄 저장 (ZIP)",
         "compress.btn_copy": "선택 이미지 복사",
         "compress.help_sec_title": "이렇게 사용하세요",
-        "compress.help_li_1": "<strong>Win+Shift+S</strong>로 캡처한 뒤 이 화면에서 <strong>Ctrl+V</strong>로 바로 붙여넣으세요. 파일 추가 및 드래그앤드롭도 지원합니다.",
-        "compress.help_li_2": "우측 [압축 설정]에서 <strong>[스마트 권장 압축]</strong> 또는 원하는 <strong>품질/해상도/포맷</strong>을 지정하면 실시간으로 용량이 절감됩니다.",
-        "compress.help_li_3": "[압축 이미지 일괄 저장]을 누르면 모든 사진이 압축된 <strong>ZIP 파일</strong>로 즉시 다운로드됩니다.",
+        "compress.help_li_1": "Win+Shift+S로 캡처한 뒤 이 화면에서 Ctrl+V로 바로 붙여넣으세요. 파일 추가 및 드래그앤드롭도 지원합니다.",
+        "compress.help_li_2": "우측 [압축 설정]에서 [스마트 권장 압축] 또는 원하는 품질/해상도/포맷을 지정하면 실시간으로 용량이 절감됩니다.",
+        "compress.help_li_3": "[압축 이미지 일괄 저장]을 누르면 모든 사진이 압축된 ZIP 파일로 즉시 다운로드됩니다.",
         "compress.help_notice": "저장 시 개인정보 및 촬영 위치가 포함된 EXIF 메타데이터를 100% 자동 제거하여 안전하게 보호합니다.",
         "compress.set_header": "압축 설정",
         "compress.set_mode": "압축 모드",
@@ -602,7 +602,7 @@ const I18N_DICTIONARY = {
         "compress.summary_orig": "Total Original Size",
         "compress.summary_comp": "Total Compressed Size",
         "compress.summary_saving": "Total Savings",
-        "compress.empty_title": "Drag images here or paste with <strong>Ctrl + V</strong>.",
+        "compress.empty_title": "Drag images here or paste with Ctrl + V.",
         "compress.empty_desc": "You can also use [Paste] or [Add Files] above.",
         "compress.compare_title": "Real-time Quality & Size Comparison (Selected Image)",
         "compress.compare_orig": "Original",
@@ -610,9 +610,9 @@ const I18N_DICTIONARY = {
         "compress.btn_download_zip": "Download All (ZIP)",
         "compress.btn_copy": "Copy Selected",
         "compress.help_sec_title": "How to Use!",
-        "compress.help_li_1": "Capture with <strong>Win+Shift+S</strong> and paste directly here with <strong>Ctrl+V</strong>. Adding files and drag & drop are also supported.",
-        "compress.help_li_2": "Select <strong>[Smart Compression]</strong> or custom <strong>Quality/Resolution Format</strong> on the right to reduce size in real-time.",
-        "compress.help_li_3": "Click [Download All (ZIP)] to instantly download all compressed photos as a <strong>ZIP file</strong>.",
+        "compress.help_li_1": "Capture with Win+Shift+S and paste directly here with Ctrl+V. Adding files and drag & drop are also supported.",
+        "compress.help_li_2": "Select [Smart Compression] or custom Quality/Resolution Format on the right to reduce size in real-time.",
+        "compress.help_li_3": "Click [Download All (ZIP)] to instantly download all compressed photos as a ZIP file.",
         "compress.help_notice": "❗ Safely protects privacy by automatically removing 100% of EXIF metadata including location data.",
         "compress.set_header": "Compression Settings",
         "compress.set_mode": "Compression Mode",
@@ -786,11 +786,18 @@ class I18nManager {
     applyTranslations() {
         const dict = I18N_DICTIONARY[this.currentLang] || I18N_DICTIONARY.ko;
         
-        // 1. data-i18n 일반 텍스트
+        // 1. data-i18n 일반 텍스트 (내부 아이콘 <i data-lucide> 또는 <svg> 보존)
         document.querySelectorAll('[data-i18n]').forEach(el => {
             const key = el.getAttribute('data-i18n');
             if (dict[key]) {
-                el.textContent = dict[key];
+                const iconEl = el.querySelector(':scope > i[data-lucide], :scope > svg.lucide');
+                if (iconEl) {
+                    const clonedIcon = iconEl.cloneNode(true);
+                    el.textContent = ' ' + dict[key];
+                    el.insertBefore(clonedIcon, el.firstChild);
+                } else {
+                    el.textContent = dict[key];
+                }
             }
         });
 
@@ -809,6 +816,11 @@ class I18nManager {
                 el.title = dict[key];
             }
         });
+
+        // 4. Lucide 아이콘 렌더링 보장
+        if (window.lucide && typeof window.lucide.createIcons === 'function') {
+            window.lucide.createIcons();
+        }
     }
 
     /**
