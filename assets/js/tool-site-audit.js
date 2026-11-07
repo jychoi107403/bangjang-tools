@@ -191,7 +191,6 @@ async function fetchPageHtml(url) {
     const proxies = [
         `https://api.allorigins.win/raw?url=${encodeURIComponent(url)}`,
         `https://api.codetabs.com/v1/proxy?quest=${encodeURIComponent(url)}`,
-        `https://thingproxy.freeboard.io/fetch/${url}`,
         `https://corsproxy.io/?${encodeURIComponent(url)}`
     ];
 
