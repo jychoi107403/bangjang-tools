@@ -116,6 +116,14 @@
             "@type": "Answer",
             "text": "아니요. 입력한 글과 키워드는 브라우저 메모리에서만 처리되며 서버로 전송되거나 저장되지 않습니다."
           }
+        },
+        {
+          "@type": "Question",
+          "name": "원문의 문장 내용이 임의로 바뀌거나 삭제되나요?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "아니요. 작성하신 원문 단어는 그대로 보존하면서 읽기 편한 줄바꿈과 해시태그 목록만 깔끔하게 정리해 드립니다."
+          }
         }
       ]
     }
@@ -554,6 +562,64 @@
                     </div>
                 </div>
             </section>
+            <!-- 검색엔진(SEO) 및 사용자용 상세 기능 안내 & 자주 묻는 질문(FAQ) -->
+            <section class="seo-info-section" aria-label="도구 상세 가이드 및 자주 묻는 질문" style="margin-top: 24px; background: #ffffff; border: 1px solid var(--border-color); border-radius: var(--radius-lg); padding: 24px; display: flex; flex-direction: column; gap: 20px;">
+                <div>
+                    <h2 style="font-size: 16px; font-weight: 800; color: var(--text-primary); margin: 0 0 8px 0;">네이버 블로그·티스토리 본문 줄바꿈 서식 정리기 — 모바일 가독성 최적화</h2>
+                    <p style="font-size: 13.5px; color: var(--text-secondary); line-height: 1.7; margin: 0;">방장 용용이 <strong>블로그 본문 정리기</strong>는 PC에서 작성한 긴 글을 스마트폰 화면에서도 한눈에 술술 읽히도록 적정 글자 수에 맞춰 자연스럽게 줄바꿈해 주고, 중앙정렬 미리보기와 해시태그 일괄 정리 및 TXT 백업까지 지원하는 100% 무료 블로거 전용 도구입니다.</p>
+                </div>
+
+                <div>
+                    <h3 style="font-size: 14.5px; font-weight: 700; color: var(--text-primary); margin: 0 0 10px 0;">플랫폼별 추천 줄바꿈 너비 가이드</h3>
+                    <div style="overflow-x: auto;">
+                        <table style="width: 100%; border-collapse: collapse; font-size: 13px; text-align: left;">
+                            <thead>
+                                <tr style="background: var(--bg-secondary); border-bottom: 1px solid var(--border-color);">
+                                    <th style="padding: 9px 12px; font-weight: 700; color: var(--text-primary);">활용 용도</th>
+                                    <th style="padding: 9px 12px; font-weight: 700; color: var(--text-primary);">추천 옵션</th>
+                                    <th style="padding: 9px 12px; font-weight: 700; color: var(--text-primary);">기대 효과</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                    <tr style="border-bottom: 1px solid #f1f5f9;">
+                                        <td style="padding: 9px 12px; color: var(--text-primary); font-weight: 600;">네이버 블로그 (모바일 기준)</td>
+                                        <td style="padding: 9px 12px; color: var(--text-secondary);">줄 너비 22~26자 · 중앙정렬</td>
+                                        <td style="padding: 9px 12px; color: var(--text-secondary);">스마트폰 세로 화면에서 문장이 어색하게 끊기지 않는 황금 비율</td>
+                                    </tr>
+                                    <tr style="border-bottom: 1px solid #f1f5f9;">
+                                        <td style="padding: 9px 12px; color: var(--text-primary); font-weight: 600;">티스토리 · 워드프레스 · 브런치</td>
+                                        <td style="padding: 9px 12px; color: var(--text-secondary);">줄 너비 32~40자 · 좌측정렬</td>
+                                        <td style="padding: 9px 12px; color: var(--text-secondary);">PC와 모바일 모두에서 쾌적한 정보성 포스팅 가독성 확보</td>
+                                    </tr>
+                                    <tr>
+                                        <td style="padding: 9px 12px; color: var(--text-primary); font-weight: 600;">인스타그램 · 스레드(Threads) 캡션</td>
+                                        <td style="padding: 9px 12px; color: var(--text-secondary);">줄 너비 20~24자 + 해시태그</td>
+                                        <td style="padding: 9px 12px; color: var(--text-secondary);">짧은 호흡의 문단 정리와 하단 해시태그 묶음 원클릭 복사</td>
+                                    </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div>
+                    <h3 style="font-size: 14.5px; font-weight: 700; color: var(--text-primary); margin: 0 0 10px 0;">자주 묻는 질문 (FAQ)</h3>
+                    <div style="display: flex; flex-direction: column; gap: 8px;">
+                            <details style="border: 1px solid var(--border-color); border-radius: var(--radius-md); padding: 10px 14px; background: #fafbfc;" open>
+                                <summary style="font-size: 13.5px; font-weight: 700; color: var(--text-primary); cursor: pointer;">네이버 블로그나 티스토리에 붙여넣기 좋은 글자 수로 줄바꿈되나요?</summary>
+                                <p style="font-size: 13px; color: var(--text-secondary); line-height: 1.6; margin: 8px 0 0 0;">네, 모바일 화면에 최적화된 줄 너비(글자 수)를 슬라이더로 조절하며 실시간으로 중앙정렬 미리보기를 확인하고 원클릭 복사할 수 있습니다.</p>
+                            </details>
+                            <details style="border: 1px solid var(--border-color); border-radius: var(--radius-md); padding: 10px 14px; background: #fafbfc;">
+                                <summary style="font-size: 13.5px; font-weight: 700; color: var(--text-primary); cursor: pointer;">작성 중인 블로그 원문이 외부 서버에 저장되나요?</summary>
+                                <p style="font-size: 13px; color: var(--text-secondary); line-height: 1.6; margin: 8px 0 0 0;">아니요. 입력한 글과 키워드는 브라우저 메모리에서만 처리되며 서버로 전송되거나 저장되지 않습니다.</p>
+                            </details>
+                            <details style="border: 1px solid var(--border-color); border-radius: var(--radius-md); padding: 10px 14px; background: #fafbfc;">
+                                <summary style="font-size: 13.5px; font-weight: 700; color: var(--text-primary); cursor: pointer;">원문의 문장 내용이 임의로 바뀌거나 삭제되나요?</summary>
+                                <p style="font-size: 13px; color: var(--text-secondary); line-height: 1.6; margin: 8px 0 0 0;">아니요. 작성하신 원문 단어는 그대로 보존하면서 읽기 편한 줄바꿈과 해시태그 목록만 깔끔하게 정리해 드립니다.</p>
+                            </details>
+                    </div>
+                </div>
+            </section>
+
         </main>
 
         <!-- 우측 설정 사이드바 -->

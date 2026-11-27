@@ -116,6 +116,14 @@
             "@type": "Answer",
             "text": "네, 이미지 파일의 경우 이름 일괄 변경과 함께 용량 압축 및 포맷 정리 옵션을 선택하여 한 번에 처리할 수 있습니다."
           }
+        },
+        {
+          "@type": "Question",
+          "name": "업무용 문서나 개인 파일이 서버로 업로드되나요?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "아니요. 모든 파일명 변경과 ZIP 패키징이 사용자 PC 브라우저 내부에서만 처리되어 보안이 완벽하게 유지됩니다."
+          }
         }
       ]
     }
@@ -576,6 +584,64 @@
                     </div>
                 </div>
             </section>
+            <!-- 검색엔진(SEO) 및 사용자용 상세 기능 안내 & 자주 묻는 질문(FAQ) -->
+            <section class="seo-info-section" aria-label="도구 상세 가이드 및 자주 묻는 질문" style="margin-top: 24px; background: #ffffff; border: 1px solid var(--border-color); border-radius: var(--radius-lg); padding: 24px; display: flex; flex-direction: column; gap: 20px;">
+                <div>
+                    <h2 style="font-size: 16px; font-weight: 800; color: var(--text-primary); margin: 0 0 8px 0;">무료 파일명 일괄 변경기 — 수백 개 사진·문서 이름 한 번에 바꾸기 (ZIP 저장)</h2>
+                    <p style="font-size: 13.5px; color: var(--text-secondary); line-height: 1.7; margin: 0;">방장 용용이 <strong>파일명 일괄 변경기</strong>는 카메라로 찍은 수백 장의 사진(IMG_0001 등)이나 쇼핑몰 상품 이미지, 업무 문서를 접두사·접미사 추가, 특정 글자 치환, 자동 연번(001, 002...) 규칙으로 한 번에 정리하는 100% 브라우저 로컬 무료 도구입니다.</p>
+                </div>
+
+                <div>
+                    <h3 style="font-size: 14.5px; font-weight: 700; color: var(--text-primary); margin: 0 0 10px 0;">실무에서 가장 많이 쓰는 파일명 일괄 변경 패턴</h3>
+                    <div style="overflow-x: auto;">
+                        <table style="width: 100%; border-collapse: collapse; font-size: 13px; text-align: left;">
+                            <thead>
+                                <tr style="background: var(--bg-secondary); border-bottom: 1px solid var(--border-color);">
+                                    <th style="padding: 9px 12px; font-weight: 700; color: var(--text-primary);">활용 용도</th>
+                                    <th style="padding: 9px 12px; font-weight: 700; color: var(--text-primary);">추천 옵션</th>
+                                    <th style="padding: 9px 12px; font-weight: 700; color: var(--text-primary);">기대 효과</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                    <tr style="border-bottom: 1px solid #f1f5f9;">
+                                        <td style="padding: 9px 12px; color: var(--text-primary); font-weight: 600;">쇼핑몰 상품 상세 이미지 정리</td>
+                                        <td style="padding: 9px 12px; color: var(--text-secondary);">접두사 + 3자리 연번</td>
+                                        <td style="padding: 9px 12px; color: var(--text-secondary);">예: `2026_여름원피스_001.jpg`, `002.jpg` 형태로 일괄 정렬</td>
+                                    </tr>
+                                    <tr style="border-bottom: 1px solid #f1f5f9;">
+                                        <td style="padding: 9px 12px; color: var(--text-primary); font-weight: 600;">촬영 날짜별 행사·출장 사진 분류</td>
+                                        <td style="padding: 9px 12px; color: var(--text-secondary);">날짜 접두사 추가</td>
+                                        <td style="padding: 9px 12px; color: var(--text-secondary);">예: `20261127_워크샵_01.jpg` 형태로 한눈에 구분</td>
+                                    </tr>
+                                    <tr>
+                                        <td style="padding: 9px 12px; color: var(--text-primary); font-weight: 600;">웹사이트 업로드용 공백·특수문자 제거</td>
+                                        <td style="padding: 9px 12px; color: var(--text-secondary);">문자열 치환 + 압축 옵션</td>
+                                        <td style="padding: 9px 12px; color: var(--text-secondary);">띄어쓰기를 하이픈(-)으로 바꾸고 이미지 용량 압축까지 동시 처리</td>
+                                    </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div>
+                    <h3 style="font-size: 14.5px; font-weight: 700; color: var(--text-primary); margin: 0 0 10px 0;">자주 묻는 질문 (FAQ)</h3>
+                    <div style="display: flex; flex-direction: column; gap: 8px;">
+                            <details style="border: 1px solid var(--border-color); border-radius: var(--radius-md); padding: 10px 14px; background: #fafbfc;" open>
+                                <summary style="font-size: 13.5px; font-weight: 700; color: var(--text-primary); cursor: pointer;">수백 개의 파일 이름을 한 번에 바꿀 수 있나요?</summary>
+                                <p style="font-size: 13px; color: var(--text-secondary); line-height: 1.6; margin: 8px 0 0 0;">네, 여러 파일을 드래그앤드롭으로 불러온 뒤 원하는 이름 규칙을 미리보기로 확인하고 한 번에 일괄 변경하여 ZIP으로 다운로드할 수 있습니다.</p>
+                            </details>
+                            <details style="border: 1px solid var(--border-color); border-radius: var(--radius-md); padding: 10px 14px; background: #fafbfc;">
+                                <summary style="font-size: 13.5px; font-weight: 700; color: var(--text-primary); cursor: pointer;">이미지 파일명을 바꾸면서 용량 압축이나 포맷 변환도 같이 되나요?</summary>
+                                <p style="font-size: 13px; color: var(--text-secondary); line-height: 1.6; margin: 8px 0 0 0;">네, 이미지 파일의 경우 이름 일괄 변경과 함께 용량 압축 및 포맷 정리 옵션을 선택하여 한 번에 처리할 수 있습니다.</p>
+                            </details>
+                            <details style="border: 1px solid var(--border-color); border-radius: var(--radius-md); padding: 10px 14px; background: #fafbfc;">
+                                <summary style="font-size: 13.5px; font-weight: 700; color: var(--text-primary); cursor: pointer;">업무용 문서나 개인 파일이 서버로 업로드되나요?</summary>
+                                <p style="font-size: 13px; color: var(--text-secondary); line-height: 1.6; margin: 8px 0 0 0;">아니요. 모든 파일명 변경과 ZIP 패키징이 사용자 PC 브라우저 내부에서만 처리되어 보안이 완벽하게 유지됩니다.</p>
+                            </details>
+                    </div>
+                </div>
+            </section>
+
         </main>
     </div>
 

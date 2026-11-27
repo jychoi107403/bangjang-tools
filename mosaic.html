@@ -116,6 +116,14 @@
             "@type": "Answer",
             "text": "네, 사각형 선택과 자유 브러시 도구를 지원하며 모자이크 강도와 픽셀 크기를 실시간으로 조절할 수 있습니다."
           }
+        },
+        {
+          "@type": "Question",
+          "name": "민감한 개인정보가 담긴 원본 사진이 서버에 저장되나요?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "아니요. 모든 모자이크·블러 처리가 사용자 브라우저 내부에서만 실행되어 원본 사진이 외부로 유출되지 않습니다."
+          }
         }
       ]
     }
@@ -551,6 +559,64 @@
                     </p>
                 </div>
             </div>
+            <!-- 검색엔진(SEO) 및 사용자용 상세 기능 안내 & 자주 묻는 질문(FAQ) -->
+            <section class="seo-info-section" aria-label="도구 상세 가이드 및 자주 묻는 질문" style="margin-top: 24px; background: #ffffff; border: 1px solid var(--border-color); border-radius: var(--radius-lg); padding: 24px; display: flex; flex-direction: column; gap: 20px;">
+                <div>
+                    <h2 style="font-size: 16px; font-weight: 800; color: var(--text-primary); margin: 0 0 8px 0;">무료 사진 모자이크·블러 처리 — AI 자동 얼굴 모자이크 및 차량 번호판 가리기</h2>
+                    <p style="font-size: 13.5px; color: var(--text-secondary); line-height: 1.7; margin: 0;">방장 용용이 <strong>사진 모자이크</strong>는 블로그·SNS·뉴스 기사·중고거래 사진 속 타인의 얼굴, 자동차 번호판, 주소·전화번호 같은 민감한 개인정보를 서버 업로드 없이 안전하게 가려주는 무료 로컬 모자이크 및 가우시안 블러 도구입니다.</p>
+                </div>
+
+                <div>
+                    <h3 style="font-size: 14.5px; font-weight: 700; color: var(--text-primary); margin: 0 0 10px 0;">상황별 모자이크·블러 추천 기능</h3>
+                    <div style="overflow-x: auto;">
+                        <table style="width: 100%; border-collapse: collapse; font-size: 13px; text-align: left;">
+                            <thead>
+                                <tr style="background: var(--bg-secondary); border-bottom: 1px solid var(--border-color);">
+                                    <th style="padding: 9px 12px; font-weight: 700; color: var(--text-primary);">활용 용도</th>
+                                    <th style="padding: 9px 12px; font-weight: 700; color: var(--text-primary);">추천 옵션</th>
+                                    <th style="padding: 9px 12px; font-weight: 700; color: var(--text-primary);">기대 효과</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                    <tr style="border-bottom: 1px solid #f1f5f9;">
+                                        <td style="padding: 9px 12px; color: var(--text-primary); font-weight: 600;">단체 사진 · 길거리 인물 초상권 보호</td>
+                                        <td style="padding: 9px 12px; color: var(--text-secondary);">AI 자동 얼굴 모자이크</td>
+                                        <td style="padding: 9px 12px; color: var(--text-secondary);">사진 속 여러 사람의 얼굴을 AI가 자동 인식해 한 번에 모자이크</td>
+                                    </tr>
+                                    <tr style="border-bottom: 1px solid #f1f5f9;">
+                                        <td style="padding: 9px 12px; color: var(--text-primary); font-weight: 600;">중고거래 · 차량 번호판·택배 송장</td>
+                                        <td style="padding: 9px 12px; color: var(--text-secondary);">사각형 영역 모자이크</td>
+                                        <td style="padding: 9px 12px; color: var(--text-secondary);">네모 영역을 드래그해 글자와 숫자를 깔끔하고 확실하게 가림</td>
+                                    </tr>
+                                    <tr>
+                                        <td style="padding: 9px 12px; color: var(--text-primary); font-weight: 600;">불규칙한 배경 · 민감 물체 가리기</td>
+                                        <td style="padding: 9px 12px; color: var(--text-secondary);">자유 브러시 블러</td>
+                                        <td style="padding: 9px 12px; color: var(--text-secondary);">브러시 크기와 모자이크 강도를 조절해 원하는 부분만 섬세하게 처리</td>
+                                    </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div>
+                    <h3 style="font-size: 14.5px; font-weight: 700; color: var(--text-primary); margin: 0 0 10px 0;">자주 묻는 질문 (FAQ)</h3>
+                    <div style="display: flex; flex-direction: column; gap: 8px;">
+                            <details style="border: 1px solid var(--border-color); border-radius: var(--radius-md); padding: 10px 14px; background: #fafbfc;" open>
+                                <summary style="font-size: 13.5px; font-weight: 700; color: var(--text-primary); cursor: pointer;">AI 얼굴 자동 모자이크 기능이 무료인가요?</summary>
+                                <p style="font-size: 13px; color: var(--text-secondary); line-height: 1.6; margin: 8px 0 0 0;">네, 브라우저 내 AI 얼굴 감지 기능으로 사진 속 여러 사람의 얼굴을 자동으로 찾아 한 번에 모자이크 또는 블러 처리할 수 있습니다.</p>
+                            </details>
+                            <details style="border: 1px solid var(--border-color); border-radius: var(--radius-md); padding: 10px 14px; background: #fafbfc;">
+                                <summary style="font-size: 13.5px; font-weight: 700; color: var(--text-primary); cursor: pointer;">차량 번호판이나 텍스트처럼 원하는 부분만 수동으로 가릴 수도 있나요?</summary>
+                                <p style="font-size: 13px; color: var(--text-secondary); line-height: 1.6; margin: 8px 0 0 0;">네, 사각형 선택과 자유 브러시 도구를 지원하며 모자이크 강도와 픽셀 크기를 실시간으로 조절할 수 있습니다.</p>
+                            </details>
+                            <details style="border: 1px solid var(--border-color); border-radius: var(--radius-md); padding: 10px 14px; background: #fafbfc;">
+                                <summary style="font-size: 13.5px; font-weight: 700; color: var(--text-primary); cursor: pointer;">민감한 개인정보가 담긴 원본 사진이 서버에 저장되나요?</summary>
+                                <p style="font-size: 13px; color: var(--text-secondary); line-height: 1.6; margin: 8px 0 0 0;">아니요. 모든 모자이크·블러 처리가 사용자 브라우저 내부에서만 실행되어 원본 사진이 외부로 유출되지 않습니다.</p>
+                            </details>
+                    </div>
+                </div>
+            </section>
+
         </main>
 
         <!-- ========================================================

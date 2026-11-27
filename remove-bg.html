@@ -106,7 +106,7 @@
           "name": "AI 배경 제거 시 원본 사진이 외부 서버로 전송되나요?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "아니요. 브라우저 내 AI 모델(WebAssembly/ONNX)이 기기에서 직접 배경을 분리하므로 사진이 외부 서버로 전송되지 않습니다."
+            "text": "아니요. 브라우저 내 AI 모델(WebAssembly/ONNX)이 사용자 기기에서 직접 배경을 분리하므로 사진이 외부 서버로 전송되거나 저장되지 않습니다."
           }
         },
         {
@@ -115,6 +115,14 @@
           "acceptedAnswer": {
             "@type": "Answer",
             "text": "네, 배경을 투명하게 저장하는 것은 물론 원하는 단색, 그라데이션, 또는 다른 사진으로 배경을 즉시 합성하여 다운로드할 수 있습니다."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "회원가입이나 고화질 다운로드 유료 결제가 필요한가요?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "아니요. 회원가입 없이 누구나 100% 무료로 원본 해상도 그대로 워터마크 없이 다운로드할 수 있습니다."
           }
         }
       ]
@@ -564,6 +572,64 @@
                     </p>
                 </div>
             </div>
+            <!-- 검색엔진(SEO) 및 사용자용 상세 기능 안내 & 자주 묻는 질문(FAQ) -->
+            <section class="seo-info-section" aria-label="도구 상세 가이드 및 자주 묻는 질문" style="margin-top: 24px; background: #ffffff; border: 1px solid var(--border-color); border-radius: var(--radius-lg); padding: 24px; display: flex; flex-direction: column; gap: 20px;">
+                <div>
+                    <h2 style="font-size: 16px; font-weight: 800; color: var(--text-primary); margin: 0 0 8px 0;">서버 업로드 없는 무료 AI 배경 제거·누끼 따기 — 3초 만에 투명 PNG 완성</h2>
+                    <p style="font-size: 13.5px; color: var(--text-secondary); line-height: 1.7; margin: 0;">방장 용용이 <strong>AI 배경 제거·바꾸기</strong>는 인물 사진, 상품 누끼, 증명사진, 로고 이미지의 배경을 서버 전송 없이 브라우저 AI로 100% 로컬 처리하는 무료 누끼 따기 도구입니다. 투명 배경(PNG) 저장은 물론 증명사진용 파란색·흰색 배경 바꾸기, 그라데이션·커스텀 배경 합성까지 워터마크 없이 무제한으로 이용할 수 있습니다.</p>
+                </div>
+
+                <div>
+                    <h3 style="font-size: 14.5px; font-weight: 700; color: var(--text-primary); margin: 0 0 10px 0;">용도별 AI 배경 제거·교체 추천 활용법</h3>
+                    <div style="overflow-x: auto;">
+                        <table style="width: 100%; border-collapse: collapse; font-size: 13px; text-align: left;">
+                            <thead>
+                                <tr style="background: var(--bg-secondary); border-bottom: 1px solid var(--border-color);">
+                                    <th style="padding: 9px 12px; font-weight: 700; color: var(--text-primary);">활용 용도</th>
+                                    <th style="padding: 9px 12px; font-weight: 700; color: var(--text-primary);">추천 옵션</th>
+                                    <th style="padding: 9px 12px; font-weight: 700; color: var(--text-primary);">기대 효과</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                    <tr style="border-bottom: 1px solid #f1f5f9;">
+                                        <td style="padding: 9px 12px; color: var(--text-primary); font-weight: 600;">쇼핑몰 · 스마트스토어 상품 누끼</td>
+                                        <td style="padding: 9px 12px; color: var(--text-secondary);">투명 PNG 또는 순백색 배경</td>
+                                        <td style="padding: 9px 12px; color: var(--text-secondary);">제품만 깔끔하게 분리해 상세페이지·썸네일에 바로 활용</td>
+                                    </tr>
+                                    <tr style="border-bottom: 1px solid #f1f5f9;">
+                                        <td style="padding: 9px 12px; color: var(--text-primary); font-weight: 600;">이력서 · 여권 · 증명사진 배경 변경</td>
+                                        <td style="padding: 9px 12px; color: var(--text-secondary);">단색(흰색·하늘색·회색)</td>
+                                        <td style="padding: 9px 12px; color: var(--text-secondary);">집에서 찍은 인물 사진의 배경만 깔끔한 단색으로 교체</td>
+                                    </tr>
+                                    <tr>
+                                        <td style="padding: 9px 12px; color: var(--text-primary); font-weight: 600;">유튜브 썸네일 · 카드뉴스 인물 합성</td>
+                                        <td style="padding: 9px 12px; color: var(--text-secondary);">투명 PNG 또는 커스텀 배경</td>
+                                        <td style="padding: 9px 12px; color: var(--text-secondary);">인물만 오려내어 원하는 배경 이미지 위에 즉시 합성</td>
+                                    </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div>
+                    <h3 style="font-size: 14.5px; font-weight: 700; color: var(--text-primary); margin: 0 0 10px 0;">자주 묻는 질문 (FAQ)</h3>
+                    <div style="display: flex; flex-direction: column; gap: 8px;">
+                            <details style="border: 1px solid var(--border-color); border-radius: var(--radius-md); padding: 10px 14px; background: #fafbfc;" open>
+                                <summary style="font-size: 13.5px; font-weight: 700; color: var(--text-primary); cursor: pointer;">AI 배경 제거 시 원본 사진이 외부 서버로 전송되나요?</summary>
+                                <p style="font-size: 13px; color: var(--text-secondary); line-height: 1.6; margin: 8px 0 0 0;">아니요. 브라우저 내 AI 모델(WebAssembly/ONNX)이 사용자 기기에서 직접 배경을 분리하므로 사진이 외부 서버로 전송되거나 저장되지 않습니다.</p>
+                            </details>
+                            <details style="border: 1px solid var(--border-color); border-radius: var(--radius-md); padding: 10px 14px; background: #fafbfc;">
+                                <summary style="font-size: 13.5px; font-weight: 700; color: var(--text-primary); cursor: pointer;">투명 배경(PNG) 외에 배경색 바꾸기도 가능한가요?</summary>
+                                <p style="font-size: 13px; color: var(--text-secondary); line-height: 1.6; margin: 8px 0 0 0;">네, 배경을 투명하게 저장하는 것은 물론 원하는 단색, 그라데이션, 또는 다른 사진으로 배경을 즉시 합성하여 다운로드할 수 있습니다.</p>
+                            </details>
+                            <details style="border: 1px solid var(--border-color); border-radius: var(--radius-md); padding: 10px 14px; background: #fafbfc;">
+                                <summary style="font-size: 13.5px; font-weight: 700; color: var(--text-primary); cursor: pointer;">회원가입이나 고화질 다운로드 유료 결제가 필요한가요?</summary>
+                                <p style="font-size: 13px; color: var(--text-secondary); line-height: 1.6; margin: 8px 0 0 0;">아니요. 회원가입 없이 누구나 100% 무료로 원본 해상도 그대로 워터마크 없이 다운로드할 수 있습니다.</p>
+                            </details>
+                    </div>
+                </div>
+            </section>
+
         </main>
 
         <!-- ========================================================

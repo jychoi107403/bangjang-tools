@@ -120,6 +120,14 @@
             "@type": "Answer",
             "text": "네, 진단 결과에서 용량이 큰 이미지를 확인한 뒤 방장 용용이의 '이미지 용량 줄이기' 도구와 연계해 즉시 WebP로 압축할 수 있습니다."
           }
+        },
+        {
+          "@type": "Question",
+          "name": "쇼핑몰 상세페이지나 네이버·티스토리 블로그 URL도 진단할 수 있나요?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "네, 공개 접근 가능한 웹페이지 URL이라면 누구나 무료로 이미지 최적화 진단 리포트를 확인할 수 있습니다."
+          }
         }
       ]
     }
@@ -587,6 +595,64 @@
                     </div>
                 </section>
             </div>
+            <!-- 검색엔진(SEO) 및 사용자용 상세 기능 안내 & 자주 묻는 질문(FAQ) -->
+            <section class="seo-info-section" aria-label="도구 상세 가이드 및 자주 묻는 질문" style="margin-top: 24px; background: #ffffff; border: 1px solid var(--border-color); border-radius: var(--radius-lg); padding: 24px; display: flex; flex-direction: column; gap: 20px;">
+                <div>
+                    <h2 style="font-size: 16px; font-weight: 800; color: var(--text-primary); margin: 0 0 8px 0;">무료 웹사이트 이미지 진단 및 WebP 최적화 시뮬레이터 — 페이지 로딩 속도(LCP) 개선</h2>
+                    <p style="font-size: 13.5px; color: var(--text-secondary); line-height: 1.7; margin: 0;">방장 용용이 <strong>웹사이트 이미지 진단</strong>은 분석하고 싶은 웹사이트나 쇼핑몰·블로그 URL만 입력하면 해당 페이지에 로드된 모든 이미지를 자동 스캔하여 총 용량, 비효율적 포맷(JPG/PNG) 비중, 그리고 차세대 <strong>WebP 포맷 전환 시 예상 용량 절감률과 로딩 속도 향상 효과</strong>를 한눈에 진단해 주는 무료 SEO 성능 분석 도구입니다.</p>
+                </div>
+
+                <div>
+                    <h3 style="font-size: 14.5px; font-weight: 700; color: var(--text-primary); margin: 0 0 10px 0;">웹사이트 이미지 진단으로 개선할 수 있는 핵심 SEO 지표</h3>
+                    <div style="overflow-x: auto;">
+                        <table style="width: 100%; border-collapse: collapse; font-size: 13px; text-align: left;">
+                            <thead>
+                                <tr style="background: var(--bg-secondary); border-bottom: 1px solid var(--border-color);">
+                                    <th style="padding: 9px 12px; font-weight: 700; color: var(--text-primary);">활용 용도</th>
+                                    <th style="padding: 9px 12px; font-weight: 700; color: var(--text-primary);">추천 옵션</th>
+                                    <th style="padding: 9px 12px; font-weight: 700; color: var(--text-primary);">기대 효과</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                    <tr style="border-bottom: 1px solid #f1f5f9;">
+                                        <td style="padding: 9px 12px; color: var(--text-primary); font-weight: 600;">구글 Core Web Vitals (LCP)</td>
+                                        <td style="padding: 9px 12px; color: var(--text-secondary);">대용량 히어로 이미지 경량화</td>
+                                        <td style="padding: 9px 12px; color: var(--text-secondary);">페이지 첫 화면 로딩 시간을 단축해 구글 검색 순위 및 이탈률 개선</td>
+                                    </tr>
+                                    <tr style="border-bottom: 1px solid #f1f5f9;">
+                                        <td style="padding: 9px 12px; color: var(--text-primary); font-weight: 600;">서버 트래픽 · CDN 비용 절감</td>
+                                        <td style="padding: 9px 12px; color: var(--text-secondary);">JPG/PNG → WebP 일괄 전환</td>
+                                        <td style="padding: 9px 12px; color: var(--text-secondary);">동일 화질 대비 이미지 용량을 평균 40~80% 줄여 호스팅 트래픽 절약</td>
+                                    </tr>
+                                    <tr>
+                                        <td style="padding: 9px 12px; color: var(--text-primary); font-weight: 600;">모바일 사용자 경험 향상</td>
+                                        <td style="padding: 9px 12px; color: var(--text-secondary);">이미지별 상세 용량 리포트</td>
+                                        <td style="padding: 9px 12px; color: var(--text-secondary);">가장 무거운 이미지부터 우선순위로 찾아내어 즉시 압축 가능</td>
+                                    </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div>
+                    <h3 style="font-size: 14.5px; font-weight: 700; color: var(--text-primary); margin: 0 0 10px 0;">자주 묻는 질문 (FAQ)</h3>
+                    <div style="display: flex; flex-direction: column; gap: 8px;">
+                            <details style="border: 1px solid var(--border-color); border-radius: var(--radius-md); padding: 10px 14px; background: #fafbfc;" open>
+                                <summary style="font-size: 13.5px; font-weight: 700; color: var(--text-primary); cursor: pointer;">웹사이트 이미지 진단은 어떤 항목을 분석해 주나요?</summary>
+                                <p style="font-size: 13px; color: var(--text-secondary); line-height: 1.6; margin: 8px 0 0 0;">입력한 페이지의 이미지 개수, 원본 총 용량, 포맷 분포를 분석하고 WebP 최적화 적용 시 예상 용량 절감률과 페이지 로딩 속도 개선 효과를 시뮬레이션해 줍니다.</p>
+                            </details>
+                            <details style="border: 1px solid var(--border-color); border-radius: var(--radius-md); padding: 10px 14px; background: #fafbfc;">
+                                <summary style="font-size: 13.5px; font-weight: 700; color: var(--text-primary); cursor: pointer;">진단 후 최적화된 이미지를 바로 압축할 수도 있나요?</summary>
+                                <p style="font-size: 13px; color: var(--text-secondary); line-height: 1.6; margin: 8px 0 0 0;">네, 진단 결과에서 용량이 큰 이미지를 확인한 뒤 방장 용용이의 '이미지 용량 줄이기' 도구와 연계해 즉시 WebP로 압축할 수 있습니다.</p>
+                            </details>
+                            <details style="border: 1px solid var(--border-color); border-radius: var(--radius-md); padding: 10px 14px; background: #fafbfc;">
+                                <summary style="font-size: 13.5px; font-weight: 700; color: var(--text-primary); cursor: pointer;">쇼핑몰 상세페이지나 네이버·티스토리 블로그 URL도 진단할 수 있나요?</summary>
+                                <p style="font-size: 13px; color: var(--text-secondary); line-height: 1.6; margin: 8px 0 0 0;">네, 공개 접근 가능한 웹페이지 URL이라면 누구나 무료로 이미지 최적화 진단 리포트를 확인할 수 있습니다.</p>
+                            </details>
+                    </div>
+                </div>
+            </section>
+
         </main>
     </div>
 

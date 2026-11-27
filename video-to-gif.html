@@ -116,6 +116,14 @@
             "@type": "Answer",
             "text": "아니요. 워터마크 없이 횟수 제한 없이 100% 무료로 이용하실 수 있습니다."
           }
+        },
+        {
+          "@type": "Question",
+          "name": "영상 파일이 외부 서버에 저장되나요?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "아니요. 브라우저 내부에서 직접 GIF로 인코딩하므로 파일 업로드 대기 시간이 없고 개인 영상도 안전합니다."
+          }
         }
       ]
     }
@@ -614,6 +622,64 @@
                     </div>
                 </div>
             </section>
+            <!-- 검색엔진(SEO) 및 사용자용 상세 기능 안내 & 자주 묻는 질문(FAQ) -->
+            <section class="seo-info-section" aria-label="도구 상세 가이드 및 자주 묻는 질문" style="margin-top: 24px; background: #ffffff; border: 1px solid var(--border-color); border-radius: var(--radius-lg); padding: 24px; display: flex; flex-direction: column; gap: 20px;">
+                <div>
+                    <h2 style="font-size: 16px; font-weight: 800; color: var(--text-primary); margin: 0 0 8px 0;">무료 동영상(MP4·WebM) → GIF 변환기 — 워터마크 없는 고화질 움짤 만들기</h2>
+                    <p style="font-size: 13.5px; color: var(--text-secondary); line-height: 1.7; margin: 0;">방장 용용이 <strong>영상 → GIF 변환기</strong>는 짧은 MP4, WebM, MOV 동영상 파일을 별도 인코더 프로그램 설치 없이 웹 브라우저에서 즉시 고화질 애니메이션 GIF로 변환해 주는 무료 로컬 도구입니다. 출력 해상도와 프레임(FPS)을 직접 조절해 용량과 화질을 최적화할 수 있습니다.</p>
+                </div>
+
+                <div>
+                    <h3 style="font-size: 14.5px; font-weight: 700; color: var(--text-primary); margin: 0 0 10px 0;">동영상 GIF 변환 시 화질·용량 조절 팁</h3>
+                    <div style="overflow-x: auto;">
+                        <table style="width: 100%; border-collapse: collapse; font-size: 13px; text-align: left;">
+                            <thead>
+                                <tr style="background: var(--bg-secondary); border-bottom: 1px solid var(--border-color);">
+                                    <th style="padding: 9px 12px; font-weight: 700; color: var(--text-primary);">활용 용도</th>
+                                    <th style="padding: 9px 12px; font-weight: 700; color: var(--text-primary);">추천 옵션</th>
+                                    <th style="padding: 9px 12px; font-weight: 700; color: var(--text-primary);">기대 효과</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                    <tr style="border-bottom: 1px solid #f1f5f9;">
+                                        <td style="padding: 9px 12px; color: var(--text-primary); font-weight: 600;">용량이 너무 크게 나올 때</td>
+                                        <td style="padding: 9px 12px; color: var(--text-secondary);">FPS를 10~12로 낮추기</td>
+                                        <td style="padding: 9px 12px; color: var(--text-secondary);">프레임 수를 조금만 줄여도 GIF 파일 크기가 30~50% 감소</td>
+                                    </tr>
+                                    <tr style="border-bottom: 1px solid #f1f5f9;">
+                                        <td style="padding: 9px 12px; color: var(--text-primary); font-weight: 600;">화면이 작거나 흐리게 보일 때</td>
+                                        <td style="padding: 9px 12px; color: var(--text-secondary);">출력 너비 600~720px 선택</td>
+                                        <td style="padding: 9px 12px; color: var(--text-secondary);">블로그 본문 폭에 맞춘 선명한 고화질 움짤 생성</td>
+                                    </tr>
+                                    <tr>
+                                        <td style="padding: 9px 12px; color: var(--text-primary); font-weight: 600;">모바일 촬영 세로 영상 변환</td>
+                                        <td style="padding: 9px 12px; color: var(--text-secondary);">원본 비율 자동 유지</td>
+                                        <td style="padding: 9px 12px; color: var(--text-secondary);">비율 왜곡 없이 쇼츠·릴스 스타일의 세로 GIF로 깔끔하게 변환</td>
+                                    </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div>
+                    <h3 style="font-size: 14.5px; font-weight: 700; color: var(--text-primary); margin: 0 0 10px 0;">자주 묻는 질문 (FAQ)</h3>
+                    <div style="display: flex; flex-direction: column; gap: 8px;">
+                            <details style="border: 1px solid var(--border-color); border-radius: var(--radius-md); padding: 10px 14px; background: #fafbfc;" open>
+                                <summary style="font-size: 13.5px; font-weight: 700; color: var(--text-primary); cursor: pointer;">GIF 파일 용량이 너무 커지지 않게 조절할 수 있나요?</summary>
+                                <p style="font-size: 13px; color: var(--text-secondary); line-height: 1.6; margin: 8px 0 0 0;">네, 출력 가로 해상도와 프레임 수(FPS)를 직접 조절하여 블로그나 메신저에 최적화된 가벼운 GIF를 생성할 수 있습니다.</p>
+                            </details>
+                            <details style="border: 1px solid var(--border-color); border-radius: var(--radius-md); padding: 10px 14px; background: #fafbfc;">
+                                <summary style="font-size: 13.5px; font-weight: 700; color: var(--text-primary); cursor: pointer;">워터마크나 일일 변환 횟수 제한이 있나요?</summary>
+                                <p style="font-size: 13px; color: var(--text-secondary); line-height: 1.6; margin: 8px 0 0 0;">아니요. 워터마크 없이 횟수 제한 없이 100% 무료로 이용하실 수 있습니다.</p>
+                            </details>
+                            <details style="border: 1px solid var(--border-color); border-radius: var(--radius-md); padding: 10px 14px; background: #fafbfc;">
+                                <summary style="font-size: 13.5px; font-weight: 700; color: var(--text-primary); cursor: pointer;">영상 파일이 외부 서버에 저장되나요?</summary>
+                                <p style="font-size: 13px; color: var(--text-secondary); line-height: 1.6; margin: 8px 0 0 0;">아니요. 브라우저 내부에서 직접 GIF로 인코딩하므로 파일 업로드 대기 시간이 없고 개인 영상도 안전합니다.</p>
+                            </details>
+                    </div>
+                </div>
+            </section>
+
         </main>
 
         <!-- 우측 설정 사이드바 -->
