@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>방장 용용이 - 무료 실무 웹 도구 모음</title>
+    <link>https://tools.bangjang.net/</link>
+    <description>서버 업로드 없는 100% 브라우저 로컬 무료 실무 도구 모음. AI 배경 제거, 이미지 압축, 모자이크, 고화질 QR 코드, PDF Word 변환, 영상/화면녹화 GIF, 웹사이트 이미지 진단을 무료로 이용하세요.</description>
+    <language>ko</language>
+    <lastBuildDate>Fri, 27 Nov 2026 04:00:00 GMT</lastBuildDate>
+    <atom:link href="https://tools.bangjang.net/rss.xml" rel="self" type="application/rss+xml" />
+
+    <item>
+      <title>AI 배경 제거 및 바꾸기 (누끼 따기) - 무료 로컬 실행</title>
+      <link>https://tools.bangjang.net/remove-bg.html</link>
+      <guid>https://tools.bangjang.net/remove-bg.html</guid>
+      <pubDate>Fri, 27 Nov 2026 04:00:00 GMT</pubDate>
+      <description>서버 업로드 없이 브라우저 AI로 3초 만에 사진 배경을 투명하게 제거하거나 단색·그라데이션·커스텀 이미지로 교체하세요.</description>
+    </item>
+    <item>
+      <title>이미지 용량 줄이기 (JPG·PNG·WebP 무손실 압축)</title>
+      <link>https://tools.bangjang.net/image-compress.html</link>
+      <guid>https://tools.bangjang.net/image-compress.html</guid>
+      <pubDate>Fri, 27 Nov 2026 04:00:00 GMT</pubDate>
+      <description>화질 저하를 최소화하면서 이미지 용량을 최대 90%까지 압축하고 ZIP으로 일괄 다운로드할 수 있는 무료 웹 도구입니다.</description>
+    </item>
+    <item>
+      <title>웹사이트 이미지 진단 및 WebP 최적화 시뮬레이터</title>
+      <link>https://tools.bangjang.net/site-audit.html</link>
+      <guid>https://tools.bangjang.net/site-audit.html</guid>
+      <pubDate>Fri, 27 Nov 2026 04:00:00 GMT</pubDate>
+      <description>웹사이트 URL만 입력하면 페이지 내 모든 이미지를 자동 분석하고 WebP 변환 시 용량 절감률과 로딩 속도 개선 효과를 진단합니다.</description>
+    </item>
+    <item>
+      <title>고화질 QR 코드 생성기 (로고 삽입·PNG/SVG 저장)</title>
+      <link>https://tools.bangjang.net/qr-code.html</link>
+      <guid>https://tools.bangjang.net/qr-code.html</guid>
+      <pubDate>Fri, 27 Nov 2026 04:00:00 GMT</pubDate>
+      <description>만료 기간 없는 영구 고화질 QR 코드를 무료로 생성하고 색상 커스텀 및 브랜드 로고 삽입까지 지원합니다.</description>
+    </item>
+    <item>
+      <title>사진 모자이크 및 AI 자동 얼굴 블러 처리</title>
+      <link>https://tools.bangjang.net/mosaic.html</link>
+      <guid>https://tools.bangjang.net/mosaic.html</guid>
+      <pubDate>Fri, 27 Nov 2026 04:00:00 GMT</pubDate>
+      <description>AI 자동 얼굴 인식 모자이크와 수동 브러시/박스 블러로 사진 속 개인정보와 초상권을 안전하게 보호하세요.</description>
+    </item>
+    <item>
+      <title>PDF → Word (DOCX) 서식 무손실 무료 변환기</title>
+      <link>https://tools.bangjang.net/pdf-to-word.html</link>
+      <guid>https://tools.bangjang.net/pdf-to-word.html</guid>
+      <pubDate>Fri, 27 Nov 2026 04:00:00 GMT</pubDate>
+      <description>기밀 문서나 공문서도 서버 유출 걱정 없이 브라우저 로컬에서 안전하게 편집 가능한 Word(DOCX) 파일로 변환합니다.</description>
+    </item>
+    <item>
+      <title>영상 구간 자르기 → 고화질 GIF 변환기</title>
+      <link>https://tools.bangjang.net/video-trim-gif.html</link>
+      <guid>https://tools.bangjang.net/video-trim-gif.html</guid>
+      <pubDate>Fri, 27 Nov 2026 04:00:00 GMT</pubDate>
+      <description>동영상에서 원하는 시작~종료 구간만 정밀하게 잘라 가볍고 선명한 고화질 GIF 움짤로 즉시 변환합니다.</description>
+    </item>
+    <item>
+      <title>동영상(MP4/WebM) → GIF 변환기</title>
+      <link>https://tools.bangjang.net/video-to-gif.html</link>
+      <guid>https://tools.bangjang.net/video-to-gif.html</guid>
+      <pubDate>Fri, 27 Nov 2026 04:00:00 GMT</pubDate>
+      <description>MP4, WebM, MOV 영상 파일을 해상도·FPS 조절과 함께 워터마크 없는 무료 GIF 애니메이션으로 변환합니다.</description>
+    </item>
+    <item>
+      <title>화면녹화 → 고화질 GIF 즉시 생성기</title>
+      <link>https://tools.bangjang.net/screen-record-gif.html</link>
+      <guid>https://tools.bangjang.net/screen-record-gif.html</guid>
+      <pubDate>Fri, 27 Nov 2026 04:00:00 GMT</pubDate>
+      <description>별도 프로그램 설치 없이 웹 브라우저에서 화면·창·탭을 녹화하고 원하는 영역만 잘라 GIF로 저장하세요.</description>
+    </item>
+    <item>
+      <title>온라인 이미지 편집기 (자르기·회전·필터·크기 조절)</title>
+      <link>https://tools.bangjang.net/image-edit.html</link>
+      <guid>https://tools.bangjang.net/image-edit.html</guid>
+      <pubDate>Fri, 27 Nov 2026 04:00:00 GMT</pubDate>
+      <description>포토샵 없이 브라우저에서 사진 자르기, 리사이즈, 밝기·대비 조절, 텍스트 및 워터마크 삽입을 빠르게 처리하세요.</description>
+    </item>
+    <item>
+      <title>사진 분할기 (인스타 그리드·상세페이지 세로 자르기)</title>
+      <link>https://tools.bangjang.net/image-split.html</link>
+      <guid>https://tools.bangjang.net/image-split.html</guid>
+      <pubDate>Fri, 27 Nov 2026 04:00:00 GMT</pubDate>
+      <description>긴 상세페이지 이미지나 인스타그램 피드용 사진을 원하는 행·열 비율로 정밀 분할하고 ZIP으로 일괄 저장합니다.</description>
+    </item>
+    <item>
+      <title>파일명 일괄 변경기 (접두사·접미사·연번 자동 정리)</title>
+      <link>https://tools.bangjang.net/batch-rename.html</link>
+      <guid>https://tools.bangjang.net/batch-rename.html</guid>
+      <pubDate>Fri, 27 Nov 2026 04:00:00 GMT</pubDate>
+      <description>수십~수백 개의 파일 이름을 규칙에 따라 한 번에 변경하고 ZIP으로 묶어 다운로드하는 무료 실무 도구입니다.</description>
+    </item>
+    <item>
+      <title>블로그 본문 줄바꿈·서식 정리기</title>
+      <link>https://tools.bangjang.net/blog-formatter.html</link>
+      <guid>https://tools.bangjang.net/blog-formatter.html</guid>
+      <pubDate>Fri, 27 Nov 2026 04:00:00 GMT</pubDate>
+      <description>네이버 블로그·티스토리 가독성을 높이는 줄바꿈 정리, 중앙정렬 미리보기, 해시태그 일괄 추출을 무료로 제공합니다.</description>
+    </item>
+  </channel>
+</rss>

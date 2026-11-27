@@ -1,0 +1,22 @@
+{
+  "name": "방장 용용이 - 무료 실무 웹 도구 모음",
+  "short_name": "방장 용용이",
+  "description": "서버 업로드 없는 100% 브라우저 로컬 무료 실무 도구 모음 (AI 배경 제거, 이미지 압축, 모자이크, QR 코드, PDF Word 변환, 영상 GIF)",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0f172a",
+  "theme_color": "#4f46e5",
+  "lang": "ko",
+  "icons": [
+    {
+      "src": "/assets/images/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml"
+    },
+    {
+      "src": "/assets/images/apple-touch-icon.png",
+      "sizes": "180x180",
+      "type": "image/png"
+    }
+  ]
+}

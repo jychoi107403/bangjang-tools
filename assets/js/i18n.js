@@ -729,9 +729,18 @@ class I18nManager {
     }
 
     /**
-     * 초기 언어 결정: LocalStorage > 브라우저 언어 > 기본값(ko)
+     * 초기 언어 결정: URL 쿼리(?lang=ko|en) > LocalStorage > 브라우저 언어 > 기본값(ko)
+     * - 검색엔진(hreflang) 및 공유 링크의 언어 파라미터를 최우선으로 존중합니다.
      */
     getInitialLanguage() {
+        try {
+            const urlParams = new URLSearchParams(window.location.search);
+            const queryLang = urlParams.get('lang');
+            if (queryLang === 'ko' || queryLang === 'en') {
+                return queryLang;
+            }
+        } catch (e) { /* URLSearchParams 미지원 환경 무시 */ }
+
         const saved = localStorage.getItem('app_lang');
         if (saved && (saved === 'ko' || saved === 'en')) {
             return saved;
@@ -787,8 +796,20 @@ class I18nManager {
         const dict = I18N_DICTIONARY[this.currentLang] || I18N_DICTIONARY.ko;
         
         // 1. data-i18n 일반 텍스트 (내부 아이콘 <i data-lucide> 또는 <svg> 보존)
+        // * SEO 보호: <title> 태그는 한국어 검색엔진 키워드가 지워지지 않도록 원본 제목을 보존합니다.
         document.querySelectorAll('[data-i18n]').forEach(el => {
             const key = el.getAttribute('data-i18n');
+            if (el.tagName === 'TITLE') {
+                if (!el.dataset.koTitle) {
+                    el.dataset.koTitle = el.textContent;
+                }
+                if (this.currentLang === 'en' && dict[key]) {
+                    el.textContent = `${dict[key]} - Bangjang Tools (Free Local Web Utilities)`;
+                } else if (el.dataset.koTitle) {
+                    el.textContent = el.dataset.koTitle;
+                }
+                return;
+            }
             if (dict[key]) {
                 const iconEl = el.querySelector(':scope > i[data-lucide], :scope > svg.lucide');
                 if (iconEl) {

@@ -15,6 +15,13 @@
  */
 export function downloadBlob(blob, filename) {
     if (!blob) return;
+    // GA4 다운로드 통계 자동 기록 (파일명은 제외하고 확장자/방식만 안전하게 전송)
+    try {
+        if (window.BangjangAnalytics && typeof window.BangjangAnalytics.trackDownload === 'function') {
+            window.BangjangAnalytics.trackDownload(filename, 'blob_download');
+        }
+    } catch (e) { /* 통계 오류가 다운로드에 영향을 주지 않도록 무시 */ }
+
     const url = URL.createObjectURL(blob);
     const link = document.createElement('a');
     link.href = url;

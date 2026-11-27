@@ -1,5 +1,22 @@
-﻿User-agent: *
+# 방장 용용이 (https://tools.bangjang.net) 검색엔진 크롤러 허용 규칙
+User-agent: *
 Allow: /
 
-# 검색엔진 크롤러를 위한 사이트맵 위치 지정
+# 구글 (Google)
+User-agent: Googlebot
+Allow: /
+
+# 네이버 (Naver)
+User-agent: Yeti
+Allow: /
+
+# 빙 (Bing)
+User-agent: Bingbot
+Allow: /
+
+# 다음 (Daum)
+User-agent: Daumoa
+Allow: /
+
+# 사이트맵 위치 지정 (Google / Naver / Bing 공통)
 Sitemap: https://tools.bangjang.net/sitemap.xml
