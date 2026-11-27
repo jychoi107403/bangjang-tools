@@ -54,12 +54,23 @@
     };
 
     /**
+     * 파일명 또는 확장자 없는 경로명(Cloudflare Pretty URL)으로 도구 메타데이터를 조회합니다.
+     */
+    function resolveToolMeta(rawSegment) {
+        const clean = (rawSegment || '').split('?')[0].split('#')[0].replace(/\/+$/, '');
+        if (!clean) return TOOL_META_MAP['index.html'];
+        return TOOL_META_MAP[clean]
+            || TOOL_META_MAP[`${clean}.html`]
+            || { id: clean.replace(/\.html$/i, '') || 'unknown', category: 'other', name: clean };
+    }
+
+    /**
      * 현재 페이지의 도구 정보를 반환합니다.
      */
     function getCurrentToolMeta() {
-        const path = window.location.pathname || '/';
+        const path = (window.location.pathname || '/').replace(/\/+$/, '');
         const fileName = path.split('/').pop() || 'index.html';
-        return TOOL_META_MAP[fileName] || { id: fileName.replace('.html', '') || 'unknown', category: 'other', name: fileName };
+        return resolveToolMeta(fileName);
     }
 
     /**
@@ -233,7 +244,7 @@
             const navLink = target.closest('a.gnb-sublink, a.nav-item, a.tool-card, a.dashboard-tool-card, a.quick-tool-card');
             if (navLink) {
                 const href = navLink.getAttribute('href') || '';
-                const targetTool = TOOL_META_MAP[href.split('/').pop()] || { id: href };
+                const targetTool = resolveToolMeta(href.split('/').pop());
                 let locationArea = 'other';
                 if (navLink.closest('.gnb-bar, header')) locationArea = 'gnb';
                 else if (navLink.closest('.sidebar')) locationArea = 'sidebar';
